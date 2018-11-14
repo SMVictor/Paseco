@@ -1,0 +1,79 @@
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+  <ul class="nav">
+    <li class="nav-item nav-profile">
+      <div class="nav-link">
+        <div class="user-wrapper">
+          <div class="profile-image">
+            <%= image_tag('default_avatar.png') %>
+          </div>
+          <div class="text-wrapper">
+            <p class="profile-name"><%= current_user.email %></p>
+            <div>
+              <small class="designation text-muted">Administrador</small>
+              <span class="status-indicator online"></span>
+            </div>
+          </div>
+        </div>
+        <%= link_to('Inicio', authenticated_root_path, class: 'btn btn-info btn-block')%>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" href="#maintenance" aria-expanded="false" aria-controls="maintenance">
+        <i class="menu-icon fas fa-database"></i>
+        <span class="menu-title">Mantenimiento</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="maintenance">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item">
+          </li>
+          <li class="nav-item">
+          </li>
+          <li class="nav-item">
+          </li>
+          <li class="nav-item">
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" href="#operations" aria-expanded="false" aria-controls="operations">
+        <i class="menu-icon fas fa-cogs"></i>
+        <span class="menu-title">Operaciones</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="operations">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item">
+          </li>
+          <li class="nav-item">
+          </li>
+          <li class="nav-item">
+          </li>
+          <li class="nav-item">
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" rel="nofollow" data-method="delete" href="/users/sign_out">
+        <i class="menu-icon fas fa-sign-out-alt"></i>
+        <span class="menu-title">Salir</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<script>
+$('#channelsBox').change(function (e) {
+  var selectedOpt = $('#channelsBox option:selected');
+  $.ajax({
+    type: "GET",
+    url: window.location.pathname,
+    data:
+    {
+      selectedOpt: selectedOpt.val()
+    }
+  });
+});
+</script>
