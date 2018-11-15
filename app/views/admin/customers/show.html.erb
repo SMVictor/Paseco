@@ -1,0 +1,19 @@
+<div class="row justify-content-center">
+  <div class="col-12">
+    <p id="notice"><%= notice %></p>
+    <h2>Información de la customern</h2><br>
+  </div>
+</div>
+
+<p>
+  <strong>Cédula Jurídica:</strong>
+  <%= @customer.legal_document %>
+</p>
+
+<p>
+  <strong>Nombre Comercial:</strong>
+  <%= @customer.tradename %>
+</p>
+
+<%= link_to 'Editar', edit_admin_customer_path(@customer) %> |
+<%= link_to 'Atrás', admin_customers_path %>

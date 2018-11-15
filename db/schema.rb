@@ -16,15 +16,17 @@ ActiveRecord::Schema.define(version: 2018_11_14_183844) do
   enable_extension "plpgsql"
 
   create_table "customers", force: :cascade do |t|
-    t.string "name"
     t.string "business_name"
     t.string "tradename"
-    t.string "representativr_id"
+    t.string "representative_id"
     t.string "representative_name"
     t.string "legal_document"
-    t.string "phone_number"
-    t.string "email"
     t.string "contact"
+    t.string "email"
+    t.string "email_1"
+    t.string "email_2"
+    t.string "phone_number"
+    t.string "phone_number_1"
     t.string "payment_method"
     t.string "payment_conditions"
     t.datetime "created_at", null: false
