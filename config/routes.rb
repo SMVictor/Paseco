@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :customers
+  
   #DEVISE ROUTES  
   devise_for :users, controllers: {
     registrations: 'users/registrations',
@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     
     namespace :admin do
       resources :customers
+      resources :cost_centers
+      resources :stalls
     end
   end
   

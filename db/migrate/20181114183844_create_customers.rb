@@ -7,6 +7,8 @@ class CreateCustomers < ActiveRecord::Migration[5.2]
       t.string :representative_id
       t.string :representative_name
       t.string :legal_document
+      t.string :start_date
+      t.string :end_date
 
       t.string :contact
       t.string :email

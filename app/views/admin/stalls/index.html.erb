@@ -1,0 +1,18 @@
+
+<div class="row justify-content-center">
+  <div class="col-10">
+    <%if notice%>
+      <p class="alert alert-primary" role="alert" id="notice"><%= notice %></p>
+    <% end %>
+    <h2>Puestos</h2>
+  </div>
+</div>
+<div class="row justify-content-center" >
+  <div class="col-12 col-md-9" style="">
+    <div class="row justify-content-center">
+      <div class="col-12 m-2">
+        <div id="stallTable"><%= render 'admin/stalls/partials/table', locals: {stalls:  @stalls}%></div>
+      </div>
+    </div>
+  </div>
+</div>

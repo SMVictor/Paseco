@@ -7,7 +7,7 @@
             <%= image_tag('default_avatar.png') %>
           </div>
           <div class="text-wrapper">
-            <p class="profile-name"><%= current_user.email %></p>
+            <p class="profile-name"><%= current_user.name %></p>
             <div>
               <small class="designation text-muted">Administrador</small>
               <span class="status-indicator online"></span>
@@ -18,7 +18,7 @@
       </div>
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-toggle="collapse" href="#maintenance" aria-expanded="false" aria-controls="maintenance">
+      <a class="nav-link" aria-expanded="false" onclick="toggleNavLink('maintenance')" id="maintenanceNavLink">
         <i class="menu-icon fas fa-database"></i>
         <span class="menu-title">Mantenimiento</span>
         <i class="menu-arrow"></i>
@@ -32,27 +32,35 @@
             <%= link_to('Nuevo Cliente ', new_admin_customer_path, class: 'nav-link')%>
           </li>
           <li class="nav-item">
+            <%= link_to('Ver Centros', admin_cost_centers_path, class: 'nav-link')%>
           </li>
           <li class="nav-item">
+            <%= link_to('Nuevo Centro ', new_admin_cost_center_path, class: 'nav-link')%>
+          </li>
+          <li class="nav-item">
+            <%= link_to('Ver Puestos', admin_stalls_path, class: 'nav-link')%>
+          </li>
+          <li class="nav-item">
+            <%= link_to('Nuevo Puesto ', new_admin_stall_path, class: 'nav-link')%>
           </li>
         </ul>
       </div>
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-toggle="collapse" href="#operations" aria-expanded="false" aria-controls="operations">
+      <a class="nav-link" ria-expanded="false" onclick="toggleNavLink('operations')" id="operationsNavLink">
         <i class="menu-icon fas fa-cogs"></i>
         <span class="menu-title">Operaciones</span>
         <i class="menu-arrow"></i>
       </a>
       <div class="collapse" id="operations">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item">
+          <li class="nav-item">aaaaa
           </li>
-          <li class="nav-item">
+          <li class="nav-item">aaaa
           </li>
-          <li class="nav-item">
+          <li class="nav-item">aaaa
           </li>
-          <li class="nav-item">
+          <li class="nav-item">aaa
           </li>
         </ul>
       </div>
@@ -67,15 +75,23 @@
 </nav>
 
 <script>
-$('#channelsBox').change(function (e) {
-  var selectedOpt = $('#channelsBox option:selected');
-  $.ajax({
-    type: "GET",
-    url: window.location.pathname,
-    data:
-    {
-      selectedOpt: selectedOpt.val()
-    }
+
+function toggleNavLink(id){
+  var navLink = $("#"+id).collapse('toggle');
+
+  var x = document.getElementById(id+"NavLink").getAttribute("aria-expanded"); 
+  if (x == "true") {
+    x = "false"
+  } else {
+    x = "true"
+  }
+  document.getElementById(id+"NavLink").setAttribute("aria-expanded", x);
+}
+
+$(function() {
+  $('#sidebarCollapse').on('click', function () {
+    $('#sidebar').toggleClass('active');
   });
 });
+
 </script>

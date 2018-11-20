@@ -74,3 +74,5 @@ gem 'jquery-rails'
 
 #Use for user authorization
 gem 'cancancan'
+
+gem 'bootstrap-datepicker-rails'

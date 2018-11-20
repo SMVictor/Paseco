@@ -6,18 +6,16 @@ class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
 
   def index
-    @customers = Customer.all
+    @customers = Customer.all.order(tradename: :asc)
   end
 
   def show
   end
 
-  # GET /customers/new
   def new
     @customer = Customer.new
   end
 
-  # GET /customers/1/edit
   def edit
   end
 
@@ -62,7 +60,7 @@ class CustomersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def customer_params
-      params.require(:customer).permit(:name, :business_name, :tradename, :representativr_id, :representative_name, :legal_document, :legal_document, :phone_number, :email, :contact, :payment_method, :payment_conditions)
+      params.require(:customer).permit(:business_name, :tradename, :representative_id, :representative_name, :legal_document, :legal_document, :phone_number, :email, :contact, :payment_method, :payment_conditions, :start_date, :end_date)
     end
 end
 end
