@@ -3,6 +3,7 @@
     <div class="content-wrapper d-flex align-items-center auth password-bg-1 theme-one">
       <div class="row w-100">
         <div class="col-lg-4 mx-auto">
+          <%= image_tag('backArrow.png', size: "50x50", id: "backArrow") %>
           <h2 class="text-center mb-4">¿Olvidó su contraseña?</h2>
           <div class="auto-form-wrapper">
             <form action="#">
@@ -24,3 +25,10 @@
     </div>
   </div>
 </div>
+<script>
+  $(function() {
+    $('#backArrow').on('click', function () {
+      document.location.href="/";
+    });
+  });
+</script>

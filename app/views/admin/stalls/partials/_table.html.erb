@@ -1,0 +1,45 @@
+<div class="card">
+  <div class="card-body">
+    <div class="row mt-1 ml-1  mr-1 pt-3 tbl_head d-none d-md-flex text-center" style="">
+      <div class="col-12 col-md-3">
+        <p class="text-uppercase">Nombre</p>
+      </div>
+      <div class="col-12 col-md-4">
+        <p class="text-uppercase">Centro de Costos</p>
+      </div>
+      <div class="col-12 col-md-5">
+        <p class="text-uppercase">Acciones</p>
+      </div>
+    </div>
+    <% if @stalls%>
+      <% @stalls.each do |stall| %>
+        <div class="row ml-1 mr-1 tbl_row"  style="">
+          <div class="col-12 col-md-3 pt-md-3">
+            <p class="d-md-none font-weight-bold">Nombre</p>
+            <p class="text-md-center"><%= stall.name %></p>
+          </div>
+          <div class="col-12 col-md-4  pt-md-3">
+            <p class="d-md-none font-weight-bold">Centro de Costos</p>
+            <p class="text-md-center"><%= stall.cost_center.name %></p>
+          </div>
+          <div class="col-12 col-md-5">
+            <p class="d-sm-none font-weight-bold">Acciones</p>
+            <div class="row">
+              <div class="col-sm-10 d-flex justify-content-center">
+                <%= link_to('Ver',admin_stall_path(stall), class:'btn btn-block info-btn mt-2 mb-lg-2' )%>
+                <%= link_to('Editar',edit_admin_stall_path(stall), class:'btn btn-block primary-btn mt-2 ml-2 mb-lg-2' )%>
+                <button type="button" class="btn btn-block delete-btn ml-2 mb-lg-2" data-toggle="modal" data-target="#deleteStall<%= stall.id %>">Borrar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <%= render 'admin/stalls/partials/delete_modal', stall: stall %>
+      <% end %>
+      <div class="row mt-2 ml-1 mr-1 pt-2 tbl_footer"  style="">
+        <div class="col-12 text-center p-2">
+          <%= link_to('+ Nuevo Puesto ', new_admin_stall_path, class: '')%>
+        </div>
+      </div>
+    <%end %>
+  </div>
+</div>

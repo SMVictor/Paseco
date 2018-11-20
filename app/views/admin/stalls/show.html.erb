@@ -1,0 +1,25 @@
+<div class="row justify-content-center">
+  <div class="col-12">
+    <p id="notice"><%= notice %></p>
+    <h2>Información del Puesto</h2><br>
+  </div>
+</div>
+
+<div class="row form_fieldset">
+  <div class="col-sm-6  mb-2 mt-2">
+    <strong>Centro de Costos:</strong>
+    <p><%= @stall.cost_center.name %></p>
+  </div>
+  <div class="col-sm-6 mb-2 mt-2">
+    <strong>Nombre:</strong>
+    <p><%= @stall.name %></p>
+  </div>
+  <div class="col-sm-6 mb-2 mt-2">
+    <strong>Descripción:</strong>
+    <p><%= @stall.description %></p>
+  </div>
+</div>
+
+
+<%= link_to 'Editar', edit_admin_stall_path(@stall) %> |
+<%= link_to 'Atrás', admin_stalls_path %>

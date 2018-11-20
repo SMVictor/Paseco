@@ -10,13 +10,55 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_05_175904) do
+ActiveRecord::Schema.define(version: 2018_11_19_181750) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "cost_centers", force: :cascade do |t|
+    t.string "name"
+    t.string "province"
+    t.string "canton"
+    t.string "distric"
+    t.string "others"
+    t.bigint "customer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_cost_centers_on_customer_id"
+  end
+
+  create_table "customers", force: :cascade do |t|
+    t.string "business_name"
+    t.string "tradename"
+    t.string "representative_id"
+    t.string "representative_name"
+    t.string "legal_document"
+    t.string "start_date"
+    t.string "end_date"
+    t.string "contact"
+    t.string "email"
+    t.string "email_1"
+    t.string "email_2"
+    t.string "phone_number"
+    t.string "phone_number_1"
+    t.string "payment_method"
+    t.string "payment_conditions"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "stalls", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.bigint "cost_center_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cost_center_id"], name: "index_stalls_on_cost_center_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
+    t.string "name", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"

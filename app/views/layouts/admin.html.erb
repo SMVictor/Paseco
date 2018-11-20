@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PaSeCo A&B</title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" integrity="sha384-p2jx59pefphTFIpeqCcISO9MdVfIm4pNnsL08A6v5vaQc4owkQqxMV8kg4Yvhaw/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/2.8.94/css/materialdesignicons.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <%= favicon_link_tag 'logo.jpeg' %>
+    <%= javascript_include_tag "admin.js" %>  
+
+  </head>
+  <body>
+    <div class="container-scroller">
+      <%= render 'admin/shared/header'%>
+    <div class="container-fluid page-body-wrapper">
+      <%= render 'admin/shared/sidebar'%>
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <%= yield %>
+        </div>
+        <%= render 'admin/shared/footer'%>
+    </div>
+    </div>
+  </div>
+  </body>
+</html>

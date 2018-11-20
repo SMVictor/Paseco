@@ -1,0 +1,96 @@
+<div class="card">
+  <div class="card-body">
+    <% if @customer.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@customer.errors.count, "error") %> impidió que este cliente fuera guardado :</h2>
+
+        <ul>
+        <% @customer.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="row form_fieldset">
+      <div  class="col-12 mt-4 p-3">
+        <legend>Información General</legend>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Razón Social</label>
+        <%= form.text_field :business_name, class: "form-control", placeholder: "Razón Social" %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Nombre Comercial</label>
+        <%= form.text_field :tradename, class: "form-control", placeholder: "Nombre Comercial" %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Cédula Jurídica:</label>
+        <%= form.text_field :legal_document, class: "form-control", placeholder: "Cédula Jurídica" %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Representante Legal:</label>
+        <%= form.text_field :representative_name, class: "form-control", placeholder: "Representante Legal" %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Cédula del Representante</label>
+        <%= form.text_field :representative_id, class: "form-control", placeholder: "Cédula del Representante" %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mt-2">
+        <label for="">Fecha de Contratación</label>
+        <%= form.text_field :start_date, id: "date", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-provide": 'datepicker' %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mt-2">
+        <label for="">Fecha de Finalización</label>
+        <%= form.text_field :end_date, id: "", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-provide": 'datepicker' %>
+      </div>
+    </div>
+
+    <div class="row form_fieldset mb-2">
+      <div  class="col-12 mt-4 p-3">
+        <legend>Información de Contacto</legend>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Contacto</label>
+        <%= form.text_field :contact, class: "form-control", placeholder: "Contacto" %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Email:</label>
+        <%= form.email_field :email, class: "form-control", placeholder: "Correo Electrónico" %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Email Adicional:</label>
+        <%= form.email_field :email_1, class: "form-control", placeholder: "Correo Electrónico Adicional" %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Email Adicional:</label>
+        <%= form.email_field :email_2, class: "form-control", placeholder: "Correo Electrónico Adicional" %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Teléfono:</label>
+        <%= form.text_field :phone_number, class: "form-control", placeholder: "Teléfono" %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mt-2">
+        <label for="">Teléfono Adicional:</label>
+        <%= form.text_field :phone_number_1, class: "form-control", placeholder: "Teléfono Adicional" %>
+      </div>
+    </div>
+
+    <div class="row form_fieldset mb-2">
+      <div  class="col-12 mt-4 p-3">
+        <legend>Información Financiera</legend>
+      </div>
+      <div class="col-lg-6 mb-2 mt-2">
+        <label for="">Método de Pago</label>
+        <%= form.text_field :payment_method, class: "form-control", placeholder: "Método de Pago" %>
+      </div>
+      <div class="col-lg-6 mb-2 mt-2">
+        <label for="">Condiciones del Pago:</label>
+        <%= form.text_field :payment_conditions, class: "form-control", placeholder: "Condiciones de Pago" %>
+      </div>
+    </div>
+    
+    <%= form.submit "Guardar", class: "btn btn-success" %>
+    <%= link_to('Cancelar', admin_customers_path, class: 'btn btn-light ml-3')%>
+  </div>
+</div>

@@ -1,0 +1,130 @@
+.btn{
+  border-radius: 2px;
+  font-size: 1rem;
+  font-weight: 300 !important;
+  height: 40px;
+}
+
+.primary-btn{
+  $color: $accent;
+  color: #fff;
+  background-color:  $color;
+  border-color: $color;
+   &::before {
+     background: darken( $color, 5%);
+     border-color: darken( $color, 5%);
+
+   }
+   &:focus {
+     background: darken( $color, 5%);
+     border-color: darken( $color, 5%);
+   }
+   &:active {
+     background: darken( $color, 5%) !important;;
+     border-color: darken( $color, 5%) !important;;
+   }
+   &:hover{
+     color: #fff;
+     background: darken( $color, 5%);
+     border-color: darken( $color, 5%);
+    a{
+      color: #fff;
+    }
+     &::before {
+       background: darken( $color, 10%);
+       border-color: darken( $color, 10%);
+     }
+   }
+}
+
+.info-btn{
+  $color: $green;
+  color: #fff;
+  background-color:  $color;
+  border-color: $color;
+   &::before {
+     background: darken( $color, 5%);
+     border-color: darken( $color, 5%);
+
+   }
+   &:focus {
+     background: darken( $color, 5%);
+     border-color: darken( $color, 5%);
+   }
+   &:active {
+     background: darken( $color, 5%) !important;;
+     border-color: darken( $color, 5%) !important;;
+   }
+   &:hover{
+     color: #fff;
+     background: darken( $color, 5%);
+     border-color: darken( $color, 5%);
+    a{
+      color: #fff;
+    }
+     &::before {
+       background: darken( $color, 10%);
+       border-color: darken( $color, 10%);
+     }
+   }
+}
+
+.delete-btn {
+  $color: $red;
+  color: #fff !important;
+  background-color:  $color;
+  border-color: $color;
+   &::before {
+     background: darken( $color, 5%);
+     border-color: darken( $color, 5%);
+
+   }
+   &:focus {
+     background: darken( $color, 5%);
+     border-color: darken( $color, 5%);
+   }
+   &:active {
+     background: darken( $color, 5%) !important;;
+     border-color: darken( $color, 5%) !important;;
+   }
+   &:hover{
+     background: darken( $color, 5%);
+     border-color: darken( $color, 5%);
+
+     &::before {
+       background: darken( $color, 10%);
+       border-color: darken( $color, 10%);
+     }
+   }
+}
+
+.add-btn {
+  $color: $blue;
+  color: #fff;
+  background-color:  $color;
+  border-color: $color;
+  min-width: 220px;
+   &::before {
+     background: darken( $color, 5%);
+     border-color: darken( $color, 5%);
+
+   }
+   &:focus {
+     background: darken( $color, 5%);
+     border-color: darken( $color, 5%);
+   }
+   &:active {
+     background: darken( $color, 5%) !important;;
+     border-color: darken( $color, 5%) !important;;
+   }
+   &:hover{
+     color: #fff;
+     background: darken( $color, 5%);
+     border-color: darken( $color, 5%);
+
+     &::before {
+       background: darken( $color, 10%);
+       border-color: darken( $color, 10%);
+     }
+   }
+}
