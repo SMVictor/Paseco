@@ -6,7 +6,7 @@ class StallsController < ApplicationController
   before_action :set_stall, only: [:show, :edit, :update, :destroy]
 
   def index
-    @stalls = Stall.all.order(name: :asc)
+    @stalls = Stall.all.order(cost_center_id: :asc)
   end
 
   def show

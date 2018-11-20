@@ -1,87 +1,25 @@
 <div class="row justify-content-center">
   <div class="col-12">
     <p id="notice"><%= notice %></p>
-    <h2>Información del Cliente</h2><br>
+    <h2>Información del Puesto</h2><br>
   </div>
 </div>
 
 <div class="row form_fieldset">
-  <div  class="col-12 mt-4 p-3">
-    <legend>Información General</legend>
+  <div class="col-sm-6  mb-2 mt-2">
+    <strong>Centro de Costos:</strong>
+    <p><%= @stall.cost_center.name %></p>
   </div>
-  <div class="col-md-4 col-sm-6  mb-2 mt-2">
-  	<strong>Razón Social:</strong>
-    <p><%= @customer.business_name %></p>
+  <div class="col-sm-6 mb-2 mt-2">
+    <strong>Nombre:</strong>
+    <p><%= @stall.name %></p>
   </div>
-  <div class="col-md-4 col-sm-6 mb-2 mt-2">
-    <strong>Nombre Comercial:</strong>
-    <p><%= @customer.tradename %></p>
-  </div>
-  <div class="col-md-4 col-sm-6 mb-2 mt-2">
-    <strong>Cédula Jurídica:</strong>
-    <p><%= @customer.legal_document %></p>
-  </div>
-  <div class="col-md-4 col-sm-6 mb-2 mt-2">
-    <strong>Representante Legal:</strong>
-    <p><%= @customer.representative_name %></p>
-  </div>
-  <div class="col-md-4 col-sm-6 mb-2 mt-2">
-    <strong>Cédula del Representante:</strong>
-    <p><%= @customer.representative_id %></p>
-  </div>
-  <div class="col-md-4 col-sm-6 mt-2">
-    <strong>Fecha de Contratación:</strong>
-    <p><%= @customer.start_date %></p>
-  </div>
-  <div class="col-md-4 col-sm-6 mt-2">
-    <strong>Fecha de Finalización:</strong>
-    <p><%= @customer.end_date %></p>
+  <div class="col-sm-6 mb-2 mt-2">
+    <strong>Descripción:</strong>
+    <p><%= @stall.description %></p>
   </div>
 </div>
 
-<div class="row form_fieldset mb-2">
-  <div  class="col-12 mt-4 p-3">
-    <legend>Información de Contacto</legend>
-  </div>
-  <div class="col-md-4 col-sm-6 mb-2 mt-2">
-    <strong>Contacto:</strong>
-    <p><%= @customer.contact %></p>
-  </div>
-  <div class="col-md-4 col-sm-6 mb-2 mt-2">
-    <strong>Email:</strong>
-    <p><%= @customer.email %></p>
-  </div>
-  <div class="col-md-4 col-sm-6 mb-2 mt-2">
-    <strong>Email Adicional:</strong>
-    <p><%= @customer.email_1 %></p>
-  </div>
-  <div class="col-md-4 col-sm-6 mb-2 mt-2">
-    <strong>Email Adicional:</strong>
-    <p><%= @customer.email_2 %></p>
-  </div>
-  <div class="col-md-4 col-sm-6 mb-2 mt-2">
-    <strong>Teléfono:</strong>
-    <p><%= @customer.phone_number %></p>
-  </div>
-  <div class="col-md-4 col-sm-6 mt-2">
-    <strong>Teléfono Adicional:</strong>
-    <p><%= @customer.phone_number_1 %></p>
-  </div>
-</div>
 
-<div class="row form_fieldset mb-2">
-  <div  class="col-12 mt-4 p-3">
-    <legend>Información Financiera</legend>
-  </div>
-  <div class="col-md-4 col-sm-6 mb-2 mt-2">
-    <strong>Método de Pago:</strong>
-    <p><%= @customer.payment_method %></p>
-  </div>
-  <div class="col-md-4 col-sm-6 mb-2 mt-2">
-    <strong>Condiciones de Pago:</strong>
-    <p><%= @customer.payment_conditions %></p>
-  </div>
-</div>
-
-<%= link_to 'Editar', edit_admin_customer_path(@customer) %> |
-<%= link_to 'Atrás', admin_customers_path %>
+<%= link_to 'Editar', edit_admin_stall_path(@stall) %> |
+<%= link_to 'Atrás', admin_stalls_path %>
