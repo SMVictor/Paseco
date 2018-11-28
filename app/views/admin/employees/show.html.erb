@@ -1,0 +1,115 @@
+<div class="row justify-content-center">
+  <div class="col-12">
+    <p id="notice"><%= notice %></p>
+    <h2>Información del Empleado</h2><br>
+  </div>
+</div>
+
+<div class="row form_fieldset">
+  <div  class="col-12 mt-4 p-3">
+    <legend>Información General</legend>
+  </div>
+  <div class="col-md-4 col-sm-6  mb-2 mt-2">
+  	<strong>Nombre:</strong>
+    <p><%= @employee.name %></p>
+  </div>
+  <div class="col-md-4 col-sm-6 mb-2 mt-2">
+    <strong>Tipo de Identificació:</strong>
+    <p><%= @employee.id_type %></p>
+  </div>
+  <div class="col-md-4 col-sm-6 mb-2 mt-2">
+    <strong>Número de Identificación:</strong>
+    <p><%= @employee.identification %></p>
+  </div>
+  <div class="col-md-4 col-sm-6 mb-2 mt-2">
+    <strong>Sexo:</strong>
+    <p><%= @employee.gender %></p>
+  </div>
+  <div class="col-md-4 col-sm-6 mb-2 mt-2">
+    <strong>Fecha de Nacimiento:</strong>
+    <p><%= @employee.birthday %></p>
+  </div>
+  <div class="col-md-4 col-sm-6 mt-2">
+    <strong>Fecha de Contratación:</strong>
+    <p><%= @employee.start_date %></p>
+  </div>
+  <div class="col-md-4 col-sm-6 mt-2">
+    <strong>Fecha de Finalización:</strong>
+    <p><%= @employee.end_date %></p>
+  </div>
+  <div class="col-md-4 col-sm-6 mt-2">
+    <strong>Cargo en la Empresa:</strong>
+    <p><%= @employee.role %></p>
+  </div>
+  <div class="col-md-4 col-sm-6 mt-2">
+    <strong>Puesto:</strong>
+    <p><%= @employee.stall.name %></p>
+  </div>
+</div>
+
+<div class="row form_fieldset mb-2">
+  <div  class="col-12 mt-4 p-3">
+    <legend>Información de Contacto</legend>
+  </div>
+  <div class="col-md-4 col-sm-6 mb-2 mt-2">
+    <strong>Teléfono:</strong>
+    <p><%= @employee.phone %></p>
+  </div>
+  <div class="col-md-4 col-sm-6 mb-2 mt-2">
+    <strong>Teléfono Adicional:</strong>
+    <p><%= @employee.phone_1 %></p>
+  </div>
+  <div class="col-md-4 col-sm-6 mb-2 mt-2">
+    <strong>Contacto de Emergencia:</strong>
+    <p><%= @employee.emergency_contact %></p>
+  </div>
+  <div class="col-md-4 col-sm-6 mb-2 mt-2">
+    <strong>Número de Emergencia:</strong>
+    <p><%= @employee.emergency_number %></p>
+  </div>
+  <div class="col-md-4 col-sm-6 mb-2 mt-2">
+    <strong>Provincia:</strong>
+    <p><%= @employee.province %></p>
+  </div>
+  <div class="col-md-4 col-sm-6 mt-2">
+    <strong>Cantón:</strong>
+    <p><%= @employee.canton %></p>
+  </div>
+  <div class="col-md-4 col-sm-6 mt-2">
+    <strong>Distrito:</strong>
+    <p><%= @employee.district %></p>
+  </div>
+  <div class="col-md-4 col-sm-6 mt-2">
+    <strong>Otras Señas:</strong>
+    <p><%= @employee.other %></p>
+  </div>
+</div>
+
+<div class="row form_fieldset mb-2">
+  <div  class="col-12 mt-4 p-3">
+    <legend>Información Financiera</legend>
+  </div>
+  <div class="col-md-4 col-sm-6 mb-2 mt-2">
+    <strong>Método de Pago:</strong>
+    <p><%= @employee.payment_method %></p>
+  </div>
+  <div class="col-md-4 col-sm-6 mb-2 mt-2">
+    <strong>Banco:</strong>
+    <p><%= @employee.bank %></p>
+  </div>
+  <div class="col-md-4 col-sm-6 mb-2 mt-2">
+    <strong>Número de Cuenta:</strong>
+    <p><%= @employee.account %></p>
+  </div>
+  <div class="col-md-4 col-sm-6 mb-2 mt-2">
+    <strong>Número de SCCSS:</strong>
+    <p><%= @employee.ccss_number %></p>
+  </div>
+  <div class="col-md-4 col-sm-6 mb-2 mt-2">
+    <strong>Pago del Seguro:</strong>
+    <p><%= @employee.social_security %></p>
+  </div>
+</div>
+
+<%= link_to 'Editar', edit_admin_employee_path(@employee) %> |
+<%= link_to 'Atrás', admin_employees_path %>

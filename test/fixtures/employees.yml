@@ -1,0 +1,47 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nama: MyString
+  identification: MyString
+  id_type: MyString
+  birthday: MyString
+  gender: MyString
+  ccss_number: MyString
+  province: MyString
+  canton: MyString
+  district: MyString
+  other: MyString
+  phone: MyString
+  phone_1: MyString
+  emergency_contact: MyString
+  emergency_number: MyString
+  role: 1
+  start_date: MyString
+  end_date: MyString
+  payment_method: MyString
+  bank: MyString
+  account: MyString
+  social_security: MyString
+
+two:
+  nama: MyString
+  identification: MyString
+  id_type: MyString
+  birthday: MyString
+  gender: MyString
+  ccss_number: MyString
+  province: MyString
+  canton: MyString
+  district: MyString
+  other: MyString
+  phone: MyString
+  phone_1: MyString
+  emergency_contact: MyString
+  emergency_number: MyString
+  role: 1
+  start_date: MyString
+  end_date: MyString
+  payment_method: MyString
+  bank: MyString
+  account: MyString
+  social_security: MyString

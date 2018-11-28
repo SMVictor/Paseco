@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   
-  resources :requirements
   #DEVISE ROUTES  
   devise_for :users, controllers: {
     registrations: 'users/registrations',
@@ -17,6 +16,7 @@ Rails.application.routes.draw do
       resources :customers
       resources :stalls
       resources :payments
+      resources :employees
     end
   end
   
