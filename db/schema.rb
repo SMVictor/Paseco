@@ -10,22 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_19_181750) do
+ActiveRecord::Schema.define(version: 2018_11_28_022552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "cost_centers", force: :cascade do |t|
-    t.string "name"
-    t.string "province"
-    t.string "canton"
-    t.string "distric"
-    t.string "others"
-    t.bigint "customer_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["customer_id"], name: "index_cost_centers_on_customer_id"
-  end
 
   create_table "customers", force: :cascade do |t|
     t.string "business_name"
@@ -47,13 +35,54 @@ ActiveRecord::Schema.define(version: 2018_11_19_181750) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "payments", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "requirements", force: :cascade do |t|
+    t.string "name"
+    t.string "shifts"
+    t.string "hours"
+    t.string "workers"
+    t.bigint "stall_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["stall_id"], name: "index_requirements_on_stall_id"
+  end
+
+  create_table "shifts", force: :cascade do |t|
+    t.string "name"
+    t.string "time"
+    t.string "cost"
+    t.string "extra_time"
+    t.string "extra_time_cost"
+    t.bigint "payment_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["payment_id"], name: "index_shifts_on_payment_id"
+  end
+
   create_table "stalls", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.bigint "cost_center_id"
+    t.string "province"
+    t.string "canton"
+    t.string "district"
+    t.string "other"
+    t.string "ccss_percentage"
+    t.string "daily_viatical"
+    t.string "performance_extras"
+    t.string "daily_brands"
+    t.string "extra_shift"
+    t.bigint "customer_id"
+    t.bigint "payment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["cost_center_id"], name: "index_stalls_on_cost_center_id"
+    t.index ["customer_id"], name: "index_stalls_on_customer_id"
+    t.index ["payment_id"], name: "index_stalls_on_payment_id"
   end
 
   create_table "users", force: :cascade do |t|

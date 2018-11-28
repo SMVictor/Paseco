@@ -1,0 +1,39 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyString
+  daytime: MyString
+  mixedtime: MyString
+  nighttime: MyString
+  daytime_cost: MyString
+  mixedtime_cost: MyString
+  nighttime_cost: MyString
+  extra_daytime: MyString
+  extra_mixedtime: MyString
+  extra_: MyString
+  nighttime: MyString
+  extra_daytime_cost: MyString
+  extra_: MyString
+  mixedtime_cost: MyString
+  extra_: MyString
+  nighttime_cost: MyString
+
+two:
+  name: MyString
+  description: MyString
+  daytime: MyString
+  mixedtime: MyString
+  nighttime: MyString
+  daytime_cost: MyString
+  mixedtime_cost: MyString
+  nighttime_cost: MyString
+  extra_daytime: MyString
+  extra_mixedtime: MyString
+  extra_: MyString
+  nighttime: MyString
+  extra_daytime_cost: MyString
+  extra_: MyString
+  mixedtime_cost: MyString
+  extra_: MyString
+  nighttime_cost: MyString

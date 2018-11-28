@@ -1,4 +1,4 @@
-<div class="delete modal fade" id="deleteCostCenter<%= cost_center.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="delete modal fade" id="deletePayment<%= payment.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content rounded">
       <div class="modal-header rounded-top">
@@ -8,12 +8,11 @@
       </div>
       <div class="modal-body">
         <p class="text-center" style="font-size:30px;"><i class="fas fa-exclamation-circle text-center"></i></p>
-        <p class="text-center">Está a punto de borrar este centro de costos.</p>
+        <p class="text-center">Está a punto de borrar este tipo de pago.</p>
         <p class="text-center">¿Desea continuar?</p>
-        <input id="hiddenId" type="hidden" name="hiddenId" value="" />
       </div>
       <div class="modal-footer">
-        <%= link_to 'Borrar Centro', admin_cost_center_path(cost_center), method: :delete, class:'btn delete-btn text-center', style: "margin: 0px auto" %>
+        <%= link_to 'Borrar Pago', admin_payment_path(payment), method: :delete, class:'btn delete-btn text-center', style: "margin: 0px auto" %>
       </div>
     </div>
   </div>

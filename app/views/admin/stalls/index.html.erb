@@ -1,10 +1,13 @@
 
 <div class="row justify-content-center">
-  <div class="col-10">
+  <div class="col-10 mb-5">
     <%if notice%>
       <p class="alert alert-primary" role="alert" id="notice"><%= notice %></p>
     <% end %>
-    <h2>Puestos</h2>
+    <h2 class="d-sm-inline mr-5">Puestos</h2>
+      <% if @stalls.length > 10%>
+        <%= link_to('Nuevo Puesto', new_admin_stall_path, class: 'btn primary-btn d-sm-inline')%>
+      <% end -%>
   </div>
 </div>
 <div class="row justify-content-center" >

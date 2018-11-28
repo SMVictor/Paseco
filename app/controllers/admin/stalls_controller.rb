@@ -6,7 +6,7 @@ class StallsController < ApplicationController
   before_action :set_stall, only: [:show, :edit, :update, :destroy]
 
   def index
-    @stalls = Stall.all.order(cost_center_id: :asc)
+    @stalls = Stall.all.order(customer_id: :asc)
   end
 
   def show
@@ -60,7 +60,7 @@ class StallsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def stall_params
-      params.require(:stall).permit(:name, :description, :cost_center_id)
+      params.require(:stall).permit(:name, :description, :province, :canton, :district, :other, :customer_id, :payment_id, :daily_viatical, :performance_extras, :daily_brands, :extra_shift, requirements_attributes: [:id, :name, :shifts, :hours, :workers, :_destroy])
     end
 end
 end

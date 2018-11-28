@@ -13,21 +13,78 @@
     <% end %>
 
     <div class="row form_fieldset">
-      <div class="col-lg-6 mb-2 mt-2">
+      <div  class="col-12 mt-4 p-3">
+        <legend>Información General</legend>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
         <label for="">Nombre</label>
         <%= form.text_field :name, class: "form-control", placeholder: "Nombre" %>
       </div>
-      <div class="col-lg-6 mb-2 mt-2">
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
         <label for="">Descripción</label>
-        <%= form.text_field :description, class: "form-control", placeholder: "Nombre Comercial" %>
+        <%= form.text_field :description, class: "form-control", placeholder: "Descripción" %>
       </div>
-      <div class="col-lg-6 mb-2 mt-2">
-        <label for="">Centro de Costos</label>
-        <%= form.collection_select :cost_center_id, CostCenter.all.order(name: :asc), :id, :name, options = {}, html_options = {class: "form-control"}%>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Cliente</label>
+        <%= form.collection_select :customer_id, Customer.all.order(tradename: :asc), :id, :tradename, options = {}, html_options = {class: "form-control"}%>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Tipo de Pago</label>
+        <%= form.collection_select :payment_id, Payment.all.order(name: :asc), :id, :name, options = {}, html_options = {class: "form-control"}%>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Provincia</label>
+        <%= form.text_field :province, class: "form-control", placeholder: "Provincia" %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Cantón</label>
+        <%= form.text_field :canton, class: "form-control", placeholder: "Cantón" %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mt-2">
+        <label for="">Distrito</label>
+        <%= form.text_field :district, class: "form-control", placeholder: "Distrito" %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mt-2">
+        <label for="">Otras Señas</label>
+        <%= form.text_field :other, class: "form-control", placeholder: "Otras Señas" %>
+      </div>
+    </div>
+    <div class="row form_fieldset">
+      <div  class="col-12 mt-4 p-3">
+        <legend>Información de los Recorridos</legend>
+      </div>
+      <div class="col-xl-6 col-lg-6 mb-2 mt-2">
+        <label for="">Viático Diario</label>
+        <%= form.text_field :daily_viatical, class: "form-control", placeholder: "500" %>
+      </div>
+      <div class="col-xl-6 col-lg-6 mb-2 mt-2">
+        <label for="">Extras Rendimiento</label>
+        <%= form.text_field :performance_extras, class: "form-control", placeholder: "500" %>
+      </div>
+      <div class="col-xl-6 col-lg-6 mb-2 mt-2">
+        <label for="">Marcas Diarias</label>
+        <%= form.text_field :daily_brands, class: "form-control", placeholder: "500" %>
+      </div>
+      <div class="col-xl-6 col-lg-6 mb-2 mt-2">
+        <label for="">Turno Extra</label>
+        <%= form.text_field :extra_shift, class: "form-control", placeholder: "10500" %>
+      </div>
+    </div>
+    <div id="requirements">
+      <div class="requirements-fields mt-4">
+        <legend>Información de los Requerimientos</legend>
+        <%= form.fields_for :requirements do |requirement| %>
+          <%= render 'requirement_fields', f: requirement %>
+        <%end%>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12 text-center p-2 tbl_footer">
+          <%= link_to_add_association ' + Agregar Requerimiento', form, :requirements, data: { association_insertion_mode: '.requirements.fields', partial: 'requirement_fields'}, class: 'btn add_btn' %>
+        </div>
       </div>
     </div>
     
-    <%= form.submit "Guardar", class: "btn btn-success" %>
-    <%= link_to('Cancelar', admin_stalls_path, class: 'btn btn-light ml-3')%>
+    <%= form.submit "Guardar", class: "btn btn-success mt-4" %>
+    <%= link_to('Cancelar', admin_stalls_path, class: 'btn btn-light ml-sm-3 mt-4')%>
   </div>
 </div>
