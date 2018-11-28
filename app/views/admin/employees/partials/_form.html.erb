@@ -1,0 +1,124 @@
+<div class="card">
+  <div class="card-body">
+    <% if @employee.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@employee.errors.count, "error") %> impidió que este empleado fuera guardado :</h2>
+
+        <ul>
+        <% @employee.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="row form_fieldset">
+      <div  class="col-12 mt-4 p-3">
+        <legend>Información General</legend>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Nombre Completo:</label>
+        <%= form.text_field :name, class: "form-control", placeholder: "Manuel Antonio Rodriguez Barrientos" %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Tipo de Identificación:</label>
+        <%= form.select(:id_type, ["Nacional", "Pasaporte", "Residencia"], {}, { class: "form-control" }) %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Número de Identificación:</label>
+        <%= form.text_field :identification, class: "form-control", placeholder: "307760366" %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Sexo:</label>
+        <%= form.select(:gender, ["Masculino", "Femenino"], {}, { class: "form-control" }) %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Fecha de Nacimiento:</label>
+        <%= form.text_field :birthday, id: "birthday", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-provide": 'datepicker' %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mt-2">
+        <label for="">Fecha de Contratación:</label>
+        <%= form.text_field :start_date, id: "start_date", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-provide": 'datepicker' %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mt-2">
+        <label for="">Fecha de Finalización</label>
+        <%= form.text_field :end_date, id: "end_date", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-provide": 'datepicker' %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mt-2">
+        <label for="">Cargo en la Empresan</label>
+        <%= form.collection_select :role, Role.all.order(name: :asc), :id, :name, options = {}, html_options = {class: "form-control" , id: "selectRole"}%>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Puesto</label>
+        <%= form.collection_select :stall_id, Stall.all.order(name: :asc), :id, :name, options = {}, html_options = {class: "form-control"}%>
+      </div>
+    </div>
+
+    <div class="row form_fieldset mb-2">
+      <div  class="col-12 mt-4 p-3">
+        <legend>Información de Contacto</legend>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Teléfono:</label>
+        <%= form.text_field :phone, class: "form-control", placeholder: "8823-3115" %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mt-2">
+        <label for="">Teléfono Adicional:</label>
+        <%= form.text_field :phone_1, class: "form-control", placeholder: "8823-3115" %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Contacto de Emergencia:</label>
+        <%= form.text_field :emergency_contact, class: "form-control", placeholder: "Manuel Antonio Rodriguez Barrientos" %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Número de Emergencia:</label>
+        <%= form.email_field :emergency_number, class: "form-control", placeholder: "8823-3115" %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Provincia:</label>
+        <%= form.text_field :province, class: "form-control", placeholder: "Cartago" %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Cantón</label>
+        <%= form.text_field :canton, class: "form-control", placeholder: "Cartago" %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mt-2">
+        <label for="">Distrito</label>
+        <%= form.text_field :district, class: "form-control", placeholder: "Agua Caliente" %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mt-2">
+        <label for="">Otras Señas</label>
+        <%= form.text_field :other, class: "form-control", placeholder: "300 metros Este de la iglesia de Agua Caliente" %>
+      </div>
+    </div>
+
+    <div class="row form_fieldset mb-2">
+      <div  class="col-12 mt-4 p-3">
+        <legend>Información Financiera</legend>
+      </div>
+      <div class="col-lg-4 mb-2 mt-2">
+        <label for="">Método de Pago</label>
+        <%= form.select(:payment_method, ["Transferencia", "Efectivo", "Cheque"], {}, { class: "form-control" }) %>
+      </div>
+      <div class="col-lg-4 mb-2 mt-2">
+        <label for="">Banco:</label>
+        <%= form.select(:bank, ["BAC", "BNCR", "BCR", "Banco Popular"], {}, { class: "form-control" }) %>
+      </div>
+      <div class="col-lg-4 mb-2 mt-2">
+        <label for="">Número de Cuenta:</label>
+        <%= form.text_field :account, class: "form-control", placeholder: "200-01-171-030528-4" %>
+      </div>
+      <div class="col-lg-4 mb-2 mt-2">
+        <label for="">Número de SCCSS:</label>
+        <%= form.text_field :ccss_number, class: "form-control", placeholder: "Número de SCCSS" %>
+      </div>
+      <div class="col-lg-4 mb-2 mt-2">
+        <label for="">Pago del Seguro:</label>
+        <%= form.select(:social_security, ["Porcentaje", "Monto"], {}, { class: "form-control" }) %>
+      </div>
+    </div>
+    
+    <%= form.submit "Guardar", class: "btn btn-success mt-4" %>
+    <%= link_to('Cancelar', admin_employees_path, class: 'btn btn-light ml-sm-3 mt-4')%>
+  </div>
+</div>

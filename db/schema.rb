@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_28_022552) do
+ActiveRecord::Schema.define(version: 2018_11_28_190831) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,34 @@ ActiveRecord::Schema.define(version: 2018_11_28_022552) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "employees", force: :cascade do |t|
+    t.string "name"
+    t.string "gender"
+    t.string "id_type"
+    t.string "identification"
+    t.string "birthday"
+    t.integer "role"
+    t.string "start_date"
+    t.string "end_date"
+    t.string "province"
+    t.string "canton"
+    t.string "district"
+    t.string "other"
+    t.string "phone"
+    t.string "phone_1"
+    t.string "emergency_contact"
+    t.string "emergency_number"
+    t.string "payment_method"
+    t.string "bank"
+    t.string "account"
+    t.string "ccss_number"
+    t.string "social_security"
+    t.bigint "stall_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["stall_id"], name: "index_employees_on_stall_id"
+  end
+
   create_table "payments", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -51,6 +79,12 @@ ActiveRecord::Schema.define(version: 2018_11_28_022552) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["stall_id"], name: "index_requirements_on_stall_id"
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "shifts", force: :cascade do |t|

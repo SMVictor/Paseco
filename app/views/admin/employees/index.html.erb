@@ -1,0 +1,21 @@
+
+<div class="row justify-content-center">
+  <div class="col-10 mb-5">
+    <%if notice%>
+      <p class="alert alert-primary" role="alert" id="notice"><%= notice %></p>
+    <% end %>
+    <h2 class="d-sm-inline mr-5">Empleados</h2>
+      <% if @employees.length > 10%>
+        <%= link_to('Nuevo Cliente', new_admin_employee_path, class: 'btn primary-btn d-sm-inline')%>
+      <% end -%>
+  </div>
+</div>
+<div class="row justify-content-center" >
+  <div class="col-12 col-md-9" style="">
+    <div class="row justify-content-center">
+      <div class="col-12 m-2">
+        <div id="employeestable"><%= render 'admin/employees/partials/table', locals: {employees:  @employees}%></div>
+      </div>
+    </div>
+  </div>
+</div>
