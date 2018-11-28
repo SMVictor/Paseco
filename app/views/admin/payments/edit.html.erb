@@ -1,16 +1,16 @@
 <div class="row justify-content-center">
   <div class="col-10">
     <div class="row">
-      <h2>Nuevo Centro de Costos</h2>
+      <h2>Editar Pago</h2>
     </div>
   </div>
 </div>
 <div class="row justify-content-center" >
-  <div class="col-12 col-md-9">
+  <div class="col-12 col-md-9" style="">
     <div class="row justify-content-center">
       <div class="col-lg-12 col-md-9 col-sm-9 col-xs-9">
-        <%= form_for(@cost_center, url: admin_cost_centers_path(@cost_center), html: {multipart: true}) do |form| %>
-          <%= render 'admin/cost_centers/partials/form', form: form %>
+        <%= form_for(@payment, url: admin_payment_path(@payment), html: {multipart: true}) do |form| %>
+          <%= render 'admin/payments/partials/form', form: form %>
         <% end %>
       </div>
     </div>

@@ -1,17 +1,20 @@
 
 <div class="row justify-content-center">
-  <div class="col-10">
+  <div class="col-10 mb-5">
     <%if notice%>
       <p class="alert alert-primary" role="alert" id="notice"><%= notice %></p>
     <% end %>
-    <h2>Centros de Costos</h2>
+    <h2 class="d-sm-inline mr-5">Tipos de Pago</h2>
+      <% if @payments.length > 10%>
+        <%= link_to('Nuevo Puesto', new_admin_payment_path, class: 'btn primary-btn d-sm-inline')%>
+      <% end -%>
   </div>
 </div>
 <div class="row justify-content-center" >
   <div class="col-12 col-md-9" style="">
     <div class="row justify-content-center">
       <div class="col-12 m-2">
-        <div id="costCenterTable"><%= render 'admin/cost_centers/partials/table', locals: {cost_centers:  @cost_centers}%></div>
+        <div id="paymentTable"><%= render 'admin/payments/partials/table', locals: {payments:  @payments}%></div>
       </div>
     </div>
   </div>

@@ -1,0 +1,45 @@
+<div class="card">
+  <div class="card-body">
+    <% if @payment.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@payment.errors.count, "error") %> impidió que este cliente fuera guardado :</h2>
+
+        <ul>
+        <% @payment.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="row form_fieldset">
+      <div  class="col-12 mt-4">
+        <legend>Información General</legend>
+      </div>
+      <div class="col-lg-6 mb-2 mt-2">
+        <label for="">Nombre</label>
+        <%= form.text_field :name, class: "form-control", placeholder: "Nombre" %>
+      </div>
+      <div class="col-lg-6 mb-2 mt-2">
+        <label for="">Descripción</label>
+        <%= form.text_field :description, class: "form-control", placeholder: "Descripción" %>
+      </div>
+    </div>
+    <div id="shifts">
+      <div class="shifts-fields mt-4">
+        <legend>Información de los Turnos</legend>
+        <%= form.fields_for :shifts do |shift| %>
+          <%= render 'shift_fields', f: shift %>
+        <%end%>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12 text-center p-2 tbl_footer">
+          <%= link_to_add_association ' + Agregar Turno', form, :shifts, data: { association_insertion_mode: '.shifts.fields', partial: 'shift_fields'}, class: 'btn add_btn' %>
+        </div>
+      </div>
+    </div>
+    
+    <%= form.submit "Guardar", class: "btn btn-success mt-4" %>
+    <%= link_to('Cancelar', admin_payments_path, class: 'btn btn-light ml-sm-3 mt-4')%>
+  </div>
+</div>

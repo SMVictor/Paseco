@@ -1,3 +1,3 @@
 class Customer < ApplicationRecord
-  has_many :cost_centers
+  has_many :stalls
 end

@@ -17,4 +17,5 @@
 //= require popper
 //= require bootstrap
 //= require bootstrap-datepicker
+//= require cocoon
 //= require_tree .

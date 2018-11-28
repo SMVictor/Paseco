@@ -76,3 +76,5 @@ gem 'jquery-rails'
 gem 'cancancan'
 
 gem 'bootstrap-datepicker-rails'
+
+gem "cocoon"

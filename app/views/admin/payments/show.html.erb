@@ -1,0 +1,75 @@
+<div class="row justify-content-center">
+  <div class="col-12">
+    <p id="notice"><%= notice %></p>
+    <h2>Información del Pago</h2><br>
+  </div>
+</div>
+
+<div class="row form_fieldset">
+  <div  class="col-12 mt-4">
+    <legend>Información General</legend>
+  </div>
+  <div class="col-lg-6 mb-2 mt-2">
+    <label for="">Nombre</label>
+    <p><%= @payment.name %></p>
+  </div>
+  <div class="col-lg-6 mb-2 mt-2">
+    <label for="">Descripción</label>
+    <p><%= @payment.description %></p>
+  </div>
+</div>
+<div class="row form_fieldset">
+  <div  class="col-12 mt-4">
+    <legend>Información de los Turnos</legend>
+    <div class="card">
+      <div class="card-body">
+        <div class="row mt-1 ml-1  mr-1 pt-3 tbl_head d-none d-md-flex text-center" style="">
+          <div class="col-12 col-md-2">
+            <p class="text-uppercase">Nombre</p>
+          </div>
+          <div class="col-12 col-md-2">
+            <p class="text-uppercase">Horas</p>
+          </div>
+          <div class="col-12 col-md-2">
+            <p class="text-uppercase">Costo Hora</p>
+          </div>
+          <div class="col-12 col-md-2">
+            <p class="text-uppercase">Horas Extras</p>
+          </div>
+          <div class="col-12 col-md-4">
+            <p class="text-uppercase">Costo Horas Extras</p>
+          </div>
+        </div>
+        <% if @payment.shifts%>
+          <% @payment.shifts.each do |shift| %>
+            <div class="row ml-1 mr-1 tbl_row"  style="">
+              <div class="col-12 col-md-2 pt-md-3">
+                <p class="d-md-none font-weight-bold">Nombre</p>
+                <p class="text-md-center"><%= shift.name %></p>
+              </div>
+              <div class="col-12 col-md-2  pt-md-3">
+                <p class="d-md-none font-weight-bold">Horas</p>
+                <p class="text-md-center"><%= shift.time %></p>
+              </div>
+              <div class="col-12 col-md-2  pt-md-3">
+                <p class="d-md-none font-weight-bold">Costo Hora</p>
+                <p class="text-md-center"><%= shift.cost %></p>
+              </div>
+              <div class="col-12 col-md-2  pt-md-3">
+                <p class="d-md-none font-weight-bold">Horas Extras</p>
+                <p class="text-md-center"><%= shift.extra_time %></p>
+              </div>
+              <div class="col-12 col-md-4  pt-md-3">
+                <p class="d-md-none font-weight-bold">Costo Horas Extras</p>
+                <p class="text-md-center"><%= shift.extra_time_cost %></p>
+              </div>
+            </div>
+          <% end %>
+        <%end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= link_to 'Editar', edit_admin_payment_path(@payment) %> |
+<%= link_to 'Atrás', admin_payments_path %>

@@ -26,22 +26,13 @@
       <div class="collapse" id="maintenance">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item">
-            <%= link_to('Ver Clientes', admin_customers_path, class: 'nav-link')%>
+            <%= link_to('Clientes', admin_customers_path, class: 'nav-link')%>
           </li>
           <li class="nav-item">
-            <%= link_to('Nuevo Cliente ', new_admin_customer_path, class: 'nav-link')%>
+            <%= link_to('Puestos', admin_stalls_path, class: 'nav-link')%>
           </li>
           <li class="nav-item">
-            <%= link_to('Ver Centros', admin_cost_centers_path, class: 'nav-link')%>
-          </li>
-          <li class="nav-item">
-            <%= link_to('Nuevo Centro ', new_admin_cost_center_path, class: 'nav-link')%>
-          </li>
-          <li class="nav-item">
-            <%= link_to('Ver Puestos', admin_stalls_path, class: 'nav-link')%>
-          </li>
-          <li class="nav-item">
-            <%= link_to('Nuevo Puesto ', new_admin_stall_path, class: 'nav-link')%>
+            <%= link_to('Pagos', admin_payments_path, class: 'nav-link')%>
           </li>
         </ul>
       </div>
