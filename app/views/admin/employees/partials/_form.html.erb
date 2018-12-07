@@ -50,7 +50,7 @@
       </div>
       <div class="col-xl-4 col-lg-6 mb-2 mt-2">
         <label for="">Puesto</label>
-        <%= form.collection_select :stall_id, Stall.all.order(name: :asc), :id, :name, options = {}, html_options = {class: "form-control"}%>
+        <%= form.select(:stall_ids, Stall.all.order(name: :asc).collect {|t| [t.name, t.id]}, {include_blank: false}, {multiple: true, class: "form-control"}) %>
       </div>
     </div>
 

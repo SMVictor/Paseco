@@ -1,4 +1,5 @@
-.footer{
+.public-footer{
+    background-color: #4AEEF7;
     padding: $padding-general-x 0;
     text-align: center;
     display: -webkit-flex; /* Safari */ /* Safari 6.1+ */
@@ -64,7 +65,7 @@
         }
     }
 
-    .footer-brand{
+    .public-footer-brand{
         float: left;
         height: 50px;
         padding: 15px 15px;
@@ -80,11 +81,14 @@
     .copyright{
         padding: 15px 0;
         .material-icons{
+            color: red;
             font-size: 18px;
             position: relative;
             top: 3px;
         }
-
+        a{
+          color: #06F94C;
+        }
     }
 
     .pull-center{
@@ -94,7 +98,7 @@
 }
 
 .off-canvas-sidebar {
-  .footer {
+  .public-footer {
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -102,7 +106,7 @@
 }
 
 @media screen and (min-width: 768px){
-  .footer{
+  .public-footer{
     .copyright {
       padding-right: 15px;
     }

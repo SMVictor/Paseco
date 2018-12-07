@@ -19,7 +19,7 @@
   </div>
   <div class="col-sm-3  mb-2 mt-2">
     <strong>Cliente:</strong>
-    <p><%= @stall.customer.tradename %></p>
+    <p><%= @stall.customer.tradename if @stall.customer %></p>
   </div>
   <div class="col-sm-3  mb-2 mt-2">
     <strong>Tipo de Pago:</strong>

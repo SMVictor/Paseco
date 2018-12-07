@@ -8,6 +8,7 @@ class CreateStalls < ActiveRecord::Migration[5.2]
       t.string :district
       t.string :other
       t.string :ccss_percentage
+      t.string :ccss_amount
       
       t.string :daily_viatical
       t.string :performance_extras
