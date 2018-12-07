@@ -25,8 +25,6 @@ class CreateEmployees < ActiveRecord::Migration[5.2]
       t.string :ccss_number
       t.string :social_security
 
-      t.belongs_to :stall, index: true
-
       t.timestamps
     end
   end

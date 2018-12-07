@@ -4,21 +4,21 @@
       <label for="">Nombre</label>
       <%= f.select(:name, ["Diurno", "Mixto", "Nocturno"], {}, { class: "form-control" }) %>
     </div>
+    <div class="col-lg-2 col-md-4 mt-2">
+      <label for="">Salario</label>
+      <%= f.text_field :cost, class: "form-control", placeholder: "420000" %>
+    </div>
     <div class="col-lg-2 col-md-4 mb-2 mt-2">
       <label for="">Horas</label>
       <%= f.text_field :time, class: "form-control", placeholder: "8" %>
     </div>
     <div class="col-lg-2 col-md-4 mt-2">
-      <label for="">Costo Hora</label>
-      <%= f.text_field :cost, class: "form-control", placeholder: "1250" %>
-    </div>
-    <div class="col-lg-2 col-md-4 mt-2">
       <label for="">Horas Extras</label>
-      <%= f.text_field :extra_time, class: "form-control", placeholder: "3" %>
+      <%= f.text_field :extra_time, class: "form-control", placeholder: "3", title: "Cantidad de horas extras por semana" %>
     </div>
     <div class="col-lg-2 col-md-4 mt-2">
       <label for="">Costo HE</label>
-      <%= f.text_field :extra_time_cost, class: "form-control", placeholder: "1750" %>
+      <%= f.text_field :extra_time_cost, class: "form-control", placeholder: "1.5" %>
     </div>
     <div class="col-lg-2 col-md-4 mt-2">
        <label for="">Acciones</label><br>

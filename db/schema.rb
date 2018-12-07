@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_28_190831) do
+ActiveRecord::Schema.define(version: 2018_12_06_211952) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,10 +57,14 @@ ActiveRecord::Schema.define(version: 2018_11_28_190831) do
     t.string "account"
     t.string "ccss_number"
     t.string "social_security"
-    t.bigint "stall_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["stall_id"], name: "index_employees_on_stall_id"
+  end
+
+  create_table "employees_stalls", id: false, force: :cascade do |t|
+    t.bigint "stall_id", null: false
+    t.bigint "employee_id", null: false
+    t.index ["stall_id", "employee_id"], name: "index_employees_stalls_on_stall_id_and_employee_id"
   end
 
   create_table "payments", force: :cascade do |t|
@@ -107,6 +111,7 @@ ActiveRecord::Schema.define(version: 2018_11_28_190831) do
     t.string "district"
     t.string "other"
     t.string "ccss_percentage"
+    t.string "ccss_amount"
     t.string "daily_viatical"
     t.string "performance_extras"
     t.string "daily_brands"

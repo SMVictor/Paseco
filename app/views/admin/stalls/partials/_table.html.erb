@@ -5,7 +5,7 @@
         <p class="text-uppercase">Nombre</p>
       </div>
       <div class="col-12 col-md-4">
-        <p class="text-uppercase">Centro de Costos</p>
+        <p class="text-uppercase">Cliente</p>
       </div>
       <div class="col-12 col-md-5">
         <p class="text-uppercase">Acciones</p>
@@ -20,7 +20,7 @@
           </div>
           <div class="col-12 col-md-4  pt-md-3">
             <p class="d-md-none font-weight-bold">Cliente</p>
-            <p class="text-md-center"><%= stall.customer.tradename %></p>
+            <p class="text-md-center"><%= stall.customer.tradename if stall.customer %></p>
           </div>
           <div class="col-12 col-md-5">
             <p class="d-sm-none font-weight-bold">Acciones</p>
