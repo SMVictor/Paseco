@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   #DEVISE ROUTES  
   devise_for :users, controllers: {
     registrations: 'users/registrations',
@@ -17,6 +17,8 @@ Rails.application.routes.draw do
       resources :stalls
       resources :payments
       resources :employees
+      resources :roles
+      get 'roles/lines/:id/:stall_id' => 'roles#add_role_lines', as: 'role_lines'
     end
   end
   

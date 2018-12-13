@@ -14,7 +14,9 @@ class RolesTest < ApplicationSystemTestCase
     visit roles_url
     click_on "New Role"
 
-    fill_in "Nama", with: @role.nama
+    fill_in "End Date", with: @role.end_date
+    fill_in "Name", with: @role.name
+    fill_in "Start Date", with: @role.start_date
     click_on "Create Role"
 
     assert_text "Role was successfully created"
@@ -25,7 +27,9 @@ class RolesTest < ApplicationSystemTestCase
     visit roles_url
     click_on "Edit", match: :first
 
-    fill_in "Nama", with: @role.nama
+    fill_in "End Date", with: @role.end_date
+    fill_in "Name", with: @role.name
+    fill_in "Start Date", with: @role.start_date
     click_on "Update Role"
 
     assert_text "Role was successfully updated"

@@ -6,7 +6,7 @@ class CreateEmployees < ActiveRecord::Migration[5.2]
       t.string :id_type
       t.string :identification
       t.string :birthday
-      t.integer :role
+      t.integer :position
       t.string :start_date
       t.string :end_date
 

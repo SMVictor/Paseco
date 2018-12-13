@@ -25,16 +25,39 @@
         <%= form.text_field :description, class: "form-control", placeholder: "Descripción" %>
       </div>
     </div>
-    <div id="shifts">
-      <div class="shifts-fields mt-4">
-        <legend>Información de los Turnos</legend>
-        <%= form.fields_for :shifts do |shift| %>
-          <%= render 'shift_fields', f: shift %>
-        <%end%>
-      </div>
-      <div class="row mt-4">
-        <div class="col-12 text-center p-2 tbl_footer">
-          <%= link_to_add_association ' + Agregar Turno', form, :shifts, data: { association_insertion_mode: '.shifts.fields', partial: 'shift_fields'}, class: 'btn add_btn' %>
+
+    <div class="row form_fieldset text-center">
+      <div  class="col-12 mt-4">
+        <legend class="text-left">Información de los Turnos</legend>
+        <div class="row mt-1 ml-1  mr-1 pt-3 tbl_head d-none d-md-flex text-center" style="">
+          <div class="col-12 col-md-2">
+            <p class="text-uppercase">Nombre</p>
+          </div>
+          <div class="col-12 col-md-2">
+            <p class="text-uppercase">Salario</p>
+          </div>
+          <div class="col-12 col-md-2">
+            <p class="text-uppercase">Horas</p>
+          </div>
+          <div class="col-12 col-md-2">
+            <p class="text-uppercase">Horas Extras</p>
+          </div>
+          <div class="col-12 col-md-2">
+            <p class="text-uppercase">Horas Extra</p>
+          </div>
+          <div class="col-12 col-md-2">
+            <p class="text-uppercase">Acciones</p>
+          </div>
+        </div>
+        <div class="shifts-fields mt-4">
+          <%= form.fields_for :shifts do |shift| %>
+            <%= render 'shift_fields', f: shift %>
+          <%end%>
+        </div>
+        <div class="row ml-1 mr-1 tbl_row">
+          <div class="col-12 text-center p-2 tbl_footer">
+            <%= link_to_add_association ' + Agregar Turno', form, :shifts, data: { association_insertion_mode: '.shifts.fields', partial: 'shift_fields'}, class: 'btn add_btn' %>
+          </div>
         </div>
       </div>
     </div>
