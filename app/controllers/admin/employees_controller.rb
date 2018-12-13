@@ -20,7 +20,7 @@ class EmployeesController < ApplicationController
   end
 
   def create
-    params[:employee][:role] = params[:employee][:role].to_i
+    params[:employee][:position] = params[:employee][:position].to_i
     @employee = Employee.create(employee_params)
 
     respond_to do |format|
@@ -35,7 +35,7 @@ class EmployeesController < ApplicationController
   end
 
   def update
-    params[:employee][:role] = params[:employee][:role].to_i
+    params[:employee][:position] = params[:employee][:position].to_i
     respond_to do |format|
       if @employee.update(employee_params)
         format.html { redirect_to admin_employees_url, notice: 'El empleado se actualizó correctamente.' }
@@ -62,7 +62,7 @@ class EmployeesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
-      params.require(:employee).permit(:name, :identification, :id_type, :birthday, :gender, :ccss_number, :province, :canton, :district, :other, :phone, :phone_1, :emergency_contact, :emergency_number, :role, :start_date, :end_date, :payment_method, :bank, :account, :social_security, stall_ids: [])
+      params.require(:employee).permit(:name, :identification, :id_type, :birthday, :gender, :ccss_number, :province, :canton, :district, :other, :phone, :phone_1, :emergency_contact, :emergency_number, :position, :start_date, :end_date, :payment_method, :bank, :account, :social_security, stall_ids: [])
     end
 end
 end

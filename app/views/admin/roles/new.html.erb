@@ -1,0 +1,18 @@
+<div class="row justify-content-center">
+  <div class="col-10">
+    <div class="row">
+      <h2>Nuevo Roll</h2>
+    </div>
+  </div>
+</div>
+<div class="row justify-content-center" >
+  <div class="col-12 col-md-9">
+    <div class="row justify-content-center">
+      <div class="col-lg-12 col-md-9 col-sm-9 col-xs-9">
+        <%= form_for(@role, url: admin_roles_path(@role), html: {multipart: true}) do |form| %>
+          <%= render 'admin/roles/partials/form', form: form %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

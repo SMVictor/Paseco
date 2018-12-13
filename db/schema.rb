@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_06_211952) do
+ActiveRecord::Schema.define(version: 2018_12_10_153506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 2018_12_06_211952) do
     t.string "id_type"
     t.string "identification"
     t.string "birthday"
-    t.integer "role"
+    t.integer "position"
     t.string "start_date"
     t.string "end_date"
     t.string "province"
@@ -74,6 +74,12 @@ ActiveRecord::Schema.define(version: 2018_12_06_211952) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "positions", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "requirements", force: :cascade do |t|
     t.string "name"
     t.string "shifts"
@@ -85,10 +91,33 @@ ActiveRecord::Schema.define(version: 2018_12_06_211952) do
     t.index ["stall_id"], name: "index_requirements_on_stall_id"
   end
 
-  create_table "roles", force: :cascade do |t|
-    t.string "name"
+  create_table "role_lines", force: :cascade do |t|
+    t.string "date"
+    t.string "shift"
+    t.string "substall"
+    t.string "extra_hours"
+    t.bigint "role_id"
+    t.bigint "employee_id"
+    t.bigint "stall_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["employee_id"], name: "index_role_lines_on_employee_id"
+    t.index ["role_id"], name: "index_role_lines_on_role_id"
+    t.index ["stall_id"], name: "index_role_lines_on_stall_id"
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.string "start_date"
+    t.string "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "roles_stalls", id: false, force: :cascade do |t|
+    t.bigint "stall_id", null: false
+    t.bigint "role_id", null: false
+    t.index ["stall_id", "role_id"], name: "index_roles_stalls_on_stall_id_and_role_id"
   end
 
   create_table "shifts", force: :cascade do |t|

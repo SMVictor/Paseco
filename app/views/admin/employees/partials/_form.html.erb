@@ -46,7 +46,7 @@
       </div>
       <div class="col-xl-4 col-lg-6 mt-2">
         <label for="">Cargo en la Empresan</label>
-        <%= form.collection_select :role, Role.all.order(name: :asc), :id, :name, options = {}, html_options = {class: "form-control" , id: "selectRole"}%>
+        <%= form.collection_select :position, Position.all.order(name: :asc), :id, :name, options = {}, html_options = {class: "form-control" , id: "selectRole"}%>
       </div>
       <div class="col-xl-4 col-lg-6 mb-2 mt-2">
         <label for="">Puesto</label>

@@ -1,0 +1,28 @@
+<div class="fields nested-fields text-center">
+  <div class="row">
+    <%= f.hidden_field :stall_id, value:  @stall.id %>
+    <div class="col-xl-2 col-lg-6 mb-2 pt-md-3">
+      <p class="d-md-none font-weight-bold">Fecha</p>
+      <%= f.text_field :date, id: "date", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-provide": 'datepicker' %>
+    </div>
+    <div class="col-xl-2 col-lg-6 mb-2 pt-md-3">
+      <p class="d-md-none font-weight-bold">Empleado</p>
+      <%= f.collection_select :employee_id, Employee.all.order(name: :asc), :id, :name, options = {}, html_options = {class: "form-control"}%>
+    </div>
+    <div class="col-xl-2 col-lg-6 mb-2 pt-md-3">
+      <p class="d-md-none font-weight-bold">Turno</p>
+      <%= f.select(:shift, ["Diurno", "Mixto", "Nocturno"], {}, { class: "form-control" }) %>
+    </div>
+    <div class="col-xl-2 col-lg-6 mb-2 pt-md-3">
+      <p class="d-md-none font-weight-bold">Sub-Puesto</p>
+      <%= f.text_field :substall, class: "form-control", placeholder: "Puesto 1" %>
+    </div>
+    <div class="col-xl-2 col-lg-6 mb-2 pt-md-3">
+      <p class="d-md-none font-weight-bold">Horas Extra</p>
+      <%= f.text_field :extra_hours, class: "form-control", placeholder: "3" %>
+    </div>
+    <div class="col-lg-2 col-md-4 pt-md-3">
+       <%= link_to_remove_association "", f, class: "fas fa-trash-alt", id: 'remove_link', style: "color: black" %>
+    </div>
+  </div>
+</div>

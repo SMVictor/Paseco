@@ -1,0 +1,51 @@
+<div class="card">
+  <div class="card-body">
+    <% if @role.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@role.errors.count, "error") %> impidió que este role fuera guardado :</h2>
+
+        <ul>
+        <% @role.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="row form_fieldset">
+      <div  class="col-12 p-3">
+        <legend>Información General</legend>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Nombre:</label>
+        <%= form.text_field :name, class: "form-control", placeholder: "Planilla de Diciembre" %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mt-2">
+        <label for="">Fecha de Inicio:</label>
+        <%= form.text_field :start_date, id: "start_date", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-provide": 'datepicker' %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mt-2">
+        <label for="">Fecha de Finalización</label>
+        <%= form.text_field :end_date, id: "end_date", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-provide": 'datepicker' %>
+      </div>
+    </div>
+
+    <%= form.hidden_field :stall_ids, value: [] %>
+
+    <% if @role.stalls.size > 0 %>
+    <div  class="col-12 p-3">
+      <legend>Lista de Puestos</legend>
+    </div>
+    <div class="row ml-1 mr-1 tbl_row text-center"  style="border-top:1px solid;">
+    <% @role.stalls.each do |stall| %>
+        <div class="col-6 col-sm-4 col-xl-2 pt-md-3">
+          <%= link_to(stall.name,admin_role_lines_path(stall, @role), class:'' )%>
+        </div>
+    <% end %>
+    </div>
+    <%end %>
+    
+    <%= form.submit "Guardar", class: "btn btn-success mt-4" %>
+    <%= link_to('Cancelar', admin_roles_path, class: 'btn btn-light ml-sm-3 mt-4')%>
+  </div>
+</div>

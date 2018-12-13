@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: MyString
+  shift: MyString
+  substall: MyString
+  extra_hours: MyString
+
+two:
+  date: MyString
+  shift: MyString
+  substall: MyString
+  extra_hours: MyString

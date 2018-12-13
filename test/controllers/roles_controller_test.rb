@@ -17,7 +17,7 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create role" do
     assert_difference('Role.count') do
-      post roles_url, params: { role: { nama: @role.nama } }
+      post roles_url, params: { role: { end_date: @role.end_date, name: @role.name, start_date: @role.start_date } }
     end
 
     assert_redirected_to role_url(Role.last)
@@ -34,7 +34,7 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update role" do
-    patch role_url(@role), params: { role: { nama: @role.nama } }
+    patch role_url(@role), params: { role: { end_date: @role.end_date, name: @role.name, start_date: @role.start_date } }
     assert_redirected_to role_url(@role)
   end
 
