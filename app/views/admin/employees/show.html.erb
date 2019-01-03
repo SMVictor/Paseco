@@ -39,10 +39,13 @@
   </div>
   <div class="col-md-4 col-sm-6 mt-2">
     <strong>Cargo en la Empresa:</strong>
-    <p><%= @employee.role %></p>
+    <p><%= @employee.position %></p>
   </div>
   <div class="col-md-4 col-sm-6 mt-2">
-    <strong>Puesto:</strong>
+    <strong>Puestos:</strong>
+    <% @employee.stalls.each do |stall| %>
+      <p><%= stall.name %></p>
+    <% end -%>
   </div>
 </div>
 
@@ -105,8 +108,12 @@
     <p><%= @employee.ccss_number %></p>
   </div>
   <div class="col-md-4 col-sm-6 mb-2 mt-2">
-    <strong>Pago del Seguro:</strong>
-    <p><%= @employee.social_security %></p>
+    <strong>Víaticos:</strong>
+    <p><%= @employee.daily_viatical %></p>
+  </div>
+  <div class="col-md-4 col-sm-6 mb-2 mt-2">
+    <strong>Seguro Completo:</strong>
+    <p><%= @employee.ccss_type %></p>
   </div>
 </div>
 

@@ -1,26 +1,26 @@
-<div class="fields nested-fields text-center">
+<div class="col-12 fields nested-fields text-center tbl_row">
   <div class="row">
-     <div class="col-lg-2 mb-2 mt-2">
-      <p class="d-md-none font-weight-bold">Nombre</p>
-      <%= f.select(:name, ["Diurno", "Mixto", "Nocturno"], {}, { class: "form-control" }) %>
+     <div class="col-xl-2 mb-2 mt-2">
+      <p class="d-xl-none font-weight-bold">Nombre</p>
+      <%= f.text_field :name, class: "form-control", placeholder: "Diurno" %>
     </div>
-    <div class="col-lg-2 col-md-4 mt-2">
-      <p class="d-md-none font-weight-bold"">Salario</p>
+    <div class="col-xl-2 col-md-4 mt-2">
+      <p class="d-xl-none font-weight-bold"">Salario</p>
       <%= f.text_field :cost, class: "form-control", placeholder: "420000" %>
     </div>
-    <div class="col-lg-2 col-md-4 mb-2 mt-2">
-      <p class="d-md-none font-weight-bold">Horas</p>
+    <div class="col-xl-2 col-md-4 mb-2 mt-2">
+      <p class="d-xl-none font-weight-bold">Horas</p>
       <%= f.text_field :time, class: "form-control", placeholder: "8" %>
     </div>
-    <div class="col-lg-2 col-md-4 mt-2">
-      <p class="d-md-none font-weight-bold">Horas Extras</p>
+    <div class="col-xl-2 col-md-4 mt-2">
+      <p class="d-xl-none font-weight-bold">Horas Extras</p>
       <%= f.text_field :extra_time, class: "form-control", placeholder: "3", title: "Cantidad de horas extras por semana" %>
     </div>
-    <div class="col-lg-2 col-md-4 mt-2">
-      <p class="d-md-none font-weight-bold">Costo HE</p>
+    <div class="col-xl-2 col-md-4 mt-2">
+      <p class="d-xl-none font-weight-bold">Costo HE</p>
       <%= f.text_field :extra_time_cost, class: "form-control", placeholder: "1.5" %>
     </div>
-    <div class="col-lg-2 col-md-4 mt-2">
+    <div class="col-xl-2 col-md-4 mt-2">
        <%= link_to_remove_association "", f, class: "fas fa-trash-alt", id: 'remove_link', style: "color: black" %>
     </div>
   </div>

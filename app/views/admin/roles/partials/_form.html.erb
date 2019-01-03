@@ -39,7 +39,7 @@
     <div class="row ml-1 mr-1 tbl_row text-center"  style="border-top:1px solid;">
     <% @role.stalls.each do |stall| %>
         <div class="col-6 col-sm-4 col-xl-2 pt-md-3">
-          <%= link_to(stall.name,admin_role_lines_path(stall, @role), class:'' )%>
+          <%= link_to(stall.name,admin_role_lines_path(@role, stall), class:'' )%>
         </div>
     <% end %>
     </div>

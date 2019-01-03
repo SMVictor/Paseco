@@ -7,14 +7,11 @@ class CreateStalls < ActiveRecord::Migration[5.2]
       t.string :canton
       t.string :district
       t.string :other
-      t.string :ccss_percentage
-      t.string :ccss_amount
       
       t.string :daily_viatical
       t.string :performance_extras
       t.string :daily_brands
       t.string :extra_shift
-
 
       t.belongs_to :customer, index: true
       t.belongs_to :payment, index: true
