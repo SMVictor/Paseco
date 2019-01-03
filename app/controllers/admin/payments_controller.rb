@@ -14,6 +14,7 @@ class PaymentsController < ApplicationController
 
   def new
     @payment = Payment.new
+    @payments =  Shift.all.order(name: :asc)
   end
 
   def edit

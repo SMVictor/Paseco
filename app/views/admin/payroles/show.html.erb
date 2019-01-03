@@ -1,0 +1,130 @@
+<div class="row justify-content-center">
+  <div class="col-12">
+    <p id="notice"><%= notice %></p>
+    <h2>Planilla de Empleados</h2><br>
+  </div>
+</div>
+
+<div class="row form_fieldset">
+  <div  class="col-12 mt-4">
+    <legend>Información General</legend>
+  </div>
+  <div class="col-lg-4 mb-2 mt-2">
+    <label for="">Nombre</label>
+    <p><%= @payrole.name %></p>
+  </div>
+  <div class="col-lg-4 mb-2 mt-2">
+    <label for="">Fecha de Inicio</label>
+    <p><%= @payrole.start_date %></p>
+  </div>
+  <div class="col-lg-4 mb-2 mt-2">
+    <label for="">Fecha de Fin</label>
+    <p><%= @payrole.end_date %></p>
+  </div>
+</div>
+<div class="row form_fieldset">
+  <div  class="col-12 mt-4">
+    <legend>Información de los Pagos</legend>
+    <div class="card">
+      <div class="card-body">
+        <div class="row mt-1 ml-1  mr-1 pt-3 tbl_head d-none d-md-flex text-center" style="">
+          <div class="col-12 col-md-3">
+            <div class="row">
+              <div class="col-12 col-md-6">
+                <p class="text-uppercase">Empleado</p>
+              </div>
+              <div class="col-12 col-md-6">
+                <p class="text-uppercase">Salario Mínimo</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-3">
+            <div class="row">
+              <div class="col-12 col-md-6">
+                <p class="text-uppercase">Horas Extras</p>
+              </div>
+              <div class="col-12 col-md-6">
+                <p class="text-uppercase">Viáticos</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-3">
+            <div class="row">
+              <div class="col-12 col-md-6">
+                <p class="text-uppercase">Pago CCSS</p>
+              </div>
+              <div class="col-12 col-md-6">
+                <p class="text-uppercase">Deducciones</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-3">
+            <div class="row">
+              <div class="col-12 col-md-6">
+                <p class="text-uppercase">Pagos Extras</p>
+              </div>
+              <div class="col-12 col-md-6">
+                <p class="text-uppercase">Salario Neto</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% if @payrole.payrole_lines%>
+          <% @payrole.payrole_lines.each do |line| %>
+            <div class="row ml-1 mr-1 tbl_row"  style="">
+              <div class="col-12 col-md-3">
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <p class="d-md-none font-weight-bold">Empleado</p>
+                    <p class="text-md-center"><%= line.employee.name %></p>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <p class="d-md-none font-weight-bold">Salario Mínimo</p>
+                    <p class="text-md-center"><%= line.min_salary %></p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-3">
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <p class="d-md-none font-weight-bold">Horas Extras</p>
+                    <p class="text-md-center"><%= line.extra_hours %></p>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <p class="d-md-none font-weight-bold">Víaticos</p>
+                    <p class="text-md-center"><%= line.daily_viatical %></p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-3">
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <p class="d-md-none font-weight-bold">Pago CCSS</p>
+                    <p class="text-md-center"><%= line.ccss_deduction %></p>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <p class="d-md-none font-weight-bold">Deducciones</p>
+                    <p class="text-md-center"><%= line.deductions %></p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-3">
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <p class="d-md-none font-weight-bold">Pagos Extras</p>
+                    <p class="text-md-center"><%= line.extra_payments %></p>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <p class="d-md-none font-weight-bold">Salario Neto</p>
+                    <p class="text-md-center"><%= line.net_salary %></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <%end %>
+      </div>
+    </div>
+  </div>
+</div>
+<%= link_to 'Atrás', admin_payroles_path %>

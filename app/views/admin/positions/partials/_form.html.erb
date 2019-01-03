@@ -1,0 +1,29 @@
+<div class="card">
+  <div class="card-body">
+    <% if @position.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@position.errors.count, "error") %> impidió que este rango fuera guardado :</h2>
+
+        <ul>
+        <% @position.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="row form_fieldset">
+      <div class="col-lg-6 mb-2 mt-2">
+        <label for="">Nombre</label>
+        <%= form.text_field :name, class: "form-control", placeholder: "Librero 1" %>
+      </div>
+      <div class="col-lg-6 mb-2 mt-2">
+        <label for="">Salario</label>
+        <%= form.text_field :salary, class: "form-control", placeholder: "425000" %>
+      </div>
+    </div>
+    
+    <%= form.submit "Guardar", class: "btn btn-success mt-4" %>
+    <%= link_to('Cancelar', admin_positions_path, class: 'btn btn-light ml-sm-3 mt-4')%>
+  </div>
+</div>

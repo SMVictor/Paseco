@@ -21,8 +21,11 @@ class RolesController < ApplicationController
   end
 
   def create
-
     @role = Role.create(role_params)
+    @employees = Employee.all
+    @employees.each do |employee|
+      @role.payrole_lines.create([{ min_salary: '0', extra_hours: '0', daily_viatical: '0', ccss_deduction: '0', extra_payments: '0', deductions: '0', net_salary: '0', employee_id: employee.id }])
+    end
 
     respond_to do |format|
       if @role.save
@@ -66,7 +69,7 @@ class RolesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def role_params
-      params.require(:role).permit(:name, :start_date, :end_date, stall_ids: [], role_lines_attributes: [:id, :date, :employee_id, :stall_id, :shift, :substall, :extra_hours, :_destroy])
+      params.require(:role).permit(:name, :start_date, :end_date, stall_ids: [], role_lines_attributes: [:id, :date, :employee_id, :stall_id, :shift_id, :substall, :hours, :_destroy])
     end
 end
 end

@@ -1,0 +1,12 @@
+<% for i in 0..stall.role_lines.size-1 %>
+  <% if i%2 != 0 %>
+    <% next %>
+  <% else %>
+    <tr>
+      <th scope="row"><%= stall.role_lines[i].date %></th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+  <% end -%>
+<% end -%>

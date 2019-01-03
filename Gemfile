@@ -78,3 +78,5 @@ gem 'cancancan'
 gem 'bootstrap-datepicker-rails'
 
 gem "cocoon"
+
+gem "select2-rails"

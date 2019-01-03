@@ -6,7 +6,6 @@ class CreateEmployees < ActiveRecord::Migration[5.2]
       t.string :id_type
       t.string :identification
       t.string :birthday
-      t.integer :position
       t.string :start_date
       t.string :end_date
 
@@ -24,6 +23,10 @@ class CreateEmployees < ActiveRecord::Migration[5.2]
       t.string :account
       t.string :ccss_number
       t.string :social_security
+      t.string :daily_viatical
+      t.string :ccss_type
+
+      t.belongs_to :position, index: true
 
       t.timestamps
     end

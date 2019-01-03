@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_10_153506) do
+ActiveRecord::Schema.define(version: 2018_12_20_140521) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,7 +41,6 @@ ActiveRecord::Schema.define(version: 2018_12_10_153506) do
     t.string "id_type"
     t.string "identification"
     t.string "birthday"
-    t.integer "position"
     t.string "start_date"
     t.string "end_date"
     t.string "province"
@@ -57,8 +56,12 @@ ActiveRecord::Schema.define(version: 2018_12_10_153506) do
     t.string "account"
     t.string "ccss_number"
     t.string "social_security"
+    t.string "daily_viatical"
+    t.string "ccss_type"
+    t.bigint "position_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["position_id"], name: "index_employees_on_position_id"
   end
 
   create_table "employees_stalls", id: false, force: :cascade do |t|
@@ -74,8 +77,25 @@ ActiveRecord::Schema.define(version: 2018_12_10_153506) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "payrole_lines", force: :cascade do |t|
+    t.string "min_salary"
+    t.string "extra_hours"
+    t.string "daily_viatical"
+    t.string "ccss_deduction"
+    t.string "net_salary"
+    t.string "extra_payments"
+    t.string "deductions"
+    t.bigint "role_id"
+    t.bigint "employee_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["employee_id"], name: "index_payrole_lines_on_employee_id"
+    t.index ["role_id"], name: "index_payrole_lines_on_role_id"
+  end
+
   create_table "positions", force: :cascade do |t|
     t.string "name"
+    t.string "salary"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -93,16 +113,17 @@ ActiveRecord::Schema.define(version: 2018_12_10_153506) do
 
   create_table "role_lines", force: :cascade do |t|
     t.string "date"
-    t.string "shift"
     t.string "substall"
-    t.string "extra_hours"
+    t.string "hours"
     t.bigint "role_id"
     t.bigint "employee_id"
     t.bigint "stall_id"
+    t.bigint "shift_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["employee_id"], name: "index_role_lines_on_employee_id"
     t.index ["role_id"], name: "index_role_lines_on_role_id"
+    t.index ["shift_id"], name: "index_role_lines_on_shift_id"
     t.index ["stall_id"], name: "index_role_lines_on_stall_id"
   end
 
@@ -139,8 +160,6 @@ ActiveRecord::Schema.define(version: 2018_12_10_153506) do
     t.string "canton"
     t.string "district"
     t.string "other"
-    t.string "ccss_percentage"
-    t.string "ccss_amount"
     t.string "daily_viatical"
     t.string "performance_extras"
     t.string "daily_brands"

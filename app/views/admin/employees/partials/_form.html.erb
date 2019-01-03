@@ -13,7 +13,7 @@
     <% end %>
 
     <div class="row form_fieldset">
-      <div  class="col-12 mt-4 p-3">
+      <div  class="col-12 p-3">
         <legend>Información General</legend>
       </div>
       <div class="col-xl-4 col-lg-6 mb-2 mt-2">
@@ -46,16 +46,16 @@
       </div>
       <div class="col-xl-4 col-lg-6 mt-2">
         <label for="">Cargo en la Empresan</label>
-        <%= form.collection_select :position, Position.all.order(name: :asc), :id, :name, options = {}, html_options = {class: "form-control" , id: "selectRole"}%>
+        <%= form.collection_select :position_id, Position.all.order(name: :asc), :id, :name, options = {}, html_options = {class: "form-control" , id: "selectRole"}%>
       </div>
-      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+      <div class="col-xl-4 col-lg-6 mt-2">
         <label for="">Puesto</label>
         <%= form.select(:stall_ids, Stall.all.order(name: :asc).collect {|t| [t.name, t.id]}, {include_blank: false}, {multiple: true, class: "form-control"}) %>
       </div>
     </div>
 
-    <div class="row form_fieldset mb-2">
-      <div  class="col-12 mt-4 p-3">
+    <div class="row form_fieldset">
+      <div  class="col-12 p-3">
         <legend>Información de Contacto</legend>
       </div>
       <div class="col-xl-4 col-lg-6 mb-2 mt-2">
@@ -92,29 +92,37 @@
       </div>
     </div>
 
-    <div class="row form_fieldset mb-2">
-      <div  class="col-12 mt-4 p-3">
+    <div class="row form_fieldset mt-4">
+      <div  class="col-12 p-3">
         <legend>Información Financiera</legend>
       </div>
-      <div class="col-lg-4 mb-2 mt-2">
+      <div class="col-xl-3 col-lg-6 mb-2 mt-2">
         <label for="">Método de Pago</label>
         <%= form.select(:payment_method, ["Transferencia", "Efectivo", "Cheque"], {}, { class: "form-control" }) %>
       </div>
-      <div class="col-lg-4 mb-2 mt-2">
+      <div class="col-xl-3 col-lg-6 mb-2 mt-2">
         <label for="">Banco:</label>
         <%= form.select(:bank, ["BAC", "BNCR", "BCR", "Banco Popular"], {}, { class: "form-control" }) %>
       </div>
-      <div class="col-lg-4 mb-2 mt-2">
+      <div class="col-xl-3 col-lg-6 mb-2 mt-2">
         <label for="">Número de Cuenta:</label>
         <%= form.text_field :account, class: "form-control", placeholder: "200-01-171-030528-4" %>
       </div>
-      <div class="col-lg-4 mb-2 mt-2">
+      <div class="col-xl-3 col-lg-6 mb-2 mt-2">
+        <label for="">Viáticos:</label><br>
+        <%= form.check_box :daily_viatical, {}, checked_value = "yes", unchecked_value = "not" %>
+      </div>
+      <div class="col-xl-3 col-lg-6 mb-2 mt-2">
         <label for="">Número de SCCSS:</label>
         <%= form.text_field :ccss_number, class: "form-control", placeholder: "Número de SCCSS" %>
       </div>
-      <div class="col-lg-4 mb-2 mt-2">
+      <div class="col-xl-3 col-lg-6 mb-2 mt-2">
         <label for="">Pago del Seguro:</label>
         <%= form.select(:social_security, ["Porcentaje", "Monto"], {}, { class: "form-control" }) %>
+      </div>
+      <div class="col-xl-3 col-lg-6 mb-2 mt-2">
+        <label for="">CCSS Completo:</label><br>
+        <%= form.check_box :ccss_type, {}, checked_value = "yes", unchecked_value = "not" %>
       </div>
     </div>
     

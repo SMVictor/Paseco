@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  min_salary: MyString
+  extra_hours: MyString
+  gross_salary: MyString
+  ccss_deduction: MyString
+  net_salary: MyString
+  extra_payments: MyString
+  deductions: MyString
+
+two:
+  min_salary: MyString
+  extra_hours: MyString
+  gross_salary: MyString
+  ccss_deduction: MyString
+  net_salary: MyString
+  extra_payments: MyString
+  deductions: MyString

@@ -18,6 +18,8 @@ Rails.application.routes.draw do
       resources :payments
       resources :employees
       resources :roles
+      resources :payroles
+      resources :positions
       get 'roles/lines/:id/:stall_id' => 'roles#add_role_lines', as: 'role_lines'
     end
   end
