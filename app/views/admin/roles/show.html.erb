@@ -1,4 +1,4 @@
-<div class="row justify-content-center">
+<div class="row d-flex justify-content-center">
   <div class="col-12">
     <p id="notice"><%= notice %></p>
     <h2>Información del Roll</h2><br>
@@ -29,8 +29,10 @@
   </div>
   <% if @role.stalls %>
     <% @role.stalls.each do |stall| %>
-      <h4><%= stall.name %></h4>
-      <div class="col-12" id="showTable"><%= render 'admin/roles/partials/show_table', stall:  stall %></div>
+      <div class="col-12">
+        <h4 class="text-center mb-3"><%= stall.name %></h4>
+        <div class="mb-5" id="showTable"><%= render 'admin/roles/partials/show_table', stall:  stall %></div>
+      </div>
     <% end -%>
   <% end -%>
 </div>

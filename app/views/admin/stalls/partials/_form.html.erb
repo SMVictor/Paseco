@@ -18,7 +18,7 @@
       </div>
       <div class="col-xl-4 col-lg-6 mb-2 mt-2">
         <label for="">Nombre</label>
-        <%= form.text_field :name, class: "form-control", placeholder: "Nombre" %>
+        <%= form.text_field :name, class: "form-control", placeholder: "Charlie 01" %>
       </div>
       <div class="col-xl-4 col-lg-6 mb-2 mt-2">
         <label for="">Descripción</label>
@@ -31,6 +31,10 @@
       <div class="col-xl-4 col-lg-6 mb-2 mt-2">
         <label for="">Tipo de Pago</label>
         <%= form.collection_select :payment_id, Payment.all.order(name: :asc), :id, :name, options = {}, html_options = {class: "form-control"}%>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Salario Mínimo</label>
+        <%= form.text_field :min_salary, class: "form-control", placeholder: "323028" %>
       </div>
       <div class="col-xl-4 col-lg-6 mb-2 mt-2">
         <label for="">Provincia</label>
@@ -51,23 +55,19 @@
     </div>
     <div class="row form_fieldset">
       <div  class="col-12 mt-4 p-3">
-        <legend>Pagos Extras</legend>
+        <legend>Información Extra</legend>
       </div>
-      <div class="col-xl-3 col-lg-6 mb-2 mt-2">
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
         <label for="">Viático Diario</label>
         <%= form.text_field :daily_viatical, class: "form-control", placeholder: "500" %>
       </div>
-      <div class="col-xl-3 col-lg-6 mb-2 mt-2">
-        <label for="">Extras Rendimiento</label>
-        <%= form.text_field :performance_extras, class: "form-control", placeholder: "500" %>
-      </div>
-      <div class="col-xl-3 col-lg-6 mb-2 mt-2">
-        <label for="">Marcas Diarias</label>
-        <%= form.text_field :daily_brands, class: "form-control", placeholder: "500" %>
-      </div>
-      <div class="col-xl-3 col-lg-6 mb-2 mt-2">
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
         <label for="">Turno Extra</label>
         <%= form.text_field :extra_shift, class: "form-control", placeholder: "10500" %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Cantidad de Puestos</label><br>
+        <%= form.select :substalls, ((0..20).map {|i| [i,i] }), {}, {class: "form-control"} %>
       </div>
     </div>
     <div class="row form_fieldset text-center">

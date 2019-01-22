@@ -11,7 +11,7 @@ class PayrolesController < ApplicationController
 
   def show
 
-    @ccss_percent = 0.13
+    @ccss_percent = 0.1035
     @ccss_amount = 12500
 
     @employees = Employee.all
@@ -40,7 +40,7 @@ class PayrolesController < ApplicationController
       @role_lines.each do |role_line|
         @stall = role_line.stall
         @shift = role_line.shift
-        @hour_cost = @shift.cost.to_f/@shift.time.to_f/30 if @shift
+        @hour_cost = @stall.min_salary.to_f/@shift.time.to_f/30 if @shift and @stall
 
         @normal_hours = 0
         @extra_hours = 0
@@ -50,7 +50,8 @@ class PayrolesController < ApplicationController
         @normal_hours = role_line.hours.to_f - @extra_hours
 
         @min_salary += @normal_hours * @hour_cost
-        @extra_salary += @hour_cost * @shift.extra_time_cost.to_f * @extra_hours
+
+        @extra_salary += ((@stall.min_salary.to_f/30)/8) * @shift.extra_time_cost.to_f * @extra_hours
 
         if employee.daily_viatical == 'yes'
           @viatical += @stall.daily_viatical.to_f
@@ -58,6 +59,9 @@ class PayrolesController < ApplicationController
 
       end
       @payrole_line = @payrole.payrole_lines.where(employee_id: employee.id)[0]
+      if @payrole_line == nil
+        @payrole_line = @payrole.payrole_lines.create([{ min_salary: '0', extra_hours: '0', daily_viatical: '0', ccss_deduction: '0', extra_payments: '0', deductions: '0', net_salary: '0', employee_id: employee.id }])[0]
+      end
       @payrole_line.min_salary = @min_salary.round(2)
       @payrole_line.extra_hours = @extra_salary.round(2)
       @payrole_line.daily_viatical = @viatical.round(2)
@@ -82,6 +86,9 @@ class PayrolesController < ApplicationController
 
       @role_lines = @payrole.role_lines.where(employee: employee)
       @payrole_line = @payrole.payrole_lines.where(employee_id: employee.id)[0]
+      if @payrole_line == nil
+        @payrole_line = @payrole.payrole_lines.create([{ min_salary: '0', extra_hours: '0', daily_viatical: '0', ccss_deduction: '0', extra_payments: '0', deductions: '0', net_salary: '0', employee_id: employee.id }])[0]
+      end
       @day_cost = employee.position.salary.to_f/30
 
       @min_salary     = 0

@@ -25,6 +25,10 @@
     <strong>Tipo de Pago:</strong>
     <p><%= @stall.payment.name %></p>
   </div>
+  <div class="col-sm-3  mb-2 mt-2">
+    <strong>Salario Mínimo:</strong>
+    <p><%= @stall.min_salary %></p>
+  </div>
   <div class="col-sm-3 mb-2 mt-2">
     <strong>Provincia:</strong>
     <p><%= @stall.province %></p>
@@ -50,13 +54,9 @@
     <strong>Viático Diario:</strong>
     <p><%= @stall.daily_viatical %></p>
   </div>
-  <div class="col-sm-3 mb-2 mt-2">
-    <strong>Extras Rendimiento:</strong>
-    <p><%= @stall.performance_extras %></p>
-  </div>
   <div class="col-sm-3  mb-2 mt-2">
-    <strong>Marcas Diarias:</strong>
-    <p><%= @stall.daily_brands %></p>
+    <strong>Cantidad de Puestos:</strong>
+    <p><%= @stall.substalls %></p>
   </div>
   <div class="col-sm-3  mb-2 mt-2">
     <strong>Turno Extra:</strong>

@@ -4,7 +4,6 @@ class CreateShifts < ActiveRecord::Migration[5.2]
       t.string :name
       t.string :time
       t.string :cost
-      t.string :extra_time
       t.string :extra_time_cost
 
       t.belongs_to :payment, index: true

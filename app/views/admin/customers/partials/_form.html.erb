@@ -38,11 +38,11 @@
       </div>
       <div class="col-xl-4 col-lg-6 mt-2">
         <label for="">Fecha de Contratación</label>
-        <%= form.text_field :start_date, id: "date", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-provide": 'datepicker' %>
+        <%= form.text_field :start_date, id: "date", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-date-format": 'dd/mm/yyyy', "data-provide": 'datepicker' %>
       </div>
       <div class="col-xl-4 col-lg-6 mt-2">
         <label for="">Fecha de Finalización</label>
-        <%= form.text_field :end_date, id: "", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-provide": 'datepicker' %>
+        <%= form.text_field :end_date, id: "", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-date-format": 'dd/mm/yyyy', "data-provide": 'datepicker' %>
       </div>
     </div>
 
