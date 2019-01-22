@@ -3,7 +3,7 @@ class RolesController < ApplicationController
 
   layout 'admin'
   
-  before_action :set_role, only: [:show, :edit, :update, :destroy, :add_role_lines]
+  before_action :set_role, only: [:show, :edit, :update, :destroy, :add_role_lines, :update_role_lines]
 
   def index
     @roles = Role.all.order(start_date: :desc)
@@ -22,10 +22,6 @@ class RolesController < ApplicationController
 
   def create
     @role = Role.create(role_params)
-    @employees = Employee.all
-    @employees.each do |employee|
-      @role.payrole_lines.create([{ min_salary: '0', extra_hours: '0', daily_viatical: '0', ccss_deduction: '0', extra_payments: '0', deductions: '0', net_salary: '0', employee_id: employee.id }])
-    end
 
     respond_to do |format|
       if @role.save
@@ -50,6 +46,18 @@ class RolesController < ApplicationController
     end
   end
 
+  def update_role_lines
+    respond_to do |format|
+      if @role.update(role_params)
+        format.html { redirect_to admin_role_lines_url, notice: 'El role se actualizó correctamente.' }
+        format.json { render json: @role, status: :ok, location: @role }
+      else
+        format.html { render :edit }
+        format.json { render json: @role.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def destroy
     @role.destroy
     respond_to do |format|
@@ -59,6 +67,12 @@ class RolesController < ApplicationController
 
   def add_role_lines
     @stall = Stall.find(params[:stall_id])
+    @substalls = []
+    @count = 1
+    while @count <= @stall.substalls.to_i
+      @substalls[@count-1] = "Puesto " + @count.to_s
+      @count = @count+1
+    end
   end
 
   private
@@ -69,7 +83,7 @@ class RolesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def role_params
-      params.require(:role).permit(:name, :start_date, :end_date, stall_ids: [], role_lines_attributes: [:id, :date, :employee_id, :stall_id, :shift_id, :substall, :hours, :_destroy])
+      params.require(:role).permit(:name, :start_date, :end_date, stall_ids: [], role_lines_attributes: [:id, :date, :employee_id, :stall_id, :shift_id, :substall, :hours, :comment, :_destroy])
     end
 end
 end

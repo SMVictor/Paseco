@@ -1,8 +1,8 @@
 <div class="row justify-content-center" >
-  <div class="col-12 col-md-9" style="">
+  <div class="col-12" style="">
     <div class="row justify-content-center">
       <div class="col-lg-12 col-md-9 col-sm-9 col-xs-9">
-        <%= form_for(@role, url: admin_role_path(@role), html: {multipart: true}) do |form| %>
+        <%= form_for(@role, url: admin_edit_role_lines_path(@role), html: {multipart: true}) do |form| %>
           <div class="row form_fieldset">
             <div  class="col-12 p-3">
               <legend>Información General</legend>
@@ -13,39 +13,46 @@
             </div>
             <div class="col-xl-4 col-lg-6 mt-2">
               <label for="">Fecha de Inicio:</label>
-              <%= form.text_field :start_date, id: "start_date", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-provide": 'datepicker' %>
+              <%= form.text_field :start_date, id: "start_date", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-date-format": 'dd/mm/yyyy', "data-provide": 'datepicker' %>
             </div>
             <div class="col-xl-4 col-lg-6 mt-2">
               <label for="">Fecha de Finalización</label>
-              <%= form.text_field :end_date, id: "end_date", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-provide": 'datepicker' %>
+              <%= form.text_field :end_date, id: "end_date", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control datepicker", "data-date-format": 'dd/mm/yyyy', "data-provide": 'datepicker' %>
             </div>
           </div>
 
           <div class="row form_fieldset text-center">
             <div  class="col-12 mt-4">
-              <legend class="text-left">Distribución de Oficiales</legend>
+              <legend class="text-left">Distribución de Oficiales en <%= @stall.name %></legend>
               <div class="row mt-1 ml-1  mr-1 pt-3 tbl_head d-none d-md-flex text-center" style="">
                 <div class="col-12 col-md-2">
                   <p class="text-uppercase">Fecha</p>
                 </div>
-                <div class="col-12 col-md-2">
+                <div class="col-12 col-md-3">
                   <p class="text-uppercase">Empleado</p>
                 </div>
-                <div class="col-12 col-md-2">
-                  <p class="text-uppercase">Turno</p>
+                <div class="col-12 col-md-3">
+                  <div class="row">
+                    <div class="col-12 col-md-6">
+                      <p class="text-uppercase">Turno</p>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <p class="text-uppercase">Sub-Puesto</p>
+                    </div>
+                  </div>
                 </div>
-                <div class="col-12 col-md-2">
-                  <p class="text-uppercase">Sub-Puesto</p>
-                </div>
-                <div class="col-12 col-md-2">
+                <div class="col-12 col-md-1">
                   <p class="text-uppercase">Horas</p>
                 </div>
                 <div class="col-12 col-md-2">
+                  <p class="text-uppercase">Comentarios</p>
+                </div>
+                <div class="col-12 col-md-1">
                   <p class="text-uppercase">Acciones</p>
                 </div>
               </div>
               <div class="role_lines-fields mt-4">
-                <%= form.fields_for :role_lines, @role.role_lines.where(stall_id: @stall.id) do |role_line| %>
+                <%= form.fields_for :role_lines, @role.role_lines.where(stall_id: @stall.id).order(:employee_id, date: :asc) do |role_line| %>
                   <%= render 'role_line_fields', f: role_line %>
                 <%end%>
               </div>

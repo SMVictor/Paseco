@@ -21,7 +21,7 @@ class PaymentsController < ApplicationController
   end
 
   def create
-
+    params[:payment][:shifts_attributes][:"1212121212123"] = {"name"=>"Libre", "time"=>"8", "extra_time_cost"=>"0", "_destroy"=>"false"}
     @payment = Payment.create(payment_params)
 
     respond_to do |format|
@@ -62,7 +62,7 @@ class PaymentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def payment_params
-      params.require(:payment).permit(:name, :description, shifts_attributes: [:id, :name, :description, :time, :cost, :extra_time, :extra_time_cost, :_destroy])
+      params.require(:payment).permit(:name, :description, shifts_attributes: [:id, :name, :time, :extra_time_cost, :_destroy])
     end
 end
 end

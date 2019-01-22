@@ -24,17 +24,11 @@
     <div class="card">
       <div class="card-body">
         <div class="row mt-1 ml-1  mr-1 pt-3 tbl_head d-none d-md-flex text-center" style="">
-          <div class="col-12 col-md-2">
+          <div class="col-12 col-md-4">
             <p class="text-uppercase">Nombre</p>
           </div>
-          <div class="col-12 col-md-2">
+          <div class="col-12 col-md-4">
             <p class="text-uppercase">Horas</p>
-          </div>
-          <div class="col-12 col-md-2">
-            <p class="text-uppercase">Costo Hora</p>
-          </div>
-          <div class="col-12 col-md-2">
-            <p class="text-uppercase">Horas Extras</p>
           </div>
           <div class="col-12 col-md-4">
             <p class="text-uppercase">Costo Horas Extras</p>
@@ -43,24 +37,16 @@
         <% if @payment.shifts%>
           <% @payment.shifts.each do |shift| %>
             <div class="row ml-1 mr-1 tbl_row"  style="">
-              <div class="col-12 col-md-2 pt-md-3">
+              <div class="col-12 col-md-4 pt-md-2">
                 <p class="d-md-none font-weight-bold">Nombre</p>
                 <p class="text-md-center"><%= shift.name %></p>
               </div>
-              <div class="col-12 col-md-2  pt-md-3">
+              <div class="col-12 col-md-4  pt-md-2">
                 <p class="d-md-none font-weight-bold">Horas</p>
                 <p class="text-md-center"><%= shift.time %></p>
               </div>
-              <div class="col-12 col-md-2  pt-md-3">
-                <p class="d-md-none font-weight-bold">Costo Hora</p>
-                <p class="text-md-center"><%= shift.cost %></p>
-              </div>
-              <div class="col-12 col-md-2  pt-md-3">
-                <p class="d-md-none font-weight-bold">Horas Extras</p>
-                <p class="text-md-center"><%= shift.extra_time %></p>
-              </div>
-              <div class="col-12 col-md-4  pt-md-3">
-                <p class="d-md-none font-weight-bold">Costo Horas Extras</p>
+              <div class="col-12 col-md-4  pt-md-2">
+                <p class="d-md-none font-weight-bold">Costo HE</p>
                 <p class="text-md-center"><%= shift.extra_time_cost %></p>
               </div>
             </div>

@@ -9,9 +9,9 @@ class CreateStalls < ActiveRecord::Migration[5.2]
       t.string :other
       
       t.string :daily_viatical
-      t.string :performance_extras
-      t.string :daily_brands
       t.string :extra_shift
+      t.string :min_salary
+      t.string :substalls
 
       t.belongs_to :customer, index: true
       t.belongs_to :payment, index: true
