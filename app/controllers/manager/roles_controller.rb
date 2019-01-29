@@ -1,8 +1,8 @@
-module Admin
+module Manager
 class RolesController < ApplicationController
 
   layout 'admin'
-  load_and_authorize_resource
+  
   before_action :set_role, only: [:show, :edit, :update, :destroy, :add_role_lines, :update_role_lines]
 
   def index

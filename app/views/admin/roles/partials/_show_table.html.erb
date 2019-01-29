@@ -38,22 +38,24 @@
     var shifts = JSON.parse(document.querySelector('#table').dataset.shifts)
 
     for (var i = 0; i < lines.length; i++) {
-      for (var j = 0; j < shifts.length; j++) {
-        if (lines[i].shift_id == shifts[j].id) {
-          try{
-            var td = document.getElementById(lines[i].stall_id.toString() + lines[i].employee_id.toString() +  lines[i].date );
-            if (shifts[j].name != "Libre") {
-              td.innerHTML = shifts[j].name + " en " + lines[i].substall;
-            }
-            else{
-              td.innerHTML = shifts[j].name;
-            }
-            if (lines[i].comment) {
-              td.title = lines[i].comment;
-              td.style.borderColor = "red";
-            }
-          }catch(err){
+      if (lines[i].state == "approved") {
+        for (var j = 0; j < shifts.length; j++) {
+          if (lines[i].shift_id == shifts[j].id) {
+            try{
+              var td = document.getElementById(lines[i].stall_id.toString() + lines[i].employee_id.toString() +  lines[i].date );
+              if (shifts[j].name != "Libre") {
+                td.innerHTML = shifts[j].name + " en " + lines[i].substall;
+              }
+              else{
+                td.innerHTML = shifts[j].name;
+              }
+              if (lines[i].comment) {
+                td.title = lines[i].comment;
+                td.style.borderColor = "red";
+              }
+            }catch(err){
 
+            }
           }
         }
       }

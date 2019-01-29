@@ -23,6 +23,9 @@ Rails.application.routes.draw do
       get 'roles/lines/:id/:stall_id' => 'roles#add_role_lines', as: 'role_lines'
       patch 'roles/lines/:id/:stall_id' => 'roles#update_role_lines', as: 'edit_role_lines'
     end
+    namespace :manager do
+      resources :roles
+    end
   end
   
   root 'home#home'
