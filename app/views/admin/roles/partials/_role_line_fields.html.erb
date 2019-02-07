@@ -1,21 +1,22 @@
 <div class="col-12 fields nested-fields text-center tbl_row">
   <div class="row">
     <%= f.hidden_field :stall_id, value:  @stall.id %>
+    <%= f.hidden_field :state, value:  "approved" %>
     <div class="col-xl-2 col-lg-6 mb-2 pt-md-3">
       <p class="d-md-none font-weight-bold">Fecha</p>
       <%= f.text_field :date, id: "date", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-date-format": 'dd/mm/yyyy', "data-provide": 'datepicker' %>
     </div>
     <div class="col-xl-2 col-lg-6 mb-2 pt-md-3">
       <p class="d-md-none font-weight-bold">Empleado</p>
-      <%= f.collection_select :employee_id, @stall.employees.order(name: :asc), :id, :name, options = {}, html_options = {class: "form-control"}%>
+      <%= f.collection_select :employee_id, @stall.employees.order(name: :asc), :id, :name, options = {include_blank: 'Seleccione un Empleado'}, html_options = {class: "form-control"}%>
     </div>
     <div class="col-xl-2 col-lg-6 mb-2 pt-md-3">
       <p class="d-md-none font-weight-bold">Turno</p>
-      <%= f.collection_select :shift_id, @stall.payment.shifts.order(name: :asc), :id, :name, options = {}, html_options = {class: "form-control"}%>
+      <%= f.collection_select :shift_id, @stall.payment.shifts.order(name: :asc), :id, :name, options = {include_blank: 'Seleccione un Turno'}, html_options = {class: "form-control"}%>
     </div>
     <div class="col-xl-2 col-lg-6 mb-2 pt-md-3">
       <p class="d-md-none font-weight-bold">Sub-Puesto</p>
-          <%= f.select(:substall, @substalls, {}, { class: "form-control" }) %>
+          <%= f.select(:substall, @substalls, {include_blank: 'Seleccione un Puesto'}, { class: "form-control" }) %>
     </div>
     <div class="col-xl-3 col-lg-6 mb-2 pt-md-3">
       <p class="d-md-none font-weight-bold">Comentarios</p>
@@ -23,7 +24,9 @@
     </div>
     <div class="col-lg-1 col-md-4 pt-md-3">
        <%= link_to_remove_association "", f, class: "fas fa-trash-alt", id: 'remove_link', style: "color: black" %>
-       <button style="background: none; border: none;" type="button" class="fas fa-comment" data-toggle="modal" data-target="#addPayment<%= f.object.id %>"></button>
+       <% if current_user.admin? %>
+         <button style="background: none; border: none;" type="button" class="fas fa-comment" data-toggle="modal" data-target="#addPayment<%= f.object.id %>"></button>
+       <% end %>
     </div>
     <%= render 'admin/roles/partials/add_payment_modal', form: f %>
   </div>

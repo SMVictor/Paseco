@@ -1,27 +1,22 @@
 <div class="row justify-content-center" >
   <div class="col-12" style="">
+    <% if flash[:notice] %>
+          <div class="alert alert-success alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert">
+            <%= flash[:notice] %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+      <% end %>
     <div class="row justify-content-center">
       <div class="col-lg-12 col-md-9 col-sm-9 col-xs-9">
         <%= form_for(@role, :remote => true, url: admin_edit_role_lines_path(@role), html: {multipart: true}) do |form| %>
-          <div class="row form_fieldset">
-            <div  class="col-12 p-3">
-              <legend>Información General</legend>
-            </div>
-            <div class="col-xl-4 col-lg-6 mb-2 mt-2">
-              <label for="">Nombre:</label>
-              <%= form.text_field :name, class: "form-control", placeholder: "Planilla de Diciembre" %>
-            </div>
-            <div class="col-xl-4 col-lg-6 mt-2">
-              <label for="">Fecha de Inicio:</label>
-              <%= form.text_field :start_date, id: "start_date", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-date-format": 'dd/mm/yyyy', "data-provide": 'datepicker' %>
-            </div>
-            <div class="col-xl-4 col-lg-6 mt-2">
-              <label for="">Fecha de Finalización</label>
-              <%= form.text_field :end_date, id: "end_date", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control datepicker", "data-date-format": 'dd/mm/yyyy', "data-provide": 'datepicker' %>
-            </div>
-          </div>
           <div id="linesTable"><%= render 'admin/roles/partials/role_lines_table', form: form %></div>
-          <%= form.submit "Guardar", class: "btn btn-success mt-4" %>
+          <% if current_user.admin? || current_user.manager? %>
+            <%= form.submit "Guardar", class: "btn btn-success mt-4" %>
+          <% else %>
+            <%= form.submit "Guardar",  id: "submit", data: { confirm: 'Debe enviar su solicitud hasta estar completamente seguro de haber hecho todas las modificaciones requeridas, ya que una vez enviada se borrarán todos los cambios realizados. ¿Desea completar esta acción?' }, class: "btn btn-success mt-4" %>
+          <% end %>
           <%= link_to('Cancelar', edit_admin_role_path(@role), class: 'btn btn-light ml-sm-3 mt-4')%>
         <% end %>
       </div>

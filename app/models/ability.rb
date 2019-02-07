@@ -8,9 +8,9 @@ class Ability
     if user.admin?
       can :manage, :all
     elsif user.manager?
-      can [:index, :show, :create, :update, :destroy], Role
+      can [:index, :show, :create, :update, :add_role_lines, :update_role_lines, :approvals, :check_changes, :approve_create, :approve_update, :approve_destroy, :deny_change], Role
     else
-      can [:index, :show, :create, :update, :destroy], Role
+      can [:index, :show, :edit, :add_role_lines, :update_role_lines], Role
     end
   end
 end
