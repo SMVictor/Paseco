@@ -31,56 +31,56 @@
                         <div class="td text-center col-md-2">
                             <p class="mt-2 mb-2 d-md-none font-weight-bold">Fecha</p>
                             <% if change.action == "update" %>
-                              <div class="change alert alert-danger alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= change.role_line.date %>"><%= truncate(change.role_line.date, length: 12) %></div>
-                              <div class="change alert alert-success alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= change.date %>"><%= truncate(change.date, length: 12) %></div>
+                              <div class="change alert alert-danger alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= change.role_line.date %>"><%= truncate(change.role_line.date, length: 10) %></div>
+                              <div class="change alert alert-success alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= change.date %>"><%= truncate(change.date, length: 10) %></div>
                             <% elsif change.action == "create" %>
-                              <div class="change alert alert-success alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= change.date %>"><%= truncate(change.date, length: 12) %></div>
+                              <div class="change alert alert-success alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= change.date %>"><%= truncate(change.date, length: 10) %></div>
                             <% else %>
-                              <div class="change alert alert-danger alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= change.date %>"><%= truncate(change.date, length: 12) %></div>
+                              <div class="change alert alert-danger alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= change.date %>"><%= truncate(change.date, length: 10) %></div>
                             <% end %>
                         </div>
                         <div class="td text-center col-md-2">
                             <p class="mt-2 mb-2 d-md-none font-weight-bold ">Sub-Puesto</p>
                             <% if change.action == "update" %>
-                              <div class="change alert alert-danger alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= change.role_line.substall %>"><%= truncate(change.role_line.substall, length: 12) %></div>
-                              <div class="change alert alert-success alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= change.substall %>"><%= truncate(change.substall, length: 12) %></div>
+                              <div class="change alert alert-danger alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= change.role_line.substall %>"><%= truncate(change.role_line.substall, length: 10) %></div>
+                              <div class="change alert alert-success alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= change.substall %>"><%= truncate(change.substall, length: 10) %></div>
                             <% elsif change.action == "create" %>
-                              <div class="change alert alert-success alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= change.substall %>"><%= truncate(change.substall, length: 12) %></div>
+                              <div class="change alert alert-success alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= change.substall %>"><%= truncate(change.substall, length: 10) %></div>
                             <% else %>
-                              <div class="change alert alert-danger alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= change.substall %>"><%= truncate(change.substall, length: 12) %></div>
+                              <div class="change alert alert-danger alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= change.substall %>"><%= truncate(change.substall, length: 10) %></div>
                             <% end %>
                         </div>
                         <div class="td text-center col-md-2">
                             <p class="mt-2 mb-2 d-md-none font-weight-bold">Empleado</p>
                             <% if change.action == "update" %>
-                              <div class="change alert alert-danger alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= change.role_line.employee.name %>"><%= truncate(change.role_line.employee.name, length: 12) %></div>
-                              <div class="change alert alert-success alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= Employee.find(change.employee_id).name %>"><%= truncate(Employee.find(change.employee_id).name, length: 12)%></div>
+                              <div class="change alert alert-danger alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= change.role_line.employee.name %>"><%= truncate(change.role_line.employee.name, length: 10) %></div>
+                              <div class="change alert alert-success alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= Employee.find(change.employee_id).name %>"><%= truncate(Employee.find(change.employee_id).name, length: 10)%></div>
                             <% elsif change.action == "create" %>
-                              <div class="change alert alert-success alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= Employee.find(change.employee_id).name %>"><%= truncate(Employee.find(change.employee_id).name, length: 12) %></div>
+                              <div class="change alert alert-success alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= Employee.find(change.employee_id).name %>"><%= truncate(Employee.find(change.employee_id).name, length: 10) %></div>
                             <% else %>
-                              <div class="change alert alert-danger alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= Employee.find(change.employee_id).name %>"><%= truncate(Employee.find(change.employee_id).name, length: 12) %></div>
+                              <div class="change alert alert-danger alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= Employee.find(change.employee_id).name %>"><%= truncate(Employee.find(change.employee_id).name, length: 10) %></div>
                             <% end %>
                         </div>
                         <div class="td text-center col-md-2">
                             <p class="mt-2 mb-2 d-md-none font-weight-bold">Turno</p>
                             <% if change.action == "update" %>
-                              <div class="change alert alert-danger alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= change.role_line.shift.name %>"><%= truncate(change.role_line.shift.name, length: 12) %></div>
-                              <div class="change alert alert-success alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= Shift.find(change.shift_id).name %>"><%= truncate(Shift.find(change.shift_id).name, length: 12) %></div>
+                              <div class="change alert alert-danger alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= change.role_line.shift.name %>"><%= truncate(change.role_line.shift.name, length: 10) %></div>
+                              <div class="change alert alert-success alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= Shift.find(change.shift_id).name %>"><%= truncate(Shift.find(change.shift_id).name, length: 10) %></div>
                             <% elsif change.action == "create" %>
-                              <div class="change alert alert-success alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= Shift.find(change.shift_id).name %>"><%= truncate(Shift.find(change.shift_id).name, length: 12) %></div>
+                              <div class="change alert alert-success alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= Shift.find(change.shift_id).name %>"><%= truncate(Shift.find(change.shift_id).name, length: 10) %></div>
                             <% else %>
-                              <div class="change alert alert-danger alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= Shift.find(change.shift_id).name %>"><%= truncate(Shift.find(change.shift_id).name, length: 12) %></div>
+                              <div class="change alert alert-danger alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= Shift.find(change.shift_id).name %>"><%= truncate(Shift.find(change.shift_id).name, length: 10) %></div>
                             <% end %>
                         </div>
                         <div class="td text-center col-md-2">
                             <p class="mt-2 mb-2 d-md-none font-weight-bold">Comentario</p>
                             <% if change.action == "update" %>
-                              <div class="change alert alert-danger alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= change.role_line.comment %>"><%= truncate(change.role_line.comment, length: 12) %></div>
-                              <div class="change alert alert-success alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= change.comment %>"><%= truncate(change.comment, length: 12) %></div>
+                              <div class="change alert alert-danger alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= change.role_line.comment %>"><%= truncate(change.role_line.comment, length: 10) %></div>
+                              <div class="change alert alert-success alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= change.comment %>"><%= truncate(change.comment, length: 10) %></div>
                             <% elsif change.action == "create" %>
-                              <div class="change alert alert-success alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= change.comment %>"><%= truncate(change.comment, length: 12) %></div>
+                              <div class="change alert alert-success alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= change.comment %>"><%= truncate(change.comment, length: 10) %></div>
                             <% else %>
-                              <div class="change alert alert-danger alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= change.comment %>"><%= truncate(change.comment, length: 12) %></div>
+                              <div class="change alert alert-danger alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert" title="<%= change.comment %>"><%= truncate(change.comment, length: 10) %></div>
                             <% end %>
                         </div>
                         <div class="td text-center col-md-2">
