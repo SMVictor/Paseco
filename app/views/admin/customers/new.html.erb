@@ -9,7 +9,7 @@
   <div class="col-12 col-md-9">
     <div class="row justify-content-center">
       <div class="col-lg-12 col-md-9 col-sm-9 col-xs-9">
-        <%= form_for(@customer, url: admin_customers_path(@customer), html: {multipart: true}) do |form| %>
+        <%= form_for(@customer, url: admin_customers_path(@customer), html: {multipart: true, onsubmit:"return validateCreateForm()"}) do |form| %>
           <%= render 'admin/customers/partials/form', form: form %>
         <% end %>
       </div>
