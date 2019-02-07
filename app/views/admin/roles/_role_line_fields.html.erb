@@ -1,7 +1,6 @@
 <div class="col-12 fields nested-fields text-center tbl_row">
   <div class="row">
     <%= f.hidden_field :stall_id, value:  @stall.id %>
-    <%= f.hidden_field :state, value:  "approved" %>
     <div class="col-xl-2 col-lg-6 mb-2 pt-md-3">
       <p class="d-md-none font-weight-bold">Fecha</p>
       <%= f.text_field :date, id: "date", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-date-format": 'dd/mm/yyyy', "data-provide": 'datepicker' %>
