@@ -143,7 +143,7 @@ class RolesController < ApplicationController
     @role_line = RoleLine.create(date: @change.date, substall: @change.substall, hours: @change.hours, role_id: @change.role_id, employee_id: @change.employee_id, stall_id: @change.stall_id, shift_id: @change.shift_id, comment: @change.comment)
     @change.destroy
     respond_to do |format|
-      format.html { redirect_to admin_check_role_changes_url, notice: 'El cambio se realizó correctamente' }
+      format.html { redirect_to admin_check_role_changes_url, notice: 'Los datos fueron registrados correctamente.' }
     end
   end
 
@@ -152,7 +152,7 @@ class RolesController < ApplicationController
     @role_line = @change.role_line.update(date: @change.date, substall: @change.substall, hours: @change.hours, role_id: @change.role_id, employee_id: @change.employee_id, stall_id: @change.stall_id, shift_id: @change.shift_id, comment: @change.comment)
     @change.destroy
     respond_to do |format|
-      format.html { redirect_to admin_check_role_changes_url, notice: 'El cambio se realizó correctamente' }
+      format.html { redirect_to admin_check_role_changes_url, notice: 'Modificación exitosa.' }
     end
   end
 
@@ -161,7 +161,7 @@ class RolesController < ApplicationController
     @role_line = @change.role_line.destroy
     @change.destroy
     respond_to do |format|
-      format.html { redirect_to admin_check_role_changes_url, notice: 'El cambio se realizó correctamente' }
+      format.html { redirect_to admin_check_role_changes_url, notice: 'Los datos fueron eliminados correctamente.' }
     end
   end
 
@@ -169,7 +169,7 @@ class RolesController < ApplicationController
     @change    = RoleLinesCopy.find(params[:change_id])
     @change.destroy
     respond_to do |format|
-      format.html { redirect_to admin_check_role_changes_url, notice: 'El cambio se realizó correctamente' }
+      format.html { redirect_to admin_check_role_changes_url, notice: 'Cambio denegado' }
     end
   end
 
