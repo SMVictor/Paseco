@@ -1,3 +1,14 @@
-// Place all the styles related to the roles controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.th, .td{
+  border: 1px solid #E7EBF3;
+}
+@media only screen and (max-width: 768px) {
+  .th, .td{
+    border: none;
+  }
+  .tb_body{
+    border: 1px solid #E7EBF3;
+  }
+}
+.change{
+  min-height: 3rem;
+}

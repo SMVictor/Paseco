@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_16_175630) do
+ActiveRecord::Schema.define(version: 2019_02_06_224526) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -122,10 +122,31 @@ ActiveRecord::Schema.define(version: 2019_01_16_175630) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "comment"
+    t.string "extra_payments"
+    t.string "extra_payments_description"
+    t.string "deductions"
+    t.string "deductions_description"
+    t.string "state"
     t.index ["employee_id"], name: "index_role_lines_on_employee_id"
     t.index ["role_id"], name: "index_role_lines_on_role_id"
     t.index ["shift_id"], name: "index_role_lines_on_shift_id"
     t.index ["stall_id"], name: "index_role_lines_on_stall_id"
+  end
+
+  create_table "role_lines_copies", force: :cascade do |t|
+    t.string "date"
+    t.string "substall"
+    t.string "hours"
+    t.integer "employee_id"
+    t.integer "shift_id"
+    t.integer "stall_id"
+    t.integer "role_id"
+    t.string "comment"
+    t.string "action"
+    t.bigint "role_line_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["role_line_id"], name: "index_role_lines_copies_on_role_line_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -181,6 +202,7 @@ ActiveRecord::Schema.define(version: 2019_01_16_175630) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "role"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

@@ -2,7 +2,7 @@ module Admin
 class PayrolesController < ApplicationController
 
   layout 'admin'
-  
+  load_and_authorize_resource
   before_action :set_payrole, only: [:show]
 
   def index
@@ -31,7 +31,7 @@ class PayrolesController < ApplicationController
     end
 
     def regular_employess_payrole(employee)
-      @role_lines = @payrole.role_lines.where(employee: employee)
+      @role_lines = @payrole.role_lines.where(employee: employee, state: "approved")
 
       @min_salary = 0
       @extra_salary = 0
@@ -84,7 +84,7 @@ class PayrolesController < ApplicationController
 
     def iregular_employess_payrole(employee)
 
-      @role_lines = @payrole.role_lines.where(employee: employee)
+      @role_lines = @payrole.role_lines.where(employee: employee, state: "approved")
       @payrole_line = @payrole.payrole_lines.where(employee_id: employee.id)[0]
       if @payrole_line == nil
         @payrole_line = @payrole.payrole_lines.create([{ min_salary: '0', extra_hours: '0', daily_viatical: '0', ccss_deduction: '0', extra_payments: '0', deductions: '0', net_salary: '0', employee_id: employee.id }])[0]

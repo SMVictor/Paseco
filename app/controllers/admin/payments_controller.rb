@@ -2,7 +2,7 @@ module Admin
 class PaymentsController < ApplicationController
   
   layout 'admin'
-
+  load_and_authorize_resource
   before_action :set_payment, only: [:show, :edit, :update, :destroy]
 
   def index

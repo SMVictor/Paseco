@@ -26,19 +26,19 @@
       <div class="collapse" id="maintenance">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item">
-            <%= link_to('Clientes', admin_customers_path, class: 'nav-link')%>
+            <%= link_to('Clientes', admin_customers_path, class: 'nav-link') if current_user.admin? %>
           </li>
           <li class="nav-item">
-            <%= link_to('Pagos', admin_payments_path, class: 'nav-link')%>
+            <%= link_to('Pagos', admin_payments_path, class: 'nav-link') if current_user.admin? %>
           </li>
           <li class="nav-item">
-            <%= link_to('Puestos', admin_stalls_path, class: 'nav-link')%>
+            <%= link_to('Puestos', admin_stalls_path, class: 'nav-link') if current_user.admin? %>
           </li>
           <li class="nav-item">
-            <%= link_to('Rangos', admin_positions_path, class: 'nav-link')%>
+            <%= link_to('Rangos', admin_positions_path, class: 'nav-link') if current_user.admin? %>
           </li>
           <li class="nav-item">
-            <%= link_to('Empleados', admin_employees_path, class: 'nav-link')%>
+            <%= link_to('Empleados', admin_employees_path, class: 'nav-link') if current_user.admin? %>
           </li>
         </ul>
       </div>
@@ -55,7 +55,7 @@
             <%= link_to('Roles', admin_roles_path, class: 'nav-link')%>
           </li>
           <li class="nav-item">
-            <%= link_to('Planillas', admin_payroles_path, class: 'nav-link')%>
+            <%= link_to('Planillas', admin_payroles_path, class: 'nav-link') if current_user.admin? %>
           </li>
         </ul>
       </div>

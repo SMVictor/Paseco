@@ -33,18 +33,17 @@
     <%= form.hidden_field :stall_ids, value: [] %>
 
     <% if @role.stalls.size > 0 %>
-    <div  class="col-12 p-3">
-      <legend>Lista de Puestos</legend>
-    </div>
-    <div class="row ml-1 mr-1 tbl_row text-center"  style="border-top:1px solid;">
-    <% @role.stalls.each do |stall| %>
-        <div class="col-6 col-sm-4 col-xl-2 pt-md-3">
-          <%= link_to(stall.name,admin_role_lines_path(@role, stall), class:'' )%>
-        </div>
-    <% end %>
-    </div>
+      <div  class="col-12 p-3">
+        <legend>Lista de Puestos</legend>
+      </div>
+      <div class="row ml-1 mr-1 tbl_row text-center"  style="border-top:1px solid;">
+      <% @role.stalls.order(name: :asc).each do |stall| %>
+          <div class="col-6 col-sm-4 col-xl-2 pt-md-3">
+            <%= link_to(stall.name,admin_role_lines_path(@role, stall), class:'' )%>
+          </div>
+      <% end %>
+      </div>
     <%end %>
-    
     <%= form.submit "Guardar", class: "btn btn-success mt-4" %>
     <%= link_to('Cancelar', admin_roles_path, class: 'btn btn-light ml-sm-3 mt-4')%>
   </div>
