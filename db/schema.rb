@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_06_224526) do
+ActiveRecord::Schema.define(version: 2019_02_08_203848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +89,8 @@ ActiveRecord::Schema.define(version: 2019_02_06_224526) do
     t.bigint "employee_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "num_extra_hours"
+    t.string "num_worked_days"
     t.index ["employee_id"], name: "index_payrole_lines_on_employee_id"
     t.index ["role_id"], name: "index_payrole_lines_on_role_id"
   end
@@ -126,7 +128,6 @@ ActiveRecord::Schema.define(version: 2019_02_06_224526) do
     t.string "extra_payments_description"
     t.string "deductions"
     t.string "deductions_description"
-    t.string "state"
     t.index ["employee_id"], name: "index_role_lines_on_employee_id"
     t.index ["role_id"], name: "index_role_lines_on_role_id"
     t.index ["shift_id"], name: "index_role_lines_on_shift_id"

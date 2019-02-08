@@ -2,15 +2,15 @@ module Admin
 class PayrolesController < ApplicationController
 
   layout 'admin'
-  load_and_authorize_resource
   before_action :set_payrole, only: [:show]
 
   def index
     @payroles = Role.all.order(start_date: :desc)
+    authorize! :read, @payroles
   end
 
   def show
-
+    authorize! :read, @payrole
     @ccss_percent = 0.1035
     @ccss_amount = 12500
 
@@ -31,11 +31,12 @@ class PayrolesController < ApplicationController
     end
 
     def regular_employess_payrole(employee)
-      @role_lines = @payrole.role_lines.where(employee: employee, state: "approved")
+      @role_lines = @payrole.role_lines.where(employee: employee)
 
-      @min_salary = 0
-      @extra_salary = 0
-      @viatical = 0
+      @min_salary         = 0
+      @extra_salary       = 0
+      @viatical           = 0
+      @total_normal_hours = 0
 
       @role_lines.each do |role_line|
         @stall = role_line.stall
@@ -50,6 +51,7 @@ class PayrolesController < ApplicationController
         @normal_hours = role_line.hours.to_f - @extra_hours
 
         @min_salary += @normal_hours * @hour_cost
+        @total_normal_hours += @normal_hours
 
         @extra_salary += ((@stall.min_salary.to_f/30)/8) * @shift.extra_time_cost.to_f * @extra_hours
 
@@ -62,9 +64,11 @@ class PayrolesController < ApplicationController
       if @payrole_line == nil
         @payrole_line = @payrole.payrole_lines.create([{ min_salary: '0', extra_hours: '0', daily_viatical: '0', ccss_deduction: '0', extra_payments: '0', deductions: '0', net_salary: '0', employee_id: employee.id }])[0]
       end
-      @payrole_line.min_salary = @min_salary.round(2)
-      @payrole_line.extra_hours = @extra_salary.round(2)
-      @payrole_line.daily_viatical = @viatical.round(2)
+      @payrole_line.min_salary      = @min_salary.round(2)
+      @payrole_line.extra_hours     = @extra_salary.round(2)
+      @payrole_line.daily_viatical  = @viatical.round(2)
+      @payrole_line.num_worked_days = 0
+      @payrole_line.num_extra_hours = 0
       @gross_salary = (@min_salary + @extra_salary).round(2)
 
       if employee.social_security == "Porcentaje"
@@ -84,7 +88,7 @@ class PayrolesController < ApplicationController
 
     def iregular_employess_payrole(employee)
 
-      @role_lines = @payrole.role_lines.where(employee: employee, state: "approved")
+      @role_lines = @payrole.role_lines.where(employee: employee)
       @payrole_line = @payrole.payrole_lines.where(employee_id: employee.id)[0]
       if @payrole_line == nil
         @payrole_line = @payrole.payrole_lines.create([{ min_salary: '0', extra_hours: '0', daily_viatical: '0', ccss_deduction: '0', extra_payments: '0', deductions: '0', net_salary: '0', employee_id: employee.id }])[0]
@@ -123,13 +127,15 @@ class PayrolesController < ApplicationController
         @net_salary = (@gross_salary - @ccss_amount + @viatical).round(0)
       end
 
-      @payrole_line.min_salary     = @min_salary.round(2)
-      @payrole_line.extra_hours    = 0
-      @payrole_line.daily_viatical = @viatical.round(2)
-      @payrole_line.ccss_deduction = @ccss_deduction
-      @payrole_line.deductions     = 0
-      @payrole_line.extra_payments = 0
-      @payrole_line.net_salary     = @net_salary
+      @payrole_line.min_salary      = @min_salary.round(2)
+      @payrole_line.extra_hours     = 0
+      @payrole_line.daily_viatical  = @viatical.round(2)
+      @payrole_line.ccss_deduction  = @ccss_deduction
+      @payrole_line.deductions      = 0
+      @payrole_line.extra_payments  = 0
+      @payrole_line.num_worked_days = 0
+      @payrole_line.num_extra_hours = 0
+      @payrole_line.net_salary      = @net_salary
       @payrole_line.save
     end
 end

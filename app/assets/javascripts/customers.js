@@ -9,6 +9,19 @@ function validateCreateForm() {
   }
   return result;
 }
+
+function validateEditCustomerForm() {
+
+  var tradename = document.getElementById("tradename");
+  var result    = true
+
+  if (tradename.value == "") {
+    errorHandler(tradename, "tradename_error", "Campo obligatorio");
+    result = false;
+  }
+  return result;
+}
+
 function onInput(id){
   $('#'+id).on('input', function() {
     var element = document.getElementById(""+id);
