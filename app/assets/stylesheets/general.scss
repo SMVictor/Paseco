@@ -1,4 +1,4 @@
-//TABLE
+ //TABLE
 .tbl{
   $gry: #eceeef;
   $drk_gry: #bfbfbf;
@@ -20,6 +20,18 @@
   border-right: 1px solid  $drk_gry;
   }
 
+}
+
+.th, .td{
+  border: 1px solid #E7EBF3;
+}
+@media only screen and (max-width: 767px) {
+  .th, .td{
+    border: none;
+  }
+  .tb_body{
+    border: 1px solid #E7EBF3;
+  }
 }
 
 // DELETE MODAL

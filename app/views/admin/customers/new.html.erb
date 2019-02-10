@@ -1,18 +1,20 @@
-<div class="row justify-content-center">
-  <div class="col-10">
-    <div class="row">
-      <h2>Nuevo Cliente</h2>
+<div class="bg-body-light">
+    <div class="content content-full">
+        <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
+            <h1 class="flex-sm-fill font-size-h2 font-w400 mt-2 mb-0 mb-sm-2">Crear Cliente</h1>
+            <nav class="flex-sm-00-auto ml-sm-3" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <%= link_to('Clientes', admin_customers_path, class: 'breadcrumb-item')%>
+                    <li class="breadcrumb-item active" aria-current="page">Crear Cliente</li>
+                </ol>
+            </nav>
+        </div>
     </div>
-  </div>
 </div>
-<div class="row justify-content-center" >
-  <div class="col-12 col-md-9">
-    <div class="row justify-content-center">
-      <div class="col-lg-12 col-md-9 col-sm-9 col-xs-9">
-        <%= form_for(@customer, url: admin_customers_path(@customer), html: {multipart: true, onsubmit:"return validateCreateForm()"}) do |form| %>
-          <%= render 'admin/customers/partials/form', form: form %>
-        <% end %>
-      </div>
-    </div>
+<div class="d-flex justify-content-center">
+  <div class="col-sm-10">
+    <%= form_for(@customer, url: admin_customers_path(@customer), html: {multipart: true, onsubmit:"return validateCustomerForm()"}) do |form| %>
+      <%= render 'admin/customers/partials/form', form: form %>
+    <% end %>
   </div>
 </div>

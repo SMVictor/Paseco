@@ -1,24 +1,13 @@
 <div class="card">
   <div class="card-body">
-    <% if @customer.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@customer.errors.count, "error") %> impidió que este cliente fuera guardado :</h2>
-
-        <ul>
-        <% @customer.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
-
     <div class="row form_fieldset">
       <div  class="col-12 mt-4 p-3">
         <legend>Información General</legend>
       </div>
       <div class="col-xl-4 col-lg-6 mb-2 mt-2">
         <label for="">Razón Social</label>
-        <%= form.text_field :business_name, class: "form-control", placeholder: "Razón Social" %>
+        <%= form.text_field :business_name, id: "business_name", class: "form-control", placeholder: "Razón Social" %>
+        <label id="business_name_error"></label>
       </div>
       <div class="col-xl-4 col-lg-6 mb-2 mt-2">
         <label for="">Nombre Comercial</label>
@@ -27,23 +16,28 @@
       </div>
       <div class="col-xl-4 col-lg-6 mb-2 mt-2">
         <label for="">Cédula Jurídica:</label>
-        <%= form.text_field :legal_document, class: "form-control", placeholder: "Cédula Jurídica" %>
+        <%= form.text_field :legal_document, id: "legal_document", class: "form-control", placeholder: "Cédula Jurídica" %>
+        <label id="legal_document_error"></label>
       </div>
       <div class="col-xl-4 col-lg-6 mb-2 mt-2">
         <label for="">Representante Legal:</label>
-        <%= form.text_field :representative_name, class: "form-control", placeholder: "Representante Legal" %>
+        <%= form.text_field :representative_name, id: "representative_name", class: "form-control", placeholder: "Representante Legal" %>
+        <label id="representative_name_error"></label>
       </div>
       <div class="col-xl-4 col-lg-6 mb-2 mt-2">
         <label for="">Cédula del Representante</label>
-        <%= form.text_field :representative_id, class: "form-control", placeholder: "Cédula del Representante" %>
+        <%= form.text_field :representative_id, id: "representative_id", class: "form-control", placeholder: "Cédula del Representante" %>
+        <label id="representative_id_error"></label>
       </div>
       <div class="col-xl-4 col-lg-6 mt-2">
         <label for="">Fecha de Contratación</label>
         <%= form.text_field :start_date, id: "date", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-date-format": 'dd/mm/yyyy', "data-provide": 'datepicker' %>
+        <label id="date_error"></label>
       </div>
       <div class="col-xl-4 col-lg-6 mt-2">
         <label for="">Fecha de Finalización</label>
-        <%= form.text_field :end_date, id: "", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-date-format": 'dd/mm/yyyy', "data-provide": 'datepicker' %>
+        <%= form.text_field :end_date, id: "end_date", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-date-format": 'dd/mm/yyyy', "data-provide": 'datepicker' %>
+        <label id="end_date_error"></label>
       </div>
     </div>
 
@@ -53,11 +47,13 @@
       </div>
       <div class="col-xl-4 col-lg-6 mb-2 mt-2">
         <label for="">Contacto</label>
-        <%= form.text_field :contact, class: "form-control", placeholder: "Contacto" %>
+        <%= form.text_field :contact, id: "contact", class: "form-control", placeholder: "Contacto" %>
+        <label id="contact_error"></label>
       </div>
       <div class="col-xl-4 col-lg-6 mb-2 mt-2">
         <label for="">Email:</label>
-        <%= form.email_field :email, class: "form-control", placeholder: "Correo Electrónico" %>
+        <%= form.email_field :email, id: "email", class: "form-control", placeholder: "Correo Electrónico" %>
+        <label id="email_error"></label>
       </div>
       <div class="col-xl-4 col-lg-6 mb-2 mt-2">
         <label for="">Email Adicional:</label>
@@ -69,7 +65,8 @@
       </div>
       <div class="col-xl-4 col-lg-6 mb-2 mt-2">
         <label for="">Teléfono:</label>
-        <%= form.text_field :phone_number, class: "form-control", placeholder: "Teléfono" %>
+        <%= form.text_field :phone_number, id: "phone_number", class: "form-control", placeholder: "Teléfono" %>
+        <label id="phone_number_error"></label>
       </div>
       <div class="col-xl-4 col-lg-6 mt-2">
         <label for="">Teléfono Adicional:</label>
@@ -96,5 +93,14 @@
   </div>
 </div>
 <script type="text/javascript">
+  onInput("business_name");
   onInput("tradename");
+  onInput("legal_document");
+  onInput("representative_name");
+  onInput("representative_id");
+  onInput("date");
+  onInput("end_date");
+  onInput("contact");
+  onInput("email");
+  onInput("phone_number");
 </script>

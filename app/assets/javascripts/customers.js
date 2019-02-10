@@ -1,22 +1,56 @@
-function validateCreateForm() {
+function validateCustomerForm() {
 
-  var tradename = document.getElementById("tradename");
+  var business_name       = document.getElementById("business_name");
+  var tradename           = document.getElementById("tradename");
+  var legal_document      = document.getElementById("legal_document");
+  var representative_name = document.getElementById("representative_name");
+  var representative_id   = document.getElementById("representative_id");
+  var date                = document.getElementById("date");
+  var end_date            = document.getElementById("end_date");
+  var contact             = document.getElementById("contact");
+  var email               = document.getElementById("email");
+  var phone_number        = document.getElementById("phone_number");
+
   var result    = true
 
+  if (business_name.value == "") {
+    errorHandler(business_name, "business_name_error", "Campo obligatorio");
+    result = false;
+  }
   if (tradename.value == "") {
     errorHandler(tradename, "tradename_error", "Campo obligatorio");
     result = false;
   }
-  return result;
-}
-
-function validateEditCustomerForm() {
-
-  var tradename = document.getElementById("tradename");
-  var result    = true
-
-  if (tradename.value == "") {
-    errorHandler(tradename, "tradename_error", "Campo obligatorio");
+  if (legal_document.value == "") {
+    errorHandler(legal_document, "legal_document_error", "Campo obligatorio");
+    result = false;
+  }
+  if (representative_name.value == "") {
+    errorHandler(representative_name, "representative_name_error", "Campo obligatorio");
+    result = false;
+  }
+  if (representative_id.value == "") {
+    errorHandler(representative_id, "representative_id_error", "Campo obligatorio");
+    result = false;
+  }
+  if (date.value == "") {
+    errorHandler(date, "date_error", "Campo obligatorio");
+    result = false;
+  }
+  if (end_date.value == "") {
+    errorHandler(end_date, "end_date_error", "Campo obligatorio");
+    result = false;
+  }
+  if (contact.value == "") {
+    errorHandler(contact, "contact_error", "Campo obligatorio");
+    result = false;
+  }
+  if (email.value == "") {
+    errorHandler(email, "email_error", "Campo obligatorio");
+    result = false;
+  }
+  if (phone_number.value == "") {
+    errorHandler(phone_number, "phone_number_error", "Campo obligatorio");
     result = false;
   }
   return result;
