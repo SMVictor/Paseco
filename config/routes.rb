@@ -19,7 +19,6 @@ Rails.application.routes.draw do
       resources :payments
       resources :employees
       resources :roles
-      resources :payroles
       resources :positions
 
       get    'roles/lines/:id/:stall_id'                        => 'roles#add_role_lines',    as: 'role_lines'
@@ -31,6 +30,10 @@ Rails.application.routes.draw do
       get    'roles/approvals/update/:id/:stall_id/:change_id'  => 'roles#approve_update',    as: 'approve_update'
       get    'roles/approvals/destroy/:id/:stall_id/:change_id' => 'roles#approve_destroy',   as: 'approve_destroy'
       get    'roles/approvals/deny/:id/:stall_id/:change_id'    => 'roles#deny_change',       as: 'deny_change'
+
+      get    'payroles'     => 'roles#index_payroles', as: 'payroles'
+      get    'payroles/:id' => 'roles#show_payroles',  as: 'payrole'
+
     end
   end
   
