@@ -1,17 +1,34 @@
-<div class="card">
-  <div class="card-body">
-    <div class="d-flex justify-content-center text-center mt-5">
-      <h3 class="d-none d-md-flex">Revisión de modificaciones para: <%= @stall.name %></h3>
-      <h5 class="d-md-none">Revisión de modificaciones para: <%= @stall.name %></h5>
+<div class="bg-body-light">
+    <div class="content content-full">
+        <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
+            <h1 class="flex-sm-fill font-size-h2 font-w400 mt-2 mb-0 mb-sm-2">Revisar Puesto</h1>
+            <nav class="flex-sm-00-auto ml-sm-3" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <%= link_to('Revisiones', admin_role_approvals_path(@role), class: 'breadcrumb-item')%>
+                    <li class="breadcrumb-item active" aria-current="page">Revisar Puesto</li>
+                </ol>
+            </nav>
+        </div>
     </div>
-    <% if flash[:notice] %>
-	    <div class="alert alert-success alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert">
-	      <%= flash[:notice] %>
-	        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	    </div>
-	  <% end %>
-    <div id="rolesTable" class="mt-5"><%= render 'admin/roles/partials/changes_table', locals: {changes:  @changes}%></div>
+</div>
+<div class="d-flex justify-content-center">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex justify-content-center text-center mt-5">
+          <h3 class="d-none d-md-flex">Revisión de modificaciones para: <%= @stall.name %></h3>
+          <h5 class="d-md-none">Revisión de modificaciones para: <%= @stall.name %></h5>
+        </div>
+        <% if flash[:notice] %>
+          <div class="alert alert-success alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert">
+            <%= flash[:notice] %>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+        <% end %>
+        <div id="rolesTable" class="mt-5"><%= render 'admin/roles/partials/changes_table', locals: {changes:  @changes}%></div>
+      </div>
+    </div>
   </div>
 </div>

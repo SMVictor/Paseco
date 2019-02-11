@@ -1,36 +1,26 @@
 <div class="card">
   <div class="card-body">
-    <% if @employee.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@employee.errors.count, "error") %> impidió que este empleado fuera guardado :</h2>
-
-        <ul>
-        <% @employee.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
-
     <div class="row form_fieldset">
       <div  class="col-12 p-3">
         <legend>Información General</legend>
       </div>
       <div class="col-xl-4 col-lg-6 mb-2 mt-2">
         <label for="">Nombre Completo:</label>
-        <%= form.text_field :name, class: "form-control", placeholder: "Manuel Antonio Rodriguez Barrientos" %>
+        <%= form.text_field :name, id: "name", class: "form-control", placeholder: "Manuel Antonio Rodriguez Barrientos" %>
+        <label id="name_error"></label>
       </div>
       <div class="col-xl-4 col-lg-6 mb-2 mt-2">
         <label for="">Tipo de Identificación:</label>
-        <%= form.select(:id_type, ["Nacional", "Pasaporte", "Residencia"], {}, { class: "form-control" }) %>
+        <%= form.select(:id_type, ["Nacional", "Pasaporte", "Residencia"], {include_blank: "Seleccione el tipo de identificación"}, { class: "form-control"}) %>
       </div>
       <div class="col-xl-4 col-lg-6 mb-2 mt-2">
         <label for="">Número de Identificación:</label>
-        <%= form.text_field :identification, class: "form-control", placeholder: "307760366" %>
+        <%= form.text_field :identification, id: "identification", class: "form-control", placeholder: "307760366" %>
+        <label id="identification_error"></label>
       </div>
       <div class="col-xl-4 col-lg-6 mb-2 mt-2">
         <label for="">Sexo:</label>
-        <%= form.select(:gender, ["Masculino", "Femenino"], {}, { class: "form-control" }) %>
+        <%= form.select(:gender, ["Masculino", "Femenino"], {include_blank: "Seleccione el sexo"}, { class: "form-control" }) %>
       </div>
       <div class="col-xl-4 col-lg-6 mb-2 mt-2">
         <label for="">Fecha de Nacimiento:</label>
@@ -46,11 +36,13 @@
       </div>
       <div class="col-xl-4 col-lg-6 mt-2">
         <label for="">Cargo en la Empresan</label>
-        <%= form.collection_select :position_id, Position.all.order(name: :asc), :id, :name, options = {}, html_options = {class: "form-control" , id: "selectRole"}%>
+        <%= form.collection_select :position_id, Position.all.order(name: :asc), :id, :name, options = {include_blank: "Seleccione el cargo en la empresa"}, html_options = {class: "form-control" , id: "selectRole"}%>
+        <label id="selectRole_error"></label>
       </div>
       <div class="col-xl-4 col-lg-6 mt-2">
         <label for="">Puesto</label>
-        <%= form.select(:stall_ids, Stall.all.order(name: :asc).collect {|t| [t.name, t.id]}, {include_blank: false}, {multiple: true, class: "form-control"}) %>
+        <%= form.select(:stall_ids, Stall.all.order(name: :asc).collect {|t| [t.name, t.id]}, {include_blank: "Seleccione los puestos"}, {multiple: true, size: 3, class: "form-control", id: "stalls"}) %>
+        <label id="stalls_error"></label>
       </div>
     </div>
 
@@ -98,15 +90,18 @@
       </div>
       <div class="col-xl-3 col-lg-6 mb-2 mt-2">
         <label for="">Método de Pago</label>
-        <%= form.select(:payment_method, ["Transferencia", "Efectivo", "Cheque"], {}, { class: "form-control" }) %>
+        <%= form.select(:payment_method, ["Transferencia", "Efectivo", "Cheque"], {include_blank: "Seleccione el método de pago"}, { class: "form-control", id: "payment_method" }) %>
+        <label id="payment_method_error"></label>
       </div>
       <div class="col-xl-3 col-lg-6 mb-2 mt-2">
         <label for="">Banco:</label>
-        <%= form.select(:bank, ["BAC", "BNCR", "BCR", "Banco Popular"], {}, { class: "form-control" }) %>
+        <%= form.select(:bank, ["BAC", "BNCR"], {include_blank: "Seleccione una entidad bancaria"}, { class: "form-control", id: "bank" }) %>
+        <label id="bank_error"></label>
       </div>
       <div class="col-xl-3 col-lg-6 mb-2 mt-2">
         <label for="">Número de Cuenta:</label>
-        <%= form.text_field :account, class: "form-control", placeholder: "200-01-171-030528-4" %>
+        <%= form.text_field :account, id: "account", class: "form-control", placeholder: "200-01-171-030528-4" %>
+        <label id="account_error"></label>
       </div>
       <div class="col-xl-3 col-lg-6 mb-2 mt-2">
         <label for="">Viáticos:</label><br>
@@ -118,7 +113,8 @@
       </div>
       <div class="col-xl-3 col-lg-6 mb-2 mt-2">
         <label for="">Pago del Seguro:</label>
-        <%= form.select(:social_security, ["Porcentaje", "Monto"], {}, { class: "form-control" }) %>
+        <%= form.select(:social_security, ["Porcentaje", "Monto"], {include_blank: "Seleccione el tipo de seguro"}, { class: "form-control", id: "social_security" }) %>
+        <label id="social_security_error"></label>
       </div>
       <div class="col-xl-3 col-lg-6 mb-2 mt-2">
         <label for="">CCSS Completo:</label><br>
@@ -126,7 +122,17 @@
       </div>
     </div>
     
-    <%= form.submit "Guardar", class: "btn btn-success mt-4" %>
+    <%= form.submit "Guardar", id: 'btn_submit', class: "btn btn-success mt-4" %>
     <%= link_to('Cancelar', admin_employees_path, class: 'btn btn-light ml-sm-3 mt-4')%>
   </div>
 </div>
+<script type="text/javascript">
+  onInput("name");
+  onInput("identification");
+  onInput("selectRole");
+  onInput("stalls");
+  onInput("payment_method");
+  onInput("bank");
+  onInput("account");
+  onInput("social_security");
+</script>

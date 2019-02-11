@@ -5,3 +5,5 @@ users = User.create([
    {name: 'Víctor Salvatierra Mora', email: 'victor.salvatierra@monkeylabs.cr', password: '1234asdf', password_confirmation: '1234asdf', role: 0},
    {name: 'Víctor Salvatierra Mora', email: 'victor.salvatierra@outlook.com',   password: '1234asdf', password_confirmation: '1234asdf', role: 1},
    {name: 'Víctor Salvatierra Mora', email: 'vic3x94@gmail.com',                password: '1234asdf', password_confirmation: '1234asdf', role: 2}])
+
+positions = Position.create([{name: 'Guarda', salary: 0}])

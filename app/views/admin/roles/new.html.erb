@@ -1,18 +1,20 @@
-<div class="row justify-content-center">
-  <div class="col-10">
-    <div class="row">
-      <h2>Nuevo Roll</h2>
+<div class="bg-body-light">
+    <div class="content content-full">
+        <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
+            <h1 class="flex-sm-fill font-size-h2 font-w400 mt-2 mb-0 mb-sm-2">Crear Roll</h1>
+            <nav class="flex-sm-00-auto ml-sm-3" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <%= link_to('Roles', admin_roles_path, class: 'breadcrumb-item')%>
+                    <li class="breadcrumb-item active" aria-current="page">Crear Role</li>
+                </ol>
+            </nav>
+        </div>
     </div>
-  </div>
 </div>
-<div class="row justify-content-center" >
-  <div class="col-12 col-md-9">
-    <div class="row justify-content-center">
-      <div class="col-lg-12 col-md-9 col-sm-9 col-xs-9">
-        <%= form_for(@role, url: admin_roles_path(@role), html: {multipart: true}) do |form| %>
-          <%= render 'admin/roles/partials/form', form: form %>
-        <% end %>
-      </div>
-    </div>
+<div class="d-flex justify-content-center">
+  <div class="col-sm-12">
+    <%= form_for(@role, url: admin_roles_path(@role), html: {multipart: true, onsubmit:"return validateRoleForm()"}) do |form| %>
+      <%= render 'admin/roles/partials/form', form: form %>
+    <% end %>
   </div>
 </div>

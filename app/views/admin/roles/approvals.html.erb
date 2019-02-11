@@ -1,17 +1,34 @@
-<div class="card">
-  <div class="card-body">
-    <div class="d-flex justify-content-center text-center">
-      <h2 class="d-none d-md-flex">Revisión de modificaciones para: <%= @role.name %> </h2>
-      <h5 class="d-md-none">Revisión de modificaciones para: <%= @role.name %> </h5>
+<div class="bg-body-light">
+    <div class="content content-full">
+        <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
+            <h1 class="flex-sm-fill font-size-h2 font-w400 mt-2 mb-0 mb-sm-2">Revisar Roll</h1>
+            <nav class="flex-sm-00-auto ml-sm-3" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <%= link_to('Roles', admin_roles_path, class: 'breadcrumb-item')%>
+                    <li class="breadcrumb-item active" aria-current="page">Revisar Roll</li>
+                </ol>
+            </nav>
+        </div>
     </div>
-    <% if @role.stalls.size > 0 %>
-      <div class="row d-flex justify-content-center mt-4">
-      <% @role.stalls.order(name: :asc).each do |stall| %>
-          <div class="col-6 col-sm-4 col-xl-2 pt-md-1 pb-md-1 text-center" style="border:1px solid;">
-            <%= link_to(stall.name,admin_check_role_changes_path(@role, stall), class:'' )%>
+</div>
+<div class="d-flex justify-content-center">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex justify-content-center text-center">
+          <h2 class="d-none d-md-flex">Revisión de modificaciones para: <%= @role.name %> </h2>
+          <h5 class="d-md-none">Revisión de modificaciones para: <%= @role.name %> </h5>
+        </div>
+        <% if @role.stalls.size > 0 %>
+          <div class="row d-flex justify-content-center mt-4">
+            <% @role.stalls.order(name: :asc).each do |stall| %>
+                <div class="col-6 col-sm-4 col-xl-2 pt-md-1 pb-md-1 text-center" style="border:1px solid;">
+                  <%= link_to(stall.name,admin_check_role_changes_path(@role, stall), class:'' )%>
+                </div>
+            <% end %>
           </div>
-      <% end %>
+        <%end %>
       </div>
-    <%end %>
+    </div>
   </div>
 </div>

@@ -1,21 +1,19 @@
-
-<div class="row justify-content-center">
-  <div class="col-10 mb-5">
-    <%if notice%>
-      <p class="alert alert-primary" role="alert" id="notice"><%= notice %></p>
-    <% end %>
-    <h2 class="d-sm-inline mr-5">Puestos</h2>
-      <% if @stalls.length > 10%>
-        <%= link_to('Nuevo Puesto', new_admin_stall_path, class: 'btn primary-btn d-sm-inline')%>
-      <% end -%>
-  </div>
-</div>
-<div class="row justify-content-center" >
-  <div class="col-12 col-md-9" style="">
-    <div class="row justify-content-center">
-      <div class="col-12 m-2">
-        <div id="stallTable"><%= render 'admin/stalls/partials/table', locals: {stalls:  @stalls}%></div>
-      </div>
+<div class="bg-body-light">
+  <div class="content content-full">
+    <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
+      <h1 class="flex-sm-fill font-size-h2 font-w400 mt-2 mb-0 mb-sm-2">Puestos</h1>
+      <%= link_to(new_admin_stall_path, class: 'btn btn-success flex-sm-00-auto ml-sm-3') do %>
+        <i class="fa fa-fw fa-plus mr-1"></i>Crear Puesto
+      <% end %>
     </div>
+    <% if flash[:notice] %>
+      <div class="alert alert-success alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert">
+        <%= flash[:notice] %>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <% end %>
   </div>
 </div>
+<div id="stallsTable"><%= render 'admin/stalls/partials/table', locals: {stalls:  @stalls}%></div>

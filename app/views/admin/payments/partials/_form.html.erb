@@ -51,9 +51,6 @@
     <%= link_to('Cancelar', admin_payments_path, class: 'btn btn-light ml-sm-3 mt-4')%>
   </div>
 </div>
-<script>
-  //Reference to removed Item
-  $('#shifts').on('cocoon:after-insert', function(event, insertedItem) {      //Reference to inserted item
-    alert();
-  });
+<script type="text/javascript">
+  onInput("name");
 </script>

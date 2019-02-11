@@ -1,28 +1,28 @@
 <div class="card">
   <div class="card-body">
-    <div class="row mt-1 ml-1  mr-1 pt-3 tbl_head d-none d-md-flex text-center" style="">
-      <div class="col-12 col-md-4">
+    <div class="row mt-1 d-none d-md-flex text-center" style="">
+      <div class="th col-12 col-md-4">
         <p class="text-uppercase">Nombre</p>
       </div>
-      <div class="col-12 col-md-3">
+      <div class="th col-12 col-md-4">
         <p class="text-uppercase">Fecha de Inicio</p>
       </div>
-      <div class="col-12 col-md-5">
+      <div class="th col-12 col-md-4">
         <p class="text-uppercase">Acciones</p>
       </div>
     </div>
     <% if @roles%>
       <% @roles.each do |role| %>
-          <div class="row ml-1 mr-1 tbl_row text-center"  style="">
-          <div class="col-12 col-md-4  pt-md-3">
+        <div class="row tb_body">
+          <div class="td col-12 col-md-4  pt-md-3">
             <p class="d-md-none font-weight-bold">Nombre:</p>
-            <p class=" text-md-center mt-2"><%= link_to(role.name, admin_role_path(role), class:'', title: 'Ver Roll')%></p>
+            <p class="text-md-center mt-2"><%= link_to(role.name, admin_role_path(role), class:'', title: 'Ver Roll') %></p>
           </div>
-          <div class="col-12 col-md-3 pt-md-3">
+          <div class="th col-12 col-md-4 pt-md-3">
             <p class="d-md-none font-weight-bold">Fecha de Inicio:</p>
             <p class="text-md-center mt-2"><%= role.start_date %></p>
           </div>
-          <div class="td text-center col-md-5">
+          <div class="th text-center col-md-4">
             <div class="mt-2 mb-2 btn-group">
               <% if current_user.admin? || current_user.manager? %>
                 <%= link_to(admin_role_approvals_path(role), class:'btn btn-block info-btn mt-2', title: 'Aprobaciones') do %>
@@ -42,11 +42,6 @@
         </div>
         <%= render 'admin/roles/partials/delete_modal', role: role %>
       <% end %>
-      <div class="row mt-2 ml-1 mr-1 pt-2 tbl_footer"  style="">
-        <div class="col-12 text-center p-2">
-          <%= link_to('+ Nuevo Roll', new_admin_role_path, class: '')%>
-        </div>
-      </div>
     <%end %>
   </div>
 </div>
