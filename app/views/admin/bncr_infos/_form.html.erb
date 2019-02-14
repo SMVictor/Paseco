@@ -1,0 +1,52 @@
+<div class="card">
+  <div class="card-body">
+    <div class="row form_fieldset">
+      <div class="col-lg-4 mb-2 mt-2">
+        <label for="">Fecha</label>
+        <%= form.text_field :date, id: "date", class: "form-control", placeholder: "03022019" %>
+        <label id="date_error"></label>
+      </div>
+      <div class="col-lg-4 mb-2 mt-2">
+        <label for="">Número de Empresa</label>
+        <%= form.text_field :company, id: "company", class: "form-control", placeholder: "18159" %>
+        <label id="company_error"></label>
+      </div>
+      <div class="col-lg-4 mb-2 mt-2">
+        <label for="">Tipo de Tranferencia</label>
+        <%= form.text_field :transfer_type, id: "transfer_type", class: "form-control", placeholder: "1" %>
+        <label id="transfer_type_error"></label>
+      </div>
+      <div class="col-lg-4 mb-2 mt-2">
+        <label for="">Consecutivo</label>
+        <%= form.text_field :consecutive, id: "consecutive", class: "form-control", placeholder: "1" %>
+        <label id="consecutive_error"></label>
+      </div>
+      <div class="col-lg-4 mb-2 mt-2">
+        <label for="">Concepto</label>
+        <%= form.text_field :concept, id: "concept", class: "form-control", placeholder: "PAGO PLANILLA Q1 FEBRERO" %>
+        <label id="concept_error"></label>
+      </div>
+      <div class="col-lg-4 mb-2 mt-2">
+        <label for="">Número de Cuenta</label>
+        <%= form.text_field :account, id: "account", class: "form-control", placeholder: "100010960008831" %>
+        <label id="account_error"></label>
+      </div>
+      <div class="col-lg-4 mb-2 mt-2">
+        <label for="">Concepto Empleados</label>
+        <%= form.text_field :employee_concept, id: "employee_concept", class: "form-control", placeholder: "P2-11-18" %>
+        <label id="employee_concept_error"></label>
+      </div>
+    </div>
+    <%= form.submit "Guardar", id: 'btn_submit', class: "btn btn-success mt-4" %>
+    <%= link_to('Cancelar', root_path, class: 'btn btn-light ml-sm-3 mt-4')%>
+  </div>
+</div>
+<script type="text/javascript">
+  onInput("date");
+  onInput("company");
+  onInput("transfer_type");
+  onInput("consecutive");
+  onInput("concept");
+  onInput("account");
+  onInput("employee_concept");
+</script>

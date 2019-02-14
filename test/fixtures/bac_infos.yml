@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  plan: MyString
+  shipping: MyString
+  date: MyString
+  concept: MyString
+
+two:
+  plan: MyString
+  shipping: MyString
+  date: MyString
+  concept: MyString

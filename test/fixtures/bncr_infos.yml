@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: MyString
+  company: MyString
+  transfer_type: MyString
+  consecutive: MyString
+  concept: MyString
+  account: MyString
+
+two:
+  date: MyString
+  company: MyString
+  transfer_type: MyString
+  consecutive: MyString
+  concept: MyString
+  account: MyString

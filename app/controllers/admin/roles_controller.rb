@@ -5,7 +5,7 @@ class RolesController < ApplicationController
   load_and_authorize_resource
   before_action :set_role, only: [:show, :edit, :update, :destroy, :add_role_lines, :update_role_lines, :approvals, :check_changes]
   before_action :set_stall, only: [:update_role_lines, :add_role_lines, :check_changes]
-  before_action :set_payrole, only: [:show_payroles]
+  before_action :set_payrole, only: [:show_payroles, :bncr_file, :bac_file]
 
   def index
     @roles = Role.all.order(start_date: :desc)
@@ -190,6 +190,40 @@ class RolesController < ApplicationController
       else
         iregular_employess_payrole(employee)
       end
+    end
+  end
+
+  def bncr_file
+   @bn_info = BncrInfo.first
+   @total = 0
+   @sumAccounts = @bn_info.account[8,6].to_i
+
+   @payrole.payrole_lines.each do |payrole|
+    if payrole.employee.bank == "BNCR"
+      @total += payrole.net_salary.to_i
+      @sumAccounts += @bn_info.account[8,6].to_i
+    end
+   end
+   @total = @total*100
+   respond_to do |format|
+      format.xls
+    end
+  end
+
+  def bac_file
+   @bac_info = BacInfo.first
+   @total = 0
+   @count = 1
+
+   @payrole.payrole_lines.each do |payrole|
+    if payrole.employee.bank == "BAC"
+      @total += payrole.net_salary.to_i
+      @count += 1
+    end
+   end
+   @total = @total*100
+   respond_to do |format|
+      format.xls
     end
   end
 

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+    <Row>
+      <Cell><Data ss:Type="String"><%= "1" + @bn_info.company + @bn_info.date + @bn_info.consecutive + "000000" + @bn_info.transfer_type + "0000000000000000000000000000000000000000"%></Data></Cell>
+    </Row>
+    <Row>
+      <Cell><Data ss:Type="String"><%= "2" + @bn_info.account[5,3] + @bn_info.account[0,5] + @bn_info.account[8,7] + "00000001" +  BncrInfo.complete_amount(@total.to_s) + @bn_info.concept + (" " * (30 - @bn_info.concept.length)) + "00"%></Data></Cell>
+    </Row>
+    <% @payrole.payrole_lines.each_with_index do |payrole, index| %>
+
+      <% @employee = Employee.find(payrole.employee_id ) %>
+
+      <% if @employee.bank == "BNCR" %>
+        <Row>
+          <Cell><Data ss:Type="String"><%= "3" + @employee.account[5,3] + @employee.account[0,5] + @employee.account[8,7] + BncrInfo.complete_voucher_number((index+1).to_s) + BncrInfo.complete_amount((payrole.net_salary.to_i * 100).to_s) + truncate(BncrInfo.create_concept(@bn_info.employee_concept, @employee.name), length: 26, omission: '') + (" " * 4) + "00" %></Data></Cell>
+        </Row>
+      <% end %>
+      
+    <% end %>
+    <Row>
+      <Cell><Data ss:Type="String"><%= "4" + BncrInfo.complete_amount_end((@total * 2).to_s) + BncrInfo.comple_accounts(@sumAccounts.to_s) + "000000000000000000000000000000000000000000" %></Data></Cell>
+    </Row>
+    </Table>
+  </Worksheet>
+</Workbook>

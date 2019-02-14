@@ -40,6 +40,12 @@
           <li class="nav-item">
             <%= link_to('Empleados', admin_employees_path, class: 'nav-link') if current_user.admin? %>
           </li>
+          <li class="nav-item">
+            <%= link_to('Info BNCR', edit_admin_bncr_info_path(BncrInfo.first), class: 'nav-link') if current_user.admin? %>
+          </li>
+          <li class="nav-item">
+            <%= link_to('Info BAC', edit_admin_bac_info_path(BacInfo.first), class: 'nav-link') if current_user.admin? %>
+          </li>
         </ul>
       </div>
     </li>

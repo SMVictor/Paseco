@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :role_lines_copies
   #DEVISE ROUTES  
   devise_for :users, controllers: {
     registrations: 'users/registrations',
@@ -20,6 +19,8 @@ Rails.application.routes.draw do
       resources :employees
       resources :roles
       resources :positions
+      resources :bncr_infos
+      resources :bac_infos
 
       get    'roles/lines/:id/:stall_id'                        => 'roles#add_role_lines',    as: 'role_lines'
       patch  'roles/lines/:id/:stall_id'                        => 'roles#update_role_lines', as: 'edit_role_lines'
@@ -31,8 +32,10 @@ Rails.application.routes.draw do
       get    'roles/approvals/destroy/:id/:stall_id/:change_id' => 'roles#approve_destroy',   as: 'approve_destroy'
       get    'roles/approvals/deny/:id/:stall_id/:change_id'    => 'roles#deny_change',       as: 'deny_change'
 
-      get    'payroles'     => 'roles#index_payroles', as: 'payroles'
-      get    'payroles/:id' => 'roles#show_payroles',  as: 'payrole'
+      get    'payroles'      => 'roles#index_payroles', as: 'payroles'
+      get    'payroles/:id'  => 'roles#show_payroles',  as: 'payrole'
+      get    'BNCR/file/:id' => 'roles#bncr_file',      as: 'bncr_file'
+      get    'BAC/file/:id'  => 'roles#bac_file',       as: 'bac_file'
 
     end
   end
