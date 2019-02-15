@@ -15,7 +15,7 @@
 
       <% if @employee.bank == "BAC" %>
         <Row>
-          <Cell><Data ss:Type="String"><%= BacInfo.complete_firts("T" + @bac_info.plan + @bac_info.shipping) + BacInfo.complete_index((index).to_s) + @bac_info.date +  BacInfo.complete_total((payrole.net_salary.to_i * 100).to_s)  +  "     " + BacInfo.complete_concept(@bac_info.concept) + BacInfo.fix_name(payrole.employee.name) %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= BacInfo.complete_firts("T" + @bac_info.plan + @bac_info.shipping + @employee.identification) + BacInfo.complete_index((index).to_s) + @bac_info.date +  BacInfo.complete_total((payrole.net_salary.to_i * 100).to_s)  +  "     " + BacInfo.complete_concept(@bac_info.concept) + BacInfo.fix_name(payrole.employee.name) %></Data></Cell>
         </Row>
       <% end %>
       
