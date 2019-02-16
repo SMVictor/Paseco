@@ -11,8 +11,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
    def create
-     super
-     UserMailer.registration_confirmation(@user).deliver_now
+     #super
+     #UserMailer.registration_confirmation(@user).deliver_now
    end
 
   # GET /resource/edit
