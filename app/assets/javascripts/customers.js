@@ -6,7 +6,6 @@ function validateCustomerForm() {
   var representative_name = document.getElementById("representative_name");
   var representative_id   = document.getElementById("representative_id");
   var date                = document.getElementById("date");
-  var end_date            = document.getElementById("end_date");
   var contact             = document.getElementById("contact");
   var email               = document.getElementById("email");
   var phone_number        = document.getElementById("phone_number");
@@ -35,10 +34,6 @@ function validateCustomerForm() {
   }
   if (date.value == "") {
     errorHandler(date, "date_error", "Campo obligatorio");
-    result = false;
-  }
-  if (end_date.value == "") {
-    errorHandler(end_date, "end_date_error", "Campo obligatorio");
     result = false;
   }
   if (contact.value == "") {
