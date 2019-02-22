@@ -185,7 +185,7 @@ class RolesController < ApplicationController
 
     @employees = Employee.all
     @employees.each do |employee|
-      if employee.stalls.size == 1
+      if !employee.special
         regular_employess_payrole(employee)
       else
         iregular_employess_payrole(employee)
