@@ -21,7 +21,7 @@ class PaymentsController < ApplicationController
   end
 
   def create
-    params[:payment][:shifts_attributes][:"1212121212123"] = {"name"=>"Libre", "time"=>"8", "extra_time_cost"=>"0", "_destroy"=>"false"}
+    params[:payment][:shifts_attributes][:"1212121212123"] = {"name"=>"Libre", "time"=>"0", "extra_time_cost"=>"0", "_destroy"=>"false"}
     @payment = Payment.create(payment_params)
 
     respond_to do |format|
