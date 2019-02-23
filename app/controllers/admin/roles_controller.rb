@@ -256,7 +256,12 @@ class RolesController < ApplicationController
       @role_lines.each do |role_line|
         @stall = role_line.stall
         @shift = role_line.shift
-        @hour_cost = @stall.min_salary.to_f/@shift.time.to_f/30 if @shift and @stall
+
+        if @shift.name != "Libre"
+          @hour_cost = @stall.min_salary.to_f/@shift.time.to_f/30
+        else
+           @min_salary += @stall.min_salary.to_f/30
+        end
 
         @normal_hours = 0
         @extra_hours  = 0
@@ -279,26 +284,26 @@ class RolesController < ApplicationController
         @payrole_line = @payrole.payrole_lines.create([{ min_salary: '0', extra_hours: '0', daily_viatical: '0', ccss_deduction: '0', extra_payments: '0', deductions: '0', net_salary: '0', employee_id: employee.id }])[0]
       end
       @payrole_line.num_worked_days = @role_lines.length
-      @payrole_line.min_salary      = @min_salary
+      @payrole_line.min_salary      = @min_salary.round(0)
       @payrole_line.num_extra_hours = @total_extra_hours
-      @payrole_line.extra_hours     = @extra_salary
-      @payrole_line.daily_viatical  = @viatical
-      @gross_salary  = (@min_salary + @extra_salary)
+      @payrole_line.extra_hours     = @extra_salary.round(0)
+      @payrole_line.daily_viatical  = @viatical.round(0)
+      @gross_salary  = (@min_salary + @extra_salary).round(0)
 
       if employee.social_security == "Porcentaje"
         if employee.ccss_type == "yes"
-          @payrole_line.ccss_deduction = (@gross_salary * @ccss_percent)
-          @payrole_line.net_salary = (@gross_salary - (@gross_salary * @ccss_percent) + @viatical + @extra_payments - @deductions)
+          @payrole_line.ccss_deduction = (@gross_salary * @ccss_percent).round(0)
+          @payrole_line.net_salary = (@gross_salary - (@gross_salary * @ccss_percent) + @viatical + @extra_payments - @deductions).round(0)
         else
-          @payrole_line.ccss_deduction = (@payrole_line.min_salary.to_f * @ccss_percent)
-          @payrole_line.net_salary = (@gross_salary - (@payrole_line.min_salary.to_f * @ccss_percent) + @viatical + @extra_payments - @deductions)
+          @payrole_line.ccss_deduction = (@payrole_line.min_salary.to_f * @ccss_percent).round(0)
+          @payrole_line.net_salary = (@gross_salary - (@payrole_line.min_salary.to_f * @ccss_percent) + @viatical + @extra_payments - @deductions).round(0)
         end
       else
-        @payrole_line.ccss_deduction = @ccss_amount
-        @payrole_line.net_salary = (@gross_salary - @ccss_amount + @viatical + @extra_payments - @deductions)
+        @payrole_line.ccss_deduction = @ccss_amount.round(0)
+        @payrole_line.net_salary = (@gross_salary - @ccss_amount + @viatical + @extra_payments - @deductions).round(0)
       end
-      @payrole_line.extra_payments = @extra_payments
-      @payrole_line.deductions = @deductions
+      @payrole_line.extra_payments = @extra_payments.round(0)
+      @payrole_line.deductions = @deductions.round(0)
       @payrole_line.save
     end
 
