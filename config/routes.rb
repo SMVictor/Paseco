@@ -22,8 +22,8 @@ Rails.application.routes.draw do
       resources :bncr_infos
       resources :bac_infos
 
-      get    'roles/lines/:id/:stall_id'                        => 'roles#add_role_lines',    as: 'role_lines'
-      patch  'roles/lines/:id/:stall_id'                        => 'roles#update_role_lines', as: 'edit_role_lines'
+      get    'roles/lines/:id/:stall_id/:employee_id'           => 'roles#add_role_lines',    as: 'role_lines'
+      patch  'roles/lines/:id/:stall_id/:employee_id'           => 'roles#update_role_lines', as: 'edit_role_lines'
 
       get    'roles/approvals/:id'                              => 'roles#approvals',         as: 'role_approvals'
       get    'roles/approvals/:id/:stall_id'                    => 'roles#check_changes',     as: 'check_role_changes'

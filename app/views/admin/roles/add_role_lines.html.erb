@@ -10,16 +10,29 @@
       <% end %>
     <div class="row justify-content-center">
       <div class="col-lg-12 col-md-9 col-sm-9 col-xs-9">
-        <%= form_for(@role, :remote => true, url: admin_edit_role_lines_path(@role), html: {multipart: true}) do |form| %>
-          <div id="linesTable"><%= render 'admin/roles/partials/role_lines_table', form: form %></div>
-          <% if current_user.admin? || current_user.manager? %>
-            <%= form.submit "Guardar", class: "btn btn-success mt-4" %>
-          <% else %>
-            <%= form.submit "Guardar",  id: "submit", data: { confirm: 'Debe enviar su solicitud hasta estar completamente seguro de haber hecho todas las modificaciones requeridas, ya que una vez enviada se borrarán todos los cambios realizados. ¿Desea completar esta acción?' }, class: "btn btn-success mt-4" %>
-          <% end %>
-          <%= link_to('Cancelar', edit_admin_role_path(@role), class: 'btn btn-light ml-sm-3 mt-4')%>
-        <% end %>
+        <legend class="text-left">Distribución de Oficiales en <%= @stall.name %></legend>
+         <%= select_tag "role[role_line_employee]", options_from_collection_for_select(@stall.employees.order(name: :asc), "id", "name"), html_options = { class: "form-control mt-4", id: "employee_select", prompt: "Seleccione un Empleado" } %>
+        <div id="test"><%= render 'admin/roles/partials/role_lines_form' %></div>
       </div>
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  $('#employee_select').change(function(){
+
+    var optionSelected = $("option:selected", this);
+    var valueSelected = this.value;
+
+    $.ajax({
+      type: "GET",
+      url: "/admin/roles/lines/<%= @role.id %>/<%= @stall.id %>/"+valueSelected,
+      data:
+      {
+        utf8: "✓",
+        ajax: true
+      }
+    });
+
+  });
+</script>

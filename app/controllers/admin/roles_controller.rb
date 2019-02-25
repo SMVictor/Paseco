@@ -130,6 +130,15 @@ class RolesController < ApplicationController
       @substalls[@count-1] = "Puesto " + @count.to_s
       @count = @count+1
     end
+
+    @employee = Employee.find(params[:employee_id]) if params[:employee_id] != "0"
+    @role_lines = @role.role_lines.where(stall_id: @stall.id, employee: @employee).order(:employee_id, date: :asc)
+
+    if params[:ajax]
+      respond_to do |format|
+        format.js
+      end
+    end
   end
 
   def approvals 
