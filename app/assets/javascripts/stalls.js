@@ -25,10 +25,6 @@ function validateStallForm() {
     errorHandler(min_salary, "min_salary_error", "Campo obligatorio");
     result = false;
   }
-  if (viatical.value == "") {
-    errorHandler(viatical, "viatical_error", "Campo obligatorio");
-    result = false;
-  }
   if (substalls.value == 0) {
     errorHandler(substalls, "substalls_error", "Campo obligatorio");
     result = false;
