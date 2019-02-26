@@ -61,7 +61,7 @@
             <%= link_to('Roles', admin_roles_path, class: 'nav-link')%>
           </li>
           <li class="nav-item">
-            <%= link_to('Planillas', admin_payroles_path, class: 'nav-link') if current_user.admin? || current_user.manager? %>
+            <%= link_to('Planillas', admin_payroles_path, class: 'nav-link') if current_user.admin? %>
           </li>
         </ul>
       </div>

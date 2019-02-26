@@ -30,7 +30,7 @@
       </div>
     </div>
   </div>
-  <% if current_user.admin? || current_user.manager? %>
+  <% if current_user.admin? %>
     <%= form.submit "Guardar", class: "btn btn-success mt-4" %>
   <% else %>
     <%= form.submit "Guardar",  id: "submit", data: { confirm: 'Debe enviar su solicitud hasta estar completamente seguro de haber hecho todas las modificaciones requeridas, ya que una vez enviada se borrarán todos los cambios realizados. ¿Desea completar esta acción?' }, class: "btn btn-success mt-4" %>

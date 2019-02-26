@@ -24,7 +24,7 @@
           </div>
           <div class="th text-center col-md-4">
             <div class="mt-2 mb-2 btn-group">
-              <% if current_user.admin? || current_user.manager? %>
+              <% if current_user.admin? %>
                 <%= link_to(admin_role_approvals_path(role), class:'btn btn-block info-btn mt-2', title: 'Aprobaciones') do %>
                   <i class="fa fa-check"></i>
                 <% end -%>

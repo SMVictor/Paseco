@@ -48,7 +48,7 @@ class RolesController < ApplicationController
   end
 
   def update_role_lines
-    if current_user.admin? || current_user.manager?
+    if current_user.admin?
       respond_to do |format|
         if @role.update(role_params)
           format.html { redirect_to admin_role_lines_url, notice: 'El role se actualizó correctamente.' }
