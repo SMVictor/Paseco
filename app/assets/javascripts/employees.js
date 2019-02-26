@@ -19,6 +19,9 @@ function validateEmployeeForm() {
     errorHandler(identification, "identification_error", "Campo obligatorio");
     result = false;
   }
+  else{
+    identification.value = identification.value.replace(/-/g,'');
+  }
   if (selectRole.value == "") {
     errorHandler(selectRole, "selectRole_error", "Campo obligatorio");
     result = false;
@@ -38,6 +41,9 @@ function validateEmployeeForm() {
   if (account.value == "") {
     errorHandler(account, "account_error", "Campo obligatorio");
     result = false;
+  }
+  else{
+    account.value = account.value.replace(/-/g,'');
   }
   if (social_security.value == "") {
     errorHandler(social_security, "social_security_error", "Campo obligatorio");
