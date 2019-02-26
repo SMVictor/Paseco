@@ -279,7 +279,11 @@ class RolesController < ApplicationController
         @total_extra_hours += @extra_hours
         @normal_hours = role_line.hours.to_f - @extra_hours
         @min_salary += @normal_hours * @hour_cost
-        @extra_salary += ((@stall.min_salary.to_f/30)/8) * @shift.extra_time_cost.to_f * @extra_hours
+
+        if @shift.name != "Libre"
+          @extra_salary += ((@stall.min_salary.to_f/30)/@shift.time.to_f) * @shift.extra_time_cost.to_f * @extra_hours
+        end
+
         @extra_payments += role_line.extra_payments.to_f
         @deductions += role_line.deductions.to_f
 
