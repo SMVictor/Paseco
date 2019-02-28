@@ -47,7 +47,7 @@
               <% if @payrole.payrole_lines%>
                 <% @payrole.payrole_lines.each do |line| %>
                   <tr>
-                    <td style="border: 1px solid"><%= line.employee.name if line.employee %></td>
+                    <td style="border: 1px solid"><%= link_to(line.employee.name, admin_payrole_detail_path(@payrole, line.employee), class:'', title: 'Ver Empleado') if line.employee %></td>
                     <td style="border: 1px solid"><%= line.num_worked_days %></td>
                     <td style="border: 1px solid"><%= line.min_salary %></td>
                     <td style="border: 1px solid"><%= line.num_extra_hours %></td>

@@ -5,7 +5,7 @@ class RolesController < ApplicationController
   load_and_authorize_resource
   before_action :set_role, only: [:show, :edit, :update, :destroy, :add_role_lines, :update_role_lines, :approvals, :check_changes]
   before_action :set_stall, only: [:update_role_lines, :add_role_lines, :check_changes]
-  before_action :set_payrole, only: [:show_payroles, :bncr_file, :bac_file]
+  before_action :set_payrole, only: [:show_payroles, :bncr_file, :bac_file, :payrole_detail]
 
   def index
     @roles = Role.all.order(start_date: :desc)
@@ -236,6 +236,10 @@ class RolesController < ApplicationController
     end
   end
 
+  def payrole_detail
+    @employee = Employee.find(params[:employee_id])
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_role
@@ -287,7 +291,11 @@ class RolesController < ApplicationController
         @deductions     += role_line.deductions.to_f
 
         if employee.daily_viatical == 'yes'
-          @viatical += @stall.daily_viatical.to_f
+          if @shift.name != "Libre"
+            @viatical += (@stall.daily_viatical.to_f/@shift.time.to_f)*@normal_hours.to_f
+          else
+            @viatical += @stall.daily_viatical.to_f
+          end
         end
       end
 
@@ -347,7 +355,11 @@ class RolesController < ApplicationController
         @deductions += role_line.deductions.to_f
 
         if employee.daily_viatical == 'yes'
-          @viatical += @stall.daily_viatical.to_f
+          if @shift.name != "Libre"
+            @viatical += (@stall.daily_viatical.to_f/@shift.time.to_f)*@shift.time.to_f
+          else
+            @viatical += @stall.daily_viatical.to_f
+          end
         end
       end
 
@@ -367,14 +379,14 @@ class RolesController < ApplicationController
       end
 
       @payrole_line.num_worked_days = @role_lines.length
-      @payrole_line.min_salary      = @min_salary.round(2)
+      @payrole_line.min_salary      = @min_salary.round(0)
       @payrole_line.num_extra_hours = 0
       @payrole_line.extra_hours     = 0
-      @payrole_line.daily_viatical  = @viatical.round(2)
-      @payrole_line.ccss_deduction  = @ccss_deduction
-      @payrole_line.extra_payments  = @extra_payments
-      @payrole_line.deductions      = @deductions
-      @payrole_line.net_salary      = @net_salary
+      @payrole_line.daily_viatical  = @viatical.round(0)
+      @payrole_line.ccss_deduction  = @ccss_deduction.round(0)
+      @payrole_line.extra_payments  = @extra_payments.round(0)
+      @payrole_line.deductions      = @deductions.round(0)
+      @payrole_line.net_salary      = @net_salary.round(0)
       @payrole_line.save
     end
 
