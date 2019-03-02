@@ -53,6 +53,9 @@ function validateSignUpForm() {
     errorHandler(identification, "identification_error", "Campo Obligatorio");
     result = false;
   }
+  else{
+    identification.value = identification.value.replace(/-/g,'');
+  }
 
   if (password.value == "") {
     errorHandler(password, "password_error", "Campo Obligatorio");
