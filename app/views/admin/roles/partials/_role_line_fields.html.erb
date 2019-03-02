@@ -21,9 +21,9 @@
       <%= f.text_field :comment, class: "form-control", placeholder: "Cubre turno por permiso de Juan" %>
     </div>
     <div class="col-lg-2 col-md-4 pt-md-3">
-       <%= link_to_remove_association "", f, class: "fas fa-trash-alt", id: 'remove_link', style: "color: black" %>
+       <%= link_to_remove_association "", f, class: "fas fa-trash-alt", id: 'remove_link', style: "color: #E25141" %>
        <% if current_user.admin? %>
-         <button style="background: none; border: none;" type="button" class="fas fa-comment" data-toggle="modal" data-target="#addPayment<%= f.object.id %>"></button>
+         <button style="background: none; border: none;" type="button" class="fas fa-comment" name="btn_modal" data-toggle="modal" data-target="#addPayment<%= f.object.id %>"></button>
        <% end %>
     </div>
     <%= render 'admin/roles/partials/add_payment_modal', form: f %>

@@ -20,3 +20,16 @@ function validateRoleForm() {
   }
   return result;
 }
+function changeIconColor(){
+  var inputs = document.getElementsByClassName("hours");
+  var buttons = document.getElementsByName("btn_modal");
+
+  for (var i = 0; i < inputs.length; i++) {
+    if (inputs[i].value != "") {
+      buttons[i].style.color = "#5DC973";
+    }
+    else{
+      buttons[i].style.color = "#8068D9";
+    }
+  }
+}
