@@ -76,4 +76,8 @@
     </div>
   </div>
 </div>
-<%= link_to 'Atrás', admin_payrole_path(@payrole) %>
+<% if current_user.employee? %>
+  <%= link_to 'Atrás', admin_payroles_path %>
+<% else %>
+  <%= link_to 'Atrás', admin_payrole_path(@payrole) %>
+<% end %>

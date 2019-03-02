@@ -58,10 +58,10 @@
       <div class="collapse" id="operations">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item">
-            <%= link_to('Roles', admin_roles_path, class: 'nav-link')%>
+            <%= link_to('Roles', admin_roles_path, class: 'nav-link') if current_user.admin? || current_user.manager? %>
           </li>
           <li class="nav-item">
-            <%= link_to('Planillas', admin_payroles_path, class: 'nav-link') if current_user.admin? %>
+            <%= link_to('Planillas', admin_payroles_path, class: 'nav-link') %>
           </li>
         </ul>
       </div>

@@ -10,7 +10,7 @@ class Ability
     elsif user.manager?
       can [:index, :show, :edit, :add_role_lines, :update_role_lines], Role
     else
-      can [:index], Pages
+      can [:index_payroles, :payrole_detail], Role
     end
   end
 end

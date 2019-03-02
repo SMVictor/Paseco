@@ -8,16 +8,27 @@
             <h2 class="text-center mb-4">Registrarse</h2>
             <form action="#">
               <div class="form-group">
-                <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Correo Electrónico" %>
+                <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "form-control", placeholder: "Nombre Completo", id: "name" %>
+                <label id="name_error"></label>
               </div>
               <div class="form-group">
-                <%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "Contraseña" %>
+                <%= f.text_field :identification, autofocus: true, autocomplete: "identification", class: "form-control", placeholder: "Cédula", id: "identification" %>
+                <label id="identification_error"></label>
               </div>
               <div class="form-group">
-                <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control", placeholder: "Confirmar Contraseña" %>
+                <%= f.text_field :email, autofocus: true, autocomplete: "email", id: "email", class: "form-control", placeholder: "Correo Electrónico", data: {users: User.all.to_json } %>
+                <label id="email_error"></label>
               </div>
               <div class="form-group">
-                <%= f.submit "Registrarse", class: "btn btn-primary submit-btn btn-block" %>
+                <%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "Contraseña", id: "password" %>
+                <label id="password_error"></label>
+              </div>
+              <div class="form-group">
+                <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control", placeholder: "Confirmar Contraseña", id: "confirmation" %>
+                <label id="confirmation_error"></label>
+              </div>
+              <div class="form-group">
+                <%= f.submit "Registrarse", id: 'btn_submit', class: "btn btn-primary submit-btn btn-block" %>
               </div>
               <div class="text-block text-center my-3">
                 <span class="text-small font-weight-semibold">¿ Ya tienes una cuenta ?</span>
@@ -31,6 +42,11 @@
   </div>
 </div>
 <script>
+  onInput("name");
+  onInput("identification");
+  onInput("email");
+  onInput("password");
+  onInput("confirmation");
   $(function() {
     $('#backArrow').on('click', function () {
       document.location.href="/";
