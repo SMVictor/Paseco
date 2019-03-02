@@ -11,7 +11,10 @@
                 <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "form-control", placeholder: "Nombre Completo", id: "name" %>
                 <label id="name_error"></label>
               </div>
-              
+              <div class="form-group">
+                <%= f.text_field :identification, autofocus: true, autocomplete: "identification", class: "form-control", placeholder: "Cédula", id: "identification" %>
+                <label id="identification_error"></label>
+              </div>
               <div class="form-group">
                 <%= f.text_field :email, autofocus: true, autocomplete: "email", id: "email", class: "form-control", placeholder: "Correo Electrónico", data: {users: User.all.to_json } %>
                 <label id="email_error"></label>
