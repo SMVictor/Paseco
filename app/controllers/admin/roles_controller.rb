@@ -109,6 +109,10 @@ class RolesController < ApplicationController
           end
         end
       end
+      @users = User.where(role: 0)
+      @users.each do |user|
+        UserMailer.send_notification(user, current_user).deliver_now
+      end
       respond_to do |format|
         format.html { redirect_to admin_role_lines_url, notice: 'Su solicitud ha sido enviada para revisión.' }
         format.json { render json: @role, status: :ok, location: @role }
