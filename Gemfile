@@ -78,3 +78,10 @@ gem 'cancancan'
 gem 'bootstrap-datepicker-rails'
 
 gem "cocoon"
+
+# Use for file upload management
+gem 'carrierwave'
+gem 'carrierwave_direct'
+gem 'carrierwave-base64'
+gem 'mini_magick'
+gem 'fog-aws'

@@ -29,23 +29,61 @@
     <strong>Fecha de Nacimiento:</strong>
     <p><%= @employee.birthday %></p>
   </div>
-  <div class="col-md-4 col-sm-6 mt-2">
+</div>
+
+<div class="row form_fieldset">
+  <div  class="col-12 mt-4 p-3">
+    <legend>Información de Contratación</legend>
+  </div>
+  <div class="col-md-3 col-sm-6 mt-2">
     <strong>Fecha de Contratación:</strong>
     <p><%= @employee.start_date %></p>
   </div>
-  <div class="col-md-4 col-sm-6 mt-2">
+  <div class="col-md-3 col-sm-6 mt-2">
     <strong>Fecha de Finalización:</strong>
     <p><%= @employee.end_date %></p>
   </div>
-  <div class="col-md-4 col-sm-6 mt-2">
+  <div class="col-md-3 col-sm-6 mt-2">
     <strong>Cargo en la Empresa:</strong>
-    <p><%= @employee.position %></p>
+    <p><%= @employee.position.name %></p>
   </div>
-  <div class="col-md-4 col-sm-6 mt-2">
+  <div class="col-md-3 col-sm-6 mt-2">
     <strong>Puestos:</strong>
     <% @employee.stalls.each do |stall| %>
       <p><%= stall.name %></p>
     <% end -%>
+  </div>
+  <div class="col-md-3 col-sm-6 mb-2 mt-2">
+    <strong>Pago del Seguro:</strong>
+    <p><%= @employee.social_security %></p>
+  </div>
+  <div class="col-md-3 col-sm-6 mb-2 mt-2">
+    <strong>Víaticos:</strong>
+    <% if @employee.daily_viatical == "not" %>
+      <p>No</p>
+    <% else %>
+      <p>Sí</p>
+    <% end %>
+  </div>
+  <div class="col-md-3 col-sm-6 mb-2 mt-2">
+    <strong>Seguro Completo:</strong>
+    <% if @employee.ccss_type == "not" %>
+      <p>No</p>
+    <% else %>
+      <p>Sí</p>
+    <% end %>
+  </div>
+  <div class="col-md-3 col-sm-6 mb-2 mt-2">
+    <strong>Salario Fijo:</strong>
+    <% if @employee.special %>
+      <p>Sí</p>
+    <% else %>
+      <p>No</p>
+    <% end %>
+  </div>
+  <div class="col-sm-6 mt-2">
+    <strong>Documento:</strong><br>
+    <a href="<%= @employee.document_url if @employee.document? %>" target="_blank" >Click Aquí</a>
   </div>
 </div>
 
@@ -106,14 +144,6 @@
   <div class="col-md-4 col-sm-6 mb-2 mt-2">
     <strong>Número de SCCSS:</strong>
     <p><%= @employee.ccss_number %></p>
-  </div>
-  <div class="col-md-4 col-sm-6 mb-2 mt-2">
-    <strong>Víaticos:</strong>
-    <p><%= @employee.daily_viatical %></p>
-  </div>
-  <div class="col-md-4 col-sm-6 mb-2 mt-2">
-    <strong>Seguro Completo:</strong>
-    <p><%= @employee.ccss_type %></p>
   </div>
 </div>
 

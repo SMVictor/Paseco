@@ -48,3 +48,6 @@ bower.json
 node_modules/
 
 app/controllers/admin/.DS_Store
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key

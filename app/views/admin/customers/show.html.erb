@@ -37,6 +37,10 @@
     <strong>Fecha de Finalización:</strong>
     <p><%= @customer.end_date %></p>
   </div>
+  <div class="col-md-4 col-sm-6 mt-2">
+    <strong>Documento:</strong><br>
+    <a href="<%= @customer.document_url if @customer.document? %>" target="_blank" >Click Aquí</a>
+  </div>
 </div>
 
 <div class="row form_fieldset mb-2">

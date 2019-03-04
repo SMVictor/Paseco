@@ -66,8 +66,16 @@
         <label for="">CCSS Completo:</label><br>
         <%= form.check_box :ccss_type, {}, checked_value = "yes", unchecked_value = "not" %>
       </div>
+      <div class="col-lg-6 mb-2 mt-2">
+        <label for="">Documento</label>
+        <div class="input-group">
+          <div class="custom-file">
+            <%= form.file_field :document, id: "inputGroupFile01", class: "custom-file-input"%>
+            <label class="custom-file-label" for="inputGroupFile01">Seleccione un archivo</label>
+          </div>
+        </div>
+      </div>
     </div>
-
     <div class="row form_fieldset">
       <div  class="col-12 p-3">
         <legend>Información de Contacto</legend>

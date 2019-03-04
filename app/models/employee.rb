@@ -5,6 +5,7 @@ class Employee < ApplicationRecord
   belongs_to :position
 
   enum position: [:"Administrador", :"Conserje", :"Mantenimiento", :"Oficial_1", :"Oficial_2", :"Oficial_3", :"Supervisor_1", :"Supervisor_2"]
+  mount_uploader :document, DocumentUploader
 
 
   def self.payroll_calculation
