@@ -7,8 +7,6 @@ class CreateCustomers < ActiveRecord::Migration[5.2]
       t.string :representative_id
       t.string :representative_name
       t.string :legal_document
-      t.string :start_date
-      t.string :end_date
 
       t.string :contact
       t.string :email
@@ -17,8 +15,9 @@ class CreateCustomers < ActiveRecord::Migration[5.2]
       t.string :phone_number
       t.string :phone_number_1
 
-      t.string :payment_method
-      t.string :payment_conditions
+      t.string  :payment_method
+      t.string  :payment_conditions
+      t.boolean :active, :boolean, :default => 1
 
       t.timestamps
     end

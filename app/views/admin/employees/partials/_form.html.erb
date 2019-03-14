@@ -29,55 +29,6 @@
     </div>
     <div class="row form_fieldset">
       <div  class="col-12 p-3">
-        <legend>Información de Contratación</legend>
-      </div>
-      <div class="col-xl-3 col-lg-6 mt-2">
-        <label for="">Fecha de Contratación:</label>
-        <%= form.text_field :start_date, id: "start_date", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-date-format": 'dd/mm/yyyy', "data-provide": 'datepicker' %>
-      </div>
-      <div class="col-xl-3 col-lg-6 mt-2">
-        <label for="">Fecha de Finalización</label>
-        <%= form.text_field :end_date, id: "end_date", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-date-format": 'dd/mm/yyyy', "data-provide": 'datepicker' %>
-      </div>
-      <div class="col-xl-3 col-lg-6 mt-2">
-        <label for="">Cargo en la Empresan</label>
-        <%= form.collection_select :position_id, Position.all.order(name: :asc), :id, :name, options = {include_blank: "Seleccione el cargo en la empresa"}, html_options = {class: "form-control" , id: "selectRole"}%>
-        <label id="selectRole_error"></label>
-      </div>
-      <div class="col-xl-3 col-lg-6 mt-2">
-        <label for="">Puestos</label>
-        <%= form.select(:stall_ids, Stall.all.order(name: :asc).collect {|t| [t.name, t.id]}, {include_blank: false}, {multiple: true, size: 3, class: "form-control", id: "stalls"}) %>
-        <label id="stalls_error"></label>
-      </div>
-      <div class="col-xl-3 col-lg-6 mb-2 mt-2">
-        <label for="">Pago del Seguro:</label>
-        <%= form.select(:social_security, ["Porcentaje", "Monto"], {include_blank: "Seleccione el tipo de seguro"}, { class: "form-control", id: "social_security" }) %>
-        <label id="social_security_error"></label>
-      </div>
-      <div class="col-xl-3 col-lg-6 mb-2 mt-2">
-        <label for="">Salario Fijo:</label><br>
-        <%= form.check_box :special %>
-      </div>
-      <div class="col-xl-3 col-lg-6 mb-2 mt-2">
-        <label for="">Viáticos:</label><br>
-        <%= form.check_box :daily_viatical, {}, checked_value = "yes", unchecked_value = "not" %>
-      </div>
-      <div class="col-xl-3 col-lg-6 mb-2 mt-2">
-        <label for="">CCSS Completo:</label><br>
-        <%= form.check_box :ccss_type, {}, checked_value = "yes", unchecked_value = "not" %>
-      </div>
-      <div class="col-lg-6 mb-2 mt-2">
-        <label for="">Documento</label>
-        <div class="input-group">
-          <div class="custom-file">
-            <%= form.file_field :document, id: "inputGroupFile01", class: "custom-file-input"%>
-            <label class="custom-file-label" for="inputGroupFile01">Seleccione un archivo</label>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row form_fieldset">
-      <div  class="col-12 p-3">
         <legend>Información de Contacto</legend>
       </div>
       <div class="col-xl-4 col-lg-6 mb-2 mt-2">
@@ -136,6 +87,59 @@
       <div class="col-xl-3 col-lg-6 mb-2 mt-2">
         <label for="">Número de SCCSS:</label>
         <%= form.text_field :ccss_number, class: "form-control", placeholder: "Número de SCCSS" %>
+      </div>
+    </div>
+    <div class="row form_fieldset">
+      <div  class="col-12 p-3">
+        <legend>Información de Contratación</legend>
+      </div>
+      <div class="col-xl-4 col-lg-6 mt-2">
+        <label for="">Cargo en la Empresan</label>
+        <%= form.collection_select :position_id, Position.all.order(name: :asc), :id, :name, options = {include_blank: "Seleccione el cargo en la empresa"}, html_options = {class: "form-control" , id: "selectRole"}%>
+        <label id="selectRole_error"></label>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Pago del Seguro:</label>
+        <%= form.select(:social_security, ["Porcentaje", "Monto"], {include_blank: "Seleccione el tipo de seguro"}, { class: "form-control", id: "social_security" }) %>
+        <label id="social_security_error"></label>
+      </div>
+      <div class="col-xl-4 col-lg-6 mt-2">
+        <label for="">Puestos</label>
+        <%= form.select(:stall_ids, Stall.all.order(name: :asc).collect {|t| [t.name, t.id]}, {include_blank: false}, {multiple: true, size: 3, class: "form-control", id: "stalls"}) %>
+        <label id="stalls_error"></label>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Salario Fijo:</label><br>
+        <%= form.check_box :special %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Viáticos:</label><br>
+        <%= form.check_box :daily_viatical, {}, checked_value = "yes", unchecked_value = "not" %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">CCSS Completo:</label><br>
+        <%= form.check_box :ccss_type, {}, checked_value = "yes", unchecked_value = "not" %>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Activo:</label><br>
+        <%= form.check_box :active %>
+      </div>
+    </div>
+    <div class="row form_fieldset mb-2">
+      <div  class="col-12 mt-4 p-3">
+        <legend>Historial de Contrataciones</legend>
+      </div>
+      <div class="col-12">
+        <div class="entry-fields mt-4">
+          <%= form.fields_for :entries do |entry| %>
+            <%= render 'admin/employees/entry_fields', f: entry %>
+          <%end%>
+        </div>
+        <div class="row ml-1 mr-1 tbl_row">
+          <div class="col-12 text-center p-2 tbl_footer">
+            <%= link_to_add_association ' + Agregar Linea', form, :entries, data: { association_insertion_mode: '.entry.fields', partial: 'entry_fields'}, class: 'btn add_btn' %>
+          </div>
+        </div>
       </div>
     </div>
     

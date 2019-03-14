@@ -29,24 +29,9 @@
         <%= form.text_field :representative_id, id: "representative_id", class: "form-control", placeholder: "Cédula del Representante" %>
         <label id="representative_id_error"></label>
       </div>
-      <div class="col-xl-4 col-lg-6 mt-2">
-        <label for="">Fecha de Contratación</label>
-        <%= form.text_field :start_date, id: "date", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-date-format": 'dd/mm/yyyy', "data-provide": 'datepicker' %>
-        <label id="date_error"></label>
-      </div>
-      <div class="col-xl-4 col-lg-6 mt-2">
-        <label for="">Fecha de Finalización</label>
-        <%= form.text_field :end_date, id: "end_date", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-date-format": 'dd/mm/yyyy', "data-provide": 'datepicker' %>
-        <label id="end_date_error"></label>
-      </div>
-      <div class="col-xl-4 col-lg-6 mt-2">
-        <label for="">Documento</label>
-        <div class="input-group">
-          <div class="custom-file">
-            <%= form.file_field :document, id: "inputGroupFile01", class: "custom-file-input"%>
-            <label class="custom-file-label" for="inputGroupFile01">Seleccione un archivo</label>
-          </div>
-        </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Activo:</label><br>
+        <%= form.check_box :active %>
       </div>
     </div>
 
@@ -94,6 +79,24 @@
       <div class="col-lg-6 mb-2 mt-2">
         <label for="">Condiciones del Pago:</label>
         <%= form.text_field :payment_conditions, class: "form-control", placeholder: "Condiciones de Pago" %>
+      </div>
+    </div>
+
+    <div class="row form_fieldset mb-2">
+      <div  class="col-12 mt-4 p-3">
+        <legend>Contrataciones</legend>
+      </div>
+      <div class="col-12">
+        <div class="entry-fields mt-4">
+          <%= form.fields_for :entries do |entry| %>
+            <%= render 'admin/customers/entry_fields', f: entry %>
+          <%end%>
+        </div>
+        <div class="row ml-1 mr-1 tbl_row">
+          <div class="col-12 text-center p-2 tbl_footer">
+            <%= link_to_add_association ' + Agregar Linea', form, :entries, data: { association_insertion_mode: '.entry.fields', partial: 'entry_fields'}, class: 'btn add_btn' %>
+          </div>
+        </div>
       </div>
     </div>
     

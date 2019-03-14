@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_04_213008) do
+ActiveRecord::Schema.define(version: 2019_03_14_114054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,8 +42,7 @@ ActiveRecord::Schema.define(version: 2019_03_04_213008) do
     t.string "representative_id"
     t.string "representative_name"
     t.string "legal_document"
-    t.string "start_date"
-    t.string "end_date"
+    t.boolean "active", default: true
     t.string "contact"
     t.string "email"
     t.string "email_1"
@@ -54,7 +53,6 @@ ActiveRecord::Schema.define(version: 2019_03_04_213008) do
     t.string "payment_conditions"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "document"
   end
 
   create_table "employees", force: :cascade do |t|
@@ -84,6 +82,7 @@ ActiveRecord::Schema.define(version: 2019_03_04_213008) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "special", default: false
+    t.boolean "active",  default: true
     t.string "document"
     t.index ["position_id"], name: "index_employees_on_position_id"
   end
@@ -92,6 +91,19 @@ ActiveRecord::Schema.define(version: 2019_03_04_213008) do
     t.bigint "stall_id", null: false
     t.bigint "employee_id", null: false
     t.index ["stall_id", "employee_id"], name: "index_employees_stalls_on_stall_id_and_employee_id"
+  end
+
+  create_table "entries", force: :cascade do |t|
+    t.string "start_date"
+    t.string "end_date"
+    t.string "reason_departure"
+    t.string "document"
+    t.bigint "customer_id"
+    t.bigint "employee_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_entries_on_customer_id"
+    t.index ["employee_id"], name: "index_entries_on_employee_id"
   end
 
   create_table "payments", force: :cascade do |t|
