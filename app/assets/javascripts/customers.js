@@ -5,7 +5,6 @@ function validateCustomerForm() {
   var legal_document      = document.getElementById("legal_document");
   var representative_name = document.getElementById("representative_name");
   var representative_id   = document.getElementById("representative_id");
-  var date                = document.getElementById("date");
   var contact             = document.getElementById("contact");
   var email               = document.getElementById("email");
   var phone_number        = document.getElementById("phone_number");
@@ -30,10 +29,6 @@ function validateCustomerForm() {
   }
   if (representative_id.value == "") {
     errorHandler(representative_id, "representative_id_error", "Campo obligatorio");
-    result = false;
-  }
-  if (date.value == "") {
-    errorHandler(date, "date_error", "Campo obligatorio");
     result = false;
   }
   if (contact.value == "") {
@@ -79,3 +74,17 @@ function errorHandler(field, field_error_name, message){
   setTimeout(enableSubmitButtom, 1000);
 
 }
+$( document ).on('turbolinks:load', function() {
+  onInput("business_name");
+  onInput("tradename");
+  onInput("legal_document");
+  onInput("representative_name");
+  onInput("representative_id");
+  onInput("contact");
+  onInput("email");
+  onInput("phone_number");
+
+  $('#entries').on('cocoon:before-insert', function(e, insertedItem) {
+    alert();
+  });
+}); 
