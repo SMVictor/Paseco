@@ -38,10 +38,6 @@ function validateEmployeeForm() {
     errorHandler(bank, "bank_error", "Campo obligatorio");
     result = false;
   }
-  if (account.value == "") {
-    errorHandler(account, "account_error", "Campo obligatorio");
-    result = false;
-  }
   else{
     account.value = account.value.replace(/-/g,'');
   }

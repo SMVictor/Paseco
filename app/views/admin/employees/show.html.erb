@@ -36,14 +36,6 @@
     <legend>Información de Contratación</legend>
   </div>
   <div class="col-md-3 col-sm-6 mt-2">
-    <strong>Fecha de Contratación:</strong>
-    <p><%= @employee.start_date %></p>
-  </div>
-  <div class="col-md-3 col-sm-6 mt-2">
-    <strong>Fecha de Finalización:</strong>
-    <p><%= @employee.end_date %></p>
-  </div>
-  <div class="col-md-3 col-sm-6 mt-2">
     <strong>Cargo en la Empresa:</strong>
     <p><%= @employee.position.name %></p>
   </div>
@@ -80,10 +72,6 @@
     <% else %>
       <p>No</p>
     <% end %>
-  </div>
-  <div class="col-sm-6 mt-2">
-    <strong>Documento:</strong><br>
-    <a href="<%= @employee.document_url if @employee.document? %>" target="_blank" >Click Aquí</a>
   </div>
 </div>
 
@@ -145,6 +133,33 @@
     <strong>Número de SCCSS:</strong>
     <p><%= @employee.ccss_number %></p>
   </div>
+</div>
+
+<div class="row form_fieldset">
+  <div  class="col-12 mt-4 p-3">
+    <legend>Historial de Contrataciones</legend>
+  </div>
+  
+  <% if @employee.entries %>
+    <% @employee.entries.each do  |entry| %>
+      <div class="col-md-3 col-sm-6 mt-2">
+        <strong>Fecha de Contratación:</strong>
+        <p><%= entry.start_date %></p>
+      </div>
+      <div class="col-md-3 col-sm-6 mt-2">
+        <strong>Fecha de Finalización:</strong>
+        <p><%= entry.end_date %></p>
+      </div>
+      <div class="col-md-3 col-sm-6 mt-2">
+        <strong>Documento:</strong><br>
+        <a href="<%= entry.document_url if entry.document? %>" target="_blank" >Click Aquí</a>
+      </div>
+      <div class="col-md-3 col-sm-6 mt-2">
+        <strong>Motivo de Salida:</strong>
+        <p><%= entry.reason_departure %></p>
+      </div>
+    <% end %>
+  <% end %>
 </div>
 
 <%= link_to 'Editar', edit_admin_employee_path(@employee) %> |

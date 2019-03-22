@@ -29,18 +29,6 @@
     <strong>Cédula del Representante:</strong>
     <p><%= @customer.representative_id %></p>
   </div>
-  <div class="col-md-4 col-sm-6 mt-2">
-    <strong>Fecha de Contratación:</strong>
-    <p><%= @customer.start_date %></p>
-  </div>
-  <div class="col-md-4 col-sm-6 mt-2">
-    <strong>Fecha de Finalización:</strong>
-    <p><%= @customer.end_date %></p>
-  </div>
-  <div class="col-md-4 col-sm-6 mt-2">
-    <strong>Documento:</strong><br>
-    <a href="<%= @customer.document_url if @customer.document? %>" target="_blank" >Click Aquí</a>
-  </div>
 </div>
 
 <div class="row form_fieldset mb-2">
@@ -85,6 +73,32 @@
     <strong>Condiciones de Pago:</strong>
     <p><%= @customer.payment_conditions %></p>
   </div>
+</div>
+
+<div class="row form_fieldset">
+  <div  class="col-12 mt-4 p-3">
+    <legend>Historial de Contrataciones</legend>
+  </div>
+  <% if @customer.entries %>
+    <% @customer.entries.each do  |entry| %>
+      <div class="col-md-3 col-sm-6 mt-2">
+        <strong>Fecha de Contratación:</strong>
+        <p><%= entry.start_date %></p>
+      </div>
+      <div class="col-md-3 col-sm-6 mt-2">
+        <strong>Fecha de Finalización:</strong>
+        <p><%= entry.end_date %></p>
+      </div>
+      <div class="col-md-3 col-sm-6 mt-2">
+        <strong>Documento:</strong><br>
+        <a href="<%= entry.document_url if entry.document? %>" target="_blank" >Click Aquí</a>
+      </div>
+      <div class="col-md-3 col-sm-6 mt-2">
+        <strong>Motivo de Salida:</strong>
+        <p><%= entry.reason_departure %></p>
+      </div>
+    <% end %>
+  <% end %>
 </div>
 
 <%= link_to 'Editar', edit_admin_customer_path(@customer) %> |
