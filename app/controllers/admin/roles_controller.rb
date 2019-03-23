@@ -193,8 +193,8 @@ class RolesController < ApplicationController
 
   def show_payroles
 
-    @ccss_percent = 0.1035
-    @ccss_amount = 12500
+    @ccss_percent = CcssPayment.first.percentage/100
+    @ccss_amount = CcssPayment.first.amount
 
     @employees = Employee.all
     @employees.each do |employee|

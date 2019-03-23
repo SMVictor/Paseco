@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_14_114054) do
+ActiveRecord::Schema.define(version: 2019_03_22_225859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,13 +36,19 @@ ActiveRecord::Schema.define(version: 2019_03_14_114054) do
     t.string "employee_concept"
   end
 
+  create_table "ccss_payments", force: :cascade do |t|
+    t.float "percentage"
+    t.float "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "customers", force: :cascade do |t|
     t.string "business_name"
     t.string "tradename"
     t.string "representative_id"
     t.string "representative_name"
     t.string "legal_document"
-    t.boolean "active", default: true
     t.string "contact"
     t.string "email"
     t.string "email_1"
@@ -53,6 +59,7 @@ ActiveRecord::Schema.define(version: 2019_03_14_114054) do
     t.string "payment_conditions"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "active", default: true
   end
 
   create_table "employees", force: :cascade do |t|
@@ -61,8 +68,6 @@ ActiveRecord::Schema.define(version: 2019_03_14_114054) do
     t.string "id_type"
     t.string "identification"
     t.string "birthday"
-    t.string "start_date"
-    t.string "end_date"
     t.string "province"
     t.string "canton"
     t.string "district"
@@ -82,8 +87,7 @@ ActiveRecord::Schema.define(version: 2019_03_14_114054) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "special", default: false
-    t.boolean "active",  default: true
-    t.string "document"
+    t.boolean "active", default: true
     t.index ["position_id"], name: "index_employees_on_position_id"
   end
 

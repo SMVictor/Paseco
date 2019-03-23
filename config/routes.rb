@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       resources :positions
       resources :bncr_infos
       resources :bac_infos
+      resources :ccss_payments
 
       get    'roles/lines/:id/:stall_id/:employee_id'           => 'roles#add_role_lines',    as: 'role_lines'
       patch  'roles/lines/:id/:stall_id/:employee_id'           => 'roles#update_role_lines', as: 'edit_role_lines'
