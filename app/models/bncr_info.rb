@@ -12,10 +12,6 @@ class BncrInfo < ApplicationRecord
     concept = (concept + " " + name).upcase.gsub!(/[^A-Za-z0-9]/, ' ' => ' ')
   end
 
-  def self.complete_amount(amount)
-    amount = "0" * (12 - amount.length) + amount
-  end
-
   def self.complete_amount_end(amount)
     amount = "0" * (15 - amount.length) + amount
   end
