@@ -74,6 +74,25 @@ function errorHandler(field, field_error_name, message){
   setTimeout(enableSubmitButtom, 1000);
 
 }
+function filterCustomer(){
+  var customers = JSON.parse(document.querySelector('#customer').dataset.customers);
+  var search = $('#customer').val().toUpperCase();
+  var ids = [0];
+  customers.forEach(function(customer) {
+    if (customer.tradename.toUpperCase().includes(search) || customer.legal_document.includes(search)) {
+      ids.push(customer.id);
+    }
+  });
+  $.ajax({
+    type: "GET",
+    url: "/admin/customers/",
+    data:
+    {
+      utf8: "✓",
+      ids: ids
+    }
+  });
+}
 $( document ).on('turbolinks:load', function() {
   onInput("business_name");
   onInput("tradename");

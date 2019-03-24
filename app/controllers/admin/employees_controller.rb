@@ -6,7 +6,14 @@ class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
 
   def index
-    @employees = Employee.all.order(name: :asc)
+    if params[:ids]
+      @employees = Employee.where(id: params[:ids]).all.order(name: :asc)
+      respond_to do |format|
+        format.js
+      end
+    else
+      @employees = Employee.all.order(name: :asc)
+    end
   end
 
   def show

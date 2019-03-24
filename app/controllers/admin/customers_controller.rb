@@ -6,7 +6,14 @@ class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
 
   def index
-    @customers = Customer.all.order(tradename: :asc)
+    if params[:ids]
+      @customers = Customer.where(id: params[:ids]).all.order(tradename: :asc)
+      respond_to do |format|
+        format.js
+      end
+    else
+      @customers = Customer.all.order(tradename: :asc)
+    end
   end
 
   def show

@@ -16,4 +16,9 @@
     <% end %>
   </div>
 </div>
-<div id="customersTable"><%= render 'admin/customers/partials/table', locals: {customers:  @customers}%></div>
+<div class="card">
+  <div class="col-12">
+    <input type="text" class="col-md-4 mt-4 text-center" id="customer" name="customer[customer_filter]" placeholder="Filtrar por Nombre ó Cédula" oninput="filterCustomer()" data-customers="<%= Customer.all.to_json %>">
+  </div>
+  <div id="customersTable"><%= render 'admin/customers/partials/table', locals: {customers:  @customers}%></div>
+</div>

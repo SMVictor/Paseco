@@ -47,3 +47,23 @@ function validateEmployeeForm() {
   }
   return result;
 }
+
+function filterEmployee(){
+  var employees = JSON.parse(document.querySelector('#employee').dataset.employees);
+  var search = $('#employee').val().toUpperCase();
+  var ids = [0];
+  employees.forEach(function(employee) {
+    if (employee.name.toUpperCase().includes(search) || employee.identification.includes(search)) {
+      ids.push(employee.id);
+    }
+  });
+  $.ajax({
+    type: "GET",
+    url: "/admin/employees/",
+    data:
+    {
+      utf8: "✓",
+      ids: ids
+    }
+  });
+}
