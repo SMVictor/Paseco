@@ -2,6 +2,9 @@
   <div class="row form_fieldset text-center">
     <div  class="col-12 mt-4">
       <div class="row mt-1 ml-1  mr-1 pt-3 tbl_head d-none d-md-flex text-center">
+        <div class="col-12 col-md-1">
+          <p class="text-uppercase">Día</p>
+        </div>
         <div class="col-12 col-md-2">
           <p class="text-uppercase">Fecha</p>
         </div>
@@ -14,7 +17,7 @@
         <div class="col-12 col-md-4">
           <p class="text-uppercase">Comentarios</p>
         </div>
-        <div class="col-12 col-md-2">
+        <div class="col-12 col-md-1">
           <p class="text-uppercase">Acciones</p>
         </div>
       </div>
@@ -37,3 +40,7 @@
   <% end %>
   <%= link_to('Cancelar', edit_admin_role_path(@role), class: 'btn btn-light ml-sm-3 mt-4')%>
 <% end %>
+
+<script type="text/javascript">
+  getDayName();
+</script>

@@ -4,9 +4,13 @@
     <% if @employee %>
       <%= f.hidden_field :employee_id, value:  @employee.id %>
     <% end -%>
+    <div class="col-xl-1 col-lg-6 mb-2 pt-md-3">
+      <p class="d-md-none font-weight-bold">Día</p>
+      <%= f.text_field :day, class: "form-control" %>
+    </div>
     <div class="col-xl-2 col-lg-6 mb-2 pt-md-3">
       <p class="d-md-none font-weight-bold">Fecha</p>
-      <%= f.text_field :date, id: "date", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-date-format": 'dd/mm/yyyy', "data-provide": 'datepicker' %>
+      <%= f.text_field :date, placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-date-format": 'mm/dd/yyyy', "data-provide": 'datepicker', onchange: "getDayName()" %>
     </div>
     <div class="col-xl-2 col-lg-6 mb-2 pt-md-3">
       <p class="d-md-none font-weight-bold">Turno</p>
@@ -18,9 +22,9 @@
     </div>
     <div class="col-xl-4 col-lg-6 mb-2 pt-md-3">
       <p class="d-md-none font-weight-bold">Comentarios</p>
-      <%= f.text_field :comment, class: "form-control", placeholder: "Cubre turno por permiso de Juan" %>
+      <%= f.text_field :comment, class: "form-control comment", placeholder: "Cubre turno por permiso de Juan" %>
     </div>
-    <div class="col-lg-2 col-md-4 pt-md-3">
+    <div class="col-lg-1 col-md-4 pt-md-3">
        <%= link_to_remove_association "", f, class: "fas fa-trash-alt", id: 'remove_link', style: "color: #E25141" %>
     </div>
     <%= render 'admin/roles/partials/add_payment_modal', form: f %>

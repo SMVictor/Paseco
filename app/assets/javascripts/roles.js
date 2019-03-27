@@ -33,3 +33,18 @@ function changeIconColor(){
     }
   }
 }
+
+function getDayName(){
+
+  var comments = $('.comment');
+  var days = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];
+
+  for (var i = 0; i < comments.length; i++) {
+    var dateString = $('#'+(comments[i].id).replace("comment", "date")).val();
+    
+    var dayInput   = $('#'+(comments[i].id).replace("comment", "day"));
+    var date = new Date(dateString);
+    var dayName = days[date.getDay()];
+    dayInput.val(dayName);
+  }
+}
