@@ -3,7 +3,7 @@
     <thead class="thead-dark">
       <tr>
         <th scope="col">Nombre</th>
-        <% @dates = (Date.strptime(Date.parse(@role.start_date).strftime("%Y-%m-%d"), "%Y-%m-%d")..Date.strptime(Date.parse(@role.end_date).strftime("%Y-%m-%d"), "%Y-%m-%d")).map{|d| d.strftime "%d/%m/%Y" } %>
+        <% @dates = (Date.strptime(Date.parse(@role.start_date).strftime("%Y-%m-%d"), "%Y-%m-%d")..Date.strptime(Date.parse(@role.end_date).strftime("%Y-%m-%d"), "%Y-%m-%d")).map{|d| d.strftime "%m/%d/%Y" } %>
         <% @dates.each do |date| %>
           <th scope="col"><%= date %></th>
        <% end -%>

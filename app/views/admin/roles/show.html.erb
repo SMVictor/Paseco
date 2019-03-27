@@ -28,7 +28,7 @@
     <legend>Puestos del Roll</legend>
   </div>
   <% if @role.stalls %>
-    <% @role.stalls.each do |stall| %>
+    <% @role.stalls.order(name: :asc).each do |stall| %>
       <div class="col-12">
         <h4 class="text-center mb-3"><%= stall.name %></h4>
         <div class="mb-5" id="showTable"><%= render 'admin/roles/partials/show_table', stall:  stall %></div>
