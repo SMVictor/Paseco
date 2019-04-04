@@ -226,7 +226,7 @@ class RolesController < ApplicationController
   def bac_file
    @bac_info = BacInfo.first
    @total = 0
-   @count = 1
+   @count = 0
 
    @payrole.payrole_lines.each do |payrole|
     if payrole.employee.bank == "BAC"
