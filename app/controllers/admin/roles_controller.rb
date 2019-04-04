@@ -208,11 +208,11 @@ class RolesController < ApplicationController
 
   def bncr_file
    @bn_info = BncrInfo.first
-   @total = 0
+   @total = 1
    @sumAccounts = @bn_info.account[8,6].to_i
 
    @payrole.payrole_lines.each do |payrole|
-    if payrole.employee.bank == "BNCR"
+    if payrole.employee.bank == "BNCR" && payrole.net_salary.to_i > 0
       @total += payrole.net_salary.to_i
       @sumAccounts += @bn_info.account[8,6].to_i
     end
@@ -229,7 +229,7 @@ class RolesController < ApplicationController
    @count = 0
 
    @payrole.payrole_lines.each do |payrole|
-    if payrole.employee.bank == "BAC"
+    if payrole.employee.bank == "BAC" && payrole.net_salary.to_i > 0
       @total += payrole.net_salary.to_i
       @count += 1
     end
