@@ -214,7 +214,7 @@ class RolesController < ApplicationController
    @payrole.payrole_lines.each do |payrole|
     if payrole.employee.bank == "BNCR" && payrole.net_salary.to_i > 0
       @total += payrole.net_salary.to_i
-      @sumAccounts += @bn_info.account[8,6].to_i
+      @sumAccounts += payrole.employee.account[8,6].to_i
     end
    end
    @total = @total*100
