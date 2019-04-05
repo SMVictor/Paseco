@@ -9,10 +9,10 @@
     <Row>
       <Cell><Data ss:Type="String"><%= BacInfo.complete_firts("B" + @bac_info.plan + @bac_info.shipping) + "00000" + @bac_info.date + BacInfo.complete_total(@total.to_s) + BacInfo.complete_total_records(@count.to_s) %></Data></Cell>
     </Row>
+    <% @position = 0 %>
     <% @payrole.payrole_lines.each_with_index do |payrole, index| %>
 
       <% @employee = Employee.find(payrole.employee_id ) %>
-      <% @position = 0 %>
 
       <% if @employee.bank == "BAC" && payrole.net_salary.to_i > 0 %>
       <% @position += 1 %>
