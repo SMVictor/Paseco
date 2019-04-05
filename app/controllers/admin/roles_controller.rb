@@ -208,7 +208,7 @@ class RolesController < ApplicationController
 
   def bncr_file
    @bn_info = BncrInfo.first
-   @total = 1
+   @total = 0
    @sumAccounts = @bn_info.account[8,6].to_i
 
    @payrole.payrole_lines.each do |payrole|
