@@ -48,3 +48,22 @@ function getDayName(){
     dayInput.val(dayName);
   }
 }
+function filterPayrole(){
+  var payrole_lines = JSON.parse(document.querySelector('#payrole').dataset.lines);
+  var search = $('#payrole').val().toUpperCase();
+  var ids = [0];
+  payrole_lines.forEach(function(line) {
+    if (line.employee.name.toUpperCase().includes(search)) {
+      ids.push(line.id);
+    }
+  });
+  $.ajax({
+    type: "GET",
+    url: payrole_lines[0].role_id+"/",
+    data:
+    {
+      utf8: "✓",
+      ids: ids
+    }
+  });
+}

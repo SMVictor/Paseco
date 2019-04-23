@@ -1,0 +1,71 @@
+<table class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+  <thead class="thead-dark">
+    <tr>
+      <th style="border: 1px solid" scope="col">#</th>
+      <th style="border: 1px solid" scope="col">Empleado</th>
+      <th style="border: 1px solid" scope="col">Nº Días</th>
+      <th style="border: 1px solid" scope="col">Salario Mínimo</th>
+      <th style="border: 1px solid" scope="col">Nº Horas Extras</th>
+      <th style="border: 1px solid" scope="col">Horas Extras</th>
+      <th style="border: 1px solid" scope="col">Víaticos</th>
+      <th style="border: 1px solid" scope="col">Pago CCSS</th>
+      <th style="border: 1px solid" scope="col">Deducciones</th>
+      <th style="border: 1px solid" scope="col">Pagos Extras</th>
+      <th style="border: 1px solid" scope="col">Salario Neto</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @payrole_lines %>
+
+      <% @total_worked_days    = 0 %>
+      <% @total_min_salary     = 0 %>
+      <% @total_num_extra_hours= 0 %>
+      <% @total_extra_hours    = 0 %>
+      <% @total_dayly_viatical = 0 %>
+      <% @total_ccss_deduction = 0 %>
+      <% @total_deductions     = 0 %>
+      <% @total_extra_payments = 0 %>
+      <% @total_net_salary     = 0 %>
+
+      <% @payrole_lines.each_with_index do |line, index| %>
+
+        <% @total_worked_days    += line.num_worked_days.to_i  %>
+        <% @total_min_salary     += line.min_salary.to_i %>
+        <% @total_num_extra_hours+= line.num_extra_hours.to_i %>
+        <% @total_extra_hours    += line.extra_hours.to_i %>
+        <% @total_dayly_viatical += line.daily_viatical.to_i %>
+        <% @total_ccss_deduction += line.ccss_deduction.to_i %>
+        <% @total_deductions     += line.deductions.to_i %>
+        <% @total_extra_payments += line.extra_payments.to_i %>
+        <% @total_net_salary     += line.net_salary.to_i %>
+
+        <tr>
+          <td style="border: 1px solid"><%= index %></td>
+          <td style="border: 1px solid"><%= link_to(line.employee.name, admin_payrole_detail_path(@payrole, line.employee), class:'', title: 'Ver Empleado') if line.employee %></td>
+          <td style="border: 1px solid"><%= line.num_worked_days %></td>
+          <td style="border: 1px solid"><%= line.min_salary %></td>
+          <td style="border: 1px solid"><%= line.num_extra_hours %></td>
+          <td style="border: 1px solid"><%= line.extra_hours %></td>
+          <td style="border: 1px solid"><%= line.daily_viatical %></td>
+          <td style="border: 1px solid"><%= line.ccss_deduction %></td>
+          <td style="border: 1px solid"><%= line.deductions %></td>
+          <td style="border: 1px solid"><%= line.extra_payments %></td>
+          <td style="border: 1px solid"><%= line.net_salary %></td>
+        </tr>
+      <% end %>
+      <tr>
+          <td style="border: 1px solid"></td>
+          <td style="border: 1px solid">Total</td>
+          <td style="border: 1px solid"><%= @total_worked_days %></td>
+          <td style="border: 1px solid"><%= @total_min_salary %></td>
+          <td style="border: 1px solid"><%= @total_num_extra_hours %></td>
+          <td style="border: 1px solid"><%= @total_extra_hours %></td>
+          <td style="border: 1px solid"><%= @total_daily_viatical %></td>
+          <td style="border: 1px solid"><%= @total_ccss_deduction %></td>
+          <td style="border: 1px solid"><%= @total_deductions %></td>
+          <td style="border: 1px solid"><%= @total_extra_payments %></td>
+          <td style="border: 1px solid"><%= @total_net_salary %></td>
+        </tr>
+    <%end %>
+  </tbody>
+</table>

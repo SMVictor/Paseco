@@ -27,42 +27,8 @@
     <legend>Información de los Pagos</legend>
     <div class="card">
       <div class="card-body">
-        <div id="table" class="table-responsive">
-          <table class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
-            <thead class="thead-dark">
-              <tr>
-                <th scope="col">Empleado</th>
-                <th scope="col">Nº Días</th>
-                <th scope="col">Salario Mínimo</th>
-                <th scope="col">Nº Horas Extras</th>
-                <th scope="col">Horas Extras</th>
-                <th scope="col">Víaticos</th>
-                <th scope="col">Pago CCSS</th>
-                <th scope="col">Deducciones</th>
-                <th scope="col">Pagos Extras</th>
-                <th scope="col">Salario Neto</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% if @payrole.payrole_lines%>
-                <% @payrole.payrole_lines.each do |line| %>
-                  <tr>
-                    <td style="border: 1px solid"><%= link_to(line.employee.name, admin_payrole_detail_path(@payrole, line.employee), class:'', title: 'Ver Empleado') if line.employee %></td>
-                    <td style="border: 1px solid"><%= line.num_worked_days %></td>
-                    <td style="border: 1px solid"><%= line.min_salary %></td>
-                    <td style="border: 1px solid"><%= line.num_extra_hours %></td>
-                    <td style="border: 1px solid"><%= line.extra_hours %></td>
-                    <td style="border: 1px solid"><%= line.daily_viatical %></td>
-                    <td style="border: 1px solid"><%= line.ccss_deduction %></td>
-                    <td style="border: 1px solid"><%= line.deductions %></td>
-                    <td style="border: 1px solid"><%= line.extra_payments %></td>
-                    <td style="border: 1px solid"><%= line.net_salary %></td>
-                  </tr>
-                <% end %>
-              <%end %>
-            </tbody>
-          </table>
-        </div>
+        <input type="text" style="border: 1px solid #DFE9DF" class="col-md-4 mt-2 mb-2 text-center" id="payrole" name="role[payrole_filter]" placeholder="Filtrar por Nombre" oninput="filterPayrole()" data-lines="<%= @payrole_lines.to_json(include: :employee) %>">
+        <div id="payrole_lines_table" class="table-responsive"><%= render 'admin/roles/partials/payrole_lines_table', locals: {payrole_lines:  @payrole_lines}%></div>
       </div>
     </div>
   </div>

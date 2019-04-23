@@ -193,8 +193,18 @@ class RolesController < ApplicationController
 
   def show_payroles
 
-    @ccss_percent = CcssPayment.first.percentage/100
-    @ccss_amount = CcssPayment.first.amount
+    if params[:ids]
+      @payrole_lines = @payrole.payrole_lines.where(id: params[:ids]).includes(:employee).order("employees.name asc")
+      respond_to do |format|
+        format.js
+      end
+    else
+      @payrole_lines = @payrole.payrole_lines.includes(:employee).order("employees.name asc")
+    end
+
+    @ccss_percent  = CcssPayment.first.percentage/100
+    @ccss_amount   = CcssPayment.first.amount
+    
 
     @employees = Employee.all
     @employees.each do |employee|
