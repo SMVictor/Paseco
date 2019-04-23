@@ -27,8 +27,22 @@
     <legend>Información de los Pagos</legend>
     <div class="card">
       <div class="card-body">
-        <input type="text" style="border: 1px solid #DFE9DF" class="col-md-4 mt-2 mb-2 text-center" id="payrole" name="role[payrole_filter]" title="Escriba un nombre y precione 'entrar' o deje en blanco y precione 'entrar' para mostrar el listado completo"  placeholder="Filtrar por Nombre" onchange="filterPayrole()" data-lines="<%= @payrole_lines.to_json(include: :employee) %>">
-        <div id="payrole_lines_table" class="table-responsive"><%= render 'admin/roles/partials/payrole_lines_table', locals: {payrole_lines:  @payrole_lines}%></div>
+        <div class="row mt-2 mb-2">
+          <div class="col-md-4">
+            <label for="payrole">Filtrar por Nombre:</label>
+            <input type="text" class="form-control" id="payrole" name="role[payrole_filter]" title="Escriba un nombre y precione 'entrar' o deje en blanco y precione 'entrar' para mostrar el listado completo"  placeholder="Filtrar por Nombre" onchange="filterPayrole()" data-lines="<%= @payrole_lines.to_json(include: :employee) %>">
+          </div>
+          <div class="col-md-4">
+            <label for="banks">Ver Deposito por Banco:</label>
+            <select class="form-control" id="banks" onchange="filterByBank()" title="Seleccione una entidad bancaria para ver el resumen del depósito a realizar">
+              <option value="0" selected>Seleccione una entidad bancaria</option>
+              <option value="1">BAC</option>
+              <option value="2">BNCR</option>
+            </select>
+          </div>
+        </div>
+        <div id="payrole_lines_table" class="table-responsive"><%= render 'admin/roles/partials/payrole_lines_table', locals: {payrole_lines:  @payrole_lines}%>
+        </div>
       </div>
     </div>
   </div>

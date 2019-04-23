@@ -192,7 +192,6 @@ class RolesController < ApplicationController
   end
 
   def show_payroles
-
     if params[:ids]
       @payrole_lines = @payrole.payrole_lines.where(id: params[:ids]).includes(:employee).order("employees.name asc")
       respond_to do |format|

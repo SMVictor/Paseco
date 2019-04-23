@@ -53,10 +53,32 @@ function filterPayrole(){
   var search = $('#payrole').val().toUpperCase();
   var ids = [0];
   payrole_lines.forEach(function(line) {
-    if (line.employee.name.toUpperCase().includes(search)) {
+    if (line.employee.name.toUpperCase().includes(search) || line.employee.bank.toUpperCase().includes(search)) {
       ids.push(line.id);
     }
   });
+  $.ajax({
+    type: "GET",
+    url: payrole_lines[0].role_id+"/",
+    data:
+    {
+      utf8: "✓",
+      ids: ids
+    }
+  });
+}
+
+function filterByBank(){
+  var payrole_lines = JSON.parse(document.querySelector('#payrole').dataset.lines);
+  var search = $( "#banks option:selected" ).text();
+  var ids = [0];
+
+  payrole_lines.forEach(function(line) {
+    if ((line.employee.bank == search && parseInt(line.net_salary) > 0) || search == "Seleccione una entidad bancaria") {
+      ids.push(line.id);
+    }
+  });
+
   $.ajax({
     type: "GET",
     url: payrole_lines[0].role_id+"/",
