@@ -40,7 +40,7 @@
         <% @total_net_salary     += line.net_salary.to_i %>
 
         <tr>
-          <td style="border: 1px solid"><%= index %></td>
+          <td style="border: 1px solid"><%= index+1 %></td>
           <td style="border: 1px solid"><%= link_to(line.employee.name, admin_payrole_detail_path(@payrole, line.employee), class:'', title: 'Ver Empleado') if line.employee %></td>
           <td style="border: 1px solid"><%= line.num_worked_days %></td>
           <td style="border: 1px solid"><%= line.min_salary %></td>
@@ -53,7 +53,7 @@
           <td style="border: 1px solid"><%= line.net_salary %></td>
         </tr>
       <% end %>
-      <tr>
+        <tr>
           <td style="border: 1px solid"></td>
           <td style="border: 1px solid">Total</td>
           <td style="border: 1px solid"><%= @total_worked_days %></td>
@@ -66,6 +66,21 @@
           <td style="border: 1px solid"><%= @total_extra_payments %></td>
           <td style="border: 1px solid"><%= @total_net_salary %></td>
         </tr>
+
+        <tr style="height: 1.2rem;">
+          <td style="border: 1px solid"></td>
+          <td style="border: 1px solid"></td>
+          <td style="border: 1px solid"></td>
+          <td style="border: 1px solid"></td>
+          <td style="border: 1px solid"></td>
+          <td style="border: 1px solid"></td>
+          <td style="border: 1px solid"></td>
+          <td style="border: 1px solid"></td>
+          <td style="border: 1px solid"></td>
+          <td style="border: 1px solid"></td>
+          <td style="border: 1px solid"></td>
+        </tr>
+
     <%end %>
   </tbody>
 </table>
