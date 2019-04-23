@@ -27,7 +27,7 @@
     <legend>Información de los Pagos</legend>
     <div class="card">
       <div class="card-body">
-        <input type="text" style="border: 1px solid #DFE9DF" class="col-md-4 mt-2 mb-2 text-center" id="payrole" name="role[payrole_filter]" placeholder="Filtrar por Nombre" oninput="filterPayrole()" data-lines="<%= @payrole_lines.to_json(include: :employee) %>">
+        <input type="text" style="border: 1px solid #DFE9DF" class="col-md-4 mt-2 mb-2 text-center" id="payrole" name="role[payrole_filter]" title="Escriba un nombre y precione 'entrar' o deje en blanco y precione 'entrar' para mostrar el listado completo"  placeholder="Filtrar por Nombre" onchange="filterPayrole()" data-lines="<%= @payrole_lines.to_json(include: :employee) %>">
         <div id="payrole_lines_table" class="table-responsive"><%= render 'admin/roles/partials/payrole_lines_table', locals: {payrole_lines:  @payrole_lines}%></div>
       </div>
     </div>
