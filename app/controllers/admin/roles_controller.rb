@@ -285,7 +285,11 @@ class RolesController < ApplicationController
         @stall = role_line.stall
         @shift = role_line.shift
 
-        if @shift.name != "Libre"
+        if @shift.name == "Libre"
+          @min_salary += @stall.min_salary.to_f/30
+        elsif @shift.name == "Incapacidad"
+          @min_salary += 0
+        else
           @hour_cost = @stall.min_salary.to_f/30/@shift.time.to_f
 
           @normal_hours = 0
@@ -296,18 +300,18 @@ class RolesController < ApplicationController
           @normal_hours = role_line.hours.to_f - @extra_hours
           @min_salary += @normal_hours * @hour_cost
           @extra_salary += ((@stall.min_salary.to_f/30)/@shift.time.to_f) * @shift.extra_time_cost.to_f * @extra_hours
-        else
-           @min_salary += @stall.min_salary.to_f/30
         end
 
         @extra_payments += role_line.extra_payments.to_f
         @deductions     += role_line.deductions.to_f
 
         if employee.daily_viatical == 'yes'
-          if @shift.name != "Libre"
-            @viatical += (@stall.daily_viatical.to_f/@shift.time.to_f)*@normal_hours.to_f
-          else
+          if @shift.name == "Libre" 
             @viatical += @stall.daily_viatical.to_f
+          elsif @shift.name == "Incapacidad"
+              @viatical += 0
+          else
+            @viatical += (@stall.daily_viatical.to_f/@shift.time.to_f)*@normal_hours.to_f
           end
         end
       end
@@ -363,15 +367,18 @@ class RolesController < ApplicationController
       @role_lines.each do |role_line|
 
         @stall = role_line.stall
-        @min_salary += @day_cost
+        @shift = role_line.shift
+        @min_salary += @day_cost if @shift.name != "Incapacidad"
         @extra_payments += role_line.extra_payments.to_f
         @deductions += role_line.deductions.to_f
 
         if employee.daily_viatical == 'yes'
-          if @shift.name != "Libre"
-            @viatical += (@stall.daily_viatical.to_f/@shift.time.to_f)*@shift.time.to_f
-          else
+          if @shift.name == "Libre"
             @viatical += @stall.daily_viatical.to_f
+          elsif @shift.name == "Incapacidad"    
+            @viatical += 0
+          else
+            @viatical += (@stall.daily_viatical.to_f/@shift.time.to_f)*@shift.time.to_f
           end
         end
       end
