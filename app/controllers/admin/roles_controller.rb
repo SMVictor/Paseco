@@ -212,7 +212,8 @@ class RolesController < ApplicationController
       @total_extra_salary   = 0 
       @total_extra_payments = 0 
       @total_deductions     = 0 
-      @total_viatical       = 0 
+      @total_viatical       = 0
+      @total_holidays       = 0 
 
       @role_lines.each do |line|
 
@@ -224,9 +225,10 @@ class RolesController < ApplicationController
         @total_extra_salary   += employee.extra_day_salary 
         @total_extra_payments += line.extra_payments.to_f 
         @total_deductions     += line.deductions.to_f 
-        @total_viatical       += employee.viatical 
+        @total_viatical       += employee.viatical
+        @total_holidays       += employee.holiday 
       end
-      employee.calculate_payment(@role_lines.length, @total_day_salary, @total_extra_hours, @total_extra_salary, @total_viatical, @total_extra_payments, @total_deductions)
+      employee.calculate_payment(@role_lines.length, @total_day_salary, @total_extra_hours, @total_extra_salary, @total_viatical, @total_extra_payments, @total_deductions, @total_holidays)
 
       @payrole_line = @payrole.payrole_lines.where(employee_id: employee.id)[0]
       if @payrole_line == nil
@@ -241,6 +243,7 @@ class RolesController < ApplicationController
       @payrole_line.net_salary      = employee.net_salary.round(0)
       @payrole_line.extra_payments  = employee.total_exta_payments.round(0)
       @payrole_line.deductions      = employee.total_deductions.round(0)
+      @payrole_line.holidays        = employee.total_holidays.round(0)
       @payrole_line.save
     end
   end
@@ -300,7 +303,7 @@ class RolesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def role_params
-      params.require(:role).permit(:name, :start_date, :end_date, stall_ids: [], role_lines_attributes: [:id, :date, :employee_id, :stall_id, :shift_id, :substall, :comment, :hours, :extra_payments, :extra_payments_description, :deductions, :deductions_description, :_destroy])
+      params.require(:role).permit(:name, :start_date, :end_date, stall_ids: [], role_lines_attributes: [:id, :date, :employee_id, :stall_id, :shift_id, :substall, :comment, :hours, :extra_payments, :extra_payments_description, :deductions, :deductions_description, :holiday, :_destroy])
     end
 end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_22_225859) do
+ActiveRecord::Schema.define(version: 2019_05_06_175439) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,8 @@ ActiveRecord::Schema.define(version: 2019_03_22_225859) do
     t.string "representative_id"
     t.string "representative_name"
     t.string "legal_document"
+    t.string "start_date"
+    t.string "end_date"
     t.string "contact"
     t.string "email"
     t.string "email_1"
@@ -59,6 +61,7 @@ ActiveRecord::Schema.define(version: 2019_03_22_225859) do
     t.string "payment_conditions"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "document"
     t.boolean "active", default: true
   end
 
@@ -68,6 +71,8 @@ ActiveRecord::Schema.define(version: 2019_03_22_225859) do
     t.string "id_type"
     t.string "identification"
     t.string "birthday"
+    t.string "start_date"
+    t.string "end_date"
     t.string "province"
     t.string "canton"
     t.string "district"
@@ -87,6 +92,7 @@ ActiveRecord::Schema.define(version: 2019_03_22_225859) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "special", default: false
+    t.string "document"
     t.boolean "active", default: true
     t.index ["position_id"], name: "index_employees_on_position_id"
   end
@@ -131,6 +137,7 @@ ActiveRecord::Schema.define(version: 2019_03_22_225859) do
     t.datetime "updated_at", null: false
     t.string "num_extra_hours"
     t.string "num_worked_days"
+    t.string "holidays"
     t.index ["employee_id"], name: "index_payrole_lines_on_employee_id"
     t.index ["role_id"], name: "index_payrole_lines_on_role_id"
   end
@@ -168,6 +175,7 @@ ActiveRecord::Schema.define(version: 2019_03_22_225859) do
     t.string "extra_payments_description"
     t.string "deductions"
     t.string "deductions_description"
+    t.boolean "holiday", default: false
     t.index ["employee_id"], name: "index_role_lines_on_employee_id"
     t.index ["role_id"], name: "index_role_lines_on_role_id"
     t.index ["shift_id"], name: "index_role_lines_on_shift_id"
@@ -187,6 +195,7 @@ ActiveRecord::Schema.define(version: 2019_03_22_225859) do
     t.bigint "role_line_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "holiday", default: false
     t.index ["role_line_id"], name: "index_role_lines_copies_on_role_line_id"
   end
 

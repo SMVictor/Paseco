@@ -5,6 +5,7 @@
       <th style="border: 1px solid" scope="col">Empleado</th>
       <th style="border: 1px solid" scope="col">Nº Días</th>
       <th style="border: 1px solid" scope="col">Salario Mínimo</th>
+      <th style="border: 1px solid" scope="col">Feriados</th>
       <th style="border: 1px solid" scope="col">Nº Horas Extras</th>
       <th style="border: 1px solid" scope="col">Horas Extras</th>
       <th style="border: 1px solid" scope="col">Víaticos</th>
@@ -26,6 +27,7 @@
       <% @total_deductions     = 0 %>
       <% @total_extra_payments = 0 %>
       <% @total_net_salary     = 0 %>
+      <% @total_holidays       = 0 %>
 
       <% @payrole_lines.each_with_index do |line, index| %>
 
@@ -38,12 +40,14 @@
         <% @total_deductions     += line.deductions.to_i %>
         <% @total_extra_payments += line.extra_payments.to_i %>
         <% @total_net_salary     += line.net_salary.to_i %>
+        <% @total_holidays       += line.holidays.to_i %>
 
         <tr>
           <td style="border: 1px solid"><%= index+1 %></td>
           <td style="border: 1px solid"><%= link_to(line.employee.name, admin_payrole_detail_path(@payrole, line.employee), class:'', title: 'Ver Empleado') if line.employee %></td>
           <td style="border: 1px solid"><%= line.num_worked_days %></td>
           <td style="border: 1px solid"><%= line.min_salary %></td>
+          <td style="border: 1px solid"><%= line.holidays %></td>
           <td style="border: 1px solid"><%= line.num_extra_hours %></td>
           <td style="border: 1px solid"><%= line.extra_hours %></td>
           <td style="border: 1px solid"><%= line.daily_viatical %></td>
@@ -58,6 +62,7 @@
           <td style="border: 1px solid">Total</td>
           <td style="border: 1px solid"><%= @total_worked_days %></td>
           <td style="border: 1px solid"><%= @total_min_salary %></td>
+          <td style="border: 1px solid"><%= @total_holidays %></td>
           <td style="border: 1px solid"><%= @total_num_extra_hours %></td>
           <td style="border: 1px solid"><%= @total_extra_hours %></td>
           <td style="border: 1px solid"><%= @total_daily_viatical %></td>
@@ -68,6 +73,7 @@
         </tr>
 
         <tr style="height: 1.2rem;">
+          <td style="border: 1px solid"></td>
           <td style="border: 1px solid"></td>
           <td style="border: 1px solid"></td>
           <td style="border: 1px solid"></td>
