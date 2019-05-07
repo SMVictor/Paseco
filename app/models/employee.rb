@@ -38,14 +38,14 @@ class Employee < ApplicationRecord
     @holiday          = 0
 
   	if special
-  	  @day_salary = position.salary.to_f/30  if @shift.name != "Incapacidad"
+  	  @day_salary = position.salary.to_f/30  if @shift.name != "Incapacidad" && @shift.name != "Permiso"
       if role_line.holiday
         @holiday = @day_salary
       end
   	else
       if @shift.name == "Libre"
         @day_salary = @stall.min_salary.to_f/30
-      elsif @shift.name == "Incapacidad"
+      elsif @shift.name == "Incapacidad" || @shift.name == "Permiso"
         @day_salary = 0
       else
       	@normal_day_hours = 0
@@ -70,7 +70,7 @@ class Employee < ApplicationRecord
   	if daily_viatical == "yes"
   	  if role_line.shift.name == "Libre"
   	  	@viatical = role_line.stall.daily_viatical.to_f
-  	  elsif role_line.shift.name == "Incapacidad"
+  	  elsif role_line.shift.name == "Incapacidad" || role_line.shift.name == "Permiso"
   	  	@viatical = 0
   	  else
         extra_day_hours  = 0
