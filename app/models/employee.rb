@@ -3,9 +3,7 @@ class Employee < ApplicationRecord
   has_many :role_lines
   has_many :payrole_lines
   has_many :entries
-  belongs_to :position
-
-  enum position: [:"Administrador", :"Conserje", :"Mantenimiento", :"Oficial_1", :"Oficial_2", :"Oficial_3", :"Supervisor_1", :"Supervisor_2"]
+  has_and_belongs_to_many :positions, join_table: :employees_positions
   accepts_nested_attributes_for :entries, reject_if: :all_blank, allow_destroy: true
 
   attr_accessor :day_salary
@@ -37,30 +35,29 @@ class Employee < ApplicationRecord
   	@extra_day_salary = 0
     @holiday          = 0
 
-  	if special
-  	  @day_salary = position.salary.to_f/30  if @shift.name != "Incapacidad" && @shift.name != "Permiso"
-      if role_line.holiday
-        @holiday = @day_salary
-      end
-  	else
-      if @shift.name == "Libre"
-        @day_salary = @stall.min_salary.to_f/30
-      elsif @shift.name == "Incapacidad" || @shift.name == "Permiso"
-        @day_salary = 0
-      else
-      	@normal_day_hours = 0
-        @extra_day_hours  = 0
-        @hour_cost        = @stall.min_salary.to_f/30/@shift.time.to_f
-        @extra_day_hours  = role_line.hours.to_f - @shift.time.to_f if role_line.hours.to_f > @shift.time.to_f
-        @normal_day_hours = role_line.hours.to_f - @extra_day_hours
-        @day_salary       = @normal_day_hours * @hour_cost
-        @extra_day_salary = ((@stall.min_salary.to_f/30)/@shift.time.to_f) * @shift.extra_time_cost.to_f * @extra_day_hours
+    if role_line.position.name == "Oficial"
+      min_salary = @stall.min_salary
+    else
+      min_salary  = role_line.position.salary.to_f
+      @shift.time = role_line.position.hours if role_line.position.hours
+    end
+    if @shift.name == "Libre"
+      @day_salary = min_salary.to_f/30
+    elsif @shift.name == "Incapacidad" || @shift.name == "Permiso"
+      @day_salary = 0
+    else
+      @normal_day_hours = 0
+      @extra_day_hours  = 0
+      @hour_cost        = min_salary.to_f/30/@shift.time.to_f
+      @extra_day_hours  = role_line.hours.to_f - @shift.time.to_f if role_line.hours.to_f > @shift.time.to_f
+      @normal_day_hours = role_line.hours.to_f - @extra_day_hours
+      @day_salary       = @normal_day_hours * @hour_cost
+      @extra_day_salary = ((min_salary.to_f/30)/@shift.time.to_f) * @shift.extra_time_cost.to_f * @extra_day_hours
 
-        if role_line.holiday
-          @holiday = ((1/@shift.time.to_f)*role_line.hours.to_f) * @day_salary
-        end
+      if role_line.holiday
+        @holiday = ((1/@shift.time.to_f)*role_line.hours.to_f) * @day_salary
       end
-  	end
+    end
   end
 
   def calculate_daily_viatical role_line

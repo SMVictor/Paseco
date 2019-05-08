@@ -24,8 +24,6 @@ class CreateEmployees < ActiveRecord::Migration[5.2]
       t.string :daily_viatical
       t.string :ccss_type
 
-      t.belongs_to :position, index: true
-
       t.timestamps
     end
   end

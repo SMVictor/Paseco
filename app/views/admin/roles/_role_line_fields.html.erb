@@ -12,7 +12,7 @@
       <p class="d-md-none font-weight-bold">Fecha</p>
       <%= f.text_field :date, placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-date-format": 'mm/dd/yyyy', "data-provide": 'datepicker', onchange: "getDayName()" %>
     </div>
-    <div class="col-xl-2 col-lg-6 mb-2 pt-md-3">
+    <div class="col-xl-1 col-lg-6 mb-2 pt-md-3">
       <p class="d-md-none font-weight-bold">Turno</p>
       <%= f.collection_select :shift_id, @stall.payment.shifts.order(name: :asc), :id, :name, options = {include_blank: 'Seleccione un Turno'}, html_options = {class: "form-control"}%>
     </div>
@@ -24,7 +24,15 @@
       <p class="d-md-none font-weight-bold">Feriado</p>
       <%= f.check_box :holiday %>
     </div>
-    <div class="col-xl-3 col-lg-6 mb-2 pt-md-3">
+    <div class="col-xl-2 col-lg-6 mb-2 pt-md-3">
+      <p class="d-md-none font-weight-bold">Turno</p>
+      <% if @employee %>
+        <%= f.collection_select :position_id, @employee.positions, :id, :name, options = {include_blank: 'Seleccione un cargo'}, html_options = {class: "form-control", title: "Unicamente para empleados que posean más de un cargo asociado"}%>
+      <% else %>
+        <%= f.collection_select :position_id, [], :id, :name, options = {include_blank: 'Seleccione un cargo'}, html_options = {class: "form-control", title: "Unicamente para empleados que posean más de un cargo asociado"}%>
+      <% end %>
+    </div>
+    <div class="col-xl-2 col-lg-6 mb-2 pt-md-3">
       <p class="d-md-none font-weight-bold">Comentarios</p>
       <%= f.text_field :comment, class: "form-control comment", placeholder: "Cubre turno por permiso de Juan" %>
     </div>

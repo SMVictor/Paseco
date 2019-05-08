@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_06_175439) do
+ActiveRecord::Schema.define(version: 2019_05_08_012117) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,13 +88,17 @@ ActiveRecord::Schema.define(version: 2019_05_06_175439) do
     t.string "social_security"
     t.string "daily_viatical"
     t.string "ccss_type"
-    t.bigint "position_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "special", default: false
     t.string "document"
     t.boolean "active", default: true
-    t.index ["position_id"], name: "index_employees_on_position_id"
+  end
+
+  create_table "employees_positions", id: false, force: :cascade do |t|
+    t.bigint "employee_id", null: false
+    t.bigint "position_id", null: false
+    t.index ["employee_id", "position_id"], name: "index_employees_positions_on_employee_id_and_position_id"
   end
 
   create_table "employees_stalls", id: false, force: :cascade do |t|
@@ -147,6 +151,7 @@ ActiveRecord::Schema.define(version: 2019_05_06_175439) do
     t.string "salary"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "hours"
   end
 
   create_table "requirements", force: :cascade do |t|
@@ -176,7 +181,9 @@ ActiveRecord::Schema.define(version: 2019_05_06_175439) do
     t.string "deductions"
     t.string "deductions_description"
     t.boolean "holiday", default: false
+    t.bigint "position_id"
     t.index ["employee_id"], name: "index_role_lines_on_employee_id"
+    t.index ["position_id"], name: "index_role_lines_on_position_id"
     t.index ["role_id"], name: "index_role_lines_on_role_id"
     t.index ["shift_id"], name: "index_role_lines_on_shift_id"
     t.index ["stall_id"], name: "index_role_lines_on_stall_id"
@@ -258,4 +265,5 @@ ActiveRecord::Schema.define(version: 2019_05_06_175439) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "role_lines", "positions"
 end
