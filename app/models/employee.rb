@@ -64,7 +64,7 @@ class Employee < ApplicationRecord
   	@viatical = 0
     shift = role_line.shift
 
-  	if daily_viatical == "yes"
+  	if daily_viatical == "yes" && role_line.position.daily_viatical
   	  if role_line.shift.name == "Libre"
   	  	@viatical = role_line.stall.daily_viatical.to_f
   	  elsif role_line.shift.name == "Incapacidad" || role_line.shift.name == "Permiso"
