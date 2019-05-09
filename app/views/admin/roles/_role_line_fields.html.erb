@@ -29,7 +29,7 @@
       <% if @employee %>
         <%= f.collection_select :position_id, @employee.positions, :id, :name, options = {include_blank: 'Seleccione un cargo'}, html_options = {class: "form-control", required: true, oninvalid: "setCustomValidity('Campo Requerido')", oninput: "setCustomValidity('')", title: "Seleccione un cargo"}%>
       <% else %>
-        <%= f.collection_select :position_id, [], :id, :name, options = {include_blank: 'Seleccione un cargo'}, html_options = {class: "form-control", required: true, oninvalid: "setCustomValidity('Campo Requerido')", oninput: "setCustomValidity('')", title: "Seleccione un cargo" }%>
+        <%= f.collection_select :position_id, [], :id, :name, options = {}, html_options = {class: "form-control", required: true, oninvalid: "setCustomValidity('Campo Requerido')", oninput: "setCustomValidity('')", title: "Seleccione un cargo" }%>
       <% end %>
     </div>
     <div class="col-xl-2 col-lg-6 mb-2 pt-md-3">
