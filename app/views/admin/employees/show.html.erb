@@ -36,8 +36,10 @@
     <legend>Información de Contratación</legend>
   </div>
   <div class="col-md-3 col-sm-6 mt-2">
-    <strong>Cargo en la Empresa:</strong>
-    <p><%= @employee.position.name %></p>
+    <strong>Cargos en la Empresa:</strong>
+    <% @employee.positions.each do |position| %>
+      <p><%= position.name %></p>
+    <% end -%>
   </div>
   <div class="col-md-3 col-sm-6 mt-2">
     <strong>Puestos:</strong>
@@ -63,14 +65,6 @@
       <p>No</p>
     <% else %>
       <p>Sí</p>
-    <% end %>
-  </div>
-  <div class="col-md-3 col-sm-6 mb-2 mt-2">
-    <strong>Salario Fijo:</strong>
-    <% if @employee.special %>
-      <p>Sí</p>
-    <% else %>
-      <p>No</p>
     <% end %>
   </div>
 </div>
