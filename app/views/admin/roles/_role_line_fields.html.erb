@@ -14,7 +14,7 @@
     </div>
     <div class="col-xl-1 col-lg-6 mb-2 pt-md-3">
       <p class="d-md-none font-weight-bold">Turno</p>
-      <%= f.collection_select :shift_id, @stall.payment.shifts.order(name: :asc), :id, :name, options = {include_blank: 'Seleccione un Turno'}, html_options = {class: "form-control"}%>
+      <%= f.collection_select :shift_id, @stall.payment.shifts.order(name: :asc), :id, :name, options = {include_blank: 'Seleccione un Turno'}, html_options = {class: "form-control", required: true, oninvalid: "setCustomValidity('Campo Requerido')", oninput: "setCustomValidity('')", title: "Seleccione un turno"}%>
     </div>
     <div class="col-xl-2 col-lg-6 mb-2 pt-md-3">
       <p class="d-md-none font-weight-bold">Sub-Puesto</p>
@@ -25,11 +25,11 @@
       <%= f.check_box :holiday %>
     </div>
     <div class="col-xl-2 col-lg-6 mb-2 pt-md-3">
-      <p class="d-md-none font-weight-bold">Turno</p>
+      <p class="d-md-none font-weight-bold">Cargo</p>
       <% if @employee %>
-        <%= f.collection_select :position_id, @employee.positions, :id, :name, options = {include_blank: 'Seleccione un cargo'}, html_options = {class: "form-control", title: "Unicamente para empleados que posean más de un cargo asociado"}%>
+        <%= f.collection_select :position_id, @employee.positions, :id, :name, options = {include_blank: 'Seleccione un cargo'}, html_options = {class: "form-control", required: true, oninvalid: "setCustomValidity('Campo Requerido')", oninput: "setCustomValidity('')", title: "Seleccione un cargo"}%>
       <% else %>
-        <%= f.collection_select :position_id, [], :id, :name, options = {include_blank: 'Seleccione un cargo'}, html_options = {class: "form-control", title: "Unicamente para empleados que posean más de un cargo asociado"}%>
+        <%= f.collection_select :position_id, [], :id, :name, options = {include_blank: 'Seleccione un cargo'}, html_options = {class: "form-control", required: true, oninvalid: "setCustomValidity('Campo Requerido')", oninput: "setCustomValidity('')", title: "Seleccione un cargo" }%>
       <% end %>
     </div>
     <div class="col-xl-2 col-lg-6 mb-2 pt-md-3">
