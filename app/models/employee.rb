@@ -39,7 +39,6 @@ class Employee < ApplicationRecord
       min_salary = @stall.min_salary
     else
       min_salary  = role_line.position.salary.to_f
-      @shift.time = role_line.position.hours if role_line.position.hours
     end
     if @shift.name == "Libre"
       @day_salary = min_salary.to_f/30
