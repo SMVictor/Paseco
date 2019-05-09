@@ -55,7 +55,7 @@ class Employee < ApplicationRecord
       @extra_day_salary = ((min_salary.to_f/30)/@shift.time.to_f) * @shift.extra_time_cost.to_f * @extra_day_hours
 
       if role_line.holiday
-        @holiday = ((1/@shift.time.to_f)*role_line.hours.to_f) * @day_salary
+        @holiday = ((1/@shift.time.to_f)*role_line.hours.to_f) * (min_salary.to_f/30)
       end
     end
   end
