@@ -14,7 +14,7 @@
     </div>
     <div class="col-xl-1 col-lg-6 mb-2 pt-md-3">
       <p class="d-md-none font-weight-bold">Turno</p>
-      <%= f.collection_select :shift_id, Shift.all.order(name: :asc), :id, :name, options = {include_blank: 'Seleccione un Turno'}, html_options = {class: "form-control", required: true, oninvalid: "setCustomValidity('Campo Requerido')", oninput: "setCustomValidity('')", title: "Seleccione un turno"}%>
+      <%= f.collection_select :shift_id, @stall.payment.shifts.order(name: :asc), :id, :name, options = {include_blank: 'Seleccione un Turno'}, html_options = {class: "form-control", required: true, oninvalid: "setCustomValidity('Campo Requerido')", oninput: "setCustomValidity('')", title: "Seleccione un turno"}%>
     </div>
     <div class="col-xl-2 col-lg-6 mb-2 pt-md-3">
       <p class="d-md-none font-weight-bold">Sub-Puesto</p>
