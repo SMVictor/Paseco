@@ -27,20 +27,24 @@
           <p class="text-uppercase">Acciones</p>
         </div>
       </div>
+      <div id="role_lines">
       <div class="role_lines-fields mt-4">
         <%= form.fields_for :role_lines, @role_lines do |role_line| %>
           <%= render 'admin/roles/role_line_fields', f: role_line %>
         <%end%>
       </div>
-      <div class="row ml-1 mr-1 tbl_row">
-        <div class="col-12 text-center p-2 tbl_footer">
-          <%= link_to_add_association ' + Agregar Linea', form, :role_lines, data: { association_insertion_mode: '.role_lines.fields', partial: 'role_line_fields'}, class: 'btn add_btn' %>
+       <% if @employee %>
+         <div class="row ml-1 mr-1 tbl_row">
+          <div class="col-12 text-center p-2 tbl_footer">
+            <button type="button" class="btn btn-link" onclick="addLine('<%= @employee.id %>', '<%= @stall.id %>', '<%= @role.id %>')">+ Agregar Linea</button>
+          </div>
         </div>
+      <% end %>
       </div>
     </div>
   </div>
   <% if current_user.admin? %>
-    <%= form.submit "Terminar", class: "btn btn-success mt-4" %>
+    <%= form.submit "Guardar", class: "btn btn-success mt-4" %>
   <% else %>
     <%= form.submit "Guardar",  id: "submit", data: { confirm: 'Debe enviar su solicitud hasta estar completamente seguro de haber hecho todas las modificaciones requeridas, ya que una vez enviada se borrarán todos los cambios realizados. ¿Desea completar esta acción?' }, class: "btn btn-success mt-4" %>
   <% end %>

@@ -136,7 +136,12 @@ class RolesController < ApplicationController
     end
 
     @employee = Employee.find(params[:employee_id]) if params[:employee_id] != "0"
-    @role_lines = @role.role_lines.where(stall_id: @stall.id, employee: @employee).order(:employee_id, date: :asc)
+
+    if params[:create]
+      RoleLine.create(role: @role, stall: @stall, employee: @employee, shift: @stall.payment.shifts.first, position: @employee.positions.first)
+    end
+    
+    @role_lines = @role.role_lines.where(stall_id: @stall.id, employee: @employee)
 
     if params[:ajax]
       respond_to do |format|
