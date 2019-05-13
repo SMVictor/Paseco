@@ -143,7 +143,7 @@ class RolesController < ApplicationController
       RoleLine.create(role: @role, stall: @stall, employee: @employee, shift: @shift, position: @employee.positions.first)
     end
     
-    @role_lines = @role.role_lines.where(stall_id: @stall.id, employee: @employee)
+    @role_lines = @role.role_lines.where(stall_id: @stall.id, employee: @employee).order(date: :asc)
 
     if params[:ajax]
       respond_to do |format|
