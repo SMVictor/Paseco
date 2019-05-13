@@ -100,10 +100,10 @@ class Employee < ApplicationRecord
   	if social_security == "Porcentaje"
   	  if ccss_type == "yes"
         @ccss_deduction = (@gross_salary * ccss_percent).round(2)
-        @net_salary     = (@gross_salary - @gross_salary * ccss_percent + total_exta_payments - total_deductions).round(0)
+        @net_salary     = (@gross_salary - @ccss_deduction + total_exta_payments - total_deductions).round(0)
       else
-        @ccss_deduction = ((total_day_salary + total_holidays) * ccss_percent).round(2)
-        @net_salary     = (@gross_salary - ((total_day_salary + total_holidays) * ccss_percent) + total_exta_payments - total_deductions).round(0)
+        @ccss_deduction = ((total_day_salary + total_holidays + total_viatical) * ccss_percent).round(2)
+        @net_salary     = (@gross_salary - @ccss_deduction + total_exta_payments - total_deductions).round(0)
       end
     elsif social_security == "Monto" 
       @ccss_deduction = ccss_amount
