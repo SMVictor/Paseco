@@ -50,16 +50,31 @@ function getDayName(){
 }
 
 function addLine(employeeID, stallID, roleID){
+
+   var url = "/admin/roles/lines/"+roleID+"/"+stallID+"/"+employeeID; 
+
+   var post_url = $("form").attr("action"); //get form action url
+   var request_method = $("form").attr("method"); //get form GET/POST method
+   var form_data = $("form").serialize() + '&ajax=' + true; //Encode form elements for submission
+      
   $.ajax({
-    type: "GET",
-    url: "/admin/roles/lines/"+roleID+"/"+stallID+"/"+employeeID,
-    data:
-    {
-      utf8: "✓",
-      ajax: true,
-      create: true
+    url : post_url,
+    type: request_method,
+    data : form_data,
+    complete: function(result){
+      $.ajax({
+        type: "GET",
+        url: url,
+        data:
+        {
+          utf8: "✓",
+          ajax: true,
+          create: true
+        }
+      });
     }
   });
+
 }
 
 function filterPayrole(){
