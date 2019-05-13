@@ -109,6 +109,7 @@ class Employee < ApplicationRecord
       @ccss_deduction = ccss_amount
       @net_salary = (@gross_salary - ccss_amount + total_exta_payments - total_deductions).round(0)
     else
+      @ccss_deduction = 0
       @net_salary = (@gross_salary + total_exta_payments - total_deductions).round(0)
     end
   end
