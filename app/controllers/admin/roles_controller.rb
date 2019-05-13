@@ -140,7 +140,7 @@ class RolesController < ApplicationController
     if params[:create]
       @shift = Payment.find(2).shifts.first
       @shift = @stall.payment.shifts.first if @stall.payment
-      RoleLine.create(role: @role, stall: @stall, employee: @employee, shift: , position: @employee.positions.first)
+      RoleLine.create(role: @role, stall: @stall, employee: @employee, shift: @shift, position: @employee.positions.first)
     end
     
     @role_lines = @role.role_lines.where(stall_id: @stall.id, employee: @employee)
