@@ -29,7 +29,7 @@
       </div>
       <div class="role_lines-fields mt-4">
         <%= form.fields_for :role_lines, @role_lines do |role_line| %>
-          <%= render 'admin/roles/partials/role_line_fields', f: role_line %>
+          <%= render 'admin/roles/role_line_fields', f: role_line %>
         <%end%>
       </div>
       <div class="row ml-1 mr-1 tbl_row">
