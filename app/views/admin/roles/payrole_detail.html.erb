@@ -111,7 +111,7 @@
         </div>
         <H3 class="mt-4">Resumen de Pago:</H3>
         <H4 style="color: #000000" class="alert-success">Días Laborados: <%= @employee.total_days %></H4>
-        <H4 style="color: #000000" class="alert-info">Salario Base:   <%= @employee.total_day_salary.round(2) + @employee.total_holidays.round(2) %></H4>
+        <H4 style="color: #000000" class="alert-info">Salario Base:   <%= (@employee.total_day_salary + @employee.total_holidays).round(2) %></H4>
         <H4 style="color: #000000" class="alert-success">Cantidad de Horas Extras: <%= @employee.total_extra_hours.round(2) %></H4>
         <H4 style="color: #000000" class="alert-info">Salario Horas Extras: <%= @employee.total_extra_salary.round(2) %></H4>
         <H4 style="color: #000000" class="alert-success">Pago por Víaticos: <%= @employee.total_viatical.round(2) %></H4>
