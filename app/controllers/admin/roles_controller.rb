@@ -50,8 +50,27 @@ class RolesController < ApplicationController
   def update_role_lines
     if current_user.admin?
       if @role.update(role_params)
-        unless params[:ajax]
-          respond_to do |format|
+        respond_to do |format|
+          if params[:ajax]
+            
+            @substalls = []
+            @count = 1
+            while @count <= @stall.substalls.to_i
+              @substalls[@count-1] = "Puesto " + @count.to_s
+              @count = @count+1
+            end
+            @employee = Employee.find(params[:employee_id]) if params[:employee_id] != "0"
+
+            if params[:create]
+              @shift = Payment.find(2).shifts.first
+              @shift = @stall.payment.shifts.first if @stall.payment
+              @date = Date.today.end_of_month.strftime("%m/%d/%Y")
+              RoleLine.create(role: @role, stall: @stall, employee: @employee, shift: @shift, position: @employee.positions.first, date: @date)
+            end
+
+            @role_lines = @role.role_lines.where(stall_id: @stall.id, employee: @employee).order(date: :asc)
+            format.js
+          else 
             format.html { redirect_to admin_role_lines_url, notice: 'El role se actualizó correctamente.' }
             format.json { render json: @role, status: :ok, location: @role }
           end
@@ -139,15 +158,7 @@ class RolesController < ApplicationController
       @count = @count+1
     end
 
-    @employee = Employee.find(params[:employee_id]) if params[:employee_id] != "0"
-
-    if params[:create]
-      @shift = Payment.find(2).shifts.first
-      @shift = @stall.payment.shifts.first if @stall.payment
-      @date = Date.today.end_of_month.strftime("%m/%d/%Y")
-      RoleLine.create(role: @role, stall: @stall, employee: @employee, shift: @shift, position: @employee.positions.first, date: @date)
-    end
-    
+    @employee = Employee.find(params[:employee_id]) if params[:employee_id] != "0"  
     @role_lines = @role.role_lines.where(stall_id: @stall.id, employee: @employee).order(date: :asc)
 
     if params[:ajax]

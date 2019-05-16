@@ -55,24 +55,12 @@ function addLine(employeeID, stallID, roleID){
 
    var post_url = $("form").attr("action"); //get form action url
    var request_method = $("form").attr("method"); //get form GET/POST method
-   var form_data = $("form").serialize() + '&ajax=' + true; //Encode form elements for submission
+   var form_data = $("form").serialize() + '&ajax=' + true + '&create=' + true; //Encode form elements for submission
       
   $.ajax({
     url : post_url,
     type: request_method,
-    data : form_data,
-    complete: function(result){
-      $.ajax({
-        type: "GET",
-        url: url,
-        data:
-        {
-          utf8: "✓",
-          ajax: true,
-          create: true
-        }
-      });
-    }
+    data : form_data
   });
 
 }
@@ -135,17 +123,6 @@ function saveModalData(roleID, stallID, employeeID){
   $.ajax({
     url : post_url,
     type: request_method,
-    data : form_data,
-    complete: function(result){
-      $.ajax({
-        type: "GET",
-        url: url,
-        data:
-        {
-          utf8: "✓",
-          ajax: true
-        }
-      });
-    }
+    data : form_data
   });
 }
