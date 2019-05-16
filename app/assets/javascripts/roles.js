@@ -118,3 +118,9 @@ function filterByBank(){
     }
   });
 }
+
+function focusHours(modalId, fieldId){
+  $('#'+modalId).on('shown.bs.modal', function () {
+    $('#'+fieldId).focus();
+  });
+}
