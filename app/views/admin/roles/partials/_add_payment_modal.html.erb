@@ -28,7 +28,11 @@
         </div>
       </div>
       <div class="d-flex justify-content-center">
-        <button type="button" class="btn btn-success mb-4" data-dismiss="modal" onclick="changeIconColor()">Hecho</button>
+        <% if current_user.admin? %>
+          <button type="button" class="btn btn-success mb-4" data-dismiss="modal" onclick="saveModalData('<%= @role.id %>', '<%= @stall.id %>', '<%= @employee.id %>')">Hecho</button>
+        <% else %>
+          <button type="button" class="btn btn-success mb-4" data-dismiss="modal" onclick="changeIconColor()">Hecho</button>
+        <% end %>
       </div>
     </div>
   </div>

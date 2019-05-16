@@ -10,11 +10,15 @@
     </div>
     <div class="col-xl-2 col-lg-6 mb-2 pt-md-3">
       <p class="d-md-none font-weight-bold">Fecha</p>
-      <%= f.text_field :date, placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-date-format": 'mm/dd/yyyy', "data-provide": 'datepicker', onchange: "getDayName()" %>
+      <%= f.text_field :date, placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control date", "data-date-format": 'mm/dd/yyyy', "data-provide": 'datepicker', onchange: "getDayName()", "data-date-autoclose": true, "data-date-language": 'es' %>
     </div>
     <div class="col-xl-1 col-lg-6 mb-2 pt-md-3">
       <p class="d-md-none font-weight-bold">Turno</p>
-      <%= f.collection_select :shift_id, @stall.payment.shifts.order(name: :asc), :id, :name, options = {include_blank: 'Seleccione un Turno'}, html_options = {class: "form-control", required: true, oninvalid: "setCustomValidity('Campo Requerido')", oninput: "setCustomValidity('')", title: "Seleccione un turno"}%>
+      <% if @stall.payment %>
+        <%= f.collection_select :shift_id, @stall.payment.shifts.order(name: :asc), :id, :name, options = {}, html_options = {class: "form-control",  title: "Seleccione un turno"}%>
+      <% else %>
+        <%= f.collection_select :shift_id, Payment.find(2).shifts.order(name: :asc), :id, :name, options = {}, html_options = {class: "form-control", title: "Seleccione un turno"}%>
+      <% end %>
     </div>
     <div class="col-xl-2 col-lg-6 mb-2 pt-md-3">
       <p class="d-md-none font-weight-bold">Sub-Puesto</p>
@@ -39,7 +43,7 @@
     <div class="col-lg-1 col-md-4 pt-md-3">
        <%= link_to_remove_association "", f, class: "fas fa-trash-alt", id: 'remove_link', style: "color: #E25141" %>
        <% if current_user.admin? %>
-         <button style="background: none; border: none;" type="button" class="fas fa-comment" name="btn_modal" data-toggle="modal" data-target="#addPayment<%= f.object.id %>"></button>
+         <button style="background: none; border: none;" type="button" class="fas fa-comment" name="btn_modal" data-toggle="modal" data-target="#addPayment<%= f.object.id %>" onclick="focusHours('addPayment<%= f.object.id %>', 'hours<%= f.object.id %>')"></button>
        <% end %>
     </div>
     <%= render 'admin/roles/partials/add_payment_modal', form: f %>

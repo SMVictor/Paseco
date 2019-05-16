@@ -49,15 +49,15 @@ class RolesController < ApplicationController
 
   def update_role_lines
     if current_user.admin?
-      respond_to do |format|
-        if @role.update(role_params)
-          if params[:ajax]
-            format.js
-          else
+      if @role.update(role_params)
+        unless params[:ajax]
+          respond_to do |format|
             format.html { redirect_to admin_role_lines_url, notice: 'El role se actualizó correctamente.' }
             format.json { render json: @role, status: :ok, location: @role }
           end
-        else
+        end
+      else
+        respond_to do |format|
           format.html { render :edit }
           format.json { render json: @role.errors, status: :unprocessable_entity }
         end
