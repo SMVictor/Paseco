@@ -50,32 +50,35 @@ class RolesController < ApplicationController
   def update_role_lines
     if current_user.admin?
       if params[:ajax] 
-        @substalls = []
-        @count = 1
-        while @count <= @stall.substalls.to_i
-          @substalls[@count-1] = "Puesto " + @count.to_s
-          @count = @count+1
-        end
-        @employee = Employee.find(params[:employee_id]) if params[:employee_id] != "0"
 
         if params[:create]
+
+          @substalls = []
+          @count = 1
+          while @count <= @stall.substalls.to_i
+            @substalls[@count-1] = "Puesto " + @count.to_s
+            @count = @count+1
+          end
+          @employee = Employee.find(params[:employee_id]) if params[:employee_id] != "0"
+
           @shift = Payment.find(2).shifts.first
           @shift = @stall.payment.shifts.first if @stall.payment
           @date = Date.today.end_of_month.strftime("%m/%d/%Y")
           RoleLine.create(role: @role, stall: @stall, employee: @employee, shift: @shift, position: @employee.positions.first, date: @date)
-        end
 
-        respond_to do |format|
-          begin
-            @role.update(role_params)
-            @role_lines = @role.role_lines.where(stall_id: @stall.id, employee: @employee).order(date: :asc)
-            format.js
-          rescue Exception => e
-            @role_lines = @role.role_lines.where(stall_id: @stall.id, employee: @employee).order(date: :asc)
-            format.js
+          respond_to do |format|
+            begin
+              @role.update(role_params)
+              @role_lines = @role.role_lines.where(stall_id: @stall.id, employee: @employee).order(date: :asc)
+              format.js
+            rescue Exception => e
+              @role_lines = @role.role_lines.where(stall_id: @stall.id, employee: @employee).order(date: :asc)
+              format.js
+            end
           end
+        else
+          @role.update(role_params)
         end
-
       else
         respond_to do |format|
           if @role.update(role_params)

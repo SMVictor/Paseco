@@ -125,4 +125,6 @@ function saveModalData(roleID, stallID, employeeID){
     type: request_method,
     data : form_data
   });
+
+  changeIconColor();
 }
