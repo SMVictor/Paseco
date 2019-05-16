@@ -49,37 +49,43 @@ class RolesController < ApplicationController
 
   def update_role_lines
     if current_user.admin?
-      if @role.update(role_params)
+      if params[:ajax] 
+        @substalls = []
+        @count = 1
+        while @count <= @stall.substalls.to_i
+          @substalls[@count-1] = "Puesto " + @count.to_s
+          @count = @count+1
+        end
+        @employee = Employee.find(params[:employee_id]) if params[:employee_id] != "0"
+
+        if params[:create]
+          @shift = Payment.find(2).shifts.first
+          @shift = @stall.payment.shifts.first if @stall.payment
+          @date = Date.today.end_of_month.strftime("%m/%d/%Y")
+          RoleLine.create(role: @role, stall: @stall, employee: @employee, shift: @shift, position: @employee.positions.first, date: @date)
+        end
+
         respond_to do |format|
-          if params[:ajax]
-            
-            @substalls = []
-            @count = 1
-            while @count <= @stall.substalls.to_i
-              @substalls[@count-1] = "Puesto " + @count.to_s
-              @count = @count+1
-            end
-            @employee = Employee.find(params[:employee_id]) if params[:employee_id] != "0"
-
-            if params[:create]
-              @shift = Payment.find(2).shifts.first
-              @shift = @stall.payment.shifts.first if @stall.payment
-              @date = Date.today.end_of_month.strftime("%m/%d/%Y")
-              RoleLine.create(role: @role, stall: @stall, employee: @employee, shift: @shift, position: @employee.positions.first, date: @date)
-            end
-
+          begin
+            @role.update(role_params)
             @role_lines = @role.role_lines.where(stall_id: @stall.id, employee: @employee).order(date: :asc)
             format.js
-          else 
-            format.html { redirect_to admin_role_lines_url, notice: 'El role se actualizó correctamente.' }
-            format.json { render json: @role, status: :ok, location: @role }
+          rescue Exception => e
+            @role_lines = @role.role_lines.where(stall_id: @stall.id, employee: @employee).order(date: :asc)
+            format.js
           end
         end
+
       else
         respond_to do |format|
-          format.html { render :edit }
-          format.json { render json: @role.errors, status: :unprocessable_entity }
-        end
+          if @role.update(role_params)
+            format.html { redirect_to admin_role_lines_url, notice: 'El role se actualizó correctamente.' }
+            format.json { render json: @role, status: :ok, location: @role }
+          else
+            format.html { render :edit }
+            format.json { render json: @role.errors, status: :unprocessable_entity }
+          end
+        end 
       end
     else
       params[:role][:role_lines_attributes].each do |key, value|
