@@ -49,7 +49,7 @@ class Employee < ApplicationRecord
       @extra_day_hours  = 0
       @shift.time       = role_line.position.hours if role_line.position.hours
       @hour_cost        = min_salary.to_f/30/@shift.time.to_f
-      @extra_day_hours  = role_line.hours.to_f - @shift.time.to_f if role_line.hours.to_f > @shift.time.to_f
+      @extra_day_hours  = role_line.hours.to_f - @shift.time.to_f if role_line.hours.to_f > @shift.time.to_f && @shift.payment.name != "Normal"
       @normal_day_hours = role_line.hours.to_f - @extra_day_hours
       @day_salary       = @normal_day_hours * @hour_cost
       @extra_day_salary = ((min_salary.to_f/30)/@shift.time.to_f) * @shift.extra_time_cost.to_f * @extra_day_hours
