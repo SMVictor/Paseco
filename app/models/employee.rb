@@ -102,7 +102,7 @@ class Employee < ApplicationRecord
         @ccss_deduction = (@gross_salary * ccss_percent).round(2)
         @net_salary     = (@gross_salary - @ccss_deduction + total_exta_payments - total_deductions).round(0)
       else
-        @ccss_deduction = ((total_day_salary + total_holidays) * ccss_percent).round(2)
+        @ccss_deduction = ((total_day_salary + total_extra_salary + total_holidays) * ccss_percent).round(2)
         @net_salary     = (@gross_salary - @ccss_deduction + total_exta_payments - total_deductions).round(0)
       end
     elsif social_security == "Monto" 
