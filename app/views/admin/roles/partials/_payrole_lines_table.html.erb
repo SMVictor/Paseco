@@ -11,6 +11,7 @@
       <th style="border: 1px solid" scope="col">Víaticos</th>
       <th style="border: 1px solid" scope="col">Pagos Extras</th>
       <th style="border: 1px solid" scope="col">Tipo Salario</th>
+      <th style="border: 1px solid" scope="col">Tipo Seguro</th>
       <th style="border: 1px solid" scope="col">Pago CCSS</th>
       <th style="border: 1px solid" scope="col">Deducciones</th>
       <th style="border: 1px solid" scope="col">Salario Neto</th>
@@ -60,6 +61,7 @@
           <td style="border: 1px solid"><%= line.daily_viatical %></td>
           <td style="border: 1px solid"><%= line.extra_payments %></td>
           <td style="border: 1px solid"><%= salary_type %></td>
+          <td style="border: 1px solid"><%= line.employee.social_security %></td>
           <td style="border: 1px solid"><%= line.ccss_deduction %></td>
           <td style="border: 1px solid"><%= line.deductions %></td>
           <td style="border: 1px solid"><%= line.net_salary %></td>
