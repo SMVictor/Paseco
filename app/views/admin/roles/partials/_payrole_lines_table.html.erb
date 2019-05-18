@@ -9,9 +9,10 @@
       <th style="border: 1px solid" scope="col">Nº Horas Extras</th>
       <th style="border: 1px solid" scope="col">Horas Extras</th>
       <th style="border: 1px solid" scope="col">Víaticos</th>
+      <th style="border: 1px solid" scope="col">Pagos Extras</th>
+      <th style="border: 1px solid" scope="col">Tipo Salario</th>
       <th style="border: 1px solid" scope="col">Pago CCSS</th>
       <th style="border: 1px solid" scope="col">Deducciones</th>
-      <th style="border: 1px solid" scope="col">Pagos Extras</th>
       <th style="border: 1px solid" scope="col">Salario Neto</th>
     </tr>
   </thead>
@@ -42,6 +43,12 @@
         <% @total_net_salary     += line.net_salary.to_i %>
         <% @total_holidays       += line.holidays.to_i %>
 
+        <% if line.employee.ccss_type == "yes"%>
+          <% salary_type = "Completo" %>
+        <% else %>
+          <% salary_type = "Normal" %>
+        <% end %>
+
         <tr>
           <td style="border: 1px solid"><%= index+1 %></td>
           <td style="border: 1px solid"><%= link_to(line.employee.name, admin_payrole_detail_path(@payrole, line.employee), class:'', title: 'Ver Empleado') if line.employee %></td>
@@ -51,9 +58,10 @@
           <td style="border: 1px solid"><%= line.num_extra_hours %></td>
           <td style="border: 1px solid"><%= line.extra_hours %></td>
           <td style="border: 1px solid"><%= line.daily_viatical %></td>
+          <td style="border: 1px solid"><%= line.extra_payments %></td>
+          <td style="border: 1px solid"><%= salary_type %></td>
           <td style="border: 1px solid"><%= line.ccss_deduction %></td>
           <td style="border: 1px solid"><%= line.deductions %></td>
-          <td style="border: 1px solid"><%= line.extra_payments %></td>
           <td style="border: 1px solid"><%= line.net_salary %></td>
         </tr>
       <% end %>
@@ -66,13 +74,15 @@
           <td style="border: 1px solid"><%= @total_num_extra_hours %></td>
           <td style="border: 1px solid"><%= @total_extra_hours %></td>
           <td style="border: 1px solid"><%= @total_daily_viatical %></td>
+          <td style="border: 1px solid"><%= @total_extra_payments %></td>
+          <td style="border: 1px solid"></td>
           <td style="border: 1px solid"><%= @total_ccss_deduction %></td>
           <td style="border: 1px solid"><%= @total_deductions %></td>
-          <td style="border: 1px solid"><%= @total_extra_payments %></td>
           <td style="border: 1px solid"><%= @total_net_salary %></td>
         </tr>
 
         <tr style="height: 1.2rem;">
+          <td style="border: 1px solid"></td>
           <td style="border: 1px solid"></td>
           <td style="border: 1px solid"></td>
           <td style="border: 1px solid"></td>
