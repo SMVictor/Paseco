@@ -48,7 +48,7 @@
               </tr>
             </thead>
             <tbody>
-              <% @lines =  @payrole.role_lines.where(employee: @employee).order(date: :asc) %>
+              <% @lines =  @payrole.role_lines.where(employee: @employee).order(stall_id: :asc, date: :asc) %>
               <% if @lines %>
 
                 <% @total_day_salary     = 0 %>
