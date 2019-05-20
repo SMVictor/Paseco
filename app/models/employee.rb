@@ -36,13 +36,17 @@ class Employee < ApplicationRecord
     @holiday          = 0
 
     if role_line.position.name == "Oficial"
-      min_salary = @stall.min_salary
+      if role_line.shift.name == "Noche" && @stall.night_min_salary != nil
+        min_salary = @stall.night_min_salary
+      else
+        min_salary = @stall.min_salary
+      end
     else
       min_salary  = role_line.position.salary.to_f
     end
-    if @shift.name == "Libre"
+    if @shift.name == "Libre" || @shift.name == "Vacaciones"
       @day_salary = min_salary.to_f/30
-    elsif @shift.name == "Incapacidad" || @shift.name == "Permiso"
+    elsif @shift.name == "Incapacidad" || @shift.name == "Permiso" || @shift.name == "Ausente"
       @day_salary = 0
     else
       @normal_day_hours = 0
@@ -65,9 +69,9 @@ class Employee < ApplicationRecord
     shift = role_line.shift
 
   	if daily_viatical == "yes" && role_line.position.daily_viatical
-  	  if role_line.shift.name == "Libre"
+  	  if role_line.shift.name == "Libre" || @shift.name == "Vacaciones"
   	  	@viatical = role_line.stall.daily_viatical.to_f
-  	  elsif role_line.shift.name == "Incapacidad" || role_line.shift.name == "Permiso"
+  	  elsif role_line.shift.name == "Incapacidad" || role_line.shift.name == "Permiso" || @shift.name == "Ausente"
   	  	@viatical = 0
   	  else
         extra_day_hours  = 0

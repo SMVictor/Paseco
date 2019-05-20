@@ -24,9 +24,14 @@
         <label id="payment_error"></label>
       </div>
       <div class="col-xl-4 col-lg-6 mb-2 mt-2">
-        <label for="">Salario Mínimo</label>
+        <label for="">Salario Mínimo Día</label>
         <%= form.text_field :min_salary, id: "min_salary", class: "form-control", placeholder: "323028" %>
         <label id="min_salary_error"></label>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Salario Mínimo Noche</label>
+        <%= form.text_field :night_min_salary, id: "night_min_salary", class: "form-control", placeholder: "323028" %>
+        <label id="night_min_salary_error"></label>
       </div>
       <div class="col-xl-4 col-lg-6 mb-2 mt-2">
         <label for="">Provincia</label>
