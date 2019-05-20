@@ -45,7 +45,6 @@
         <% @total_holidays       += line.holidays.to_i %>
 
         <% unless line.employee%>
-        <% binding.pry %>
         <% end %>
         <% if line.employee.ccss_type == "yes"%>
           <% salary_type = "Completo" %>
