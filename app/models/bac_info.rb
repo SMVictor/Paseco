@@ -17,7 +17,11 @@ class BacInfo < ApplicationRecord
   end
 
   def self.complete_identification(data)
-    data = "0" * (10 - data.length) + data
+    if data.length < 10
+      data = "0" * (10 - data.length) + data
+    else
+      data = data
+    end
   end
 
   def self.complete_concept(data)
