@@ -8,7 +8,7 @@ class RolesController < ApplicationController
   before_action :set_payrole, only: [:show_payroles, :bncr_file, :bac_file, :payrole_detail]
 
   def index
-    @roles = Role.all.order(start_date: :desc)
+    @roles = Role.all.order(id: :desc)
   end
 
   def show
@@ -220,7 +220,7 @@ class RolesController < ApplicationController
   end
 
   def index_payroles
-    @payroles = Role.all.order(start_date: :desc)
+    @payroles = Role.all.order(id: :desc)
   end
 
   def show_payroles
