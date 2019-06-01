@@ -63,7 +63,7 @@ class RolesController < ApplicationController
 
           @shift = Payment.find(2).shifts.first
           @shift = @stall.payment.shifts.first if @stall.payment
-          @date = Date.today.end_of_month.strftime("%m/%d/%Y")
+          @date = @role.end_date.to_date.strftime("%m/%d/%Y")
           RoleLine.create(role: @role, stall: @stall, employee: @employee, shift: @shift, position: @employee.positions.first, date: @date)
 
           respond_to do |format|
