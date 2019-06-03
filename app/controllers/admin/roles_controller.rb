@@ -286,7 +286,7 @@ class RolesController < ApplicationController
    @sumAccounts = @bn_info.account[8,6].to_i
 
    @payrole.payrole_lines.each do |payrole|
-    if payrole.employee.bank == "BNCR" && @employee.account && payrole.net_salary.to_i > 0
+    if payrole.employee.bank == "BNCR" && @employee.account != "" && payrole.net_salary.to_i > 0
       @total += payrole.net_salary.to_i
       @sumAccounts += payrole.employee.account[8,6].to_i
     end
