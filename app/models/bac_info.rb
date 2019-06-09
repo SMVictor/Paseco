@@ -25,7 +25,11 @@ class BacInfo < ApplicationRecord
   end
 
   def self.complete_concept(data)
-    data += " " * (31 - data.length)
+    if data.length < 31
+      data += " " * (31 - data.length)
+    else
+      data = data[0, 30] + " "
+    end
   end
 
   def self.fix_name(data)
