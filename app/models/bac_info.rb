@@ -16,8 +16,8 @@ class BacInfo < ApplicationRecord
     data = "0" * (5 - data.length) + data
   end
 
-  def self.complete_identification(data)
-    if data.length < 10
+  def self.complete_identification(data, id_type)
+    if id_type == "Nacional"
       data = "0" * (10 - data.length) + data
     else
       data = data
