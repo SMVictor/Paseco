@@ -36,7 +36,7 @@ class Employee < ApplicationRecord
     @holiday          = 0
 
     if role_line.position.name == "Oficial"
-      if role_line.shift.name == "Noche" && @stall.night_min_salary != nil
+      if (role_line.shift.name == "Noche" || role_line.shift.name == "Libre") && @stall.night_min_salary != nil
         @stall.min_salary = @stall.night_min_salary
       end
       min_salary = @stall.min_salary
