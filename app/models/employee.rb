@@ -36,8 +36,17 @@ class Employee < ApplicationRecord
     @holiday          = 0
 
     if role_line.position.name == "Oficial"
-      if (role_line.shift.name == "Noche" || role_line.shift.name == "Libre") && @stall.night_min_salary != nil
+      if role_line.shift.name == "Noche" && @stall.night_min_salary != nil
         @stall.min_salary = @stall.night_min_salary
+      elsif role_line.shift.name == "Libre" && @stall.night_min_salary != nil
+        employee_lines = role_line.role.role_lines.where(employee: self)
+        employee_lines.each do |employee_line|
+          shift_line = employee_line.shift
+          if shift_line.name == "Noche"
+            @stall.min_salary = @stall.night_min_salary
+          end
+        end
+      else
       end
       min_salary = @stall.min_salary
     else
