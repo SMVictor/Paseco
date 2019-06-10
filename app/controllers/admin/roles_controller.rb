@@ -267,15 +267,15 @@ class RolesController < ApplicationController
         @payrole_line = @payrole.payrole_lines.create([{ min_salary: '0', extra_hours: '0', daily_viatical: '0', ccss_deduction: '0', extra_payments: '0', deductions: '0', net_salary: '0', employee_id: employee.id }])[0]
       end
       @payrole_line.num_worked_days = employee.total_days
-      @payrole_line.min_salary      = employee.total_day_salary.round(2)
+      @payrole_line.min_salary      = employee.total_day_salary.round(0)
       @payrole_line.num_extra_hours = employee.total_extra_hours
-      @payrole_line.extra_hours     = employee.total_extra_salary.round(2)
-      @payrole_line.daily_viatical  = employee.total_viatical.round(2)
-      @payrole_line.ccss_deduction  = employee.ccss_deduction.round(2)
-      @payrole_line.net_salary      = employee.net_salary.round(2)
-      @payrole_line.extra_payments  = employee.total_exta_payments.round(2)
-      @payrole_line.deductions      = employee.total_deductions.round(2)
-      @payrole_line.holidays        = employee.total_holidays.round(2)
+      @payrole_line.extra_hours     = employee.total_extra_salary.round(0)
+      @payrole_line.daily_viatical  = employee.total_viatical.round(0)
+      @payrole_line.ccss_deduction  = employee.ccss_deduction.round(0)
+      @payrole_line.net_salary      = employee.net_salary.round(0)
+      @payrole_line.extra_payments  = employee.total_exta_payments.round(0)
+      @payrole_line.deductions      = employee.total_deductions.round(0)
+      @payrole_line.holidays        = employee.total_holidays.round(0)
       @payrole_line.save
     end
   end
