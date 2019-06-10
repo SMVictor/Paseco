@@ -91,7 +91,10 @@ function filterByBank(){
   var ids = [0];
 
   payrole_lines.forEach(function(line) {
-    if ((line.employee.bank == search && parseInt(line.net_salary) > 0) || search == "Seleccione una entidad bancaria") {
+    if ((line.employee.bank == search && line.employee.account != "" && line.employee.account != null && parseInt(line.net_salary) > 0) || search == "Seleccione una entidad bancaria") {
+      ids.push(line.id);
+    }
+    else if ((line.employee.account == "" || line.employee.account == null) && search == "SIN CUENTA")  {
       ids.push(line.id);
     }
   });
