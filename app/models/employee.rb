@@ -37,13 +37,13 @@ class Employee < ApplicationRecord
 
     if role_line.position.name == "Oficial"
       if role_line.shift.name == "Noche" && @stall.night_min_salary != nil
-        min_salary = @stall.night_min_salary
-      else
-        min_salary = @stall.min_salary
+        @stall.min_salary = @stall.night_min_salary
       end
+      min_salary = @stall.min_salary
     else
       min_salary  = role_line.position.salary.to_f
     end
+
     if @shift.name == "Libre" || @shift.name == "Vacaciones"
       @day_salary = min_salary.to_f/30
     elsif @shift.name == "Incapacidad" || @shift.name == "Permiso" || @shift.name == "Ausente"
@@ -104,17 +104,17 @@ class Employee < ApplicationRecord
   	if social_security == "Porcentaje"
   	  if ccss_type == "yes"
         @ccss_deduction = (@gross_salary * ccss_percent).round(2)
-        @net_salary     = (@gross_salary - @ccss_deduction + total_exta_payments - total_deductions).round(0)
+        @net_salary     = (@gross_salary - @ccss_deduction + total_exta_payments - total_deductions).round(2)
       else
         @ccss_deduction = ((total_day_salary + total_extra_salary + total_holidays) * ccss_percent).round(2)
-        @net_salary     = (@gross_salary - @ccss_deduction + total_exta_payments - total_deductions).round(0)
+        @net_salary     = (@gross_salary - @ccss_deduction + total_exta_payments - total_deductions).round(2)
       end
     elsif social_security == "Monto" 
       @ccss_deduction = ccss_amount
-      @net_salary = (@gross_salary - ccss_amount + total_exta_payments - total_deductions).round(0)
+      @net_salary = (@gross_salary - ccss_amount + total_exta_payments - total_deductions).round(2)
     else
       @ccss_deduction = 0
-      @net_salary = (@gross_salary + total_exta_payments - total_deductions).round(0)
+      @net_salary = (@gross_salary + total_exta_payments - total_deductions).round(2)
     end
   end
 end
