@@ -28,7 +28,7 @@
         <legend>Lista de Puestos</legend>
       </div>
       <div class="row ml-1 mr-1 text-center"  style="border:1px solid;">
-      <% @role.stalls.order(name: :asc).each do |stall| %>
+      <% @role.stalls.where(active: true).order(name: :asc).each do |stall| %>
           <div class="col-6 col-sm-4 col-xl-2 pt-3 pb-3">
             <%= link_to(stall.name,admin_role_lines_path(@role, stall, 0), class:'' ) %>
           </div>

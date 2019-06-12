@@ -3,13 +3,27 @@ class StallsController < ApplicationController
   
   layout 'admin'
   load_and_authorize_resource
-  before_action :set_stall, only: [:show, :edit, :update, :destroy]
+  before_action :set_stall, only: [:show, :show_inactive, :edit, :edit_inactive, :update, :update_inactive, :destroy]
 
   def index
-    @stalls = Stall.all.order(name: :asc)
+    @stalls = Stall.where(active: true).order(name: :asc)
+  end
+
+  def inactives
+    if params[:ids]
+      @stalls = Stall.where(id: params[:ids], active: false).order(name: :asc)
+      respond_to do |format|
+        format.js
+      end
+    else
+      @stalls = Stall.where(active: false).order(name: :asc)
+    end
   end
 
   def show
+  end
+
+  def show_inactive
   end
 
   def new
@@ -17,6 +31,9 @@ class StallsController < ApplicationController
   end
 
   def edit
+  end
+
+  def edit_inactive
   end
 
   def create
@@ -45,10 +62,29 @@ class StallsController < ApplicationController
     end
   end
 
+  def update_inactive
+    respond_to do |format|
+      if @stall.update(stall_params)
+        format.html { redirect_to admin_inactive_stalls_url, notice: 'El puesto se actualizó correctamente..' }
+        format.json { render json: @stall, status: :ok, location: @stall }
+      else
+        format.html { render :edit_inactive }
+        format.json { render json: @stall.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def destroy
     @stall.destroy
     respond_to do |format|
       format.html { redirect_to admin_stalls_url, notice: 'El puesto se eliminó correctamente.' }
+    end
+  end
+
+  def destroy_inactive
+    @stall.destroy
+    respond_to do |format|
+      format.html { redirect_to admin_inactive_stalls_url, notice: 'El puesto se eliminó correctamente.' }
     end
   end
 
@@ -60,7 +96,7 @@ class StallsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def stall_params
-      params.require(:stall).permit(:name, :description, :province, :canton, :district, :other, :customer_id, :payment_id, :daily_viatical, :substalls, :night_min_salary, :min_salary, :extra_shift, requirements_attributes: [:id, :name, :shifts, :hours, :workers, :_destroy])
+      params.require(:stall).permit(:name, :description, :province, :canton, :district, :other, :stall_id, :payment_id, :daily_viatical, :substalls, :night_min_salary, :min_salary, :extra_shift, :active, requirements_attributes: [:id, :name, :shifts, :hours, :workers, :_destroy])
     end
 end
 end

@@ -18,9 +18,29 @@
       </div>
     </li>
     <li class="nav-item">
+      <a class="nav-link" aria-expanded="false" onclick="toggleNavLink('inactive')" id="inactiveNavLink">
+        <i class="menu-icon fas fa-user-minus"></i>
+        <span class="menu-title">Mantenimiento Inactivos</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="inactive">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item">
+            <%= link_to('Clientes', admin_inactive_customers_path, class: 'nav-link') if current_user.admin? %>
+          </li>
+          <li class="nav-item">
+            <%= link_to('Puestos', admin_inactive_stalls_path, class: 'nav-link') if current_user.admin? %>
+          </li>
+          <li class="nav-item">
+            <%= link_to('Empleados', admin_inactive_employees_path, class: 'nav-link') if current_user.admin? %>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item">
       <a class="nav-link" aria-expanded="false" onclick="toggleNavLink('maintenance')" id="maintenanceNavLink">
         <i class="menu-icon fas fa-database"></i>
-        <span class="menu-title">Mantenimiento</span>
+        <span class="menu-title">Mantenimiento Activos</span>
         <i class="menu-arrow"></i>
       </a>
       <div class="collapse" id="maintenance">

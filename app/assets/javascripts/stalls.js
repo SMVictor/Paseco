@@ -1,7 +1,7 @@
 function validateStallForm() {
 
   var name       = document.getElementById("name");
-  var customer   = document.getElementById("customer");
+  var stall   = document.getElementById("stall");
   var payment    = document.getElementById("payment");
   var min_salary = document.getElementById("min_salary");
   var viatical   = document.getElementById("viatical");
@@ -13,8 +13,8 @@ function validateStallForm() {
     errorHandler(name, "name_error", "Campo obligatorio");
     result = false;
   }
-  if (customer.value == "") {
-    errorHandler(customer, "customer_error", "Campo obligatorio");
+  if (stall.value == "") {
+    errorHandler(stall, "stall_error", "Campo obligatorio");
     result = false;
   }
   if (payment.value == "") {
@@ -30,4 +30,43 @@ function validateStallForm() {
     result = false;
   }
   return result;
+}
+
+function filterStall(){
+  var stalls = JSON.parse(document.querySelector('#stall').dataset.stalls);
+  var search = $('#stall').val().toUpperCase();
+  var ids = [0];
+  stalls.forEach(function(stall) {
+    if (stall.name.toUpperCase().includes(search)) {
+      ids.push(stall.id);
+    }
+  });
+  $.ajax({
+    type: "GET",
+    url: "/admin/stalls/",
+    data:
+    {
+      utf8: "✓",
+      ids: ids
+    }
+  });
+}
+function filterInactiveStalls(){
+  var stalls = JSON.parse(document.querySelector('#stall').dataset.stalls);
+  var search = $('#stall').val().toUpperCase();
+  var ids = [0];
+  stalls.forEach(function(stall) {
+    if (stall.name.toUpperCase().includes(search)) {
+      ids.push(stall.id);
+    }
+  });
+  $.ajax({
+    type: "GET",
+    url: "/admin/inactive/stalls/",
+    data:
+    {
+      utf8: "✓",
+      ids: ids
+    }
+  });
 }

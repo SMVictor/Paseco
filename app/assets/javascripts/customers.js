@@ -93,6 +93,25 @@ function filterCustomer(){
     }
   });
 }
+function filterInactiveCustomers(){
+  var customers = JSON.parse(document.querySelector('#customer').dataset.customers);
+  var search = $('#customer').val().toUpperCase();
+  var ids = [0];
+  customers.forEach(function(customer) {
+    if (customer.tradename.toUpperCase().includes(search) || customer.legal_document.includes(search)) {
+      ids.push(customer.id);
+    }
+  });
+  $.ajax({
+    type: "GET",
+    url: "/admin/inactive/customers/",
+    data:
+    {
+      utf8: "✓",
+      ids: ids
+    }
+  });
+}
 $( document ).on('turbolinks:load', function() {
   onInput("business_name");
   onInput("tradename");

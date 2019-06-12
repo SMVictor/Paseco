@@ -36,8 +36,27 @@ Rails.application.routes.draw do
       get    'payroles'                  => 'roles#index_payroles', as: 'payroles'
       get    'payroles/:id'              => 'roles#show_payroles',  as: 'payrole'
       get    'payroles/:id/:employee_id' => 'roles#payrole_detail', as: 'payrole_detail'
+
       get    'BNCR/file/:id' => 'roles#bncr_file',      as: 'bncr_file'
       get    'BAC/file/:id'  => 'roles#bac_file',       as: 'bac_file'
+
+      get    'inactive/customers'          => 'customers#inactives',        as: 'inactive_customers'
+      get    'inactive/customers/:id'      => 'customers#show_inactive',    as: 'show_inactive_customer'
+      get    'inactive/customers/:id/edit' => 'customers#edit_inactive',    as: 'edit_inactive_customer'
+      patch  'inactive/customers/:id/edit' => 'customers#update_inactive',  as: 'update_inactive_customer'
+      delete 'inactive/customers/:id/edit' => 'customers#destroy_inactive', as: 'delete_inactive_customer'
+
+      get    'inactive/stalls'          => 'stalls#inactives',        as: 'inactive_stalls'
+      get    'inactive/stalls/:id'      => 'stalls#show_inactive',    as: 'show_inactive_stall'
+      get    'inactive/stalls/:id/edit' => 'stalls#edit_inactive',    as: 'edit_inactive_stall'
+      patch  'inactive/stalls/:id/edit' => 'stalls#update_inactive',  as: 'update_inactive_stall'
+      delete 'inactive/stalls/:id/edit' => 'stalls#destroy_inactive', as: 'delete_inactive_stall'
+
+      get    'inactive/employees'          => 'employees#inactives',        as: 'inactive_employees'
+      get    'inactive/employees/:id'      => 'employees#show_inactive',    as: 'show_inactive_employee'
+      get    'inactive/employees/:id/edit' => 'employees#edit_inactive',    as: 'edit_inactive_employee'
+      patch  'inactive/employees/:id/edit' => 'employees#update_inactive',  as: 'update_inactive_employee'
+      delete 'inactive/employees/:id/edit' => 'employees#destroy_inactive', as: 'delete_inactive_employee'
 
     end
   end

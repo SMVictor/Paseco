@@ -235,7 +235,7 @@ class RolesController < ApplicationController
     end
 
 
-    @employees = Employee.all
+    @employees = Employee.where(active: true)
     @employees.each do |employee|
       @role_lines = @payrole.role_lines.where(employee: employee)
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_09_024458) do
+ActiveRecord::Schema.define(version: 2019_06_10_231522) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -250,6 +250,7 @@ ActiveRecord::Schema.define(version: 2019_06_09_024458) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "night_min_salary"
+    t.boolean "active", default: true
     t.index ["customer_id"], name: "index_stalls_on_customer_id"
     t.index ["payment_id"], name: "index_stalls_on_payment_id"
   end
