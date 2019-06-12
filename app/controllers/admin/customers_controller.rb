@@ -58,6 +58,12 @@ class CustomersController < ApplicationController
   end
 
   def update
+    if params[:customer][:active] != nil && params[:customer][:active] == "0"
+      @customer.stalls.each do |stall|
+        stall.active = false
+        stall.save
+      end
+    end
     respond_to do |format|
       if @customer.update(customer_params)
         format.html { redirect_to admin_customers_url, notice: 'El cliente se actualizó correctamente.' }
