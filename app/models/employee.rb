@@ -27,9 +27,6 @@ class Employee < ApplicationRecord
 
   def calculate_day_salary role_line
   	@stall = role_line.stall
-    if @stall == nil
-      binding.pry
-    end
     @shift = role_line.shift
 
     @normal_day_hours = 0
