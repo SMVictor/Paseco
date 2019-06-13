@@ -65,6 +65,10 @@ class StallsController < ApplicationController
   def update_inactive
     respond_to do |format|
       if @stall.update(stall_params)
+        if params[:stall][:active] != nil && params[:stall][:active] == "1"
+          @stall.customer.active = true
+          @stall.customer.save
+        end
         format.html { redirect_to admin_inactive_stalls_url, notice: 'El puesto se actualizó correctamente..' }
         format.json { render json: @stall, status: :ok, location: @stall }
       else
@@ -96,7 +100,7 @@ class StallsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def stall_params
-      params.require(:stall).permit(:name, :description, :province, :canton, :district, :other, :stall_id, :payment_id, :daily_viatical, :substalls, :night_min_salary, :min_salary, :extra_shift, :active, requirements_attributes: [:id, :name, :shifts, :hours, :workers, :_destroy])
+      params.require(:stall).permit(:name, :description, :province, :canton, :district, :other, :customer_id, :payment_id, :daily_viatical, :substalls, :night_min_salary, :min_salary, :extra_shift, :active, requirements_attributes: [:id, :name, :shifts, :hours, :workers, :_destroy])
     end
 end
 end

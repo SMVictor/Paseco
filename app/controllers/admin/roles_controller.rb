@@ -231,52 +231,51 @@ class RolesController < ApplicationController
         format.js
       end
     else
+
       @payrole_lines = @payrole.payrole_lines.includes(:employee).order("employees.name asc")
-    end
+      @payrole_lines.delete_all
 
+      @employees = Employee.where(active: true).or(Employee.where(id: @role.role_lines.pluck("employee_id").uniq)).order(name: :asc)
+      @employees.each do |employee|
+        @role_lines = @payrole.role_lines.where(employee: employee)
 
-    @employees = Employee.where(active: true)
-    @employees.each do |employee|
-      @role_lines = @payrole.role_lines.where(employee: employee)
+        @total_day_salary     = 0 
+        @total_extra_hours    = 0 
+        @total_extra_salary   = 0 
+        @total_extra_payments = 0 
+        @total_deductions     = 0 
+        @total_viatical       = 0
+        @total_holidays       = 0 
 
-      @total_day_salary     = 0 
-      @total_extra_hours    = 0 
-      @total_extra_salary   = 0 
-      @total_extra_payments = 0 
-      @total_deductions     = 0 
-      @total_viatical       = 0
-      @total_holidays       = 0 
+        @role_lines.each do |line|
 
-      @role_lines.each do |line|
+          employee.calculate_day_salary(line)
+          employee.calculate_daily_viatical(line)
 
-        employee.calculate_day_salary(line)
-        employee.calculate_daily_viatical(line)
+          @total_day_salary     += employee.day_salary
+          @total_extra_hours    += employee.extra_day_hours 
+          @total_extra_salary   += employee.extra_day_salary 
+          @total_extra_payments += line.extra_payments.to_f 
+          @total_deductions     += line.deductions.to_f 
+          @total_viatical       += employee.viatical
+          @total_holidays       += employee.holiday 
+        end
+        employee.calculate_payment(@role_lines.length, @total_day_salary, @total_extra_hours, @total_extra_salary, @total_viatical, @total_extra_payments, @total_deductions, @total_holidays)
 
-        @total_day_salary     += employee.day_salary
-        @total_extra_hours    += employee.extra_day_hours 
-        @total_extra_salary   += employee.extra_day_salary 
-        @total_extra_payments += line.extra_payments.to_f 
-        @total_deductions     += line.deductions.to_f 
-        @total_viatical       += employee.viatical
-        @total_holidays       += employee.holiday 
-      end
-      employee.calculate_payment(@role_lines.length, @total_day_salary, @total_extra_hours, @total_extra_salary, @total_viatical, @total_extra_payments, @total_deductions, @total_holidays)
-
-      @payrole_line = @payrole.payrole_lines.where(employee_id: employee.id)[0]
-      if @payrole_line == nil
         @payrole_line = @payrole.payrole_lines.create([{ min_salary: '0', extra_hours: '0', daily_viatical: '0', ccss_deduction: '0', extra_payments: '0', deductions: '0', net_salary: '0', employee_id: employee.id }])[0]
+
+        @payrole_line.num_worked_days = employee.total_days
+        @payrole_line.min_salary      = employee.total_day_salary.round(0)
+        @payrole_line.num_extra_hours = employee.total_extra_hours
+        @payrole_line.extra_hours     = employee.total_extra_salary.round(0)
+        @payrole_line.daily_viatical  = employee.total_viatical.round(0)
+        @payrole_line.ccss_deduction  = employee.ccss_deduction.round(0)
+        @payrole_line.net_salary      = employee.net_salary.round(0)
+        @payrole_line.extra_payments  = employee.total_exta_payments.round(0)
+        @payrole_line.deductions      = employee.total_deductions.round(0)
+        @payrole_line.holidays        = employee.total_holidays.round(0)
+        @payrole_line.save
       end
-      @payrole_line.num_worked_days = employee.total_days
-      @payrole_line.min_salary      = employee.total_day_salary.round(0)
-      @payrole_line.num_extra_hours = employee.total_extra_hours
-      @payrole_line.extra_hours     = employee.total_extra_salary.round(0)
-      @payrole_line.daily_viatical  = employee.total_viatical.round(0)
-      @payrole_line.ccss_deduction  = employee.ccss_deduction.round(0)
-      @payrole_line.net_salary      = employee.net_salary.round(0)
-      @payrole_line.extra_payments  = employee.total_exta_payments.round(0)
-      @payrole_line.deductions      = employee.total_deductions.round(0)
-      @payrole_line.holidays        = employee.total_holidays.round(0)
-      @payrole_line.save
     end
   end
 
