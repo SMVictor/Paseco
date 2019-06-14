@@ -10,7 +10,7 @@
       <Cell><Data ss:Type="String"><%= "1" + @bn_info.company + @bn_info.date + @bn_info.consecutive + "000000" + @bn_info.transfer_type + "0000000000000000000000000000000000000000"%></Data></Cell>
     </Row>
     <Row>
-      <Cell><Data ss:Type="String"><%= "2" + @bn_info.account[5,3] + @bn_info.account[0,5] + @bn_info.account[8,7] + "00000001" +  BncrInfo.complete_amount(@total.to_s) + @bn_info.concept + (" " * (30 - @bn_info.concept.length)) + "00"%></Data></Cell>
+      <Cell><Data ss:Type="String"><%= "2" + @bn_info.account[5,3] + @bn_info.account[0,5] + @bn_info.account[8,7] + "00000001" +  BncrInfo.complete_amount(@total_amount + @total_decimal) + @bn_info.concept + (" " * (30 - @bn_info.concept.length)) + "00"%></Data></Cell>
     </Row>
     <% @position = 0 %>
     <% @payrole.payrole_lines.each_with_index do |payrole, index| %>
@@ -24,13 +24,19 @@
         <% @concept += (" " * (26-@concept.length)) %>
       <% end %>
         <Row>
-          <Cell><Data ss:Type="String"><%= "3" + @employee.account[5,3] + @employee.account[0,5] + @employee.account[8,7] + BncrInfo.complete_voucher_number(@position.to_s) + BncrInfo.complete_amount((payrole.net_salary.to_i * 100).to_s) + @concept + (" " * 4) + "00" %></Data></Cell>
+          <% net_salary_amount = payrole.net_salary.split(".")[0] %>
+          <% net_salary_decimal = "00" %>
+          <% if  payrole.net_salary.split(".")[1] %>
+            <% net_salary_decimal = payrole.net_salary.split(".")[1] + ("0" * (2 - payrole.net_salary.split(".")[1].length)) %>
+          <% end %>
+
+          <Cell><Data ss:Type="String"><%= "3" + @employee.account[5,3] + @employee.account[0,5] + @employee.account[8,7] + BncrInfo.complete_voucher_number(@position.to_s) + BncrInfo.complete_amount(net_salary_amount + net_salary_decimal) + @concept + (" " * 4) + "00" %></Data></Cell>
         </Row>
       <% end %>
       
     <% end %>
     <Row>
-      <Cell><Data ss:Type="String"><%= "4" + BncrInfo.complete_amount_end((@total * 2).to_s) + BncrInfo.comple_accounts(@sumAccounts.to_s) + "000000000000000000000000000000000000000000" %></Data></Cell>
+      <Cell><Data ss:Type="String"><%= "4" + BncrInfo.complete_amount_end(@total_amount_2 + @total_decimal_2) + BncrInfo.comple_accounts(@sumAccounts.to_s) + "000000000000000000000000000000000000000000" %></Data></Cell>
     </Row>
     </Table>
   </Worksheet>

@@ -231,7 +231,6 @@ class RolesController < ApplicationController
         format.js
       end
     else
-
       @payrole_lines = @payrole.payrole_lines.includes(:employee).order("employees.name asc")
       @payrole_lines.delete_all
 
@@ -265,15 +264,15 @@ class RolesController < ApplicationController
         @payrole_line = @payrole.payrole_lines.create([{ min_salary: '0', extra_hours: '0', daily_viatical: '0', ccss_deduction: '0', extra_payments: '0', deductions: '0', net_salary: '0', employee_id: employee.id }])[0]
 
         @payrole_line.num_worked_days = employee.total_days
-        @payrole_line.min_salary      = employee.total_day_salary.round(0)
+        @payrole_line.min_salary      = employee.total_day_salary.round(2)
         @payrole_line.num_extra_hours = employee.total_extra_hours
-        @payrole_line.extra_hours     = employee.total_extra_salary.round(0)
-        @payrole_line.daily_viatical  = employee.total_viatical.round(0)
-        @payrole_line.ccss_deduction  = employee.ccss_deduction.round(0)
-        @payrole_line.net_salary      = employee.net_salary.round(0)
-        @payrole_line.extra_payments  = employee.total_exta_payments.round(0)
-        @payrole_line.deductions      = employee.total_deductions.round(0)
-        @payrole_line.holidays        = employee.total_holidays.round(0)
+        @payrole_line.extra_hours     = employee.total_extra_salary.round(2)
+        @payrole_line.daily_viatical  = employee.total_viatical.round(2)
+        @payrole_line.ccss_deduction  = employee.ccss_deduction.round(2)
+        @payrole_line.net_salary      = employee.net_salary.round(2)
+        @payrole_line.extra_payments  = employee.total_exta_payments.round(2)
+        @payrole_line.deductions      = employee.total_deductions.round(2)
+        @payrole_line.holidays        = employee.total_holidays.round(2)
         @payrole_line.save
       end
     end
@@ -286,11 +285,26 @@ class RolesController < ApplicationController
 
    @payrole.payrole_lines.each do |payrole|
     if payrole.employee.bank == "BNCR" && payrole.employee.account != "" && payrole.net_salary.to_i > 0
-      @total += payrole.net_salary.to_i
+      @total += payrole.net_salary.to_f
       @sumAccounts += payrole.employee.account[8,6].to_i
     end
    end
-   @total = @total*100
+
+   @total_amount  = @total.to_s.split(".")[0]
+   @total_decimal = "00"
+
+   if  @total.to_s.split(".")[1]
+     @total_decimal = @total.to_s.split(".")[1] + ("0" * (2 - @total.to_s.split(".")[1].length))
+   end
+
+   @total_amount_2  = (@total*2).to_s.split(".")[0]
+   @total_decimal_2 = "00"
+
+   if  (@total*2).to_s.split(".")[1]
+     @total_decimal_2 = (@total*2).to_s.split(".")[1] + ("0" * (2 - (@total*2).to_s.split(".")[1].length))
+   end
+
+
    respond_to do |format|
       format.xls
     end
