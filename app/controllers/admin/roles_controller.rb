@@ -318,11 +318,19 @@ class RolesController < ApplicationController
 
    @payrole.payrole_lines.each do |payrole|
     if payrole.employee.bank == "BAC" && payrole.net_salary.to_i > 0
-      @total += payrole.net_salary.to_i
+      @total += payrole.net_salary.to_f
       @count += 1
     end
    end
-   @total = @total*100
+   
+   @total         = @total.round(2)
+   @total_amount  = @total.to_s.split(".")[0]
+   @total_decimal = "00"
+
+   if  @total.to_s.split(".")[1]
+     @total_decimal = @total.to_s.split(".")[1] + ("0" * (2 - @total.to_s.split(".")[1].length))
+   end
+
    respond_to do |format|
       format.xls
     end
