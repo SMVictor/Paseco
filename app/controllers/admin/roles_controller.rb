@@ -290,6 +290,7 @@ class RolesController < ApplicationController
     end
    end
 
+   @total         = @total.round(2)
    @total_amount  = @total.to_s.split(".")[0]
    @total_decimal = "00"
 
