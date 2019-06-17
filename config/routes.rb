@@ -58,6 +58,8 @@ Rails.application.routes.draw do
       patch  'inactive/employees/:id/edit' => 'employees#update_inactive',  as: 'update_inactive_employee'
       delete 'inactive/employees/:id/edit' => 'employees#destroy_inactive', as: 'delete_inactive_employee'
 
+      get    'roles/:id/stalls/:stall_id'  => 'roles#stall_summary',        as: 'stall_summary'
+
     end
   end
   

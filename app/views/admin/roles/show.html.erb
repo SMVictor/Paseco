@@ -23,17 +23,18 @@
   </div>
 </div>
 
-<div class="row form_fieldset mb-2">
-  <div  class="col-12 mt-4">
+<div class="row form_fieldset mb-3">
+  <div  class="col-12">
     <legend>Puestos del Roll</legend>
   </div>
   <% if @role.stalls %>
-    <% @role.stalls.order(name: :asc).each do |stall| %>
-      <div class="col-12">
-        <h4 class="text-center mb-3"><%= stall.name %></h4>
-        <div class="mb-5" id="showTable"><%= render 'admin/roles/partials/show_table', stall:  stall %></div>
-      </div>
-    <% end -%>
+    <div class="row ml-1 mr-1 mt-3 mb-3 text-center"  style="border:1px solid;">
+    <% Stall.where(active: true).or(Stall.where(id: @role.role_lines.pluck("stall_id").uniq)).order(name: :asc).each do |stall| %>
+        <div class="col-6 col-sm-4 col-xl-2 pt-3 pb-3">
+          <%= link_to(stall.name,admin_stall_summary_path(@role, stall), class:'' ) %>
+        </div>
+    <% end %>
+    </div>
   <% end -%>
 </div>
 

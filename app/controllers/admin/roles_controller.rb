@@ -3,8 +3,8 @@ class RolesController < ApplicationController
 
   layout 'admin'
   load_and_authorize_resource
-  before_action :set_role, only: [:show, :edit, :update, :destroy, :add_role_lines, :update_role_lines, :approvals, :check_changes]
-  before_action :set_stall, only: [:update_role_lines, :add_role_lines, :check_changes]
+  before_action :set_role, only: [:show, :edit, :update, :destroy, :add_role_lines, :update_role_lines, :approvals, :check_changes, :stall_summary]
+  before_action :set_stall, only: [:update_role_lines, :add_role_lines, :check_changes, :stall_summary]
   before_action :set_payrole, only: [:show_payroles, :bncr_file, :bac_file, :payrole_detail]
 
   def index
@@ -12,6 +12,9 @@ class RolesController < ApplicationController
   end
 
   def show
+  end
+
+  def stall_summary
   end
 
   def new
