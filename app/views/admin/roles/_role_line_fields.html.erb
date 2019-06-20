@@ -6,20 +6,20 @@
     <% end -%>
     <div class="col-xl-1 col-lg-12 mb-2 pt-md-3">
       <p class="d-md-none font-weight-bold">Día</p>
-      <%= f.text_field :day, class: "form-control", readonly: true %>
+      <%= f.text_field :day, class: "form-control", readonly: true, id: "day_"+f.object.id.to_s %>
     </div>
     <div class="col-xl-7 col-lg-12 mb-2 pt-md-3">
       <div class="row">
         <div class="col-xl-3 col-lg-6">
           <p class="d-md-none font-weight-bold">Fecha</p>
-          <%= f.text_field :date, placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control date", "data-date-format": 'mm/dd/yyyy', "data-provide": 'datepicker', onchange: "getDayName()", "data-date-autoclose": true, "data-date-language": 'es' %>
+          <%= f.text_field :date, placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control date", "data-date-format": 'mm/dd/yyyy', "data-provide": 'datepicker', onchange: "getDayName()", "data-date-autoclose": true, "data-date-language": 'es', id: "date_"+f.object.id.to_s %>
         </div>
         <div class="col-xl-3 col-lg-6">
           <p class="d-md-none font-weight-bold">Turno</p>
           <% if @stall.payment %>
-            <%= f.collection_select :shift_id, @stall.payment.shifts.order(name: :asc), :id, :name, options = {}, html_options = {class: "form-control",  title: "Seleccione un turno"}%>
+            <%= f.collection_select :shift_id, @stall.payment.shifts.order(name: :asc), :id, :name, options = {}, html_options = {class: "form-control",  title: "Seleccione un turno", id: "shift_"+f.object.id.to_s }%>
           <% else %>
-            <%= f.collection_select :shift_id, Payment.find(2).shifts.order(name: :asc), :id, :name, options = {}, html_options = {class: "form-control", title: "Seleccione un turno"}%>
+            <%= f.collection_select :shift_id, Payment.find(2).shifts.order(name: :asc), :id, :name, options = {}, html_options = {class: "form-control", title: "Seleccione un turno", id: "shift_"+f.object.id.to_s }%>
           <% end %>
         </div>
         <div class="col-xl-3 col-lg-6">
@@ -29,20 +29,20 @@
         <div class="col-xl-3 col-lg-6">
           <p class="d-md-none font-weight-bold">Cargo</p>
           <% if @employee %>
-            <%= f.collection_select :position_id, @employee.positions, :id, :name, options = {}, html_options = {class: "form-control", title: "Seleccione un cargo" }%>
+            <%= f.collection_select :position_id, @employee.positions, :id, :name, options = {}, html_options = {class: "form-control", title: "Seleccione un cargo", id: "position_"+f.object.id.to_s }%>
           <% else %>
-            <%= f.collection_select :position_id, [], :id, :name, options = {include_blank: 'Seleccione un cargo'}, html_options = {class: "form-control", required: true, oninvalid: "setCustomValidity('Campo Requerido')", oninput: "setCustomValidity('')", title: "Seleccione un cargo" }%>
+            <%= f.collection_select :position_id, [], :id, :name, options = {include_blank: 'Seleccione un cargo'}, html_options = {class: "form-control", required: true, oninvalid: "setCustomValidity('Campo Requerido')", oninput: "setCustomValidity('')", title: "Seleccione un cargo", id: "position_"+f.object.id.to_s }%>
           <% end %>
         </div>
       </div>
     </div>
-    <div class="col-xl-2 col-lg-6 mb-2 pt-md-3">
-      <p class="d-md-none font-weight-bold">Comentarios</p>
-      <%= f.text_field :comment, class: "form-control comment", placeholder: "Cubre turno por permiso de Juan" %>
-    </div>
     <div class="col-xl-1 col-lg-6 mb-2 pt-md-3">
       <p class="d-md-none font-weight-bold">Feriado</p>
       <%= f.check_box :holiday %>
+    </div>
+    <div class="col-xl-2 col-lg-6 mb-2 pt-md-3">
+      <p class="d-md-none font-weight-bold">Comentarios</p>
+      <%= f.text_field :comment, class: "form-control comment", placeholder: "Cubre turno por permiso de Juan", id: "comment_"+f.object.id.to_s %>
     </div>
     <div class="col-xl-1 col-md-12 pt-md-3">
        <%= link_to_remove_association "", f, class: "fas fa-trash-alt", id: 'remove_link', style: "color: #E25141" %>
