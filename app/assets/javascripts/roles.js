@@ -131,3 +131,52 @@ function saveModalData(roleID, stallID, employeeID){
 
   changeIconColor();
 }
+
+function hoursValidation(lineID){
+
+    var requirements    = JSON.parse(document.querySelector('#addPayment'+lineID).dataset.requirements);
+    var lines           = JSON.parse(document.querySelector('#addPayment'+lineID).dataset.lines);
+    var currentShift    = $('#shift_'+lineID).children("option:selected");
+    var currentPosition = $('#position_'+lineID).children("option:selected");
+    var currentHours    = $('#hours_'+lineID).val();
+    var currentDate     = $('#date_'+lineID).val();
+    var dateHours       = 0;
+    var existRequerimet = false;
+
+    for (var i = 0; i < lines.length; i++) {
+
+      if ($('#date_'+lines[i].id).length) {
+        lines[i].position_id = $('#position_'+lines[i].id).children("option:selected").val();
+        lines[i].shift_id    = $('#shift_'+lines[i].id).children("option:selected").val();
+        lines[i].hours       = $('#hours_'+lines[i].id).val();
+        lines[i].date        = $('#date_'+lines[i].id).val();
+      }
+
+      if ( lines[i].date == currentDate && lines[i].id != lineID ) {
+
+        if ( lines[i].shift_id == currentShift.val() && lines[i].position_id == currentPosition.val() ) {
+          dateHours += parseInt(lines[i].hours);
+        }
+      }
+    }
+
+    if (currentHours == "") {
+      currentHours = 0
+    }
+    dateHours += parseInt(currentHours);
+    
+    for (var i = 0; i < requirements.length; i++) {
+      if (requirements[i].shift_id == currentShift.val() && requirements[i].position_id == currentPosition.val()) {
+        var requiredHours  = parseInt(requirements[i].hours) * parseInt(requirements[i].workers);
+        var availableHours = requiredHours - dateHours
+        if ( availableHours < 0 ) {
+          alert("Cuidado!!! Está excediendo el requerimiento diario de '"+currentPosition.text()+"' en el turno '"+currentShift.text()+"' en un total de horas de: "+(availableHours*-1));
+        }
+        existRequerimet = true;
+        break;
+      }
+    }
+    if (!existRequerimet) {
+      alert("No existe un requerimiento establecido para el cargo '"+currentPosition.text()+"' en el turno '"+currentShift.text()+"'");
+    }
+  }

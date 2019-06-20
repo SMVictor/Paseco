@@ -69,35 +69,28 @@
     <div class="card">
       <div class="card-body">
         <div class="row mt-1 ml-1  mr-1 pt-3 tbl_head d-none d-md-flex text-center" style="">
-          <div class="col-12 col-md-3">
+          <div class="col-12 col-md-4">
             <p class="text-uppercase">Tipo Requerimiento</p>
           </div>
-          <div class="col-12 col-md-3">
+          <div class="col-12 col-md-4">
             <p class="text-uppercase">Turnos</p>
           </div>
-          <div class="col-12 col-md-3">
-            <p class="text-uppercase">Horas Turno</p>
-          </div>
-          <div class="col-12 col-md-3">
+          <div class="col-12 col-md-4">
             <p class="text-uppercase">Trabajadores Turno</p>
           </div>
         </div>
         <% if @stall.requirements%>
           <% @stall.requirements.each do |requirement| %>
             <div class="row ml-1 mr-1 tbl_row"  style="">
-              <div class="col-12 col-md-3 pt-md-3">
+              <div class="col-12 col-md-4 pt-md-3">
                 <p class="d-md-none font-weight-bold">Tipo Requerimiento</p>
-                <p class="text-md-center"><%= requirement.name %></p>
+                <p class="text-md-center"><%= requirement.position.name %></p>
               </div>
-              <div class="col-12 col-md-3  pt-md-3">
+              <div class="col-12 col-md-4  pt-md-3">
                 <p class="d-md-none font-weight-bold">Turnos</p>
-                <p class="text-md-center"><%= requirement.shifts %></p>
+                <p class="text-md-center"><%= requirement.shift.name %></p>
               </div>
-              <div class="col-12 col-md-3  pt-md-3">
-                <p class="d-md-none font-weight-bold">Horas Turno</p>
-                <p class="text-md-center"><%= requirement.hours %></p>
-              </div>
-              <div class="col-12 col-md-3  pt-md-3">
+              <div class="col-12 col-md-4  pt-md-3">
                 <p class="d-md-none font-weight-bold">Trabajadores Turno</p>
                 <p class="text-md-center"><%= requirement.workers %></p>
               </div>

@@ -1,112 +1,73 @@
-<div class="card">
-  <div class="card-body">
-    <div class="row form_fieldset">
-      <div  class="col-12 mt-4 p-3">
-        <legend>Información General</legend>
-      </div>
-      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
-        <label for="">Nombre</label>
-        <%= form.text_field :name, id: "name", class: "form-control", placeholder: "Charlie 01" %>
-        <label id="name_error"></label>
-      </div>
-      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
-        <label for="">Descripción</label>
-        <%= form.text_field :description, class: "form-control", placeholder: "Descripción" %>
-      </div>
-      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
-        <%= form.collection_select :customer_id, Customer.where("customers.active = true OR customers.id ="+@stall.customer_id.to_s).order(tradename: :asc), :id, :tradename, options = {include_blank: 'Seleccione un cliente'}, html_options = {class: "form-control", id: "customer"}%>
-        <label id="customer_error"></label>
-      </div>
-      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
-        <label for="">Tipo de Pago</label>
-        <%= form.collection_select :payment_id, Payment.all.order(name: :asc), :id, :name, options = {include_blank: 'Seleccione un tipo de pago'}, html_options = {class: "form-control", id: "payment"}%>
-        <label id="payment_error"></label>
-      </div>
-      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
-        <label for="">Salario Mínimo Día</label>
-        <%= form.text_field :min_salary, id: "min_salary", class: "form-control", placeholder: "323028" %>
-        <label id="min_salary_error"></label>
-      </div>
-      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
-        <label for="">Salario Mínimo Noche</label>
-        <%= form.text_field :night_min_salary, id: "night_min_salary", class: "form-control", placeholder: "323028" %>
-        <label id="night_min_salary_error"></label>
-      </div>
-      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
-        <label for="">Provincia</label>
-        <%= form.text_field :province, class: "form-control", placeholder: "Provincia" %>
-      </div>
-      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
-        <label for="">Cantón</label>
-        <%= form.text_field :canton, class: "form-control", placeholder: "Cantón" %>
-      </div>
-      <div class="col-xl-4 col-lg-6 mt-2">
-        <label for="">Distrito</label>
-        <%= form.text_field :district, class: "form-control", placeholder: "Distrito" %>
-      </div>
-      <div class="col-xl-4 col-lg-6 mt-2">
-        <label for="">Otras Señas</label>
-        <%= form.text_field :other, class: "form-control", placeholder: "Otras Señas" %>
-      </div>
-      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
-      <label for="">Activo:</label><br>
-        <%= form.check_box :active %>
-      </div>
-    </div>
-    <div class="row form_fieldset">
-      <div  class="col-12 mt-4 p-3">
-        <legend>Información Extra</legend>
-      </div>
-      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
-        <label for="">Viático Diario</label>
-        <%= form.text_field :daily_viatical, id: "viatical", class: "form-control", placeholder: "500" %>
-        <label id="viatical_error"></label>
-      </div>
-      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
-        <label for="">Turno Extra</label>
-        <%= form.text_field :extra_shift, class: "form-control", placeholder: "10500" %>
-      </div>
-      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
-        <label for="">Cantidad de Puestos</label><br>
-        <%= form.select :substalls, ((0..20).map {|i| [i,i] }), {}, {class: "form-control", id: "substalls"} %>
-        <label id="substalls_error"></label>
-      </div>
-    </div>
-    <div class="row form_fieldset text-center">
-    <div  class="col-12 mt-4">
-      <legend class="text-left">Información de los Requerimientos</legend>
-      <div class="row mt-1 ml-1  mr-1 pt-3 tbl_head d-none d-xl-flex text-center" style="">
-        <div class="col-12 col-xl-2">
-          <p class="text-uppercase">Tipo</p>
-        </div>
-        <div class="col-12 col-xl-2">
-          <p class="text-uppercase">Turnos</p>
-        </div>
-        <div class="col-12 col-xl-3">
-          <p class="text-uppercase">Horas Turno</p>
-        </div>
-        <div class="col-12 col-xl-3">
-          <p class="text-uppercase">Trabajadores Turno</p>
-        </div>
-        <div class="col-12 col-xl-2">
-          <p class="text-uppercase">Acciones</p>
-        </div>
-      </div>
-      <div class="role_lines-fields mt-4">
-        <%= form.fields_for :requirements do |requirement| %>
-          <%= render 'requirement_fields', f: requirement %>
-        <%end%>
-      </div>
-      <div class="row ml-1 mr-1">
-        <div class="col-12 text-center p-2 tbl_footer">
-          <%= link_to_add_association ' + Agregar Requerimiento', form, :requirements, data: { association_insertion_mode: '.requirements.fields', partial: 'requirement_fields'}, class: 'btn add_btn' %>
-        </div>
-      </div>
-    </div>
-    </div>
-    
-    <%= form.submit "Guardar", id: 'btn_submit', class: "btn btn-success mt-4" %>
-    <%= link_to('Cancelar', admin_inactive_stalls_path, class: 'btn btn-light ml-sm-3 mt-4')%>
+<div class="row form_fieldset">
+  <div  class="col-12 mt-4 p-3">
+    <legend>Información General</legend>
+  </div>
+  <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+    <label for="">Nombre</label>
+    <%= form.text_field :name, id: "name", class: "form-control", placeholder: "Charlie 01" %>
+    <label id="name_error"></label>
+  </div>
+  <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+    <label for="">Descripción</label>
+    <%= form.text_field :description, class: "form-control", placeholder: "Descripción" %>
+  </div>
+  <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+    <%= form.collection_select :customer_id, Customer.where("customers.active = true OR customers.id ="+@stall.customer_id.to_s).order(tradename: :asc), :id, :tradename, options = {include_blank: 'Seleccione un cliente'}, html_options = {class: "form-control", id: "customer"}%>
+    <label id="customer_error"></label>
+  </div>
+  <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+    <label for="">Tipo de Pago</label>
+    <%= form.collection_select :payment_id, Payment.all.order(name: :asc), :id, :name, options = {include_blank: 'Seleccione un tipo de pago'}, html_options = {class: "form-control", id: "payment"}%>
+    <label id="payment_error"></label>
+  </div>
+  <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+    <label for="">Salario Mínimo Día</label>
+    <%= form.text_field :min_salary, id: "min_salary", class: "form-control", placeholder: "323028" %>
+    <label id="min_salary_error"></label>
+  </div>
+  <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+    <label for="">Salario Mínimo Noche</label>
+    <%= form.text_field :night_min_salary, id: "night_min_salary", class: "form-control", placeholder: "323028" %>
+    <label id="night_min_salary_error"></label>
+  </div>
+  <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+    <label for="">Provincia</label>
+    <%= form.text_field :province, class: "form-control", placeholder: "Provincia" %>
+  </div>
+  <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+    <label for="">Cantón</label>
+    <%= form.text_field :canton, class: "form-control", placeholder: "Cantón" %>
+  </div>
+  <div class="col-xl-4 col-lg-6 mt-2">
+    <label for="">Distrito</label>
+    <%= form.text_field :district, class: "form-control", placeholder: "Distrito" %>
+  </div>
+  <div class="col-xl-4 col-lg-6 mt-2">
+    <label for="">Otras Señas</label>
+    <%= form.text_field :other, class: "form-control", placeholder: "Otras Señas" %>
+  </div>
+  <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+  <label for="">Activo:</label><br>
+    <%= form.check_box :active %>
+  </div>
+</div>
+<div class="row form_fieldset">
+  <div  class="col-12 mt-4 p-3">
+    <legend>Información Extra</legend>
+  </div>
+  <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+    <label for="">Viático Diario</label>
+    <%= form.text_field :daily_viatical, id: "viatical", class: "form-control", placeholder: "500" %>
+    <label id="viatical_error"></label>
+  </div>
+  <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+    <label for="">Turno Extra</label>
+    <%= form.text_field :extra_shift, class: "form-control", placeholder: "10500" %>
+  </div>
+  <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+    <label for="">Cantidad de Puestos</label><br>
+    <%= form.select :substalls, ((0..20).map {|i| [i,i] }), {}, {class: "form-control", id: "substalls"} %>
+    <label id="substalls_error"></label>
   </div>
 </div>
 <script type="text/javascript">

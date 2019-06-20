@@ -1,4 +1,4 @@
-<div class="modal" id="addPayment<%= form.object.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal" id="addPayment<%= form.object.id %>" data-lines="<%= @role.role_lines.where(stall_id: @stall.id).to_json %>" data-requirements="<%= @stall.requirements.to_json(include: :shift) %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content rounded">
       <div class="modal-header rounded-top">
@@ -7,7 +7,11 @@
         <div class="row">
           <div class="col-12 mb-2">
             <p class="font-weight-bold text-left">Horas Trabajadas</p>
-            <%= form.text_field :hours, class: "form-control hours", placeholder: "3", id: "hours"+form.object.id.to_s %>
+            <%= form.text_field :hours, class: "form-control hours", placeholder: "3", id: "hours_"+form.object.id.to_s, onKeyUp: "hoursValidation("+form.object.id.to_s+")"  %>
+          </div>
+          <div class="col-12 mb-2">
+            <p class="font-weight-bold text-left">Justificación de Requerimiento</p>
+            <%= form.text_field :requirement_justification, class: "form-control hours", placeholder: "4 horas extra por cubrimiento del libre de Juan", id: "requirement_justification_"+form.object.id.to_s  %>
           </div>
           <div class="col-12 mb-2">
             <p class="font-weight-bold text-left">Pagos Extras</p>

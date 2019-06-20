@@ -14,7 +14,43 @@
 <div class="d-flex justify-content-center">
   <div class="col-sm-12">
     <%= form_for(@stall, url: admin_stall_path(@stall), html: {multipart: true, onsubmit:"return validateStallForm()"}) do |form| %>
-      <%= render 'admin/stalls/partials/form', form: form %>
+    <div class="card">
+      <div class="card-body">
+          <%= render 'admin/stalls/partials/form', form: form %>
+          <div class="row form_fieldset text-center">
+            <div  class="col-12 mt-4">
+              <legend class="text-left">Información de los Requerimientos</legend>
+              <div class="row mt-1 ml-1  mr-1 pt-3 tbl_head d-none d-xl-flex text-center" style="border-bottom: none;">
+                <div class="col-12 col-xl-3">
+                  <p class="text-uppercase">Cargo</p>
+                </div>
+                <div class="col-12 col-xl-3">
+                  <p class="text-uppercase">Turno</p>
+                </div>
+                <div class="col-12 col-xl-2">
+                  <p class="text-uppercase">Horas</p>
+                </div>
+                <div class="col-12 col-xl-2">
+                  <p class="text-uppercase">Trabajadores</p>
+                </div>
+                <div class="col-12 col-xl-2">
+                  <p class="text-uppercase">Acciones</p>
+                </div>
+              </div>
+              <div class="role_lines-fields">
+                <%= form.fields_for :requirements do |requirement| %>
+                  <%= render 'requirement_fields', f: requirement %>
+                <%end%>
+              </div>
+              <div class="col-12 text-center p-2 tbl_footer">
+                <%= link_to_add_association ' + Agregar Requerimiento', form, :requirements, data: { association_insertion_mode: '.requirements.fields', partial: 'requirement_fields'}, class: 'btn add_btn' %>
+              </div>
+            </div>
+          </div>
+          <%= form.submit "Guardar", id: 'btn_submit', class: "btn btn-success mt-4" %>
+          <%= link_to('Cancelar', admin_stalls_path, class: 'btn btn-light ml-sm-3 mt-4')%>
+        </div>
+      </div>
     <% end %>
   </div>
 </div>

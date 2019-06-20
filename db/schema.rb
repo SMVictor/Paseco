@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_10_231522) do
+ActiveRecord::Schema.define(version: 2019_06_20_164421) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -158,13 +158,15 @@ ActiveRecord::Schema.define(version: 2019_06_10_231522) do
   end
 
   create_table "requirements", force: :cascade do |t|
-    t.string "name"
-    t.string "shifts"
-    t.string "hours"
     t.string "workers"
     t.bigint "stall_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "shift_id"
+    t.bigint "position_id"
+    t.string "hours"
+    t.index ["position_id"], name: "index_requirements_on_position_id"
+    t.index ["shift_id"], name: "index_requirements_on_shift_id"
     t.index ["stall_id"], name: "index_requirements_on_stall_id"
   end
 
@@ -185,6 +187,7 @@ ActiveRecord::Schema.define(version: 2019_06_10_231522) do
     t.string "deductions_description"
     t.boolean "holiday", default: false
     t.bigint "position_id"
+    t.string "requirement_justification"
     t.index ["employee_id"], name: "index_role_lines_on_employee_id"
     t.index ["position_id"], name: "index_role_lines_on_position_id"
     t.index ["role_id"], name: "index_role_lines_on_role_id"
@@ -270,5 +273,7 @@ ActiveRecord::Schema.define(version: 2019_06_10_231522) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "requirements", "positions"
+  add_foreign_key "requirements", "shifts"
   add_foreign_key "role_lines", "positions"
 end
