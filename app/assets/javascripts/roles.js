@@ -155,7 +155,7 @@ function hoursValidation(lineID){
       if ( lines[i].date == currentDate && lines[i].id != lineID ) {
 
         if ( lines[i].shift_id == currentShift.val() && lines[i].position_id == currentPosition.val() ) {
-          dateHours += parseInt(lines[i].hours);
+          dateHours += parseFloat(lines[i].hours);
         }
       }
     }
@@ -163,14 +163,14 @@ function hoursValidation(lineID){
     if (currentHours == "") {
       currentHours = 0
     }
-    dateHours += parseInt(currentHours);
+    dateHours += parseFloat(currentHours);
     
     for (var i = 0; i < requirements.length; i++) {
       if (requirements[i].shift_id == currentShift.val() && requirements[i].position_id == currentPosition.val()) {
-        var requiredHours  = parseInt(requirements[i].hours) * parseInt(requirements[i].workers);
+        var requiredHours  = parseFloat(requirements[i].hours) * parseFloat(requirements[i].workers);
         var availableHours = requiredHours - dateHours
         if ( availableHours < 0 ) {
-          alert("Cuidado!!! Está excediendo el requerimiento diario de '"+currentPosition.text()+"' en el turno '"+currentShift.text()+"' en un total de horas de: "+(availableHours*-1));
+          alert("Cuidado!!! Está excediendo el requerimiento diario de '"+currentPosition.text()+"' en el turno '"+currentShift.text()+"' en un total de horas de: "+(availableHours*-1).toFixed(2));
         }
         existRequerimet = true;
         break;
