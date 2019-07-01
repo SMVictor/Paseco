@@ -55,13 +55,16 @@ class Employee < ApplicationRecord
 
     if @shift.name == "Libre" || @shift.name == "Vacaciones"
       @day_salary = min_salary.to_f/30
-    elsif @shift.name == "Incapacidad" || @shift.name == "Permiso" || @shift.name == "Ausente"
+    elsif @shift.name == "Incapacidad" || @shift.name == "Permiso" || @shift.name == "Ausente" || "Suspendido"
       @day_salary = 0
     else
       @normal_day_hours = 0
       @extra_day_hours  = 0
       @shift.time       = role_line.position.hours if role_line.position.hours
       @hour_cost        = min_salary.to_f/30/@shift.time.to_f
+      if !@shift.payment
+        binding.pry
+      end
       @extra_day_hours  = role_line.hours.to_f - @shift.time.to_f if role_line.hours.to_f > @shift.time.to_f && @shift.payment.name != "Normal"
       @normal_day_hours = role_line.hours.to_f - @extra_day_hours
       @day_salary       = @normal_day_hours * @hour_cost
@@ -80,7 +83,7 @@ class Employee < ApplicationRecord
   	if daily_viatical == "yes" && role_line.position.daily_viatical
   	  if role_line.shift.name == "Libre" || @shift.name == "Vacaciones"
   	  	@viatical = role_line.stall.daily_viatical.to_f
-  	  elsif role_line.shift.name == "Incapacidad" || role_line.shift.name == "Permiso" || @shift.name == "Ausente"
+  	  elsif role_line.shift.name == "Incapacidad" || role_line.shift.name == "Permiso" || @shift.name == "Ausente" || "Suspendido"
   	  	@viatical = 0
   	  else
         extra_day_hours  = 0
