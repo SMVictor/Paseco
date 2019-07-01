@@ -55,7 +55,7 @@ class Employee < ApplicationRecord
 
     if @shift.name == "Libre" || @shift.name == "Vacaciones"
       @day_salary = min_salary.to_f/30
-    elsif @shift.name == "Incapacidad" || @shift.name == "Permiso" || @shift.name == "Ausente" || "Suspendido"
+    elsif @shift.name == "Incapacidad" || @shift.name == "Permiso" || @shift.name == "Ausente" || @shift.name == "Suspendido"
       @day_salary = 0
     else
       @normal_day_hours = 0
@@ -83,7 +83,7 @@ class Employee < ApplicationRecord
   	if daily_viatical == "yes" && role_line.position.daily_viatical
   	  if role_line.shift.name == "Libre" || @shift.name == "Vacaciones"
   	  	@viatical = role_line.stall.daily_viatical.to_f
-  	  elsif role_line.shift.name == "Incapacidad" || role_line.shift.name == "Permiso" || @shift.name == "Ausente" || "Suspendido"
+  	  elsif role_line.shift.name == "Incapacidad" || role_line.shift.name == "Permiso" || @shift.name == "Ausente" || @shift.name == "Suspendido"
   	  	@viatical = 0
   	  else
         extra_day_hours  = 0
