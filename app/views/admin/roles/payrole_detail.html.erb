@@ -60,8 +60,10 @@
                 <% @total_viatical       = 0 %>
                 <% @total_holiday        = 0 %>
 
+                <% has_night =  @lines.joins(:shift).where("name = 'Noche'").length %>
+
                 <% @lines.each do |line| %>
-                  <% @employee.calculate_day_salary(line) %>
+                  <% @employee.calculate_day_salary(line, has_night) %>
                   <% @employee.calculate_daily_viatical(line) %>
 
                   <% @total_day_salary     += @employee.day_salary %>
