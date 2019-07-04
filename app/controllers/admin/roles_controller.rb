@@ -247,11 +247,13 @@ class RolesController < ApplicationController
         @total_extra_payments = 0 
         @total_deductions     = 0 
         @total_viatical       = 0
-        @total_holidays       = 0 
+        @total_holidays       = 0
+
+        has_night =  @role_lines.joins(:shift).where("name = 'Noche'").length
 
         @role_lines.each do |line|
 
-          employee.calculate_day_salary(line)
+          employee.calculate_day_salary(line, has_night)
           employee.calculate_daily_viatical(line)
 
           @total_day_salary     += employee.day_salary
@@ -264,7 +266,7 @@ class RolesController < ApplicationController
         end
         employee.calculate_payment(@role_lines.length, @total_day_salary, @total_extra_hours, @total_extra_salary, @total_viatical, @total_extra_payments, @total_deductions, @total_holidays)
 
-        @payrole_line = @payrole.payrole_lines.create([{ min_salary: '0', extra_hours: '0', daily_viatical: '0', ccss_deduction: '0', extra_payments: '0', deductions: '0', net_salary: '0', employee_id: employee.id }])[0]
+        @payrole_line = @payrole.payrole_lines.new([{ min_salary: '0', extra_hours: '0', daily_viatical: '0', ccss_deduction: '0', extra_payments: '0', deductions: '0', net_salary: '0', employee_id: employee.id }])[0]
 
         @payrole_line.num_worked_days = employee.total_days
         @payrole_line.min_salary      = employee.total_day_salary.round(2)

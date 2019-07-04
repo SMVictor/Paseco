@@ -25,7 +25,7 @@ class Employee < ApplicationRecord
   attr_accessor :net_salary  
 
 
-  def calculate_day_salary role_line
+  def calculate_day_salary(role_line, has_night)
   	@stall = role_line.stall
     @shift = role_line.shift
 
@@ -38,14 +38,8 @@ class Employee < ApplicationRecord
     if role_line.position.name == "Oficial"
       if role_line.shift.name == "Noche" && @stall.night_min_salary != nil
         @stall.min_salary = @stall.night_min_salary
-      elsif role_line.shift.name == "Libre" && @stall.night_min_salary != nil
-        employee_lines = role_line.role.role_lines.where(employee: self)
-        employee_lines.each do |employee_line|
-          shift_line = employee_line.shift
-          if shift_line.name == "Noche"
-            @stall.min_salary = @stall.night_min_salary
-          end
-        end
+      elsif role_line.shift.name == "Libre" && @stall.night_min_salary != nil && has_night != 0
+        @stall.min_salary = @stall.night_min_salary
       else
       end
       min_salary = @stall.min_salary
@@ -62,9 +56,6 @@ class Employee < ApplicationRecord
       @extra_day_hours  = 0
       @shift.time       = role_line.position.hours if role_line.position.hours
       @hour_cost        = min_salary.to_f/30/@shift.time.to_f
-      if !@shift.payment
-        binding.pry
-      end
       @extra_day_hours  = role_line.hours.to_f - @shift.time.to_f if role_line.hours.to_f > @shift.time.to_f && @shift.payment.name != "Normal"
       @normal_day_hours = role_line.hours.to_f - @extra_day_hours
       @day_salary       = @normal_day_hours * @hour_cost
