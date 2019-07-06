@@ -20,17 +20,16 @@ function validateRoleForm() {
   }
   return result;
 }
-function changeIconColor(){
+function changeIconColor(buttonID){
   var inputs = document.getElementsByClassName("hours");
   var buttons = document.getElementsByName("btn_modal");
-
-  for (var i = 0; i < inputs.length; i++) {
-    if (inputs[i].value != "") {
-      buttons[i].style.color = "#5DC973";
-    }
-    else{
+  if (buttonID == null) {
+    for (var i = 0; i < inputs.length; i++) {
       buttons[i].style.color = "#8068D9";
     }
+  }
+  else{
+    document.getElementById(buttonID).style.color = "#5DC973"; 
   }
 }
 
@@ -110,7 +109,7 @@ function filterByBank(){
   });
 }
 
-function focusHours(modalId, fieldId){
+function focusField(modalId, fieldId){
   $('#'+modalId).on('shown.bs.modal', function () {
     $('#'+fieldId).focus();
   });
@@ -128,11 +127,11 @@ function saveModalData(roleID, stallID, employeeID){
     type: request_method,
     data : form_data
   });
-
-  changeIconColor();
 }
 
-function hoursValidation(lineID){
+function hoursValidation(lineID, roleID, stallID, employeeID){
+
+    saveModalData(roleID, stallID, employeeID)
 
     var requirements    = JSON.parse(document.querySelector('#addPayment'+lineID).dataset.requirements);
     var lines           = JSON.parse(document.querySelector('#addPayment'+lineID).dataset.lines);

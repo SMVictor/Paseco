@@ -1,7 +1,7 @@
 <%= form_for(@role, :remote => true, :authenticity_token => true, prepend: true, url: admin_edit_role_lines_path(@role), html: {multipart: true}) do |form| %>
   <div class="row form_fieldset text-center">
     <div  class="col-12 mt-4">
-      <div class="row mt-1 ml-1  mr-1 pt-3 tbl_head d-none d-md-flex text-center">
+      <div class="row mt-1 ml-1  mr-1 pt-3 tbl_head d-none d-xl-flex text-center">
         <div class="col-12 col-md-1">
           <p class="text-uppercase">Día</p>
         </div>
@@ -21,11 +21,11 @@
             </div>
           </div>
         </div>
+        <div class="col-12 col-md-2">
+          <p class="text-uppercase">Horas</p>
+        </div>
         <div class="col-12 col-md-1">
           <p class="text-uppercase">Feriado</p>
-        </div>
-        <div class="col-12 col-md-2">
-          <p class="text-uppercase">Comentarios</p>
         </div>
         <div class="col-12 col-md-1">
           <p class="text-uppercase">Acciones</p>
@@ -61,4 +61,5 @@
 
 <script type="text/javascript">
   getDayName();
+  changeIconColor();
 </script>

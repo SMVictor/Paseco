@@ -14,7 +14,7 @@
           <p class="d-md-none font-weight-bold">Fecha</p>
           <%= f.text_field :date, placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control date", "data-date-format": 'mm/dd/yyyy', "data-provide": 'datepicker', onchange: "getDayName()", "data-date-autoclose": true, "data-date-language": 'es', id: "date_"+f.object.id.to_s %>
         </div>
-        <div class="col-xl-3 col-lg-6">
+        <div class="col-xl-3 col-lg-12">
           <p class="d-md-none font-weight-bold">Turno</p>
           <% if @stall.payment %>
             <%= f.collection_select :shift_id, @stall.payment.shifts.order(name: :asc), :id, :name, options = {}, html_options = {class: "form-control",  title: "Seleccione un turno", id: "shift"+f.object.id.to_s }%>
@@ -22,11 +22,11 @@
             <%= f.collection_select :shift_id, Payment.find(2).shifts.order(name: :asc), :id, :name, options = {}, html_options = {class: "form-control", title: "Seleccione un turno"}%>
           <% end %>
         </div>
-        <div class="col-xl-3 col-lg-6">
+        <div class="col-xl-3 col-lg-12">
           <p class="d-md-none font-weight-bold">Sub-Puesto</p>
               <%= f.select(:substall, @substalls, {include_blank: 'Seleccione un Puesto'}, { class: "form-control" }) %>
         </div>
-        <div class="col-xl-3 col-lg-6">
+        <div class="col-xl-3 col-lg-12">
           <p class="d-md-none font-weight-bold">Cargo</p>
           <% if @employee %>
             <%= f.collection_select :position_id, @employee.positions, :id, :name, options = {}, html_options = {class: "form-control", title: "Seleccione un cargo", id: "position_"+f.object.id.to_s }%>
@@ -36,15 +36,15 @@
         </div>
       </div>
     </div>
-    <div class="col-xl-1 col-lg-6 mb-2 pt-md-3">
+    <div class="col-xl-1 col-lg-12 mb-2 pt-md-3">
       <p class="d-md-none font-weight-bold">Feriado</p>
       <%= f.check_box :holiday %>
     </div>
-    <div class="col-xl-2 col-lg-6 mb-2 pt-md-3">
-      <p class="d-md-none font-weight-bold">Comentarios</p>
-      <%= f.text_field :comment, class: "form-control comment", placeholder: "Cubre turno por permiso de Juan", id: "comment_"+f.object.id.to_s %>
+    <div class="col-xl-2 col-lg-12 mb-2 pt-md-3">
+      <p class="d-md-none font-weight-bold">Horas</p>
+      <%= f.text_field :hours, class: "form-control hours", placeholder: "3", id: "hours_"+f.object.id.to_s, onKeyUp: "hoursValidation("+f.object.id.to_s+")"  %>
     </div>
-    <div class="col-xl-1 col-md-12 pt-md-3">
+    <div class="col-xl-1 col-lg-12 pt-md-3">
        <%= link_to_remove_association "", f, class: "fas fa-trash-alt", id: 'remove_link', style: "color: #E25141" %>
        <% if current_user.admin? %>
          <button style="background: none; border: none;" type="button" class="fas fa-comment" name="btn_modal" data-toggle="modal" data-target="#addPayment<%= f.object.id %>" onclick="focusHours('addPayment<%= f.object.id %>', 'hours<%= f.object.id %>')"></button>
