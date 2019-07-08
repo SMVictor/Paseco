@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_20_164421) do
+ActiveRecord::Schema.define(version: 2019_07_08_205621) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -158,13 +158,13 @@ ActiveRecord::Schema.define(version: 2019_06_20_164421) do
   end
 
   create_table "requirements", force: :cascade do |t|
+    t.string "hours"
     t.string "workers"
     t.bigint "stall_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "shift_id"
     t.bigint "position_id"
-    t.string "hours"
     t.index ["position_id"], name: "index_requirements_on_position_id"
     t.index ["shift_id"], name: "index_requirements_on_shift_id"
     t.index ["stall_id"], name: "index_requirements_on_stall_id"
@@ -252,7 +252,7 @@ ActiveRecord::Schema.define(version: 2019_06_20_164421) do
     t.bigint "payment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "night_min_salary"
+    t.string "night_min_salary"
     t.boolean "active", default: true
     t.index ["customer_id"], name: "index_stalls_on_customer_id"
     t.index ["payment_id"], name: "index_stalls_on_payment_id"
