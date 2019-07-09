@@ -3,6 +3,7 @@
     <tr>
       <th style="border: 1px solid" scope="col">#</th>
       <th style="border: 1px solid" scope="col">Empleado</th>
+      <th style="border: 1px solid" scope="col">Salario Neto</th>
       <th style="border: 1px solid" scope="col">Nº Días</th>
       <th style="border: 1px solid" scope="col">Salario Mínimo</th>
       <th style="border: 1px solid" scope="col">Feriados</th>
@@ -14,7 +15,6 @@
       <th style="border: 1px solid" scope="col">Tipo Seguro</th>
       <th style="border: 1px solid" scope="col">Pago CCSS</th>
       <th style="border: 1px solid" scope="col">Deducciones</th>
-      <th style="border: 1px solid" scope="col">Salario Neto</th>
     </tr>
   </thead>
   <tbody>
@@ -57,35 +57,35 @@
             <td style="border: 1px solid red;"><%= index+1 %></td>
           <% end %>
           <td style="border: 1px solid"><%= link_to(line.employee.name, admin_payrole_detail_path(@payrole, line.employee), class:'', title: 'Ver Empleado') %></td>
+          <td style="border: 1px solid"><%= number_to_currency(line.net_salary, unit: '₡') %></td>
           <td style="border: 1px solid"><%= line.num_worked_days %></td>
-          <td style="border: 1px solid"><%= line.min_salary %></td>
-          <td style="border: 1px solid"><%= line.holidays %></td>
+          <td style="border: 1px solid"><%= number_to_currency(line.min_salary, unit: '₡') %></td>
+          <td style="border: 1px solid"><%= number_to_currency(line.holidays, unit: '₡') %></td>
           <td style="border: 1px solid"><%= line.num_extra_hours %></td>
-          <td style="border: 1px solid"><%= line.extra_hours %></td>
-          <td style="border: 1px solid"><%= line.daily_viatical %></td>
-          <td style="border: 1px solid"><%= line.extra_payments %></td>
+          <td style="border: 1px solid"><%= number_to_currency(line.extra_hours, unit: '₡') %></td>
+          <td style="border: 1px solid"><%= number_to_currency(line.daily_viatical, unit: '₡') %></td>
+          <td style="border: 1px solid"><%= number_to_currency(line.extra_payments, unit: '₡') %></td>
           <td style="border: 1px solid"><%= salary_type %></td>
           <td style="border: 1px solid"><%= line.employee.social_security %></td>
-          <td style="border: 1px solid"><%= line.ccss_deduction %></td>
-          <td style="border: 1px solid"><%= line.deductions %></td>
-          <td style="border: 1px solid"><%= line.net_salary %></td>
+          <td style="border: 1px solid"><%= number_to_currency(line.ccss_deduction, unit: '₡') %></td>
+          <td style="border: 1px solid"><%= number_to_currency(line.deductions, unit: '₡') %></td>
         </tr>
       <% end %>
         <tr>
           <td style="border: 1px solid"></td>
           <td style="border: 1px solid">Total</td>
+          <td style="border: 1px solid"><%= number_to_currency(@total_net_salary.round(2), unit: '₡') %></td>
           <td style="border: 1px solid"><%= @total_worked_days %></td>
-          <td style="border: 1px solid"><%= @total_min_salary.round(2) %></td>
-          <td style="border: 1px solid"><%= @total_holidays.round(2) %></td>
+          <td style="border: 1px solid"><%= number_to_currency(@total_min_salary.round(2), unit: '₡') %></td>
+          <td style="border: 1px solid"><%= number_to_currency(@total_holidays.round(2), unit: '₡') %></td>
           <td style="border: 1px solid"><%= @total_num_extra_hours.round(2) %></td>
-          <td style="border: 1px solid"><%= @total_extra_hours.round(2) %></td>
-          <td style="border: 1px solid"><%= @total_daily_viatical.round(2) %></td>
-          <td style="border: 1px solid"><%= @total_extra_payments.round(2) %></td>
+          <td style="border: 1px solid"><%= number_to_currency(@total_extra_hours.round(2), unit: '₡') %></td>
+          <td style="border: 1px solid"><%= number_to_currency(@total_daily_viatical.round(2), unit: '₡') %></td>
+          <td style="border: 1px solid"><%= number_to_currency(@total_extra_payments.round(2), unit: '₡') %></td>
           <td style="border: 1px solid"></td>
           <td style="border: 1px solid"></td>
-          <td style="border: 1px solid"><%= @total_ccss_deduction.round(2) %></td>
-          <td style="border: 1px solid"><%= @total_deductions.round(2) %></td>
-          <td style="border: 1px solid"><%= @total_net_salary.round(2) %></td>
+          <td style="border: 1px solid"><%= number_to_currency(@total_ccss_deduction.round(2), unit: '₡') %></td>
+          <td style="border: 1px solid"><%= number_to_currency(@total_deductions.round(2), unit: '₡') %></td>
         </tr>
 
         <tr style="height: 1.2rem;">
