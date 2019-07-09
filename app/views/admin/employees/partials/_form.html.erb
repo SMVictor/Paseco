@@ -68,30 +68,34 @@
     <div  class="col-12 p-3">
       <legend>Información Financiera</legend>
     </div>
-    <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+    <div class="col-xl-3 col-lg-6 mb-2 mt-2">
       <label for="">Método de Pago</label>
       <%= form.select(:payment_method, ["Transferencia", "Efectivo", "Cheque"], {include_blank: "Seleccione el método de pago"}, { class: "form-control", id: "payment_method" }) %>
       <label id="payment_method_error"></label>
     </div>
-    <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+    <div class="col-xl-3 col-lg-6 mb-2 mt-2">
       <label for="">Banco:</label>
       <%= form.select(:bank, ["BAC", "BNCR"], {include_blank: "Seleccione una entidad bancaria"}, { class: "form-control", id: "bank" }) %>
       <label id="bank_error"></label>
     </div>
-    <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+    <div class="col-xl-3 col-lg-6 mb-2 mt-2">
       <label for="">Número de Cuenta:</label>
       <%= form.text_field :account, id: "account", class: "form-control", placeholder: "200-01-171-030528-4" %>
       <label id="account_error"></label>
     </div>
-    <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+    <div class="col-xl-3 col-lg-6 mb-2 mt-2">
+      <label for="">Cuenta Registrada</label><br>
+      <%= form.check_box :registered_account, {} %>
+    </div>
+    <div class="col-xl-3 col-lg-6 mb-2 mt-2">
       <label for="">Propietario de la Cuenta:</label>
       <%= form.text_field :account_owner, class: "form-control", placeholder: "Manuel Antonio Rodriguez Barrientos" %>
     </div>
-    <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+    <div class="col-xl-3 col-lg-6 mb-2 mt-2">
       <label for="">Identificación del Propietario:</label>
       <%= form.text_field :account_identification, class: "form-control", placeholder: "303330333" %>
     </div>
-    <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+    <div class="col-xl-3 col-lg-6 mb-2 mt-2">
       <label for="">Número de SCCSS:</label>
       <%= form.text_field :ccss_number, class: "form-control", placeholder: "Número de SCCSS" %>
     </div>

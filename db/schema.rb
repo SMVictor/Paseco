@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_08_205621) do
+ActiveRecord::Schema.define(version: 2019_07_08_223356) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(version: 2019_07_08_205621) do
     t.boolean "active", default: true
     t.string "account_owner"
     t.string "account_identification"
+    t.boolean "registered_account"
   end
 
   create_table "employees_positions", id: false, force: :cascade do |t|

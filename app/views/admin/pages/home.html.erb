@@ -1,0 +1,16 @@
+<% if flash[:notice] %>
+  <div class="alert alert-success alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert">
+    <%= flash[:notice] %>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+<% end %>
+<% if Employee.where(registered_account: false).length > 0 && current_user.admin? %>
+  <div class="alert alert-danger alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert">
+    Alerta!!! Existen empleados cuyas cuentas no se han registrado. Por favor revisar esto en la vista de planilla.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+<% end %>

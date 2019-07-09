@@ -51,8 +51,12 @@
         <% end %>
 
         <tr>
-          <td style="border: 1px solid"><%= index+1 %></td>
-          <td style="border: 1px solid"><%= link_to(line.employee.name, admin_payrole_detail_path(@payrole, line.employee), class:'', title: 'Ver Empleado') if line.employee %></td>
+          <% if line.employee.registered_account %>
+            <td style="border: 1px solid;"><%= index+1 %></td>
+          <% else %>
+            <td style="border: 1px solid red;"><%= index+1 %></td>
+          <% end %>
+          <td style="border: 1px solid"><%= link_to(line.employee.name, admin_payrole_detail_path(@payrole, line.employee), class:'', title: 'Ver Empleado') %></td>
           <td style="border: 1px solid"><%= line.num_worked_days %></td>
           <td style="border: 1px solid"><%= line.min_salary %></td>
           <td style="border: 1px solid"><%= line.holidays %></td>
