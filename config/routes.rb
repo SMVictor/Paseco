@@ -60,6 +60,8 @@ Rails.application.routes.draw do
 
       get    'roles/:id/stalls/:stall_id'  => 'roles#stall_summary',        as: 'stall_summary'
 
+      get    'payroles/:id/stalls/hours'   => 'roles#stalls_hours',         as: 'stalls_hours'
+
     end
   end
   

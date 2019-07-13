@@ -1,0 +1,44 @@
+<div class="bg-body-light">
+    <div class="content content-full">
+        <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
+            <h3 class="font-size-h2 font-w400 mt-2 mb-0 mb-sm-2">Horas Totales: <%= @role.name %></h3>
+            <nav class="flex-sm-00-auto ml-sm-3" aria-label="breadcrumb">
+                <ol class="breadcrumb d-none d-md-flex">
+                    <%= link_to('Roles', admin_roles_path, class: 'breadcrumb-item')%>
+                    <li class="breadcrumb-item active" aria-current="page">Horas Totales</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+<div class="card">
+  <div class="card-body">
+    <div class="form_fieldset m-md-5 mb-sm-5">
+      <div class="row mt-4 text-md-center tb_head" style="">
+        <div class="th col-6">
+          <p class="text-uppercase font-weight-bold pt-3">Puesto</p>
+        </div>
+        <div class="th col-6">
+          <p class="text-uppercase font-weight-bold pt-3">Fecha: Horas</p>
+        </div>
+      </div>
+      <% if @role.stalls %>
+      <div class="row tb_body">
+        <% Stall.where(active: true).or(Stall.where(id: @role.role_lines.pluck("stall_id").uniq)).order(name: :asc).each do |stall| %>
+          <div class="td col-6 pt-md-3"><%= stall.name %></div>
+          <% stall_hours = 0 %>
+          <div class="td col-6 pt-md-3">
+            <% @role.role_lines.where(stall: stall).where.not(hours: "").select("role_lines.date, sum(CAST(role_lines.hours AS float)) AS day_hours").group(:date).order(date: :asc).each do |line| %>
+              <% stall_hours += line.day_hours %>
+              <p><%= line.date %>: <%= line.day_hours %></p>
+            <% end %>
+            <p>Total Quincenal: <%= stall_hours %></p>
+          </div>
+        <% end %>
+      </div>
+      <% end -%>
+    </div>
+  </div>
+</div>
+
+<%= link_to 'Atrás', admin_roles_path, class: "ml-md-5" %>

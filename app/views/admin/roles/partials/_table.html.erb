@@ -33,6 +33,9 @@
                 <i class="fa fa-pencil-alt"></i>
               <% end -%>
               <% if current_user.admin? %>
+              <%= link_to(admin_stalls_hours_path(role), class:'btn btn-block btn-info mt-2', title: 'Horas de los puestos') do %>
+                <i class="fa fa-th"></i>
+              <% end %>
                 <button type="button" class="btn btn-block delete-btn" data-toggle="modal" title="Eliminar Roll" data-target="#deleteRole<%= role.id %>">
                 <i class="fa fa-times"></i>
                 </button>
