@@ -16,7 +16,7 @@
     <div class="form_fieldset m-md-5 mb-sm-5">
       <div class="row">
         <label for="payrole">Filtrar Puesto:</label>
-        <%= select("role", "stall_ids", Stall.where(active: true).or(Stall.where(id: @role.role_lines.pluck("stall_id").uniq)).order(name: :asc).collect {|stall| [ stall.name, stall.id ] }, { include_blank: "Seleccione un puesto", selected: 0,  }, { class: "form-control", id: "stalls_select" }) %>
+        <%= select("role", "stall_ids", Stall.where(active: true).or(Stall.where(id: @role.role_lines.pluck("stall_id").uniq)).order(name: :asc).collect {|stall| [ stall.name, stall.id ] }, { include_blank: "Seleccione un puesto", selected: 0}, { class: "form-control", id: "stalls_select", onchange: "stallsHoursFilter()" }) %>
       </div>
       <div id="stalls_hours_table"><%= render 'admin/roles/partials/stalls_hours_table', locals: {stalls:  @stalls}%></div>
     </div>

@@ -180,20 +180,19 @@ function hoursValidation(lineID, roleID, stallID, employeeID){
     }
   }
 
-  $( document ).on('turbolinks:load', function() {
-    $("#stalls_select").change(function(){
+  function stallsHoursFilter(){
 
-      var stallID = $( "#stalls_select option:selected" ).val();
+    var stallID = $( "#stalls_select option:selected" ).val();
 
-      $.ajax({
-        type: "GET",
-        url: document.URL,
-        data:
-        {
-          utf8: "✓",
-          ids: stallID,
-          ajax: true
-        }
-      });
+    $.ajax({
+      type: "GET",
+      url: document.URL,
+      data:
+      {
+        utf8: "✓",
+        ids: stallID,
+        ajax: true
+      }
     });
-  }); 
+  }
+
