@@ -346,6 +346,17 @@ class RolesController < ApplicationController
   end
 
   def stalls_hours
+    if params[:ids] && params[:ids] != ""
+      @stalls = Stall.where(id: params[:ids])
+    else
+      @stalls = Stall.where(active: true).or(Stall.where(id: @role.role_lines.pluck("stall_id").uniq)).order(name: :asc)
+    end
+
+    if params[:ajax]
+      respond_to do |format|
+        format.js
+      end
+    end
   end
 
   private

@@ -1,0 +1,23 @@
+<div class="row mt-4 text-md-center tb_head" style="">
+  <div class="th col-6">
+    <p class="text-uppercase font-weight-bold pt-3">Puesto</p>
+  </div>
+  <div class="th col-6">
+    <p class="text-uppercase font-weight-bold pt-3">Fecha: Horas</p>
+  </div>
+</div>
+<% if @stalls %>
+<div class="row tb_body">
+  <% @stalls.each do |stall| %>
+    <div class="td col-6 pt-md-3"><%= stall.name %></div>
+    <% stall_hours = 0 %>
+    <div class="td col-6 pt-md-3">
+      <% @role.role_lines.where(stall: stall).where.not(hours: "").select("role_lines.date, sum(CAST(role_lines.hours AS float)) AS day_hours").group(:date).order(date: :asc).each do |line| %>
+        <% stall_hours += line.day_hours %>
+        <p><%= line.date %>: <%= line.day_hours %></p>
+      <% end %>
+      <p>Total Quincenal: <%= stall_hours %></p>
+    </div>
+  <% end %>
+</div>
+<% end -%>

@@ -179,3 +179,21 @@ function hoursValidation(lineID, roleID, stallID, employeeID){
       alert("No existe un requerimiento establecido para el cargo '"+currentPosition.text()+"' en el turno '"+currentShift.text()+"'");
     }
   }
+
+  $( document ).on('turbolinks:load', function() {
+    $("#stalls_select").change(function(){
+
+      var stallID = $( "#stalls_select option:selected" ).val();
+
+      $.ajax({
+        type: "GET",
+        url: document.URL,
+        data:
+        {
+          utf8: "✓",
+          ids: stallID,
+          ajax: true
+        }
+      });
+    });
+  }); 
