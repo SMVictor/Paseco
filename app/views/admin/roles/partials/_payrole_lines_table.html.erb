@@ -51,11 +51,7 @@
         <% end %>
 
         <tr>
-          <% if line.employee.registered_account %>
-            <td style="border: 1px solid;"><%= index+1 %></td>
-          <% else %>
-            <td style="border: 1px solid red;"><%= index+1 %></td>
-          <% end %>
+          <td style="border: 1px solid;"><%= index+1 %></td>
           <td style="border: 1px solid"><%= link_to(line.employee.name, admin_payrole_detail_path(@payrole, line.employee), class:'', title: 'Ver Empleado') %></td>
           <td style="border: 1px solid"><%= number_to_currency(line.net_salary, unit: '₡') %></td>
           <td style="border: 1px solid"><%= line.num_worked_days %></td>
