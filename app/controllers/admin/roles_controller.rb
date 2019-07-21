@@ -5,7 +5,7 @@ class RolesController < ApplicationController
   load_and_authorize_resource
   before_action :set_role, only: [:show, :edit, :update, :destroy, :add_role_lines, :update_role_lines, :approvals, :check_changes, :stall_summary, :stalls_hours]
   before_action :set_stall, only: [:update_role_lines, :add_role_lines, :check_changes, :stall_summary]
-  before_action :set_payrole, only: [:show_payroles, :bncr_file, :bac_file, :payrole_detail]
+  before_action :set_payrole, only: [:show_payroles, :bncr_file, :bac_file, :payrole_detail, :show_old_payrole]
 
   def index
     @roles = Role.all.order(id: :desc)
@@ -280,6 +280,17 @@ class RolesController < ApplicationController
         @payrole_line.holidays        = employee.total_holidays.round(2)
         @payrole_line.save
       end
+    end
+  end
+
+  def show_old_payrole
+    if params[:ids]
+      @payrole_lines = @payrole.payrole_lines.where(id: params[:ids]).includes(:employee).order("employees.name asc")
+      respond_to do |format|
+        format.js
+      end
+    else
+      @payrole_lines = @payrole.payrole_lines.includes(:employee).order("employees.name asc")
     end
   end
 

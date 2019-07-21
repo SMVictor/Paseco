@@ -33,9 +33,10 @@ Rails.application.routes.draw do
       get    'roles/approvals/destroy/:id/:stall_id/:change_id' => 'roles#approve_destroy',   as: 'approve_destroy'
       get    'roles/approvals/deny/:id/:stall_id/:change_id'    => 'roles#deny_change',       as: 'deny_change'
 
-      get    'payroles'                  => 'roles#index_payroles', as: 'payroles'
-      get    'payroles/:id'              => 'roles#show_payroles',  as: 'payrole'
-      get    'payroles/:id/:employee_id' => 'roles#payrole_detail', as: 'payrole_detail'
+      get    'payroles'                  => 'roles#index_payroles',     as: 'payroles'
+      get    'payroles/:id'              => 'roles#show_payroles',      as: 'payrole'
+      get    'payroles/:id/old'          => 'roles#show_old_payrole',  as: 'old_payrole'
+      get    'payroles/:id/:employee_id' => 'roles#payrole_detail',     as: 'payrole_detail'
 
       get    'BNCR/file/:id' => 'roles#bncr_file',      as: 'bncr_file'
       get    'BAC/file/:id'  => 'roles#bac_file',       as: 'bac_file'

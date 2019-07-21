@@ -75,7 +75,7 @@ function filterPayrole(){
   });
   $.ajax({
     type: "GET",
-    url: payrole_lines[0].role_id+"/",
+    url: document.URL,
     data:
     {
       utf8: "✓",
@@ -100,7 +100,7 @@ function filterByBank(){
 
   $.ajax({
     type: "GET",
-    url: payrole_lines[0].role_id+"/",
+    url: document.URL,
     data:
     {
       utf8: "✓",
