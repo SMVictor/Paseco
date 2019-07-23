@@ -8,15 +8,7 @@
 <% end %>
 <% if @unregistered_employees.length > 0 && current_user.admin? %>
 
-  <div  class="alert alert-info alert-dismissible fade show mt-4 align" role="alert">
-    <h4 class="alert-heading">Alerta! Los siguientes empleados tienen la cuenta sin registrar: </h4>
-    <% @unregistered_employees.each do |employee| %>
-      <p>&nbsp;&nbsp;&nbsp;&nbsp;* <%= employee.name %> de <%= employee.stalls[0].name %> (Titular: <%= employee.account_owner != ""? employee.account_owner : employee.name %>, Cédula: <%= employee.account_identification != ""? employee.account_identification : employee.identification %>, Cuenta: <%= employee.account %>)</p>
-    <% end %>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
+  <%= form_tag do %>
+  <div id="home_table"><%= render 'admin/pages/partials/home_table', locals: {unregistered_employees:  @unregistered_employees}%></div>
+  <% end %>
 <% end %>
-
-

@@ -10,7 +10,8 @@ Rails.application.routes.draw do
 
   authenticated :user do
 
-    root 'admin/pages#home', as: 'authenticated_root'
+    root  'admin/pages#home',                as: 'authenticated_root'
+    patch '/' => 'admin/pages#update_home',  as: 'update_home'
     
     namespace :admin do
       resources :customers

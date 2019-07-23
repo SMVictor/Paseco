@@ -1,4 +1,4 @@
-<div class="row mt-4 text-md-center tb_head" style="">
+<div class="row mt-4 text-md-center tb_head" style="border: 1px solid #E8EBF2;">
   <div class="th col-3">
     <p class="text-uppercase font-weight-bold pt-3">Puesto</p>
   </div>
@@ -12,7 +12,7 @@
     <div class="td col-3 pt-md-3"><%= stall.name %></div>
     <% stall_hours = 0 %>
     <div class="td col-9 pt-md-3">
-      <div class="row text-md-center tb_head" style="">
+      <div class="row text-md-center tb_head" style="border: 1px solid #E8EBF2;">
         <div class="th col-4">
           <p class="text-uppercase font-weight-bold pt-3">Fecha</p>
         </div>
@@ -23,7 +23,7 @@
           <p class="text-uppercase font-weight-bold pt-3">Cargo</p>
         </div>
       </div>
-      <% @role.role_lines.where(stall: stall).where.not(hours: "").select("role_lines.date, role_lines.position_id, sum(CAST(role_lines.hours AS float)) AS day_hours").group(:date, :position_id).order(date: :asc).each do |line| %>
+      <% @role.role_lines.where(stall: stall).where.not(hours: "").select("role_lines.date, role_lines.position_id, sum(CAST(role_lines.hours AS float)) AS day_hours").group(:date, :position_id).order(position_id: :asc, date: :asc).each do |line| %>
         <% stall_hours += line.day_hours %>
         <div class="row tb_body">
           <div class="td col-4 pt-md-3"><p><%= line.date %></p></div>
