@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_08_223356) do
+ActiveRecord::Schema.define(version: 2019_07_24_013813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "areas", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "bac_infos", force: :cascade do |t|
     t.string "plan"
@@ -95,7 +102,7 @@ ActiveRecord::Schema.define(version: 2019_07_08_223356) do
     t.boolean "active", default: true
     t.string "account_owner"
     t.string "account_identification"
-    t.boolean "registered_account"
+    t.boolean "registered_account", default: false
   end
 
   create_table "employees_positions", id: false, force: :cascade do |t|
@@ -156,6 +163,8 @@ ActiveRecord::Schema.define(version: 2019_07_08_223356) do
     t.datetime "updated_at", null: false
     t.boolean "daily_viatical"
     t.integer "hours"
+    t.bigint "area_id"
+    t.index ["area_id"], name: "index_positions_on_area_id"
   end
 
   create_table "requirements", force: :cascade do |t|
@@ -274,6 +283,7 @@ ActiveRecord::Schema.define(version: 2019_07_08_223356) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "positions", "areas"
   add_foreign_key "requirements", "positions"
   add_foreign_key "requirements", "shifts"
   add_foreign_key "role_lines", "positions"

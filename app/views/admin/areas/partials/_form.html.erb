@@ -1,0 +1,19 @@
+<div class="card">
+  <div class="card-body">
+    <div class="row form_fieldset">
+      <div class="col-12 col-md-6 mb-2 mt-2">
+        <label for="">Nombre</label>
+        <%= form.text_field :name, id: "name", class: "form-control", placeholder: "Seguridad" %>
+        <label id="name_error"></label>
+      </div>
+      <div class="col-12 col-md-6 mb-2 mt-2">
+        <label for="">Salario</label>
+        <%= form.text_field :description, id: "description", class: "form-control", placeholder: "Todos los rangos de oficiales" %>
+        <label id="description_error"></label>
+      </div>
+    </div>
+    
+    <%= form.submit "Guardar", id: 'btn_submit', class: "btn btn-success mt-4" %>
+    <%= link_to('Cancelar', admin_areas_path, class: 'btn btn-light ml-sm-3 mt-4')%>
+  </div>
+</div>

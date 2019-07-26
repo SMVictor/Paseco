@@ -13,5 +13,13 @@ function validatePositionForm() {
     errorHandler(salary, "salary_error", "Campo obligatorio");
     result = false;
   }
+  if (area.value == "") {
+    errorHandler(area, "area_error", "Campo obligatorio");
+    result = false;
+  }
   return result;
 }
+
+$( document ).on('turbolinks:load', function() {
+  onInput("area");
+}); 

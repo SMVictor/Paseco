@@ -121,8 +121,4 @@ $( document ).on('turbolinks:load', function() {
   onInput("contact");
   onInput("email");
   onInput("phone_number");
-
-  $('#entries').on('cocoon:before-insert', function(e, insertedItem) {
-    alert();
-  });
 }); 

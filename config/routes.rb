@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       resources :payments
       resources :employees
       resources :roles
+      resources :areas
       resources :positions
       resources :bncr_infos
       resources :bac_infos

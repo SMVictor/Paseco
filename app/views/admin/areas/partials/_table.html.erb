@@ -1,0 +1,40 @@
+<div class="card">
+  <div class="card-body">
+    <div class="row mt-1 d-none d-md-flex text-center" style="">
+      <div class="th col-12 col-md-4">
+        <p class="text-uppercase">Nombre</p>
+      </div>
+      <div class="th col-12 col-md-4">
+        <p class="text-uppercase">Descripción</p>
+      </div>
+      <div class="th col-12 col-md-4">
+        <p class="text-uppercase">Acciones</p>
+      </div>
+    </div>
+    <% if @areas%>
+      <% @areas.each do |area| %>
+        <div class="row tb_body">
+          <div class="td col-12 col-md-4  pt-md-3">
+            <p class="d-md-none font-weight-bold">Nombre:</p>
+            <p class="text-md-center mt-2"><%= area.name %></p>
+          </div>
+          <div class="th col-12 col-md-4 pt-md-3">
+            <p class="d-md-none font-weight-bold">Descripción:</p>
+            <p class="text-md-center mt-2"><%= area.description %></p>
+          </div>
+          <div class="th text-center col-md-4">
+            <div class="mt-2 mb-2 btn-group">
+              <%= link_to(edit_admin_area_path(area), class:'btn btn-block primary-btn mt-2', title: 'Editar Área') do %>
+                <i class="fa fa-pencil-alt"></i>
+              <% end -%>
+              <button type="button" class="btn btn-block delete-btn" data-toggle="modal" title="Eliminar Área" data-target="#deleteArea<%= area.id %>">
+                <i class="fa fa-times"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <%= render 'admin/areas/partials/delete_modal', area: area %>
+      <% end %>
+    <%end %>
+  </div>
+</div>

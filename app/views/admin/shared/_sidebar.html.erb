@@ -55,6 +55,9 @@
             <%= link_to('Puestos', admin_stalls_path, class: 'nav-link') if current_user.admin? %>
           </li>
           <li class="nav-item">
+            <%= link_to('Áreas', admin_areas_path, class: 'nav-link') if current_user.admin? %>
+          </li>
+          <li class="nav-item">
             <%= link_to('Rangos', admin_positions_path, class: 'nav-link') if current_user.admin? %>
           </li>
           <li class="nav-item">
