@@ -82,6 +82,7 @@ class Employee < ApplicationRecord
         extra_day_hours  = role_line.hours.to_f - shift.time.to_f if role_line.hours.to_f > shift.time.to_f
         normal_day_hours = role_line.hours.to_f - extra_day_hours
   	  	@viatical = (role_line.stall.daily_viatical.to_f/role_line.shift.time.to_f)*role_line.hours.to_f
+        @viatical = @viatical * 2 if role_line.holiday
   	  end
   	else
   	  @viatical = 0

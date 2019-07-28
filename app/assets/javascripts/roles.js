@@ -33,7 +33,19 @@ function changeIconColor(buttonID){
   }
 }
 
-function getDayName(){
+function getDayName(lineID){
+
+  var holidayCheckBox = $("#holiday_"+lineID);
+  var dateField       = $("#date_"+lineID);
+  var holidays = JSON.parse(document.querySelector('#role_line_fields').dataset.holidays);
+
+  holidayCheckBox.prop( "checked", false );
+
+  for (var i = 0; i < holidays.length; i++) {
+    if (holidays[i].date == dateField.val()) {
+      holidayCheckBox.prop( "checked", true );
+    }
+  }
 
   var comments = $('.comment');
   var days = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];

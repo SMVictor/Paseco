@@ -1,0 +1,24 @@
+<div class="bg-body-light">
+    <div class="content content-full">
+        <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
+            <h3 class="flex-sm-fill font-size-h2 font-w400 mt-2 mb-0 mb-sm-2">Crear Feriado</h3>
+            <nav class="flex-sm-00-auto ml-sm-3" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <%= link_to('Feriados', admin_holidays_path, class: 'breadcrumb-item')%>
+                    <li class="breadcrumb-item active" aria-current="page">Crear Feriado</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+<div class="d-flex justify-content-center">
+  <div class="col-sm-12">
+    <%= form_for(@holiday, url: admin_holidays_path(@holiday), html: {multipart: true, onsubmit:"return validateHolidayForm()"}) do |form| %>
+      <div class="card">
+        <div class="card-body">
+          <%= render 'admin/holidays/partials/form', form: form %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

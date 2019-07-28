@@ -1,4 +1,4 @@
-<div class="col-12 fields nested-fields text-center tbl_row">
+<div id="role_line_fields" class="col-12 fields nested-fields text-center tbl_row" data-holidays="<%= Holiday.all.to_json %>">
   <div class="row">
     <%= f.hidden_field :stall_id, value:  @stall.id %>
     <% if @employee %>
@@ -12,7 +12,7 @@
       <div class="row">
         <div class="col-xl-3 col-lg-6">
           <p class="d-xl-none font-weight-bold">Fecha</p>
-          <%= f.text_field :date, placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control date", "data-date-format": 'mm/dd/yyyy', "data-provide": 'datepicker', onchange: "getDayName()", "data-date-autoclose": true, "data-date-language": 'es', id: "date_"+f.object.id.to_s %>
+          <%= f.text_field :date, placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control date", "data-date-format": 'mm/dd/yyyy', "data-provide": 'datepicker', onchange: "getDayName("+f.object.id.to_s+")", "data-date-autoclose": true, "data-date-language": 'es', id: "date_"+f.object.id.to_s %>
         </div>
         <div class="col-xl-3 col-lg-6">
           <p class="d-xl-none font-weight-bold">Turno</p>
@@ -42,7 +42,7 @@
     </div>
     <div class="col-xl-1 col-lg-4 mb-2 pt-md-3">
       <p class="d-xl-none font-weight-bold">Feriado</p>
-      <%= f.check_box :holiday %>
+      <%= f.check_box :holiday, id: "holiday_"+f.object.id.to_s %>
     </div>
     <div class="col-xl-1 col-lg-4 pt-md-3">
        <p class="d-xl-none font-weight-bold">Acciones</p>
