@@ -122,7 +122,7 @@
         <H4 style="color: #000000" class="alert-success">Pago por Víaticos: <%= @employee.total_viatical.round(2) %></H4>
         <H4 style="color: #000000" class="alert-info">Pagos Extras: <%= @employee.total_exta_payments.round(2) %></H4>
         <H4 style="color: #000000" class="alert-success">Deducciones: <%= @employee.total_deductions.round(2) %></H4>
-        <H4 style="color: #000000" class="alert-info">Salario Bruto: <%= (@employee.total_day_salary + @employee.total_holidays + @employee.total_extra_salary + @employee.total_viatical + @employee.total_exta_payments - @employee.total_deductions).round(2) %></H4>
+        <H4 style="color: #000000" class="alert-info">Salario Bruto: <%= (@employee.total_day_salary + @employee.total_holidays + @employee.total_extra_salary + @employee.total_viatical + @employee.total_exta_payments).round(2) %></H4>
         <H4 style="color: #000000" class="alert-success">Deducción CCSS: <%= @employee.ccss_deduction.round(2) %></H4>
         <H4 style="color: #000000" class="alert-info">Salario Neto: <%= @employee.net_salary.round(2) %></H4>
       </div>
