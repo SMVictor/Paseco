@@ -2,12 +2,12 @@
   <div class="row">
     <div class="col-xl-2 col-lg-6 mt-2">
       <label for="">Contratación</label>
-      <%= f.text_field :start_date, id: "date", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-date-format": 'dd/mm/yyyy', "data-provide": 'datepicker' %>
+      <%= f.text_field :start_date, id: "date", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-date-format": 'dd/mm/yyyy', "data-provide": 'datepicker', "data-date-language": 'es' %>
       <label id="date_error"></label>
     </div>
     <div class="col-xl-2 col-lg-6 mt-2">
       <label for="">Finalización</label>
-      <%= f.text_field :end_date, id: "end_date", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-date-format": 'dd/mm/yyyy', "data-provide": 'datepicker' %>
+      <%= f.text_field :end_date, id: "end_date", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-date-format": 'dd/mm/yyyy', "data-provide": 'datepicker', "data-date-language": 'es' %>
       <label id="end_date_error"></label>
     </div>
     <div class="col-xl-3 col-lg-6 mt-2">

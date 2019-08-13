@@ -64,7 +64,7 @@
             <%= link_to('Puestos', admin_inactive_stalls_path, class: 'nav-link') if current_user.admin? %>
           </li>
           <li class="nav-item">
-            <%= link_to('Empleados', admin_inactive_employees_path, class: 'nav-link') if current_user.admin? %>
+            <%= link_to('Empleados', admin_inactive_employees_path, class: 'nav-link') if current_user.admin? || current_user.human_resources? %>
           </li>
         </ul>
       </div>
@@ -84,7 +84,7 @@
             <%= link_to('Puestos', admin_stalls_path, class: 'nav-link') if current_user.admin? %>
           </li>
           <li class="nav-item">
-            <%= link_to('Empleados', admin_employees_path, class: 'nav-link') if current_user.admin? %>
+            <%= link_to('Empleados', admin_employees_path, class: 'nav-link') if current_user.admin? || current_user.human_resources? %>
           </li>
         </ul>
       </div>
@@ -101,7 +101,7 @@
             <%= link_to('Roles', admin_roles_path, class: 'nav-link') if current_user.admin? || current_user.manager? %>
           </li>
           <li class="nav-item">
-            <%= link_to('Planillas', admin_payroles_path, class: 'nav-link') %>
+            <%= link_to('Planillas', admin_payroles_path, class: 'nav-link' ) if current_user.admin? || current_user.manager? || current_user.employee? %>
           </li>
         </ul>
       </div>

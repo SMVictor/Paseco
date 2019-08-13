@@ -87,3 +87,33 @@ function filterInactiveEmployee(){
     }
   });
 }
+
+function generatePDFFile(element, entryDate){
+
+  var lineCode          = $(element).next().attr('name').split(']')[1].replace('[', '');
+  var employee          = JSON.parse(document.querySelector('#nested-fields').dataset.employee);
+
+  var start_date        = $("input[name*='employee[vacations_attributes]["+lineCode+"][start_date]']");
+  var end_date          = $("input[name*='employee[vacations_attributes]["+lineCode+"][end_date]']");
+  var requested_days    = $("input[name*='employee[vacations_attributes]["+lineCode+"][requested_days]']");
+  var included_freedays = $("input[name*='employee[vacations_attributes]["+lineCode+"][included_freedays]']"); 
+  var total_days        = $("#total_days_th");
+  var used_days         = $("#used_days_th");
+  var avalaible_days    = $("#available_days_th");
+
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  var yyyy = today.getFullYear();
+  today = dd + '/' + mm + '/' + yyyy;
+
+  var url = "https://www.pasecoayb.com/admin/employees/"+employee.id+"/vacations/file.pdf";
+  var params = "?start_date=" + start_date.val() + "&requested_days=" + requested_days.val() + "&end_date=" + end_date.val() +
+               "&included_freedays=" + included_freedays.val() + "&total_days=" + total_days.text() + "&used_days=" + used_days.text() +
+               "&avalaible_days=" + avalaible_days.text() + "&employee_name=" + employee.name + "&employee_identification=" +
+               employee.identification + "&date=" + today + "&entry_date=" + entryDate + "&position=" + employee.positions[0].name +
+               "&area=" + employee.positions[0].area.name;
+
+  window.location.replace(url+params);
+
+}

@@ -9,6 +9,8 @@ class Ability
       can :manage, :all
     elsif user.manager?
       can [:index, :show, :edit, :add_role_lines, :update_role_lines], Role
+    elsif user.human_resources?
+      can [:index, :inactives, :show, :show_inactive, :update, :update_inactive], Employee
     else
       can [:index_payroles, :payrole_detail], Role
     end

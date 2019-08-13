@@ -24,12 +24,16 @@
           </div>
           <div class="th text-center col-md-4">
             <div class="mt-2 mb-2 btn-group">
-              <%= link_to(edit_admin_employee_path(employee), class:'btn btn-block primary-btn mt-2', title: 'Editar Empleado') do %>
-                <i class="fa fa-pencil-alt"></i>
-              <% end -%>
-              <button type="button" class="btn btn-block delete-btn" data-toggle="modal" title="Eliminar Empleado" data-target="#deleteEmployee<%= employee.id %>">
-                <i class="fa fa-times"></i>
-              </button>
+              <% if current_user.admin? || current_user.manager? %>
+                <%= link_to(edit_admin_employee_path(employee), class:'btn btn-block primary-btn mt-2', title: 'Editar Empleado') do %>
+                  <i class="fa fa-pencil-alt"></i>
+                <% end -%>
+                <button type="button" class="btn btn-block delete-btn" data-toggle="modal" title="Eliminar Empleado" data-target="#deleteEmployee<%= employee.id %>">
+                  <i class="fa fa-times"></i>
+                </button>
+              <% else %>
+                <p class="text-md-center mt-2">No hay acciones permitidas</p>
+              <% end %>
             </div>
           </div>
         </div>

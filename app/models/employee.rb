@@ -3,8 +3,10 @@ class Employee < ApplicationRecord
   has_many :role_lines
   has_many :payrole_lines
   has_many :entries
+  has_many :vacations
   has_and_belongs_to_many :positions, join_table: :employees_positions
   accepts_nested_attributes_for :entries, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :vacations, reject_if: :all_blank, allow_destroy: true
 
   attr_accessor :day_salary
   attr_accessor :normal_day_hours
@@ -22,8 +24,44 @@ class Employee < ApplicationRecord
   attr_accessor :total_exta_payments
   attr_accessor :total_deductions
   attr_accessor :ccss_deduction
-  attr_accessor :net_salary  
+  attr_accessor :net_salary
 
+  attr_accessor :total_vacations_days 
+  attr_accessor :used_vacations_days 
+  attr_accessor :available_vacations_days 
+
+
+  def calculate_vacations
+
+    @total_vacations_days     = 0
+    @used_vacations_days      = 0
+    @available_vacations_days = 0
+
+    start_date = DateTime.parse(self.entries.last.start_date)
+    end_date   = self.entries.last.end_date != ""? DateTime.parse(self.entries.last.end_date) : Time.now
+
+    total_worked_months = -1
+
+    while start_date <= end_date
+      total_worked_months += 1
+      start_date += 1.months
+    end
+
+    worked_years  = 0
+    worked_months = 0  
+
+    worked_years  = total_worked_months/12
+    worked_months = total_worked_months%12
+
+    @total_vacations_days = worked_years * 14 + worked_months
+
+    self.vacations.each do |vacation|
+      @used_vacations_days += vacation.requested_days.to_i
+    end
+
+    @available_vacations_days = @total_vacations_days - @used_vacations_days
+
+  end 
 
   def calculate_day_salary(role_line, has_night)
   	@stall = role_line.stall

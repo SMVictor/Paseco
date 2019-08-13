@@ -12,7 +12,7 @@
       <div class="row">
         <div class="col-xl-3 col-lg-6">
           <p class="d-xl-none font-weight-bold">Fecha</p>
-          <%= f.text_field :date, placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control date", "data-date-format": 'mm/dd/yyyy', "data-provide": 'datepicker', onchange: "getDayName("+f.object.id.to_s+")", "data-date-autoclose": true, "data-date-language": 'es', id: "date_"+f.object.id.to_s %>
+          <%= f.text_field :date, placeholder: "mm / dd / aaaa", autocomplete: "off", class: "form-control date", "data-date-format": 'mm/dd/yyyy', "data-provide": 'datepicker', onchange: "getDayName("+f.object.id.to_s+")", "data-date-autoclose": true, "data-date-language": 'es', id: "date_"+f.object.id.to_s %>
         </div>
         <div class="col-xl-3 col-lg-6">
           <p class="d-xl-none font-weight-bold">Turno</p>

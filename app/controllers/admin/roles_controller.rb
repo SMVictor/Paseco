@@ -321,10 +321,10 @@ class RolesController < ApplicationController
      @total_decimal_2 = (@total*2).to_s.split(".")[1] + ("0" * (2 - (@total*2).to_s.split(".")[1].length))
    end
 
-
    respond_to do |format|
       format.xls
     end
+    
   end
 
   def bac_file

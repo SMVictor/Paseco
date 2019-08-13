@@ -85,3 +85,8 @@ gem 'carrierwave_direct'
 gem 'carrierwave-base64'
 gem 'mini_magick'
 gem 'fog-aws'
+
+#USE FOR GENERATE PDF
+gem 'pdfkit'
+gem 'wkhtmltopdf-binary'
+

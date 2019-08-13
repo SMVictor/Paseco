@@ -1,0 +1,30 @@
+<div id="nested-fields" class="col-12 fields nested-fields text-center tbl_row" data-employee="<%= @employee.to_json(:include => { :positions => { :include => { :area => { :only => :name } }, :only => :name } }) %>">
+  <div class="row">
+    <div class="col-xl-11 col-md-12">
+      <div class="row">
+        <div class="col-xl-3 col-md-6 mt-2">
+          <label for="">Inicio</label>
+          <%= f.text_field :start_date, id: "date", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-date-format": 'dd/mm/yyyy', "data-provide": 'datepicker', "data-date-language": 'es', required: true, oninvalid: "setCustomValidity('Seleccione una fecha de inicio.')", onchange: "setCustomValidity('')", title: "Seleccione una fecha de inicio." %>
+        </div>
+        <div class="col-xl-3 col-md-6 mt-2">
+          <label for="">Finalización</label>
+          <%= f.text_field :end_date, id: "end_date", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-date-format": 'dd/mm/yyyy', "data-provide": 'datepicker', "data-date-language": 'es', required: true, oninvalid: "setCustomValidity('Seleccione una fecha de fin.')", onchange: "setCustomValidity('')", title: "Seleccione una fecha de fin." %>
+        </div>
+        <div class="col-xl-3 col-md-6 mt-2">
+          <label for="">Días Solicitados</label>
+          <%= f.text_field :requested_days, id: "requested_days", class: "form-control", placeholder: "Días Solicitados", required: true, oninvalid: "setCustomValidity('Ingrese la cantidad de días solicitados.')", onchange: "setCustomValidity('')", title: "Ingrese la cantidad de días solicitados." %>
+        </div>
+        <div class="col-xl-3 col-md-6 mt-2">
+          <label for="">Días Libres</label>
+          <%= f.text_field :included_freedays, id: "included_freedays", class: "form-control", placeholder: "Días Libres", required: true, oninvalid: "setCustomValidity('Ingrese la cantidad de días libres incluidos en el periodo.')", onchange: "setCustomValidity('')", title: "Ingrese la cantidad de días libres incluidos en el periodo." %>
+        </div>
+      </div>
+    </div>      
+    <div class="col-xl-1 col-md-12 pt-md-5">
+      <% if f.object.id %>
+        <button id="test" type="button" class="fa fa-eye" style="color: #8068D9;" onclick="generatePDFFile(this, '<%= @employee.entries.last.start_date %>')"></button>
+      <% end %>
+      <%= link_to_remove_association "", f, class: "fas fa-trash-alt", id: 'remove_link', style: "color: red" %>
+    </div>
+  </div>
+</div>
