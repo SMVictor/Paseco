@@ -132,23 +132,6 @@
       <%= form.check_box :active %>
     </div>
   </div>
-  <div class="row form_fieldset mb-2">
-    <div  class="col-12 mt-4 p-3">
-      <legend>Historial de Contrataciones</legend>
-    </div>
-    <div class="col-12">
-      <div class="entry-fields mt-4">
-        <%= form.fields_for :entries do |entry| %>
-          <%= render 'admin/employees/entry_fields', f: entry %>
-        <%end%>
-      </div>
-      <div class="row ml-1 mr-1 tbl_row">
-        <div class="col-12 text-center p-2 tbl_footer">
-          <%= link_to_add_association ' + Agregar Linea', form, :entries, data: { association_insertion_mode: '.entry.fields', partial: 'entry_fields'}, class: 'btn add_btn' %>
-        </div>
-      </div>
-    </div>
-  </div>
 
 
 
