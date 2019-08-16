@@ -152,25 +152,7 @@
 
 
 
-<div class="row form_fieldset mb-4">
-  <div  class="col-12 mt-4 mb-4">
-    <legend>Agregar Vacaciones</legend>
-  </div>
-  <div class="col-12">
-    <div class="col-12">
-      <div class="row tbl_row mt-4">
-        <%= form.fields_for :vacations do |vacation| %>
-          <%= render 'admin/employees/vacation_fields', f: vacation %>
-        <%end%>
-      </div>
-      <div class="row tbl_row" style="border: none;">
-        <div class="col-12 text-center p-2 tbl_footer">
-          <%= link_to_add_association ' + Agregar Vacación', form, :vacations, data: { association_insertion_mode: '.vacation.fields', partial: 'vacation_fields'}, class: 'btn add_btn' %>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+
 
   
   <%= form.submit "Guardar", id: 'btn_submit', class: "btn btn-success mt-4" %>
