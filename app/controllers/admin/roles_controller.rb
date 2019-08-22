@@ -278,6 +278,8 @@ class RolesController < ApplicationController
         @payrole_line.extra_payments  = employee.total_exta_payments.round(2)
         @payrole_line.deductions      = employee.total_deductions.round(2)
         @payrole_line.holidays        = employee.total_holidays.round(2)
+        @payrole_line.bank            = employee.bank
+        @payrole_line.account         = employee.account
         @payrole_line.save
       end
     end
