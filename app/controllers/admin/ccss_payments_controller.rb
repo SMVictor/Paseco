@@ -1,6 +1,7 @@
 module Admin
   class CcssPaymentsController < ApplicationController
     layout 'admin'
+    load_and_authorize_resource
     before_action :set_ccss_payment, only: [:edit, :update]
 
     def edit

@@ -2,7 +2,7 @@ class UserMailer < ApplicationMailer
 
   def registration_confirmation(user)
   	@user = user
-  	mail to: user.email, subject: 'Bienvenido a PaSeCo A&B'
+  	mail to: user.email, subject: 'Bienvenido a PASECO'
   end
 
   def send_notification(user, employee)

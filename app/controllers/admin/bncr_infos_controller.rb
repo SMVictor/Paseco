@@ -1,6 +1,7 @@
 module Admin
   class BncrInfosController < ApplicationController
     layout 'admin'
+    load_and_authorize_resource
     before_action :set_bncr_info, only: [:edit, :update]
 
     def edit

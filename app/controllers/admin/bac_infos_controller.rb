@@ -1,6 +1,7 @@
 module Admin
   class BacInfosController < ApplicationController
     layout 'admin'
+    load_and_authorize_resource
     before_action :set_bac_info, only: [:edit, :update]
 
     def edit
