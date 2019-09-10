@@ -132,5 +132,9 @@
 <% if current_user.employee? %>
   <%= link_to 'Atrás', admin_payroles_path %>
 <% else %>
-  <%= link_to 'Atrás', admin_payrole_path(@payrole) %>
+  <% if DateTime.parse(payrole.end_date) + 3.days < Date.today  %>
+    <%= link_to 'Atrás', admin_old_payrole_path(@payrole) %>
+  <% else %>
+    <%= link_to 'Atrás', admin_payrole_path(@payrole) %>
+  <% end %>
 <% end %>
