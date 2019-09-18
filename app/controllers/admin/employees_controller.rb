@@ -119,7 +119,12 @@ class EmployeesController < ApplicationController
     @total_days = params[:total_days]
     @start_date = params[:start_date]
     @end_date = params[:end_date]
-    @period = Date.parse(@entry_date).year.to_s + "-" + Date.parse(@date).year.to_s
+
+    if Date.parse(@entry_date).year < Date.parse(@date).year
+      @period = (Date.parse(@date).year - 1).to_s + "-" + Date.parse(@date).year.to_s
+    else
+      @period = Date.parse(@date).year.to_s
+    end
 
     respond_to do |format|
       format.html
