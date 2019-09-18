@@ -111,7 +111,7 @@ class EmployeesController < ApplicationController
     @employee_name = params[:employee_name]
     @employee_identification = params[:employee_identification]
     @area = params[:area]
-    @position = params[:position]
+    @stall = params[:stall]
     @entry_date = params[:entry_date]
     @avalaible_days = params[:avalaible_days]
     @used_days = params[:used_days]

@@ -111,7 +111,7 @@ function generatePDFFile(element, entryDate){
   var params = "?start_date=" + start_date.val() + "&requested_days=" + requested_days.val() + "&end_date=" + end_date.val() +
                "&included_freedays=" + included_freedays.val() + "&total_days=" + total_days.text() + "&used_days=" + used_days.text() +
                "&avalaible_days=" + avalaible_days.text() + "&employee_name=" + employee.name + "&employee_identification=" +
-               employee.identification + "&date=" + today + "&entry_date=" + entryDate + "&position=" + employee.positions[0].name +
+               employee.identification + "&date=" + today + "&entry_date=" + entryDate + "&stall=" + employee.stalls[0].name +
                "&area=" + employee.positions[0].area.name;
 
   window.location.replace(url+params);

@@ -1,4 +1,4 @@
-<div id="nested-fields" class="col-12 fields nested-fields text-center tbl_row" data-employee="<%= @employee.to_json(:include => { :positions => { :include => { :area => { :only => :name } }, :only => :name } }) %>">
+<div id="nested-fields" class="col-12 fields nested-fields text-center tbl_row" data-employee="<%= @employee.to_json(:include => { :positions => { :include => { :area => { :include => { :stalls => { :only => :name } }, :only => :name } }, :only => :name } }) %>">
   <div class="row">
     <div class="col-xl-11 col-md-12">
       <div class="row">
