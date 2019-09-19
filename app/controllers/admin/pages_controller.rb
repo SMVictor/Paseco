@@ -8,10 +8,12 @@ module Admin
     end
 
     def update_home
-      @unregistered_employees = Employee.where(registered_account: false, active: true)
+
       @employee = Employee.find(params[:id])
-      @employee.registered_account = true
-      @employee.save
+      @employee.update(registered_account: true)
+
+      @unregistered_employees = Employee.where(registered_account: false, active: true)
+
       respond_to do |format|
         format.js
       end

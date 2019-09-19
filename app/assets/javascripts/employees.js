@@ -117,3 +117,14 @@ function generatePDFFile(element, entryDate){
   window.location.replace(url+params);
 
 }
+
+function registerEmployee(employeeID){
+
+    var form_data = $("form").serialize() + '&id=' + employeeID; //Encode form elements for submission
+
+    $.ajax({
+      type: "PATCH",
+      url: "/",
+      data: form_data
+    });
+  }
