@@ -92,7 +92,6 @@ function generatePDFFile(element, entryDate){
 
   var lineCode          = $(element).next().attr('name').split(']')[1].replace('[', '');
   var employee          = JSON.parse(document.querySelector('#nested-fields').dataset.employee);
-
   var start_date        = $("input[name*='employee[vacations_attributes]["+lineCode+"][start_date]']");
   var end_date          = $("input[name*='employee[vacations_attributes]["+lineCode+"][end_date]']");
   var requested_days    = $("input[name*='employee[vacations_attributes]["+lineCode+"][requested_days]']");

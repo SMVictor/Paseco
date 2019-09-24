@@ -21,7 +21,7 @@
     </div>
   </div>
   <div class="row tb_body">
-    <% @unregistered_employees.each do |employee| %>
+    <% @unregistered_employees.each_with_index do |employee, index| %>
       <div class="td col-2 pt-md-3">
         <p><%= employee.name %></p>
       </div>

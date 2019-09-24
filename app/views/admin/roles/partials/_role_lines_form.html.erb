@@ -40,11 +40,7 @@
        <% if @employee %>
          <div class="row ml-1 mr-1 tbl_row">
           <div class="col-12 text-center p-2 tbl_footer">
-            <% if current_user.admin? %>
-              <button type="button" class="btn btn-link" onclick="addLine('<%= @employee.id %>', '<%= @stall.id %>', '<%= @role.id %>')">+ Agregar Linea</button>
-            <% else %>
-              <%= link_to_add_association ' + Agregar Linea', form, :role_lines, data: { association_insertion_mode: '.role_lines.fields', partial: 'role_line_fields'}, class: 'btn add_btn' %>
-            <% end %>
+            <%= link_to_add_association ' + Agregar Linea', form, :role_lines, data: { association_insertion_mode: '.role_lines.fields', partial: 'role_line_fields'}, class: 'btn add_btn' %>
           </div>
         </div>
       <% end %>
@@ -60,6 +56,5 @@
 <% end %>
 
 <script type="text/javascript">
-  getDayName("1");
-  changeIconColor();
+  getDayName(1);
 </script>
