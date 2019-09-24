@@ -20,61 +20,6 @@ function validateRoleForm() {
   }
   return result;
 }
-function changeIconColor(buttonID){
-  var inputs = document.getElementsByClassName("hours");
-  var buttons = document.getElementsByName("btn_modal");
-  if (buttonID == null) {
-    for (var i = 0; i < inputs.length; i++) {
-      buttons[i].style.color = "#8068D9";
-    }
-  }
-  else{
-    document.getElementById(buttonID).style.color = "#5DC973"; 
-  }
-}
-
-function getDayName(lineID){
-
-  var holidayCheckBox = $("#holiday_"+lineID);
-  var dateField       = $("#date_"+lineID);
-  var holidays = JSON.parse(document.querySelector('#role_line_fields').dataset.holidays);
-
-  holidayCheckBox.prop( "checked", false );
-
-  for (var i = 0; i < holidays.length; i++) {
-    if (holidays[i].date == dateField.val()) {
-      holidayCheckBox.prop( "checked", true );
-    }
-  }
-
-  var comments = $('.comment');
-  var days = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];
-
-  for (var i = 0; i < comments.length; i++) {
-    var dateString = $('#'+(comments[i].id).replace("comment", "date")).val();
-    
-    var dayInput   = $('#'+(comments[i].id).replace("comment", "day"));
-    var date = new Date(dateString);
-    var dayName = days[date.getDay()];
-    dayInput.val(dayName);
-  }
-}
-
-function addLine(employeeID, stallID, roleID){
-
-   var url = "/admin/roles/lines/"+roleID+"/"+stallID+"/"+employeeID; 
-
-   var post_url = $("form").attr("action"); //get form action url
-   var request_method = $("form").attr("method"); //get form GET/POST method
-   var form_data = $("form").serialize() + '&ajax=' + true + '&create=' + true; //Encode form elements for submission
-      
-  $.ajax({
-    url : post_url,
-    type: request_method,
-    data : form_data
-  });
-
-}
 
 function filterPayrole(){
   var payrole_lines = JSON.parse(document.querySelector('#payrole').dataset.lines);
@@ -121,60 +66,111 @@ function filterByBank(){
   });
 }
 
-function focusField(modalId, fieldId){
-  $('#'+modalId).on('shown.bs.modal', function () {
-    $('#'+fieldId).focus();
-  });
-}
+function stallsHoursFilter(){
 
-function saveModalData(roleID, stallID, employeeID){
+    var stallID = $( "#stalls_select option:selected" ).val();
 
-  var url = "/admin/roles/lines/"+roleID+"/"+stallID+"/"+employeeID; 
-  var post_url = $("form").attr("action"); //get form action url
-  var request_method = $("form").attr("method"); //get form GET/POST method
-  var form_data = $("form").serialize() + '&ajax=' + true; //Encode form elements for submission
-
-  $.ajax({
-    url : post_url,
-    type: request_method,
-    data : form_data
-  });
-}
-
-function hoursValidation(lineID, roleID, stallID, employeeID){
-
-    saveModalData(roleID, stallID, employeeID)
-
-    var requirements    = JSON.parse(document.querySelector('#addPayment'+lineID).dataset.requirements);
-    var lines           = JSON.parse(document.querySelector('#addPayment'+lineID).dataset.lines);
-    var currentShift    = $('#shift_'+lineID).children("option:selected");
-    var currentPosition = $('#position_'+lineID).children("option:selected");
-    var currentHours    = $('#hours_'+lineID).val();
-    var currentDate     = $('#date_'+lineID).val();
-    var dateHours       = 0;
-    var existRequerimet = false;
-
-    for (var i = 0; i < lines.length; i++) {
-
-      if ($('#date_'+lines[i].id).length) {
-        lines[i].position_id = $('#position_'+lines[i].id).children("option:selected").val();
-        lines[i].shift_id    = $('#shift_'+lines[i].id).children("option:selected").val();
-        lines[i].hours       = $('#hours_'+lines[i].id).val();
-        lines[i].date        = $('#date_'+lines[i].id).val();
+    $.ajax({
+      type: "GET",
+      url: document.URL,
+      data:
+      {
+        utf8: "✓",
+        ids: stallID,
+        ajax: true
       }
+    });
+  }
 
-      if ( lines[i].date == currentDate && lines[i].id != lineID ) {
+function changeIconColor(){
 
-        if ( lines[i].shift_id == currentShift.val() && lines[i].position_id == currentPosition.val() ) {
-          dateHours += parseFloat(lines[i].hours);
-        }
+  var inputs = document.getElementsByClassName("hours");
+  var buttons = document.getElementsByName("btn_modal");
+
+  for (var i = 0; i < inputs.length; i++) {
+
+    if (inputs[i].value != "") {
+      buttons[i].style.color = "#5DC973";
+    }
+  }
+}
+
+function getDayName(element){
+
+  var comments = $('.comment');
+  var days = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];
+
+  if (element != 1) {
+
+    var dateField       = $(element);
+    var lineCode        = dateField.attr('name').split(']')[1].replace('[', '');
+    var holidayCheckBox = $("#role_role_lines_attributes_"+lineCode+"_holiday");
+    var holidays = JSON.parse(document.querySelector('#role_line_fields').dataset.holidays);
+
+    holidayCheckBox.prop( "checked", false );
+
+    for (var i = 0; i < holidays.length; i++) {
+      if (holidays[i].date == dateField.val()) {
+        holidayCheckBox.prop( "checked", true );
       }
     }
 
-    if (currentHours == "") {
-      currentHours = 0
+    var dayInput   = $("#role_role_lines_attributes_"+lineCode+"_day");
+    var date = new Date(dateField.val());
+    var dayName = days[date.getDay()];
+    dayInput.val(dayName);
+
+  }
+  else{
+    for (var i = 0; i < comments.length; i++) {
+      var code = comments[i].name.split(']')[1].replace('[', '');
+      var dayInput   = $("#role_role_lines_attributes_"+code+"_day");
+      var date = new Date($("#role_role_lines_attributes_"+code+"_date").val());
+      var dayName = days[date.getDay()];
+      dayInput.val(dayName);
     }
-    dateHours += parseFloat(currentHours);
+  }
+}
+
+function showModal(element){
+  var modal = $($(element).parent().parent().children()[7]);
+  modal.modal('toggle');
+}
+
+function hoursValidation(element){
+
+  var lineCode        = $(element).attr('name').split(']')[1].replace('[', '');
+
+  var requirements    = JSON.parse(document.querySelector('#role_lines').dataset.requirements);
+  var lines           = $('[id=role_line_fields]');
+  var currentShift    = $('#role_role_lines_attributes_'+lineCode+'_shift_id').children("option:selected");
+  var currentPosition = $('#role_role_lines_attributes_'+lineCode+'_position_id').children("option:selected");
+  var currentHours    = $('#role_role_lines_attributes_'+lineCode+'_hours').val();
+  var currentDate     = $('#role_role_lines_attributes_'+lineCode+'_date').val();
+  var dateHours       = 0;
+  var existRequerimet = false;
+
+  for (var i = 0; i < lines.length; i++) {
+
+    var line_fields = $(lines[i]).children().children();
+
+    var date     = $($($(line_fields[3]).children()[0]).children()[0]).children()[1];
+    var shift    = $($($(line_fields[3]).children()[0]).children()[1]).children()[1];
+    var position = $($($(line_fields[3]).children()[0]).children()[3]).children()[1];
+    var hours    = $(line_fields[4]).children()[1];
+    var code     = $(date).attr('name').split(']')[1].replace('[', '');
+
+    if ( date.value == currentDate && code != lineCode ) {
+      if ( shift.value == currentShift.val() && position.value == currentPosition.val() ) {
+        dateHours += parseFloat(hours.value);
+      }
+    }
+  }
+
+  if (currentHours == "") {
+    currentHours = 0
+  }
+  dateHours += parseFloat(currentHours);
     
     for (var i = 0; i < requirements.length; i++) {
       if (requirements[i].shift_id == currentShift.val() && requirements[i].position_id == currentPosition.val()) {
@@ -192,18 +188,17 @@ function hoursValidation(lineID, roleID, stallID, employeeID){
     }
   }
 
-  function stallsHoursFilter(){
+  function loadEmployee(roleID, stallID){
 
-    var stallID = $( "#stalls_select option:selected" ).val();
+    var valueSelected = $("#employee_select option:selected").val();
 
     $.ajax({
       type: "GET",
-      url: document.URL,
+      url: "/admin/roles/lines/"+roleID+"/"+stallID+"/"+valueSelected,
       data:
       {
         utf8: "✓",
-        ids: stallID,
         ajax: true
       }
     });
-  }
+  } 
