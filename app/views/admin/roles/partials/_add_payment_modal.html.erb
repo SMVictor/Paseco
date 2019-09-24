@@ -1,4 +1,4 @@
-<div class="modal" id="addPayment<%= form.object.id %>" data-lines="<%= @role.role_lines.where(stall_id: @stall.id).to_json %>" data-requirements="<%= @stall.requirements.to_json(include: :shift) %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal" id="addPayment<%= form.object.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content rounded">
       <div class="modal-header rounded-top">
@@ -6,7 +6,7 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-12 mb-2">Comentarios</p>
-            <%= form.text_field :comment, class: "form-control comment", placeholder: "Cubre turno por permiso de Juan", id: "comment_"+form.object.id.to_s %>
+            <%= form.text_field :comment, class: "form-control comment", placeholder: "Cubre turno por permiso de Juan" %>
           </div>
           <div class="col-12 mb-2">
             <p class="font-weight-bold text-left">Justificación de Requerimiento</p>
