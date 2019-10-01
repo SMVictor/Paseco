@@ -142,6 +142,8 @@ function hoursValidation(element){
   var lineCode        = $(element).attr('name').split(']')[1].replace('[', '');
 
   var requirements    = JSON.parse(document.querySelector('#role_lines').dataset.requirements);
+  var total_lines     = JSON.parse(document.querySelector('#role_lines').dataset.date_lines);
+
   var lines           = $('[id=role_line_fields]');
   var currentShift    = $('#role_role_lines_attributes_'+lineCode+'_shift_id').children("option:selected");
   var currentPosition = $('#role_role_lines_attributes_'+lineCode+'_position_id').children("option:selected");
@@ -149,6 +151,7 @@ function hoursValidation(element){
   var currentDate     = $('#role_role_lines_attributes_'+lineCode+'_date').val();
   var dateHours       = 0;
   var existRequerimet = false;
+  var currentEmployee = $("#employee_select option:selected").val();
 
   for (var i = 0; i < lines.length; i++) {
 
@@ -163,6 +166,24 @@ function hoursValidation(element){
     if ( date.value == currentDate && code != lineCode ) {
       if ( shift.value == currentShift.val() && position.value == currentPosition.val() ) {
         dateHours += parseFloat(hours.value);
+      }
+    }
+  }
+
+  for (var i = 0; i < total_lines.length; i++) {
+
+    var date     = total_lines[i].date;
+    var shift    = total_lines[i].shift_id;
+    var position = total_lines[i].position_id;
+    var hours    = total_lines[i].hours;
+    var employee = total_lines[i].employee_id;
+
+    if ( date == currentDate && employee != currentEmployee ) {
+      if ( shift == currentShift.val() && position == currentPosition.val() ) {
+        if (hours == "") {
+          hours = 0;
+        }
+        dateHours += parseFloat(hours);
       }
     }
   }
