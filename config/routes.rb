@@ -14,17 +14,17 @@ Rails.application.routes.draw do
     patch '/' => 'admin/pages#update_home',  as: 'update_home'
     
     namespace :admin do
-      resources :customers
-      resources :stalls
-      resources :payments
-      resources :employees
       resources :roles
       resources :areas
+      resources :stalls
+      resources :quotes
+      resources :holidays
+      resources :payments
+      resources :bac_infos
+      resources :customers
+      resources :employees
       resources :positions
       resources :bncr_infos
-      resources :bac_infos
-      resources :holidays
-      resources :quotes
       resources :ccss_payments
 
       get    'roles/lines/:id/:stall_id/:employee_id'           => 'roles#add_role_lines',    as: 'role_lines'
