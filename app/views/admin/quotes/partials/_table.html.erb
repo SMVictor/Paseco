@@ -1,0 +1,40 @@
+<div class="card">
+  <div class="card-body">
+    <div class="row mt-1 d-none d-md-flex text-center" style="">
+      <div class="th col-12 col-md-4">
+        <p class="text-uppercase">Número</p>
+      </div>
+      <div class="th col-12 col-md-4">
+        <p class="text-uppercase">Cliente</p>
+      </div>
+      <div class="th col-12 col-md-4">
+        <p class="text-uppercase">Acciones</p>
+      </div>
+    </div>
+    <% if @quotes%>
+      <% @quotes.each do |quote| %>
+        <div class="row tb_body">
+          <div class="td col-12 col-md-4  pt-md-3">
+            <p class="d-md-none font-weight-bold">Número:</p>
+            <p class="text-md-center mt-2"><%= quote.number %></p>
+          </div>
+          <div class="th col-12 col-md-4 pt-md-3">
+            <p class="d-md-none font-weight-bold">Cliente:</p>
+            <p class="text-md-center mt-2"><%= quote.institution %></p>
+          </div>
+          <div class="th text-center col-md-4">
+            <div class="mt-2 mb-2 btn-group">
+              <%= link_to(edit_admin_quote_path(quote), class:'btn btn-block primary-btn mt-2', title: 'Editar Cotización') do %>
+                <i class="fa fa-pencil-alt"></i>
+              <% end -%>
+              <button type="button" class="btn btn-block delete-btn" data-toggle="modal" title="Eliminar Cotización" data-target="#deleteQuote<%= quote.id %>">
+                <i class="fa fa-times"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <%= render 'admin/quotes/partials/delete_modal', quote: quote %>
+      <% end %>
+    <%end %>
+  </div>
+</div>

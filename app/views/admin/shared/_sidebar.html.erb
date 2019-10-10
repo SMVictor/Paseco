@@ -18,6 +18,23 @@
       </div>
     </li>
     <li class="nav-item">
+      <a class="nav-link" aria-expanded="false" onclick="toggleNavLink('quotes')" id="quotesNavLink">
+        <i class="menu-icon fas fa-list-ul"></i>
+        <span class="menu-title">Cotizaciónes</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="quotes">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item">
+            <%= link_to('Todas', admin_quotes_path, class: 'nav-link') if current_user.admin? %>
+          </li>
+          <li class="nav-item">
+            <%= link_to('Crear Nueva', new_admin_quote_path, class: 'nav-link') if current_user.admin? %>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item">
       <a class="nav-link" aria-expanded="false" onclick="toggleNavLink('maintenance')" id="maintenanceNavLink">
         <i class="menu-icon fas fa-database"></i>
         <span class="menu-title">Mantenimiento</span>

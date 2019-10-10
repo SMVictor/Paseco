@@ -137,12 +137,28 @@ function showModal(element){
   modal.modal('toggle');
 }
 
+function loadEmployee(roleID, stallID){
+
+  var valueSelected = $("#employee_select option:selected").val();
+
+  $.ajax({
+    type: "GET",
+    url: "/admin/roles/lines/"+roleID+"/"+stallID+"/"+valueSelected,
+    data:
+    {
+      utf8: "✓",
+      ajax: true
+    }
+  });
+}
+
 function hoursValidation(element){
 
   var lineCode        = $(element).attr('name').split(']')[1].replace('[', '');
 
   var requirements    = JSON.parse(document.querySelector('#role_lines').dataset.requirements);
   var total_lines     = JSON.parse(document.querySelector('#role_lines').dataset.date_lines);
+  var positions       = JSON.parse(document.querySelector('#role_lines').dataset.positions);
 
   var lines           = $('[id=role_line_fields]');
   var currentShift    = $('#role_role_lines_attributes_'+lineCode+'_shift_id').children("option:selected");
@@ -152,6 +168,14 @@ function hoursValidation(element){
   var dateHours       = 0;
   var existRequerimet = false;
   var currentEmployee = $("#employee_select option:selected").val();
+  var currentArea     = 0;
+
+  for (var i = 0; i < positions.length; i++) {
+    if( positions[i].id == currentPosition.val()) {
+      currentArea = positions[i].area_id;
+      break;
+    }
+  }
 
   for (var i = 0; i < lines.length; i++) {
 
@@ -162,10 +186,20 @@ function hoursValidation(element){
     var position = $($($(line_fields[3]).children()[0]).children()[3]).children()[1];
     var hours    = $(line_fields[4]).children()[1];
     var code     = $(date).attr('name').split(']')[1].replace('[', '');
+    var area     = 0;
+
+    for (var j = 0; j < positions.length; j++) {
+      if( positions[j].id == position.value ) {
+        area = positions[j].area_id;
+        break;
+      }
+    }
 
     if ( date.value == currentDate && code != lineCode ) {
-      if ( shift.value == currentShift.val() && position.value == currentPosition.val() ) {
-        dateHours += parseFloat(hours.value);
+      if ( shift.value == currentShift.val() ) {
+        if (position.value == currentPosition.val() || (area==1 && currentArea == 1)) {
+          dateHours += parseFloat(hours.value);
+        }
       }
     }
   }
@@ -177,49 +211,56 @@ function hoursValidation(element){
     var position = total_lines[i].position_id;
     var hours    = total_lines[i].hours;
     var employee = total_lines[i].employee_id;
+    var area     = 0;
+
+    for (var j = 0; j < positions.length; j++) {
+      if( positions[j].id == position ) {
+        area = positions[j].area_id;
+        break;
+      }
+    }
 
     if ( date == currentDate && employee != currentEmployee ) {
-      if ( shift == currentShift.val() && position == currentPosition.val() ) {
-        if (hours == "") {
-          hours = 0;
+      if ( shift == currentShift.val() ) {
+        if ( position == currentPosition.val() || (area==1 && currentArea == 1) ) {
+          if (hours == "") {
+            hours = 0;
+          }
+          dateHours += parseFloat(hours);
         }
-        dateHours += parseFloat(hours);
       }
     }
   }
 
   if (currentHours == "") {
-    currentHours = 0
+    currentHours = 0;
   }
+
   dateHours += parseFloat(currentHours);
     
-    for (var i = 0; i < requirements.length; i++) {
-      if (requirements[i].shift_id == currentShift.val() && requirements[i].position_id == currentPosition.val()) {
-        var requiredHours  = parseFloat(requirements[i].hours) * parseFloat(requirements[i].workers);
-        var availableHours = requiredHours - dateHours
-        if ( availableHours < 0 ) {
-          alert("Cuidado!!! Está excediendo el requerimiento diario de '"+currentPosition.text()+"' en el turno '"+currentShift.text()+"' en un total de horas de: "+(availableHours*-1).toFixed(2));
-        }
-        existRequerimet = true;
+  for (var i = 0; i < requirements.length; i++) {
+
+    var area = 0;
+
+    for (var j = 0; j < positions.length; j++) {
+      if( positions[j].id == requirements[i].position_id ) {
+        area = positions[j].area_id;
         break;
       }
     }
-    if (!existRequerimet) {
-      alert("No existe un requerimiento establecido para el cargo '"+currentPosition.text()+"' en el turno '"+currentShift.text()+"'");
+
+    if (requirements[i].shift_id == currentShift.val() && (requirements[i].position_id == currentPosition.val() || (area == 1 && currentArea == 1))){
+
+      var requiredHours  = parseFloat(requirements[i].hours) * parseFloat(requirements[i].workers);
+      var availableHours = requiredHours - dateHours;
+      if ( availableHours < 0 ) {
+        alert("Cuidado!!! Está excediendo el requerimiento diario de '"+currentPosition.text()+"' en el turno '"+currentShift.text()+"' en un total de horas de: "+(availableHours*-1).toFixed(2));
+      }
+      existRequerimet = true;
+      break;
     }
   }
-
-  function loadEmployee(roleID, stallID){
-
-    var valueSelected = $("#employee_select option:selected").val();
-
-    $.ajax({
-      type: "GET",
-      url: "/admin/roles/lines/"+roleID+"/"+stallID+"/"+valueSelected,
-      data:
-      {
-        utf8: "✓",
-        ajax: true
-      }
-    });
-  } 
+  if (!existRequerimet) {
+    alert("No existe un requerimiento establecido para el cargo '"+currentPosition.text()+"' en el turno '"+currentShift.text()+"'");
+  }
+} 

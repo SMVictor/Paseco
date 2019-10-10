@@ -1,18 +1,22 @@
 <div class="col-12 fields nested-fields text-center tbl_row">
   <div class="row">
-     <div class="col-xl-3 mb-2 mt-2">
+    <div class="col-xl-3 mt-2 mb-2">
       <p class="d-xl-none font-weight-bold">Nombre</p>
       <%= f.text_field :name, required: true, title: "Nombre de turno", oninvalid: "setCustomValidity('Campo Requerido')", oninput: "setCustomValidity('')", class: "form-control", placeholder: "Diurno" %>
     </div>
-    <div class="col-xl-3 col-md-4 mb-2 mt-2">
+    <div class="col-xl-3 mt-2 mb-2">
+      <p class="d-xl-none font-weight-bold">Entrada</p>
+      <%= f.time_field :start_hour, min: 'hh:mm:ss', max: 'hh:mm:ss', class: "form-control" %>
+    </div>
+    <div class="col-xl-2 mt-2 mb-2">
       <p class="d-xl-none font-weight-bold">Horas</p>
       <%= f.text_field :time, required: true, title: "Duración en horas del turno", oninvalid: "setCustomValidity('Campo Requerido')", oninput: "setCustomValidity('')", class: "form-control", placeholder: "8" %>
     </div>
-    <div class="col-xl-3 col-md-4 mt-2">
+    <div class="col-xl-2 mt-2 mb-2">
       <p class="d-xl-none font-weight-bold">Costo HE</p>
       <%= f.text_field :extra_time_cost, required: true, title: "Porcentaje a pagar por hora extra", oninvalid: "setCustomValidity('Campo Requerido')", oninput: "setCustomValidity('')", class: "form-control", placeholder: "1.5" %>
     </div>
-    <div class="col-xl-3 col-md-4 mt-2">
+    <div class="col-xl-2 mt-2 mb-2">
        <%= link_to_remove_association "", f, class: "fas fa-trash-alt", id: 'remove_link', style: "color: black" %>
     </div>
   </div>

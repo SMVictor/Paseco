@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  institution: MyString
+  procedure_number: MyString
+  procedure_description: MyString
+  payment_id: 1
+  daily_salary: MyString
+  night_salary: MyString
+
+two:
+  institution: MyString
+  procedure_number: MyString
+  procedure_description: MyString
+  payment_id: 1
+  daily_salary: MyString
+  night_salary: MyString

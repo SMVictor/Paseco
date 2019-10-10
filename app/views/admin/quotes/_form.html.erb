@@ -1,0 +1,74 @@
+<%= form_with(model: quote, local: true) do |form| %>
+  <% if quote.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(quote.errors.count, "error") %> prohibited this quote from being saved:</h2>
+
+      <ul>
+      <% quote.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :type %>
+    <%= form.text_field :type %>
+  </div>
+
+  <div class="field">
+    <%= form.label :institution %>
+    <%= form.text_field :institution %>
+  </div>
+
+  <div class="field">
+    <%= form.label :procedure_number %>
+    <%= form.text_field :procedure_number %>
+  </div>
+
+  <div class="field">
+    <%= form.label :procedure_description %>
+    <%= form.text_field :procedure_description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :salary %>
+    <%= form.text_field :salary %>
+  </div>
+
+  <div class="field">
+    <%= form.label :officers %>
+    <%= form.text_field :officers %>
+  </div>
+
+  <div class="field">
+    <%= form.label :holidays %>
+    <%= form.text_field :holidays %>
+  </div>
+
+  <div class="field">
+    <%= form.label :vacations %>
+    <%= form.text_field :vacations %>
+  </div>
+
+  <div class="field">
+    <%= form.label :payment_id %>
+    <%= form.text_field :payment_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+
+<div class="row form_fieldset">
+    <div  class="col-12 p-3">
+      <legend class="text-left">Información de los Requerimientos</legend>
+    </div>
+    <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+      <%= form.collection_select :payment_id, Payment.all.order(name: :asc), :id, :name, options = {include_blank: 'Seleccione un tipo de pago'}, html_options = {class: "form-control", id: "payment"}%>
+      <label id="payment_error"></label>
+    </div>
+    <div id="requirements" class="col-12" data-payments="<%= Payment.all.to_json %>"><%= render 'admin/quotes/partials/requirements', form: form %></div>
+  </div>  

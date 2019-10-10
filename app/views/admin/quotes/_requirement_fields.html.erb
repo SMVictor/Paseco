@@ -1,0 +1,39 @@
+<div class="col-12 fields nested-fields text-center tbl_row">
+  <div class="row">
+  	<div class="col-lg-2 col-md-4 mt-2 mb-2">
+	  <p class="d-xl-none font-weight-bold">Desde</p>
+	  <%= f.select :start_day, ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"], options = {}, html_options = {class: "form-control",  title: "Cargo"}%>
+	</div>
+	<div class="col-lg-2 col-md-4 mt-2 mb-2">
+	  <p class="d-xl-none font-weight-bold">Cargo</p>
+	  <%= f.select :end_day, ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"], options = {}, html_options = {class: "form-control",  title: "Cargo"}%>
+	</div>
+	<div class="col-lg-2 col-md-4 mt-2 mb-2">
+	  <p class="d-xl-none font-weight-bold">Cargo</p>
+	  <%= f.collection_select :position_id, Position.where("name NOT LIKE ?", "%Lib%").where("name NOT LIKE ?", "%lib%").order(name: :asc).where("name NOT LIKE ?", "%LIB%"), :id, :name, options = {}, html_options = {class: "form-control",  title: "Cargo"} %>
+	</div>
+	<div class="col-xl-2 col-md-4 mt-2 mb-2">
+	  <p class="d-xl-none font-weight-bold">Turno</p>
+	  <%= f.collection_select :shift_id, @quote.payment.shifts.where.not(name: ["Libre", "Suspendido", "Suspendido", "Vacaciones", "Permiso", "Ausente", "Incapacidad"]).order(name: :asc), :id, :name, options = {}, html_options = {class: "form-control",  title: "Seleccione un turno"}%>
+	</div>
+	<div class="col-xl-2 col-md-4 mt-2 mb-2">
+	  <div class="row">
+	  	<div class="col-xl-6">
+		  <p class="d-xl-none font-weight-bold">Horas</p>
+		  <%= f.text_field :hours, class: "form-control", placeholder: "8", required: true, oninvalid: "setCustomValidity('Campo Requerido')", oninput: "setCustomValidity('')", title: "Por favor llene este campo" %>
+	    </div>
+	  	<div class="col-xl-6">
+		  <p class="d-xl-none font-weight-bold">Cantidad</p>
+		  <%= f.text_field :workers, class: "form-control", placeholder: "3", required: true, oninvalid: "setCustomValidity('Campo Requerido')", oninput: "setCustomValidity('')", title: "Por favor llene este campo" %>
+		</div>
+	  </div>
+	</div>
+	<div class="col-xl-1 col-md-4 mt-2 mb-2">
+	  <p class="d-xl-none font-weight-bold">Librero</p>
+	  <%= f.text_field :freeday_worker, class: "form-control", placeholder: "0.17", required: true, oninvalid: "setCustomValidity('Campo Requerido')", oninput: "setCustomValidity('')", title: "Por favor llene este campo" %>
+	</div>
+	<div class="col-xl-1 col-md-4 mt-2 mb-2">
+	   <%= link_to_remove_association "", f, class: "fas fa-trash-alt", id: 'remove_link', style: "color: black" %>
+	</div>
+  </div>
+</div>
