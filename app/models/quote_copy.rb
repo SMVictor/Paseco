@@ -1,0 +1,2 @@
+class QuoteCopy < ApplicationRecord
+end

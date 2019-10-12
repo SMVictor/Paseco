@@ -14,17 +14,18 @@ Rails.application.routes.draw do
     patch '/' => 'admin/pages#update_home',  as: 'update_home'
     
     namespace :admin do
-      resources :customers
-      resources :stalls
-      resources :payments
-      resources :employees
       resources :roles
       resources :areas
+      resources :stalls
+      resources :quotes
+      resources :holidays
+      resources :payments
+      resources :bac_infos
+      resources :customers
+      resources :employees
       resources :positions
       resources :bncr_infos
-      resources :bac_infos
       resources :ccss_payments
-      resources :holidays
 
       get    'roles/lines/:id/:stall_id/:employee_id'           => 'roles#add_role_lines',    as: 'role_lines'
       patch  'roles/lines/:id/:stall_id/:employee_id'           => 'roles#update_role_lines', as: 'edit_role_lines'
@@ -73,6 +74,18 @@ Rails.application.routes.draw do
       get    'employee/:id/vacations/inactive' => 'employees#edit_vacations_inactive',    as: 'edit_vacations_inactive'
       patch  'employee/:id/vacations/inactive' => 'employees#update_vacations_inactive',  as: 'update_vacations_inactive'
 
+      get    'quotes/:id/step1' => 'quotes#create_step1', as: 'create_quote_step1'
+      patch  'quotes/:id/step1' => 'quotes#update_step1', as: 'update_quote_step1'
+      get    'quotes/:id/step2' => 'quotes#create_step2', as: 'create_quote_step2'
+      patch  'quotes/:id/step2' => 'quotes#update_step2', as: 'update_quote_step2'
+
+      get    'quotes/:id/step1/edit' => 'quotes#edit_step1',        as: 'edit_quote_step1'
+      patch  'quotes/:id/step1/edit' => 'quotes#update_edit_step1', as: 'update_edit_quote_step1'
+      delete 'quotes/:id/step1/edit' => 'quotes#restore_step1',     as: 'restore_quote_step1'
+      get    'quotes/:id/step2/edit' => 'quotes#edit_step2',        as: 'edit_quote_step2'
+      patch  'quotes/:id/step2/edit' => 'quotes#update_edit_step2', as: 'update_edit_quote_step2'
+
+      get    'budget/:id/'           => 'roles#budget',             as: 'budget'
 
     end
   end

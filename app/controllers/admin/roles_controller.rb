@@ -5,7 +5,7 @@ class RolesController < ApplicationController
   load_and_authorize_resource
   before_action :set_role, only: [:show, :edit, :update, :destroy, :add_role_lines, :update_role_lines, :approvals, :check_changes, :stall_summary, :stalls_hours]
   before_action :set_stall, only: [:update_role_lines, :add_role_lines, :check_changes, :stall_summary]
-  before_action :set_payrole, only: [:show_payroles, :bncr_file, :bac_file, :payrole_detail, :show_old_payrole]
+  before_action :set_payrole, only: [:show_payroles, :bncr_file, :bac_file, :payrole_detail, :show_old_payrole, :budget]
 
   def index
     @roles = Role.all.order(id: :desc)
@@ -65,7 +65,7 @@ class RolesController < ApplicationController
           @employee = Employee.find(params[:employee_id]) if params[:employee_id] != "0"
 
           @shift = Payment.find(2).shifts.first
-          @shift = @stall.payment.shifts.first if @stall.payment
+          @shift = @stall.quote.payment.shifts.first if @stall.quote.payment
           @date = @role.end_date.to_date.strftime("%m/%d/%Y")
           RoleLine.create(role: @role, stall: @stall, employee: @employee, shift: @shift, position: @employee.positions.first, date: @date)
 
@@ -370,6 +370,9 @@ class RolesController < ApplicationController
         format.js
       end
     end
+  end
+
+  def budget
   end
 
   private

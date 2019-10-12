@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  type: 
+  institution: 
+  procedure_number: 
+  procedure_description: 
+  salary: 
+  officers: 
+  holidays: 
+  vacations: MyString
+  payment: one
+
+two:
+  type: 
+  institution: 
+  procedure_number: 
+  procedure_description: 
+  salary: 
+  officers: 
+  holidays: 
+  vacations: MyString
+  payment: two

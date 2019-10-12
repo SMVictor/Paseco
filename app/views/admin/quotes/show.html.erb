@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @quote.type %>
+</p>
+
+<p>
+  <strong>Institution:</strong>
+  <%= @quote.institution %>
+</p>
+
+<p>
+  <strong>Procedure number:</strong>
+  <%= @quote.procedure_number %>
+</p>
+
+<p>
+  <strong>Procedure description:</strong>
+  <%= @quote.procedure_description %>
+</p>
+
+<p>
+  <strong>Salary:</strong>
+  <%= @quote.salary %>
+</p>
+
+<p>
+  <strong>Officers:</strong>
+  <%= @quote.officers %>
+</p>
+
+<p>
+  <strong>Holidays:</strong>
+  <%= @quote.holidays %>
+</p>
+
+<p>
+  <strong>Vacations:</strong>
+  <%= @quote.vacations %>
+</p>
+
+<p>
+  <strong>Payment:</strong>
+  <%= @quote.payment %>
+</p>
+
+<%= link_to 'Edit', edit_quote_path(@quote) %> |
+<%= link_to 'Back', quotes_path %>

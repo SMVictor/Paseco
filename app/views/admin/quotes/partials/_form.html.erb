@@ -1,0 +1,42 @@
+<div class="row form_fieldset">
+  <div class="col-xl-6 col-md-6 mb-2 mt-2">
+    <label for="">Institución</label>
+    <%= form.text_field :institution, id: "institution", class: "form-control", placeholder: "Caja Costarricense del Seguro Social" %>
+    <label id="institution_error"></label>
+  </div>
+  <div class="col-xl-6 col-md-6 mb-2 mt-2">
+    <label for="">Número</label>
+    <%= form.text_field :procedure_number, id: "procedure_number", class: "form-control", placeholder: "LICITACION PUBLICA N° 2019LA-000001-2598" %>
+    <label id="procedure_number_error"></label>
+  </div>
+  <div class="col-xl-6 col-md-6 mb-2 mt-2">
+    <label for="">Descripción</label>
+    <%= form.text_field :procedure_description, id: "procedure_description", class: "form-control", placeholder: "Servicios Profesionales en Vigilancia y Seguridad para la Sede del Área de Salud de Parrita." %>
+    <label id="procedure_description_error"></label>
+  </div>
+  <div class="col-xl-6 col-md-6 mb-2 mt-2">
+    <label for="">Tipo de Pago</label>
+    <%= form.collection_select :payment_id, Payment.all.order(name: :asc), :id, :name, options = {include_blank: 'Seleccione un tipo de pago'}, html_options = {class: "form-control", id: "payment"}%>
+    <label id="payment_error"></label>
+  </div>
+  <div class="col-xl-6 col-md-6 mb-2 mt-2">
+    <label for="">Salario Diurno</label>
+    <%= form.text_field :daily_salary, id: "daily_salary", class: "form-control", placeholder: "295000" %>
+    <label id="daily_salary_error"></label>
+  </div>
+  <div class="col-xl-6 col-md-6 mb-2 mt-2">
+    <label for="">Salario Nocturno</label>
+    <%= form.text_field :night_salary, id: "night_salary", class: "form-control", placeholder: "415000" %>
+    <label id="night_salary_error"></label>
+  </div>
+  <div class="col-xl-6 col-md-6 mb-2 mt-2">
+    <label for="">Vacaciones</label>
+    <%= form.text_field :vacations, id: "vacations", class: "form-control", placeholder: "215000" %>
+    <label id="vacations_error"></label>
+  </div>
+  <div class="col-xl-6 col-md-6 mb-2 mt-2">
+    <label for="">Feriados</label>
+    <%= form.text_field :holidays, id: "holidays", class: "form-control", placeholder: "120000" %>
+    <label id="holidays_error"></label>
+  </div>
+</div>

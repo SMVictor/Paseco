@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_04_204529) do
+ActiveRecord::Schema.define(version: 2019_10_09_023408) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -159,6 +159,8 @@ ActiveRecord::Schema.define(version: 2019_08_04_204529) do
     t.string "num_extra_hours"
     t.string "num_worked_days"
     t.string "holidays"
+    t.string "bank"
+    t.string "account"
     t.index ["employee_id"], name: "index_payrole_lines_on_employee_id"
     t.index ["role_id"], name: "index_payrole_lines_on_role_id"
   end
@@ -174,17 +176,49 @@ ActiveRecord::Schema.define(version: 2019_08_04_204529) do
     t.index ["area_id"], name: "index_positions_on_area_id"
   end
 
+  create_table "quote_copies", force: :cascade do |t|
+    t.string "institution"
+    t.string "procedure_number"
+    t.string "procedure_description"
+    t.integer "payment_id"
+    t.string "daily_salary"
+    t.string "night_salary"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "quotes", force: :cascade do |t|
+    t.string "type"
+    t.string "institution"
+    t.string "procedure_number"
+    t.string "procedure_description"
+    t.string "officers"
+    t.string "holidays"
+    t.string "vacations"
+    t.bigint "payment_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "daily_salary"
+    t.string "night_salary"
+    t.string "status"
+    t.serial "number", null: false
+    t.index ["payment_id"], name: "index_quotes_on_payment_id"
+  end
+
   create_table "requirements", force: :cascade do |t|
     t.string "hours"
     t.string "workers"
-    t.bigint "stall_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "shift_id"
     t.bigint "position_id"
+    t.bigint "quote_id"
+    t.string "start_day"
+    t.string "end_day"
+    t.string "freeday_worker"
     t.index ["position_id"], name: "index_requirements_on_position_id"
+    t.index ["quote_id"], name: "index_requirements_on_quote_id"
     t.index ["shift_id"], name: "index_requirements_on_shift_id"
-    t.index ["stall_id"], name: "index_requirements_on_stall_id"
   end
 
   create_table "role_lines", force: :cascade do |t|
@@ -251,6 +285,7 @@ ActiveRecord::Schema.define(version: 2019_08_04_204529) do
     t.bigint "payment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.time "start_hour"
     t.index ["payment_id"], name: "index_shifts_on_payment_id"
   end
 
@@ -263,16 +298,14 @@ ActiveRecord::Schema.define(version: 2019_08_04_204529) do
     t.string "other"
     t.string "daily_viatical"
     t.string "extra_shift"
-    t.string "min_salary"
     t.string "substalls"
     t.bigint "customer_id"
-    t.bigint "payment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "night_min_salary"
     t.boolean "active", default: true
+    t.bigint "quote_id"
     t.index ["customer_id"], name: "index_stalls_on_customer_id"
-    t.index ["payment_id"], name: "index_stalls_on_payment_id"
+    t.index ["quote_id"], name: "index_stalls_on_quote_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -302,8 +335,11 @@ ActiveRecord::Schema.define(version: 2019_08_04_204529) do
   end
 
   add_foreign_key "positions", "areas"
+  add_foreign_key "quotes", "payments"
   add_foreign_key "requirements", "positions"
+  add_foreign_key "requirements", "quotes"
   add_foreign_key "requirements", "shifts"
   add_foreign_key "role_lines", "positions"
+  add_foreign_key "stalls", "quotes"
   add_foreign_key "vacations", "employees"
 end

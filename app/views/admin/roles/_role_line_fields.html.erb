@@ -16,8 +16,8 @@
         </div>
         <div class="col-xl-3 col-lg-6">
           <p class="d-xl-none font-weight-bold">Turno</p>
-          <% if @stall.payment %>
-            <%= f.collection_select :shift_id, @stall.payment.shifts.order(name: :asc), :id, :name, options = {}, html_options = {class: "form-control",  title: "Seleccione un turno" }%>
+          <% if @stall.quote.payment %>
+            <%= f.collection_select :shift_id, @stall.quote.payment.shifts.order(name: :asc), :id, :name, options = {}, html_options = {class: "form-control",  title: "Seleccione un turno" }%>
           <% else %>
             <%= f.collection_select :shift_id, Payment.find(2).shifts.order(name: :asc), :id, :name, options = {}, html_options = {class: "form-control", title: "Seleccione un turno" }%>
           <% end %>

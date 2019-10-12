@@ -1,0 +1,24 @@
+<div class="bg-body-light">
+    <div class="content content-full">
+        <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
+            <h3 class="flex-sm-fill font-size-h2 font-w400 mt-2 mb-0 mb-sm-2">Crear Cotización</h3>
+            <nav class="flex-sm-00-auto ml-sm-3" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <%= link_to('Procedimiento', admin_create_quote_step1_path, class: 'breadcrumb-item')%>
+                    <li class="breadcrumb-item active" aria-current="page">Requerimientos</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+<div class="d-flex justify-content-center">
+  <div class="col-sm-12">
+    <%= form_for(@quote, url: admin_update_quote_step2_path(@quote), html: {multipart: true, onsubmit:"return validateQuoteForm()"}) do |form| %>
+      <div class="card-body">
+        <%= render 'admin/quotes/partials/form_step2', form: form %>
+        <%= link_to('Atrás', admin_create_quote_step1_path, class: 'btn btn-light mt-4')%>
+        <%= form.submit "Guardar", id: 'btn_submit', class: "btn btn-success mt-4 ml-sm-3" %>
+      </div>
+    <% end %>
+  </div>
+</div>
