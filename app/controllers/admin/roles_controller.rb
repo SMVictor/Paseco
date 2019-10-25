@@ -5,7 +5,7 @@ class RolesController < ApplicationController
   load_and_authorize_resource
   before_action :set_role, only: [:show, :edit, :update, :destroy, :add_role_lines, :update_role_lines, :approvals, :check_changes, :stall_summary, :stalls_hours]
   before_action :set_stall, only: [:update_role_lines, :add_role_lines, :check_changes, :stall_summary]
-  before_action :set_payrole, only: [:show_payroles, :bncr_file, :bac_file, :payrole_detail, :show_old_payrole, :budget]
+  before_action :set_payrole, only: [:show_payroles, :bncr_file, :bac_file, :payrole_detail, :show_old_payrole, :budget, :old_budget, :budget_detail]
 
   def index
     @roles = Role.all.order(id: :desc)
@@ -373,6 +373,125 @@ class RolesController < ApplicationController
   end
 
   def budget
+    if params[:ids] && params[:ids] != ""
+       @budgets = @payrole.budgets.where(stall_id: params[:ids])
+    elsif params[:ids] && params[:ids] == ""
+      @budgets = @payrole.budgets.order(id: :asc)
+    else
+      @payrole.budgets.destroy_all
+      @payrole.stalls.where(active: true).where.not("name LIKE ?", "%Supervisor%").order(name: :asc).each do |stall|
+        @payrole.budgets.new(stall: stall)
+
+        employee_id          = 0
+        total_salary         = 0
+        total_viatical       = 0 
+        total_holidays       = 0 
+        total_LPT            = 0 
+        total_social_charges = 0 
+        old_employee         = 0 
+        employee_salary      = 0
+
+        @payrole.role_lines.where(stall_id: stall.id).order(employee_id: :asc).each do |role_line|
+          employee = role_line.employee
+          if employee_id != role_line.employee_id
+            if employee_id == 0
+              employee_id  = role_line.employee.id
+              old_employee = role_line.employee
+            else
+              @payrole.budgets.last.budget_lines.new([{ employee: old_employee, salary: employee_salary.round(2) }])
+              employee_salary = 0
+              employee_id     = role_line.employee.id
+              old_employee    = role_line.employee
+            end
+          end
+          has_night =  @payrole.role_lines.joins(:shift).where("name = 'Noche'").length
+          employee.calculate_day_salary(role_line, has_night)
+          employee.calculate_daily_viatical(role_line)
+
+          total_salary         += employee.day_salary+employee.extra_day_salary+employee.viatical+employee.holiday+role_line.extra_payments.to_f -  role_line.deductions.to_f
+          total_LPT            += 0
+          total_social_charges += 0
+
+          employee_salary      += employee.day_salary+employee.extra_day_salary+employee.viatical+employee.holiday+role_line.extra_payments.to_f -  role_line.deductions.to_f
+        end
+        if old_employee != 0
+          @payrole.budgets.last.budget_lines.new([{ employee: old_employee, salary: employee_salary.round(2) }])
+        end
+
+        @payrole.budgets.last.total_stall = total_salary.round(2)
+
+        quote     = stall.quote 
+        salary    = quote.daily_salary.to_f 
+        vacations = quote.vacations.to_f 
+        holidays  = quote.holidays.to_f 
+        budget    = 0 
+
+        quote.requirements.each do |requirement| 
+
+          if requirement.position.name.upcase.exclude? "SUPERVISOR" 
+            salary = quote.daily_salary.to_f 
+
+            if quote.night_salary != "" && (requirement.shift.name.upcase.include? "NOCHE")  
+              salary = quote.night_salary.to_f 
+            end 
+
+            if requirement.position.salary != "" && requirement.position.salary != "0" && requirement.position.salary != nil 
+              salary = requirement.position.salary.to_f 
+            end 
+
+            required_hours = requirement.hours.to_f 
+            shift_hours    = requirement.shift.time.to_f 
+            shift_hours    = requirement.position.hours.to_f if (requirement.position.hours != nil && requirement.position.hours != "") 
+            extra_hours    = 0 
+            extra_hours    = required_hours - shift_hours if required_hours > shift_hours 
+            normal_hours   = required_hours - extra_hours 
+            day_salary     = salary/30 
+            hour_salary    = day_salary/shift_hours 
+            extra_salary   = hour_salary*requirement.shift.extra_time_cost.to_f 
+
+            budget += (((normal_hours * hour_salary) + (extra_hours * extra_salary))*15*requirement.workers.to_f*(1+requirement.freeday_worker.to_f)) 
+          end 
+        end 
+        total = (budget + (holidays/2) + (vacations/2)).round(2)
+
+        @payrole.budgets.last.salary         = budget.round(2) 
+        @payrole.budgets.last.vacations      = (vacations/2).round(2) 
+        @payrole.budgets.last.holidays       = (holidays/2).round(2) 
+        @payrole.budgets.last.total_budget   = total 
+        @payrole.budgets.last.difference     = (total - total_salary).round(2) 
+        @payrole.budgets.last.social_charges = (total*0.4307).round(2) 
+        @payrole.budgets.last.cs_difference  = ((total*0.4307) - (total_salary*0.4307)).round(2) 
+
+        total_salary = 0 
+      end
+      @payrole.save 
+      @budgets = @payrole.budgets.order(id: :asc)
+    end
+    if params[:ajax]
+      respond_to do |format|
+        format.js
+      end
+    end
+
+  end
+
+   def budget_detail
+    @employee = Employee.find(params[:employee_id])
+  end
+
+  def old_budget
+    if params[:ids] && params[:ids] != ""
+      @budgets = @payrole.budgets.where(stall_id: params[:ids])
+    else
+      @budgets = @payrole.budgets.order(id: :asc)
+    end
+
+    if params[:ajax]
+      respond_to do |format|
+        format.js
+      end
+    end
+
   end
 
   private

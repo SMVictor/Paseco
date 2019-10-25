@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_09_023408) do
+ActiveRecord::Schema.define(version: 2019_10_21_020901) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,33 @@ ActiveRecord::Schema.define(version: 2019_10_09_023408) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "employee_concept"
+  end
+
+  create_table "budget_lines", force: :cascade do |t|
+    t.string "salary"
+    t.bigint "budget_id"
+    t.bigint "employee_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["budget_id"], name: "index_budget_lines_on_budget_id"
+    t.index ["employee_id"], name: "index_budget_lines_on_employee_id"
+  end
+
+  create_table "budgets", force: :cascade do |t|
+    t.string "total_stall"
+    t.string "salary"
+    t.string "vacations"
+    t.string "holidays"
+    t.string "total_budget"
+    t.string "difference"
+    t.string "social_charges"
+    t.string "cs_difference"
+    t.bigint "stall_id"
+    t.bigint "role_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["role_id"], name: "index_budgets_on_role_id"
+    t.index ["stall_id"], name: "index_budgets_on_stall_id"
   end
 
   create_table "ccss_payments", force: :cascade do |t|
@@ -334,6 +361,10 @@ ActiveRecord::Schema.define(version: 2019_10_09_023408) do
     t.index ["employee_id"], name: "index_vacations_on_employee_id"
   end
 
+  add_foreign_key "budget_lines", "budgets"
+  add_foreign_key "budget_lines", "employees"
+  add_foreign_key "budgets", "roles"
+  add_foreign_key "budgets", "stalls"
   add_foreign_key "positions", "areas"
   add_foreign_key "quotes", "payments"
   add_foreign_key "requirements", "positions"

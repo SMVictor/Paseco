@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  total_stall: MyString
+  salary: MyString
+  vacations: MyString
+  total_budget: MyString
+  difference: MyString
+  social_charges: MyString
+  cs_difference: MyString
+
+two:
+  total_stall: MyString
+  salary: MyString
+  vacations: MyString
+  total_budget: MyString
+  difference: MyString
+  social_charges: MyString
+  cs_difference: MyString

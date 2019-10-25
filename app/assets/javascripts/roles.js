@@ -263,4 +263,4 @@ function hoursValidation(element){
   if (!existRequerimet) {
     alert("No existe un requerimiento establecido para el cargo '"+currentPosition.text()+"' en el turno '"+currentShift.text()+"'");
   }
-} 
+}

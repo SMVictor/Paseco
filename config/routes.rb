@@ -85,7 +85,9 @@ Rails.application.routes.draw do
       get    'quotes/:id/step2/edit' => 'quotes#edit_step2',        as: 'edit_quote_step2'
       patch  'quotes/:id/step2/edit' => 'quotes#update_edit_step2', as: 'update_edit_quote_step2'
 
-      get    'budget/:id/'           => 'roles#budget',             as: 'budget'
+      get    'budget/:id/'             => 'roles#budget',        as: 'budget'
+      get    'budget/:id/old'          => 'roles#old_budget',    as: 'old_budget'
+      get    'budget/:id/:employee_id' => 'roles#budget_detail', as: 'budget_detail'
 
     end
   end

@@ -32,11 +32,11 @@ function validateQuoteStep1() {
 }
 
 function filterQuote(){
-  var quotes = JSON.parse(document.querySelector('#quotes').dataset.quotes);
+  var quotes = JSON.parse(document.querySelector('#quote').dataset.quotes);
   var search = $('#quote').val().toUpperCase();
   var ids = [0];
   quotes.forEach(function(quote) {
-    if (quote.institution.toUpperCase().includes(search) || quote.number.includes(search)) {
+    if (quote.institution.toUpperCase().includes(search) || quote.number == parseInt(search)) {
       ids.push(quote.id);
     }
   });

@@ -1,0 +1,64 @@
+<div class="row mt-4 text-md-center tb_head" style="border: 1px solid #E8EBF2;">
+  <div class="th col-2">
+    <p class="text-uppercase font-weight-bold pt-3">Puesto</p>
+  </div>
+  <div class="th col-6">
+    <p class="text-uppercase font-weight-bold pt-3">Real</p>
+  </div>
+  <div class="th col-4">
+    <p class="text-uppercase font-weight-bold pt-3">Presupuesto</p>
+  </div>
+</div>
+<div class="row tb_body">
+  <% @budgets.each do |budget| %>
+     <div class="td col-2 pt-md-2"><%= budget.stall.name %></div>
+     <div class="td col-6">
+       <div class="row text-md-center tb_head" style="border: 1px solid #E8EBF2;">
+	     <div class="th col-6">
+	       <p class="text-uppercase font-weight-bold pt-3">Empleado</p>
+	     </div>
+	     <div class="th col-6">
+	       <p class="text-uppercase font-weight-bold pt-3">Salario</p>
+	     </div>
+	   </div>
+	    <div class="row tb_body">
+	     <% budget.budget_lines.each do |budget| %>
+          <div class="col-6 pt-md-2"><p><%= link_to(budget.employee.name, admin_budget_detail_path(@payrole, budget.employee), class:'', title: 'Ver Empleado') %></p></div>
+          <div class="col-6 pt-md-2"><p><%= number_to_currency(budget.salary.to_f, unit: '₡') %></p></div>
+	     <% end %>
+	     <div class="col-6 pt-md-2"><p>Sub-Total Mano de Obra</p></div>
+         <div class="col-6 pt-md-2"><p><%= number_to_currency(budget.total_stall.to_f, unit: '₡') %></p></div>
+         <div class="col-6 pt-md-2"><p>Cargas Sociales</p></div>
+         <div class="col-6 pt-md-2"><p><%= number_to_currency(budget.total_stall.to_f*0.4307, unit: '₡') %></p></div>
+         <div class="col-6 pt-md-2"><p>Total Mano de Obra</p></div>
+         <div class="col-6 pt-md-2"><p><%= number_to_currency(budget.total_stall.to_f*1.4307, unit: '₡') %></p></div>
+	   </div>
+     </div>
+     <div class="td col-4">
+       <div class="row text-md-center tb_head" style="border: 1px solid #E8EBF2;">
+	     <div class="th col-6">
+	       <p class="text-uppercase font-weight-bold pt-3">Concepto</p>
+	     </div>
+	     <div class="th col-6">
+	       <p class="text-uppercase font-weight-bold pt-3">Monto</p>
+	     </div>
+	   </div>
+	   <div class="row tb_body">
+	      <div class="col-6 pt-md-2"><p>Salarios</p></div>
+	      <div class="col-6 pt-md-2"><p><%= number_to_currency(budget.salary.to_f, unit: '₡') %></p></div>
+	      <div class="col-6 pt-md-2"><p>Vacaciones</p></div>
+	      <div class="col-6 pt-md-2"><p><%= number_to_currency(budget.vacations.to_f, unit: '₡') %></p></div>
+	      <div class="col-6 pt-md-2"><p>Feriados</p></div>
+	      <div class="col-6 pt-md-2"><p><%= number_to_currency(budget.holidays.to_f, unit: '₡') %></p></div>
+	      <div class="col-6 pt-md-2"><p>Sub-Total Mano de Obra</p></div>
+	      <div class="col-6 pt-md-2"><p><%= number_to_currency(budget.total_budget.to_f, unit: '₡') %></p></div>
+	      <div class="col-6 pt-md-2"><p>Cargas Sociales</p></div>
+	      <div class="col-6 pt-md-2"><p><%= number_to_currency(budget.social_charges.to_f, unit: '₡') %></p></div>
+	      <div class="col-6 pt-md-2"><p>Total Mano de Obra</p></div>
+	      <div class="col-6 pt-md-2"><p><%= number_to_currency((budget.total_budget.to_f + budget.social_charges.to_f), unit: '₡') %></p></div>
+	      <div class="col-6 pt-md-2"><p>Diferencia Mano de Obra</p></div>
+	      <div class="col-6 pt-md-2"><p><%= number_to_currency(((budget.total_budget.to_f + budget.social_charges.to_f) - (budget.total_stall.to_f*1.4307 )), unit: '₡') %></p></div>
+	    </div>
+     </div>
+  <% end %>
+</div>
