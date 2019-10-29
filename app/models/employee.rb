@@ -2,6 +2,7 @@ class Employee < ApplicationRecord
   has_and_belongs_to_many :stalls
   has_many :role_lines
   has_many :payrole_lines
+  has_many :payrole_details
   has_many :entries
   has_many :vacations
   has_and_belongs_to_many :positions, join_table: :employees_positions
@@ -64,6 +65,7 @@ class Employee < ApplicationRecord
   end 
 
   def calculate_day_salary(role_line, has_night)
+    begin
   	@stall = role_line.stall
     @shift = role_line.shift
 
@@ -102,6 +104,9 @@ class Employee < ApplicationRecord
       if role_line.holiday
         @holiday = ((1/@shift.time.to_f)*role_line.hours.to_f) * (min_salary.to_f/30)
       end
+    end
+    rescue => ex
+      logger.error ex.message
     end
   end
 

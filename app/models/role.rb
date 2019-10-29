@@ -3,5 +3,6 @@ class Role < ApplicationRecord
   has_many :role_lines, dependent: :delete_all
   has_many :payrole_lines,  dependent: :delete_all
   has_many :budgets
+  has_many :payrole_details
   accepts_nested_attributes_for :role_lines, reject_if: :all_blank, allow_destroy: true
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_21_020901) do
+ActiveRecord::Schema.define(version: 2019_10_25_164016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,6 +99,30 @@ ActiveRecord::Schema.define(version: 2019_10_21_020901) do
     t.boolean "active", default: true
   end
 
+  create_table "detail_lines", force: :cascade do |t|
+    t.string "date"
+    t.string "substall"
+    t.string "hours"
+    t.string "salary"
+    t.string "holiday"
+    t.string "extra_hours"
+    t.string "extra_salary"
+    t.string "viatical"
+    t.string "extra_payment"
+    t.string "extra_payment_reason"
+    t.string "deductions"
+    t.string "deductions_reason"
+    t.string "comments"
+    t.bigint "stall_id"
+    t.bigint "shift_id"
+    t.bigint "payrole_detail_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["payrole_detail_id"], name: "index_detail_lines_on_payrole_detail_id"
+    t.index ["shift_id"], name: "index_detail_lines_on_shift_id"
+    t.index ["stall_id"], name: "index_detail_lines_on_stall_id"
+  end
+
   create_table "employees", force: :cascade do |t|
     t.string "name"
     t.string "gender"
@@ -169,6 +193,25 @@ ActiveRecord::Schema.define(version: 2019_10_21_020901) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "payrole_details", force: :cascade do |t|
+    t.string "worked_days"
+    t.string "base_salary"
+    t.string "extra_hours"
+    t.string "extra_salary"
+    t.string "viatical"
+    t.string "extra_payments"
+    t.string "deductions"
+    t.string "gross_salary"
+    t.string "ccss_deduction"
+    t.string "net_salary"
+    t.bigint "role_id"
+    t.bigint "employee_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["employee_id"], name: "index_payrole_details_on_employee_id"
+    t.index ["role_id"], name: "index_payrole_details_on_role_id"
   end
 
   create_table "payrole_lines", force: :cascade do |t|
@@ -365,6 +408,11 @@ ActiveRecord::Schema.define(version: 2019_10_21_020901) do
   add_foreign_key "budget_lines", "employees"
   add_foreign_key "budgets", "roles"
   add_foreign_key "budgets", "stalls"
+  add_foreign_key "detail_lines", "payrole_details"
+  add_foreign_key "detail_lines", "shifts"
+  add_foreign_key "detail_lines", "stalls"
+  add_foreign_key "payrole_details", "employees"
+  add_foreign_key "payrole_details", "roles"
   add_foreign_key "positions", "areas"
   add_foreign_key "quotes", "payments"
   add_foreign_key "requirements", "positions"
