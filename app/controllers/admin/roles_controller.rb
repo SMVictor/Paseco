@@ -495,7 +495,11 @@ class RolesController < ApplicationController
   end
 
   def old_payrole_detail
-    @employee = Employee.find(params[:employee_id])
+    @payrole.stalls.each do |stall|
+      stall.employees.each do |employee|
+        employee_detail(employee, @payrole)
+      end
+    end
   end
 
   def old_budget_detail
