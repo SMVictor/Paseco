@@ -497,7 +497,7 @@ class RolesController < ApplicationController
   def old_payrole_detail
     @payrole.stalls.each do |stall|
       stall.employees.each do |employee|
-        employee_detail(employee, @payrole) if @employee.payrole_details.where(role_id: @payrole.id) != []
+        employee_detail(employee, @payrole) if employee.payrole_details.where(role_id: @payrole.id) != []
       end
     end
   end
