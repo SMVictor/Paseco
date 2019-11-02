@@ -35,7 +35,7 @@
         <p><%= employee.account_identification != ""? employee.account_identification : employee.identification %></p>
       </div>
       <div class="td col-3 pt-md-3">
-        <p><%= employee.account %></p>
+        <p><%= employee.formated_account %></p>
       </div>
       <div class="td col-1 pt-md-3">
         <input type="checkbox" name="register" onchange="registerEmployee(<%= employee.id %>)">

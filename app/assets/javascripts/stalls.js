@@ -1,11 +1,8 @@
 function validateStallForm() {
 
-  var name       = document.getElementById("name");
-  var stall   = document.getElementById("stall");
-  var payment    = document.getElementById("payment");
-  var min_salary = document.getElementById("min_salary");
-  var viatical   = document.getElementById("viatical");
-  var substalls  = document.getElementById("substalls");
+  var name      = document.getElementById("name");
+  var substalls = document.getElementById("substalls");
+  var viatical  = document.getElementById("viatical");
 
   var result    = true
 
@@ -13,20 +10,12 @@ function validateStallForm() {
     errorHandler(name, "name_error", "Campo obligatorio");
     result = false;
   }
-  if (stall.value == "") {
-    errorHandler(stall, "stall_error", "Campo obligatorio");
-    result = false;
-  }
-  if (payment.value == "") {
-    errorHandler(payment, "payment_error", "Campo obligatorio");
-    result = false;
-  }
-  if (min_salary.value == "") {
-    errorHandler(min_salary, "min_salary_error", "Campo obligatorio");
-    result = false;
-  }
   if (substalls.value == 0) {
     errorHandler(substalls, "substalls_error", "Campo obligatorio");
+    result = false;
+  }
+  if (viatical.value == "") {
+    errorHandler(viatical, "viatical_error", "Campo obligatorio");
     result = false;
   }
   return result;

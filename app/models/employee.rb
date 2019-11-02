@@ -164,4 +164,12 @@ class Employee < ApplicationRecord
       @net_salary = (@gross_salary + total_exta_payments - total_deductions).round(2)
     end
   end
+
+  def formated_account
+    if self.bank == "BAC" || self.account.length != 15
+      formated_account = self.account
+    else
+      formated_account = self.account[0..2]+"-"+self.account[3..4]+"-"+self.account[5..7]+"-"+self.account[8..13]+"-"+self.account[14]
+    end
+  end
 end

@@ -13,12 +13,12 @@
   </div>
   <div class="col-xl-4 col-lg-6 mb-2 mt-2">
     <label for="">Cliente</label>
-    <%= form.collection_select :customer_id, Customer.where(active: true).order(tradename: :asc), :id, :tradename, options = {include_blank: 'Seleccione un cliente'}, html_options = {class: "form-control", id: "customer"}%>
+    <%= form.collection_select :customer_id, Customer.where(active: true).order(tradename: :asc), :id, :tradename, options = {include_blank: 'Seleccione un cliente'}, html_options = {class: "form-control", id: "customer", required: true, oninvalid: "setCustomValidity('Campo Requerido')", oninput: "setCustomValidity('')", title: "Seleccione el cliente correspondiente al puesto"}%>
     <label id="customer_error"></label>
   </div>
   <div class="col-xl-4 col-lg-6 mb-2 mt-2">
     <label for="">Cotización</label>
-    <%= form.collection_select :quote_id, Quote.order(number: :asc), :id, :institution, options = {include_blank: 'Seleccione la cotización del puesto'}, html_options = {class: "form-control", id: "quote"}%>
+    <%= form.collection_select :quote_id, Quote.order(number: :asc), :id, :institution, options = {include_blank: 'Seleccione la cotización del puesto'}, html_options = {class: "form-control", id: "quote", required: true, oninvalid: "setCustomValidity('Campo Requerido')", oninput: "setCustomValidity('')", title: "Seleccione la cotización correspondiente al puesto"}%>
     <label id="quote_error"></label>
   </div>
   <div class="col-xl-4 col-lg-6 mb-2 mt-2">
@@ -63,9 +63,6 @@
 </div>
 <script type="text/javascript">
   onInput("name");
-  onInput("customer");
-  onInput("payment");
-  onInput("min_salary");
   onInput("viatical");
   onInput("substalls");
 </script>

@@ -9,39 +9,31 @@
   <div  class="col-12 mt-2 mb-2">
     <legend>Información General</legend>
   </div>
-  <div class="col-sm-3 mb-2 mt-2">
+  <div class="col-sm-4 mb-2 mt-2">
     <strong>Nombre:</strong>
     <p><%= @stall.name %></p>
   </div>
-  <div class="col-sm-3 mb-2 mt-2">
+  <div class="col-sm-4 mb-2 mt-2">
     <strong>Descripción:</strong>
     <p><%= @stall.description %></p>
   </div>
-  <div class="col-sm-3  mb-2 mt-2">
+  <div class="col-sm-4 mb-2 mt-2">
     <strong>Cliente:</strong>
     <p><%= @stall.customer.tradename if @stall.customer %></p>
   </div>
-  <div class="col-sm-3  mb-2 mt-2">
-    <strong>Tipo de Pago:</strong>
-    <p><%= @stall.payment.name %></p>
-  </div>
-  <div class="col-sm-3  mb-2 mt-2">
-    <strong>Salario Mínimo:</strong>
-    <p><%= @stall.min_salary %></p>
-  </div>
-  <div class="col-sm-3 mb-2 mt-2">
+  <div class="col-sm-4 mb-2 mt-2">
     <strong>Provincia:</strong>
     <p><%= @stall.province %></p>
   </div>
-  <div class="col-sm-3 mb-2 mt-2">
+  <div class="col-sm-4 mb-2 mt-2">
     <strong>Cantón:</strong>
     <p><%= @stall.canton %></p>
   </div>
-  <div class="col-sm-3 mb-2 mt-2">
+  <div class="col-sm-4 mb-2 mt-2">
     <strong>Distrito:</strong>
     <p><%= @stall.district %></p>
   </div>
-  <div class="col-sm-3 mb-2 mt-2">
+  <div class="col-sm-4 mb-2 mt-2">
     <strong>Otras Señas:</strong>
     <p><%= @stall.other %></p>
   </div>
@@ -50,57 +42,18 @@
   <div  class="col-12 mt-2 mb-2">
     <legend>Información de los Recorridos</legend>
   </div>
-  <div class="col-sm-3 mb-2 mt-2">
+  <div class="col-sm-4 mb-2 mt-2">
     <strong>Viático Diario:</strong>
     <p><%= @stall.daily_viatical %></p>
   </div>
-  <div class="col-sm-3  mb-2 mt-2">
+  <div class="col-sm-4  mb-2 mt-2">
     <strong>Cantidad de Puestos:</strong>
     <p><%= @stall.substalls %></p>
   </div>
-  <div class="col-sm-3  mb-2 mt-2">
+  <div class="col-sm-4  mb-2 mt-2">
     <strong>Turno Extra:</strong>
     <p><%= @stall.extra_shift %></p>
   </div>
 </div>
-<div class="row form_fieldset">
-  <div  class="col-12 mt-2 mb-2">
-    <legend>Información de los Turnos</legend>
-    <div class="card">
-      <div class="card-body">
-        <div class="row mt-1 ml-1  mr-1 pt-3 tbl_head d-none d-md-flex text-center" style="">
-          <div class="col-12 col-md-4">
-            <p class="text-uppercase">Tipo Requerimiento</p>
-          </div>
-          <div class="col-12 col-md-4">
-            <p class="text-uppercase">Turnos</p>
-          </div>
-          <div class="col-12 col-md-4">
-            <p class="text-uppercase">Trabajadores Turno</p>
-          </div>
-        </div>
-        <% if @stall.requirements%>
-          <% @stall.requirements.each do |requirement| %>
-            <div class="row ml-1 mr-1 tbl_row"  style="">
-              <div class="col-12 col-md-4 pt-md-3">
-                <p class="d-md-none font-weight-bold">Tipo Requerimiento</p>
-                <p class="text-md-center"><%= requirement.position.name %></p>
-              </div>
-              <div class="col-12 col-md-4  pt-md-3">
-                <p class="d-md-none font-weight-bold">Turnos</p>
-                <p class="text-md-center"><%= requirement.shift.name %></p>
-              </div>
-              <div class="col-12 col-md-4  pt-md-3">
-                <p class="d-md-none font-weight-bold">Trabajadores Turno</p>
-                <p class="text-md-center"><%= requirement.workers %></p>
-              </div>
-            </div>
-          <% end %>
-        <%end %>
-      </div>
-    </div>
-  </div>
-</div>
-
 <%= link_to 'Editar', edit_admin_stall_path(@stall) %> |
 <%= link_to 'Atrás', admin_stalls_path %>

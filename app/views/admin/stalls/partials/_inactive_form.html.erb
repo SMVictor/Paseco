@@ -12,23 +12,14 @@
     <%= form.text_field :description, class: "form-control", placeholder: "Descripción" %>
   </div>
   <div class="col-xl-4 col-lg-6 mb-2 mt-2">
-    <%= form.collection_select :customer_id, Customer.where("customers.active = true OR customers.id ="+@stall.customer_id.to_s).order(tradename: :asc), :id, :tradename, options = {include_blank: 'Seleccione un cliente'}, html_options = {class: "form-control", id: "customer"}%>
+    <label for="">Cliente</label>
+    <%= form.collection_select :customer_id, Customer.where(active: true).order(tradename: :asc), :id, :tradename, options = {include_blank: 'Seleccione un cliente'}, html_options = {class: "form-control", id: "customer", required: true, oninvalid: "setCustomValidity('Campo Requerido')", oninput: "setCustomValidity('')", title: "Seleccione el cliente correspondiente al puesto" }%>
     <label id="customer_error"></label>
   </div>
   <div class="col-xl-4 col-lg-6 mb-2 mt-2">
-    <label for="">Tipo de Pago</label>
-    <%= form.collection_select :payment_id, Payment.all.order(name: :asc), :id, :name, options = {include_blank: 'Seleccione un tipo de pago'}, html_options = {class: "form-control", id: "payment"}%>
-    <label id="payment_error"></label>
-  </div>
-  <div class="col-xl-4 col-lg-6 mb-2 mt-2">
-    <label for="">Salario Mínimo Día</label>
-    <%= form.text_field :min_salary, id: "min_salary", class: "form-control", placeholder: "323028" %>
-    <label id="min_salary_error"></label>
-  </div>
-  <div class="col-xl-4 col-lg-6 mb-2 mt-2">
-    <label for="">Salario Mínimo Noche</label>
-    <%= form.text_field :night_min_salary, id: "night_min_salary", class: "form-control", placeholder: "323028" %>
-    <label id="night_min_salary_error"></label>
+    <label for="">Cotización</label>
+    <%= form.collection_select :quote_id, Quote.order(number: :asc), :id, :institution, options = {include_blank: 'Seleccione la cotización del puesto'}, html_options = {class: "form-control", id: "quote", required: true, oninvalid: "setCustomValidity('Campo Requerido')", oninput: "setCustomValidity('')", title: "Seleccione la cotización correspondiente al puesto" }%>
+    <label id="quote_error"></label>
   </div>
   <div class="col-xl-4 col-lg-6 mb-2 mt-2">
     <label for="">Provincia</label>
@@ -73,8 +64,6 @@
 <script type="text/javascript">
   onInput("name");
   onInput("customer");
-  onInput("payment");
-  onInput("min_salary");
   onInput("viatical");
   onInput("substalls");
 </script>
