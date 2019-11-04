@@ -1,10 +1,11 @@
 users = User.create([
    {name: 'Víctor Salvatierra Mora',        email: 'vsalvatierra@cecropiasolutions.com', password: '1234asdf',   password_confirmation: '1234asdf',   role: 0},
-   {name: 'Víctor Salvatierra Mora',        email: 'victor.salvatierra@outlook.com',   password: '1234asdf',   password_confirmation: '1234asdf',   role: 1},
-   {name: 'Lindsay Tatiana Arias Barquero', email: 'lindsay.ariasb18@gmail.com',       password: 'paseco2019', password_confirmation: 'paseco2019', role: 0},
-   {name: 'Justin Andrey Arias Barquero',   email: 'juspaseco94@gmail.com',            password: 'paseco2019', password_confirmation: 'paseco2019', role: 0},
-   {name: 'Jose Ricardo Arias Barquero',    email: 'jariasb91@gmail.com',              password: 'paseco2019', password_confirmation: 'paseco2019', role: 0},
-   {name: 'Ana Gabriela Gamboa',            email: 'recursoshumanos@pasecoayb.com',    password: 'paseco2019', password_confirmation: 'paseco2019', role: 3}])
+   {name: 'Víctor Salvatierra Mora',        email: 'victor.salvatierra@outlook.com',     password: '1234asdf',   password_confirmation: '1234asdf',   role: 1},
+   {name: 'Lindsay Tatiana Arias Barquero', email: 'lindsay.ariasb18@gmail.com',         password: 'paseco2019', password_confirmation: 'paseco2019', role: 0},
+   {name: 'Justin Andrey Arias Barquero',   email: 'juspaseco94@gmail.com',              password: 'paseco2019', password_confirmation: 'paseco2019', role: 0},
+   {name: 'Jose Ricardo Arias Barquero',    email: 'jariasb91@gmail.com',                password: 'paseco2019', password_confirmation: 'paseco2019', role: 0},
+   {name: 'Ana Gabriela Gamboa',            email: 'recursoshumanos@pasecoayb.com',      password: 'paseco2019', password_confirmation: 'paseco2019', role: 3},
+   {name: 'Francell Jimenez Quirós',        email: 'francelljq.2016@gmail.com',          password: 'paseco2019', password_confirmation: 'paseco2019', role: 0}])
 
 positions = Position.create([{name: 'Oficial', salary: 0}])
 

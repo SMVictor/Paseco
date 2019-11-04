@@ -52,7 +52,11 @@
 
         <tr>
           <td style="border: 1px solid;"><%= index+1 %></td>
-          <td style="border: 1px solid"><%= link_to(line.employee.name, admin_payrole_detail_path(@payrole, line.employee), class:'', title: 'Ver Empleado') %></td>
+          <% if DateTime.parse(@payrole.end_date) + 3.days < Date.today  %>
+           <td style="border: 1px solid"><%= link_to(line.employee.name, admin_old_payrole_detail_path(@payrole, line.employee), class:'', title: 'Ver Empleado') %></td>
+          <% else %>
+            <td style="border: 1px solid"><%= link_to(line.employee.name, admin_payrole_detail_path(@payrole, line.employee), class:'', title: 'Ver Empleado') %></td>
+          <% end %>
           <td style="border: 1px solid"><%= number_to_currency(line.net_salary, unit: '₡') %></td>
           <td style="border: 1px solid"><%= line.num_worked_days %></td>
           <td style="border: 1px solid"><%= number_to_currency(line.min_salary, unit: '₡') %></td>

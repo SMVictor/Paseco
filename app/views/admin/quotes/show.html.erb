@@ -1,49 +1,114 @@
-<p id="notice"><%= notice %></p>
+<div class="row justify-content-center">
+  <div class="col-12">
+    <p id="notice"><%= notice %></p>
+    <h2 class="font-weight-bold">Información de la Cotización # <%= @quote.number %></h2><br>
+  </div>
+</div>
 
-<p>
-  <strong>Type:</strong>
-  <%= @quote.type %>
-</p>
+<div class="row form_fieldsets">
+  <div  class="col-12 mt-4">
+    <legend class="font-weight-bold">Información General</legend>
+  </div>
 
-<p>
-  <strong>Institution:</strong>
-  <%= @quote.institution %>
-</p>
+  <div class="col-md-3 mb-2 mt-2">
+    <label class="font-weight-bold" class="font-weight-bold" for="">Institución</label>
+    <p><%= @quote.institution %></p>
+  </div>
+  <div class="col-md-3 mb-2 mt-2">
+    <label class="font-weight-bold" for=""># Procedimiento</label>
+    <p><%= @quote.procedure_number %></p>
+  </div>
+  <div class="col-md-3 mb-2 mt-2">
+    <label class="font-weight-bold" for="">Descripción</label>
+    <p><%= @quote.procedure_description %></p>
+  </div>
+  <div class="col-md-3 mb-2 mt-2">
+    <label class="font-weight-bold" for="">Pago</label>
+    <p><%= @quote.payment.name %></p>
+  </div>
+  <div class="col-md-3 mb-2 mt-2">
+    <label class="font-weight-bold" for="">Salario Diurno</label>
+    <p><%= @quote.daily_salary %></p>
+  </div>
+  <div class="col-md-3 mb-2 mt-2">
+    <label class="font-weight-bold" for="">Salario Nocturno</label>
+    <p><%= @quote.night_salary %></p>
+  </div>
+  <div class="col-md-3 mb-2 mt-2">
+    <label class="font-weight-bold" for="">Vacaciones</label>
+    <p><%= @quote.vacations %></p>
+  </div>
+  <div class="col-md-3 mb-2 mt-2">
+    <label class="font-weight-bold" for="">Feriados</label>
+    <p><%= @quote.holidays %></p>
+  </div>
+</div>
+<div class="row form_fieldset">
+  <div  class="col-12 mt-4">
+    <legend class="font-weight-bold">Información de los Requerimentos</legend>
+    <div class="card">
+      <div class="card-body">
+        <div class="row mt-1 pt-3 tbl_head d-none d-md-flex text-center" style="border: 1px solid;">
+          <div class="col-12 col-md-2">
+            <p class="text-uppercase font-weight-bold">Desde</p>
+          </div>
+          <div class="col-12 col-md-2">
+            <p class="text-uppercase font-weight-bold">Hasta</p>
+          </div>
+          <div class="col-12 col-md-2">
+            <p class="text-uppercase font-weight-bold">Cargo</p>
+          </div>
+          <div class="col-12 col-md-2">
+            <p class="text-uppercase font-weight-bold">Turno</p>
+          </div>
+          <div class="col-12 col-md-1">
+            <p class="text-uppercase font-weight-bold">Horas</p>
+          </div>
+          <div class="col-12 col-md-2">
+            <p class="text-uppercase font-weight-bold">Cantidad</p>
+          </div>
+          <div class="col-12 col-md-1">
+            <p class="text-uppercase font-weight-bold">Librero</p>
+          </div>
+        </div>
+        <% if @quote.requirements%>
+          <% @quote.requirements.each do |requirement| %>
+            <div class="row" style="border: 1px solid;">
+              <div class="col-12 col-md-2 pt-md-2">
+                <p class="d-md-none font-weight-bold">Desde</p>
+                <p class="text-md-center"><%= requirement.start_day %></p>
+              </div>
+              <div class="col-12 col-md-2  pt-md-2">
+                <p class="d-md-none font-weight-bold">Hasta</p>
+                <p class="text-md-center"><%= requirement.end_day %></p>
+              </div>
+              <div class="col-12 col-md-2  pt-md-2">
+                <p class="d-md-none font-weight-bold">Cargo</p>
+                <p class="text-md-center"><%= requirement.position.name %></p>
+              </div>
+              <div class="col-12 col-md-2  pt-md-2">
+                <p class="d-md-none font-weight-bold">Turno</p>
+                <p class="text-md-center"><%= requirement.shift.name %></p>
+              </div>
+              <div class="col-12 col-md-1 pt-md-2">
+                <p class="d-md-none font-weight-bold">Horas</p>
+                <p class="text-md-center"><%= requirement.hours %></p>
+              </div>
+              <div class="col-12 col-md-2 pt-md-2">
+                <p class="d-md-none font-weight-bold">Cantidad</p>
+                <p class="text-md-center"><%= requirement.workers %></p>
+              </div>
+              <div class="col-12 col-md-1 pt-md-2">
+                <p class="d-md-none font-weight-bold">Librero</p>
+                <p class="text-md-center"><%= requirement.freeday_worker %></p>
+              </div>
+            </div>
+          <% end %>
+        <%end %>
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>Procedure number:</strong>
-  <%= @quote.procedure_number %>
-</p>
-
-<p>
-  <strong>Procedure description:</strong>
-  <%= @quote.procedure_description %>
-</p>
-
-<p>
-  <strong>Salary:</strong>
-  <%= @quote.salary %>
-</p>
-
-<p>
-  <strong>Officers:</strong>
-  <%= @quote.officers %>
-</p>
-
-<p>
-  <strong>Holidays:</strong>
-  <%= @quote.holidays %>
-</p>
-
-<p>
-  <strong>Vacations:</strong>
-  <%= @quote.vacations %>
-</p>
-
-<p>
-  <strong>Payment:</strong>
-  <%= @quote.payment %>
-</p>
-
-<%= link_to 'Edit', edit_quote_path(@quote) %> |
-<%= link_to 'Back', quotes_path %>
+<%= link_to 'Editar', edit_admin_quote_path(@quote) %> |
+<%= link_to 'Atrás', admin_quotes_path %>
