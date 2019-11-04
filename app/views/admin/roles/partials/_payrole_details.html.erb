@@ -24,7 +24,7 @@
 </div>
 <div class="row form_fieldset">
   <div  class="col-12 mt-4">
-    <legend><%=  if @employee.name @employee.name %>: <%= number_to_currency(@employee.payrole_details.where(role_id: @payrole.id).first.net_salary, unit: '₡') end %> </legend>
+    <legend><%= @employee.name %>: <%= number_to_currency(@employee.payrole_details.where(role_id: @payrole.id).first.net_salary, unit: '₡') rescue nil %> </legend>
     <div class="card">
       <div class="card-body">
         <div id="table" class="table-responsive">
