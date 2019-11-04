@@ -495,13 +495,7 @@ class RolesController < ApplicationController
   end
 
   def old_payrole_detail
-    @payrole.stalls.each do |stall|
-      stall.employees.each do |employee|
-        if employee.payrole_details.where(role_id: @payrole.id) == []
-          employee_detail(employee, @payrole)
-        end
-      end
-    end
+    @employee = Employee.find(params[:employee_id])
   end
 
   def old_budget_detail
