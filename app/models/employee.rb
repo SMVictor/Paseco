@@ -5,9 +5,12 @@ class Employee < ApplicationRecord
   has_many :payrole_details
   has_many :entries
   has_many :vacations
+  has_many :christmas_bonuses
   has_and_belongs_to_many :positions, join_table: :employees_positions
   accepts_nested_attributes_for :entries, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :vacations, reject_if: :all_blank, allow_destroy: true
+
+  # PAYROLE
 
   attr_accessor :day_salary
   attr_accessor :normal_day_hours
@@ -27,9 +30,14 @@ class Employee < ApplicationRecord
   attr_accessor :ccss_deduction
   attr_accessor :net_salary
 
+  # VACATIONS
+
   attr_accessor :total_vacations_days 
   attr_accessor :used_vacations_days 
-  attr_accessor :available_vacations_days 
+  attr_accessor :available_vacations_days
+
+  # BONUSES
+   attr_accessor :christmas_bonus
 
 
   def calculate_vacations
@@ -38,8 +46,8 @@ class Employee < ApplicationRecord
     @used_vacations_days      = 0
     @available_vacations_days = 0
 
-    start_date = DateTime.parse(self.entries.last.start_date)
-    end_date   = self.entries.last.end_date != ""? DateTime.parse(self.entries.last.end_date) : Time.now
+    start_date = self.entries.last != nil && self.entries.last.start_date != "" ? DateTime.parse(self.entries.last.start_date) : Time.now
+    end_date   = self.entries.last != nil && self.entries.last.end_date   != "" ? DateTime.parse(self.entries.last.end_date)   : Time.now
 
     total_worked_months = -1
 

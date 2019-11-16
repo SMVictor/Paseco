@@ -21,7 +21,7 @@
       </div>
     </div>      
     <div class="col-xl-1 col-md-12 pt-md-5">
-      <% if f.object.id %>
+      <% if f.object.id && @employee.entries.last %>
         <button id="test" type="button" class="fa fa-eye" style="color: #8068D9;" onclick="generatePDFFile(this, '<%= @employee.entries.last.start_date %>')"></button>
       <% end %>
       <%= link_to_remove_association "", f, class: "fas fa-trash-alt", id: 'remove_link', style: "color: red" %>
