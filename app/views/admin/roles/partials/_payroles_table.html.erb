@@ -5,7 +5,7 @@
         <p class="text-uppercase">Nombre</p>
       </div>
       <div class="th col-12 col-md-3">
-        <p class="text-uppercase">Fecha de Inicio</p>
+        <p class="text-uppercase d-inline">Fecha de Inicio</p>
       </div>
       <div class="th col-12 col-md-3">
         <p class="text-uppercase">Fecha de Finalización</p>
@@ -22,7 +22,7 @@
             <% if DateTime.parse(payrole.end_date) + 3.days < Date.today  %>
               <p class="text-md-center mt-2"><%= link_to(payrole.name, admin_old_payrole_path(payrole), class:'', title: 'Ver Planilla Pasada') %></p>
             <% else %>
-              <p class="text-md-center mt-2"><%= link_to(payrole.name, admin_payrole_path(payrole), class:'', title: 'Ver Planilla') %></p>
+              <p class="text-md-center mt-2"><%= link_to(payrole.name, admin_old_payrole_path(payrole), class:'', title: 'Ver Planilla') %></p>
             <% end %>
           </div>
           <div class="th col-12 col-md-3 pt-md-3">
