@@ -3,7 +3,7 @@ class EmployeesController < ApplicationController
 
   layout 'admin', except: [:vacations_file]
   load_and_authorize_resource
-  before_action :set_employee, only: [:show, :show_inactive, :edit, :edit_inactive, :update, :update_inactive, :destroy, :edit_vacations, :update_vacations, :edit_vacations_inactive, :update_vacations_inactive]
+  before_action :set_employee, only: [:show, :show_inactive, :edit, :edit_inactive, :update, :update_inactive, :destroy, :edit_vacations, :update_vacations, :edit_vacations_inactive, :update_vacations_inactive, :edit_bonuses, :update_bonuses]
 
   def index
     if params[:ids]
@@ -29,6 +29,19 @@ class EmployeesController < ApplicationController
 
   def show
     @employee.calculate_vacations
+
+    from = Time.now.year
+    to   = Time.now.year
+
+    if @employee.entries
+      if @employee.entries.last.start_date && @employee.entries.last.start_date != ""
+        from = @employee.entries.last.start_date.to_date.year
+      end
+    end
+
+    (from..to).each do |i|
+      @employee.calculate_christmas_bonification(i)
+    end
   end
 
   def show_inactive
@@ -163,6 +176,33 @@ class EmployeesController < ApplicationController
     end
   end
 
+  def edit_bonuses
+    @bonus = @employee.christmas_bonifications.find(params[:bonus])
+  end
+  def update_bonuses
+    @bonus = @employee.christmas_bonifications.find(params[:bonus])
+
+    respond_to do |format|
+      if @bonus.update(bonus_params)
+        total = 0
+
+        @bonus.christmas_bonification_lines.each do |line|
+          line.total = line.base_salary.to_f + line.extra_payment.to_f + line.viaticals.to_f
+          total += line.total.to_f
+        end
+
+        @bonus.total = total / 12
+        @bonus.save
+
+        format.html { redirect_to admin_employee_path(@employee), notice: 'La información se actualizó correctamente.' }
+        format.json { render json: @employee, status: :ok, location: @employee }
+      else
+        format.html { render :show }
+        format.json { render json: @employee.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_employee
@@ -172,6 +212,10 @@ class EmployeesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
       params.require(:employee).permit(:name, :identification, :account_owner, :account_identification, :id_type, :birthday, :gender, :ccss_number, :province, :canton, :district, :other, :phone, :phone_1, :emergency_contact, :emergency_number, :position_id, :payment_method, :bank, :account, :social_security, :daily_viatical, :ccss_type, :special, :active, :registered_account, stall_ids: [], position_ids: [], entries_attributes: [:id, :start_date, :end_date, :document, :reason_departure, :_destroy], vacations_attributes: [:id, :start_date, :end_date, :included_freedays, :requested_days, :_destroy])
+    end
+
+    def bonus_params
+      params.require(:christmas_bonification).permit(christmas_bonification_lines_attributes: [:id, :start_date, :end_date, :base_salary, :extra_payment, :viaticals, :_destroy])
     end
 end
 end

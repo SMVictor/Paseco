@@ -1,0 +1,53 @@
+<div class="card">
+  <div class="card-body">
+    <div class="bg-body-light">
+        <div class="content content-full">
+            <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
+                <h3 class="flex-sm-fill font-size-h2 font-w400 mt-2 mb-0 mb-sm-2">Editar Planillas</h3>
+                <nav class="flex-sm-00-auto ml-sm-3" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <%= link_to('Información', admin_employee_path(@employee), class: 'breadcrumb-item')%>
+                        <li class="breadcrumb-item active" aria-current="page">Editar Planillas</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <div class="col-sm-12">
+        <%= form_for(@bonus, url: admin_update_bonuses_path(@employee, @bonus), html: {multipart: true, onsubmit:"return validateBonusForm()"}) do |form| %>
+          <div class="row form_fieldset text-center">
+              <div  class="col-12 mt-4">
+                <div class="row mt-1 ml-1  mr-1 pt-3 tbl_head d-none d-xl-flex text-center" style="">
+                  <div class="col-12 col-xl-3">
+                    <p class="text-uppercase">Desde</p>
+                  </div>
+                  <div class="col-12 col-xl-3">
+                    <p class="text-uppercase">Hasta</p>
+                  </div>
+                  <div class="col-12 col-xl-2">
+                    <p class="text-uppercase">Salario Base</p>
+                  </div>
+                  <div class="col-12 col-xl-2">
+                    <p class="text-uppercase">Horas Extras</p>
+                  </div>
+                  <div class="col-12 col-xl-2">
+                    <p class="text-uppercase">Viáticos</p>
+                  </div>
+                </div>
+                 <div id="christmas_bonification_lines">
+                <div class="christmas_bonification_lines-fields mt-4">
+                  <%= form.fields_for :christmas_bonification_lines do |christmas_bonification_line| %>
+                    <%= render 'christmas_bonification_line_fields', f: christmas_bonification_line %>
+                  <%end%>
+                </div>
+              </div>
+              </div> 
+            </div>
+            <%= form.submit "Guardar", id: 'btn_submit', class: "btn btn-success mt-4" %>
+            <%= link_to('Cancelar', admin_employee_path(@employee), class: 'btn btn-light ml-sm-3 mt-4')%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

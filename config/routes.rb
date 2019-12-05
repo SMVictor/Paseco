@@ -42,6 +42,7 @@ Rails.application.routes.draw do
       get    'payroles/:id/old'              => 'roles#show_old_payrole',       as: 'old_payrole'
       get    'payroles/:id/:employee_id'     => 'roles#payrole_detail',         as: 'payrole_detail'
       get    'payroles/:id/:employee_id/old' => 'roles#old_payrole_detail',     as: 'old_payrole_detail'
+      post   'payroles/load'                 => 'roles#load_payrole',           as: 'load_payrole'
 
       get    'BNCR/file/:id' => 'roles#bncr_file',      as: 'bncr_file'
       get    'BAC/file/:id'  => 'roles#bac_file',       as: 'bac_file'
@@ -72,6 +73,8 @@ Rails.application.routes.draw do
   
       get    'employee/:id/vacations' => 'employees#edit_vacations',    as: 'edit_vacations'
       patch  'employee/:id/vacations' => 'employees#update_vacations',  as: 'update_vacations'
+      get    'employee/:id/bonuses/:bonus'     => 'employees#edit_bonuses',               as: 'edit_bonuses'
+      patch  'employee/:id/bonuses/:bonus'     => 'employees#update_bonuses',             as: 'update_bonuses'
       get    'employee/:id/vacations/inactive' => 'employees#edit_vacations_inactive',    as: 'edit_vacations_inactive'
       patch  'employee/:id/vacations/inactive' => 'employees#update_vacations_inactive',  as: 'update_vacations_inactive'
 

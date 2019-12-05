@@ -26,7 +26,7 @@ function filterPayrole(){
   var search = $('#payrole').val().toUpperCase();
   var ids = [0];
   payrole_lines.forEach(function(line) {
-    if (line.employee.name.toUpperCase().includes(search) || line.employee.bank.toUpperCase().includes(search)) {
+    if (line.name.toUpperCase().includes(search) || line.bank.toUpperCase().includes(search)) {
       ids.push(line.id);
     }
   });

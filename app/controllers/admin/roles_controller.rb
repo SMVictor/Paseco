@@ -8,7 +8,25 @@ class RolesController < ApplicationController
   before_action :set_payrole, only: [:show_payroles, :bncr_file, :bac_file, :payrole_detail, :show_old_payrole, :budget, :old_budget, :budget_detail, :old_payrole_detail, :old_budget_detail]
 
   def index
-    @roles = Role.all.order(id: :desc)
+    temporal_roles = Role.all
+    @roles = []
+    temporal_roles.each do |role|
+      if @roles[0] == nil
+        @roles << role
+      else
+        flat = true
+        @roles.each_with_index do |listed_role, index|
+          if role.start_date.to_date > listed_role.start_date.to_date
+            @roles.insert(index, role)
+            flat = false
+            break
+          end
+        end
+        if flat
+          @roles << role
+        end
+      end
+    end 
   end
 
   def show
@@ -223,18 +241,37 @@ class RolesController < ApplicationController
   end
 
   def index_payroles
-    @payroles = Role.all.order(id: :desc)
+    temporal_payroles = Role.all
+    @payroles = []
+    temporal_payroles.each do |payrole|
+      if @payroles[0] == nil
+        @payroles << payrole
+      else
+        flat = true
+        @payroles.each_with_index do |listed_payrole, index|
+          if payrole.start_date.to_date > listed_payrole.start_date.to_date
+            @payroles.insert(index, payrole)
+            flat = false
+            break
+          end
+        end
+        if flat
+          @payroles << payrole
+        end
+      end
+    end 
+    @payrole =  Role.new
   end
 
   def show_payroles
 
     if params[:ids]
-      @payrole_lines = @payrole.payrole_lines.where(id: params[:ids]).includes(:employee).order("employees.name asc")
+      @payrole_lines = @payrole.payrole_lines.where(id: params[:ids]).order(name: :asc)
       respond_to do |format|
         format.js
       end
     else
-      @payrole_lines = @payrole.payrole_lines.includes(:employee).order("employees.name asc")
+      @payrole_lines = @payrole.payrole_lines.order(name: :asc)
       @payrole_lines.delete_all
 
       @employees = Employee.where(active: true).or(Employee.where(id: @role.role_lines.pluck("employee_id").uniq)).order(name: :asc)
@@ -278,7 +315,10 @@ class RolesController < ApplicationController
         @payrole_line.extra_payments  = employee.total_exta_payments.round(2)
         @payrole_line.deductions      = employee.total_deductions.round(2)
         @payrole_line.holidays        = employee.total_holidays.round(2)
+        @payrole_line.name            = employee.name
         @payrole_line.bank            = employee.bank
+        @payrole_line.ccss_type       = employee.ccss_type == 'yes'? 'Completo' : 'Normal'
+        @payrole_line.social_security = employee.social_security
         @payrole_line.account         = employee.account
         @payrole_line.save
       end
@@ -287,12 +327,12 @@ class RolesController < ApplicationController
 
   def show_old_payrole
     if params[:ids]
-      @payrole_lines = @payrole.payrole_lines.where(id: params[:ids]).includes(:employee).order("employees.name asc")
+      @payrole_lines = @payrole.payrole_lines.where(id: params[:ids]).order(name: :asc)
       respond_to do |format|
         format.js
       end
     else
-      @payrole_lines = @payrole.payrole_lines.includes(:employee).order("employees.name asc")
+      @payrole_lines = @payrole.payrole_lines.order(name: :asc)
     end
   end
 
@@ -500,6 +540,17 @@ class RolesController < ApplicationController
 
   def old_budget_detail
     @employee = Employee.find(params[:employee_id])
+  end
+
+  def load_payrole
+    respond_to do |format|
+      if count = Role.import(params[:role][:file], params[:role][:name])
+        format.html { redirect_to admin_payroles_path, notice: 'Se han cargado con éxito '+count.to_s+' registros.' }
+      end
+    end
+  end
+
+  def sort
   end
 
   private

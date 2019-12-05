@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_25_164016) do
+ActiveRecord::Schema.define(version: 2019_11_20_220259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,29 @@ ActiveRecord::Schema.define(version: 2019_10_25_164016) do
     t.float "amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "christmas_bonification_lines", force: :cascade do |t|
+    t.string "base_salary"
+    t.string "extra_payment"
+    t.string "viaticals"
+    t.string "total"
+    t.string "start_date"
+    t.string "end_date"
+    t.bigint "christmas_bonification_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["christmas_bonification_id"], name: "index_christmas_bonification_lines_on_christmas_bonification_id"
+  end
+
+  create_table "christmas_bonifications", force: :cascade do |t|
+    t.string "from_date"
+    t.string "to_date"
+    t.string "total"
+    t.bigint "employee_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["employee_id"], name: "index_christmas_bonifications_on_employee_id"
   end
 
   create_table "customers", force: :cascade do |t|
@@ -231,6 +254,9 @@ ActiveRecord::Schema.define(version: 2019_10_25_164016) do
     t.string "holidays"
     t.string "bank"
     t.string "account"
+    t.string "social_security"
+    t.string "ccss_type"
+    t.string "name"
     t.index ["employee_id"], name: "index_payrole_lines_on_employee_id"
     t.index ["role_id"], name: "index_payrole_lines_on_role_id"
   end
@@ -408,6 +434,8 @@ ActiveRecord::Schema.define(version: 2019_10_25_164016) do
   add_foreign_key "budget_lines", "employees"
   add_foreign_key "budgets", "roles"
   add_foreign_key "budgets", "stalls"
+  add_foreign_key "christmas_bonification_lines", "christmas_bonifications"
+  add_foreign_key "christmas_bonifications", "employees"
   add_foreign_key "detail_lines", "payrole_details"
   add_foreign_key "detail_lines", "shifts"
   add_foreign_key "detail_lines", "stalls"
