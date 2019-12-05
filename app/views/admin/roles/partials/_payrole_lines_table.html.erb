@@ -44,15 +44,17 @@
         <% @total_net_salary     += line.net_salary.to_f %>
         <% @total_holidays       += line.holidays.to_f %>
 
-        <% if line.employee.ccss_type == "yes"%>
-          <% salary_type = "Completo" %>
-        <% else %>
-          <% salary_type = "Normal" %>
-        <% end %>
-
         <tr>
           <td style="border: 1px solid;"><%= index+1 %></td>
-          <td style="border: 1px solid"><%= link_to(line.employee.name, admin_payrole_detail_path(@payrole, line.employee), class:'', title: 'Ver Empleado') %></td>
+          <% if line.employee %>
+            <% if DateTime.parse(@payrole.end_date) + 3.days < Date.today  %>
+             <td style="border: 1px solid"><%= link_to(line.employee.name, admin_old_payrole_detail_path(@payrole, line.employee), class:'', title: 'Ver Empleado') %></td>
+            <% else %>
+              <td style="border: 1px solid"><%= link_to(line.employee.name, admin_payrole_detail_path(@payrole, line.employee), class:'', title: 'Ver Empleado') %></td>
+            <% end %>
+          <% else %>
+            <td style="border: 1px solid"><%= line.name %></td>
+          <% end %>
           <td style="border: 1px solid"><%= number_to_currency(line.net_salary, unit: '₡') %></td>
           <td style="border: 1px solid"><%= line.num_worked_days %></td>
           <td style="border: 1px solid"><%= number_to_currency(line.min_salary, unit: '₡') %></td>
@@ -61,8 +63,8 @@
           <td style="border: 1px solid"><%= number_to_currency(line.extra_hours, unit: '₡') %></td>
           <td style="border: 1px solid"><%= number_to_currency(line.daily_viatical, unit: '₡') %></td>
           <td style="border: 1px solid"><%= number_to_currency(line.extra_payments, unit: '₡') %></td>
-          <td style="border: 1px solid"><%= salary_type %></td>
-          <td style="border: 1px solid"><%= line.employee.social_security %></td>
+          <td style="border: 1px solid"><%= line.ccss_type %></td>
+          <td style="border: 1px solid"><%= line.social_security %></td>
           <td style="border: 1px solid"><%= number_to_currency(line.ccss_deduction, unit: '₡') %></td>
           <td style="border: 1px solid"><%= number_to_currency(line.deductions, unit: '₡') %></td>
         </tr>

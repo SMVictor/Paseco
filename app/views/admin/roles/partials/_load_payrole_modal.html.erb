@@ -1,0 +1,32 @@
+<div class="modal" id="loadPayroleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content rounded" style="border: 1px solid;">
+      <%= form_for(@payrole, url: admin_load_payrole_path, html: {multipart: true, id: "load_payrole_form"}) do |form| %>
+      <div class="modal-header rounded-top card">
+        <h3>Datos de la Planilla</h3>
+      </div>
+      <div class="modal-body card" style="border-top: 1px solid; border-bottom: 1px solid;">
+        <div class="row">
+          <div class="col-7 pt-4">
+            <%= form.select(:name, @payroles.collect(&:name), {include_blank: "Seleccione un el role"}, { class: "form-control", id: "role" }) %>
+            <label id="level_error"></label>
+          </div>
+          <div class="col-5 pt-4 text-right">
+            <label for="file" class="btn btn-info">
+              <i class="fa fa-upload mr-1"></i>Cargar
+            </label>
+            <%= form.file_field :file, id: "file", title: "Seleccione un archivo", class: "custom-file-input"%>
+            <label id="file_error"></label>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="d-flex justify-content-center">
+          <button type="submit" class="btn btn-success mb-2 mt-2" >Guardar</button>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div id="spinner"></div>

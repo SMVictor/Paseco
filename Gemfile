@@ -90,3 +90,6 @@ gem 'fog-aws'
 gem 'pdfkit'
 gem 'wkhtmltopdf-binary'
 
+# FOR WORK WITH EXCEL FILES
+gem 'roo-xls'
+
