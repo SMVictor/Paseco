@@ -34,11 +34,10 @@ class EmployeesController < ApplicationController
     to   = Time.now.year
 
     if @employee.entries
-      if @employee.entries.last.start_date && @employee.entries.last.start_date != ""
+      if @employee.entries && @employee.entries.last && @employee.entries.last.start_date && @employee.entries.last.start_date != ""
         from = @employee.entries.last.start_date.to_date.year
       end
     end
-
     (from..to).each do |i|
       @employee.calculate_christmas_bonification(i)
     end
