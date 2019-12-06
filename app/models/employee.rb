@@ -189,7 +189,7 @@ class Employee < ApplicationRecord
     @christmas_bonification = self.christmas_bonifications.where(from_date: from_date).first || ChristmasBonification.new(from_date: from_date, to_date: to_date, employee_id: self.id)
 
     PayroleLine.where(name: self.name).each do |payrole_line|
-      if payrole_line.role.start_date.to_date >= from_date.to_date && payrole_line.role.end_date.to_date <= to_date.to_date && (payrole_line.role.end_date.to_date + 7.days) <= Time.now
+      if payrole_line.role.start_date.to_date >= from_date.to_date && payrole_line.role.end_date.to_date <= to_date.to_date && (payrole_line.role.end_date.to_date + 3.days) <= Time.now
 
         if @christmas_bonification.christmas_bonification_lines[christmas_bonification_lines_counter] == nil
 
