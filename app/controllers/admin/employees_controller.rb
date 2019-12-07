@@ -177,9 +177,8 @@ class EmployeesController < ApplicationController
 
   def edit_bonuses
     @bonus = @employee.christmas_bonifications.find(params[:bonus])
-    temporal_lines = @bonus.christmas_bonification_lines
     @lines = []
-    temporal_lines.each do |line|
+    @bonus.christmas_bonification_lines.each do |line|
       if @lines[0] == nil
         @lines << line
       else
