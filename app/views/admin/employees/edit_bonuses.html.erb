@@ -37,9 +37,9 @@
                 </div>
                  <div id="christmas_bonification_lines">
                 <div class="christmas_bonification_lines-fields mt-4">
-                  <%= form.fields_for :christmas_bonification_lines do |christmas_bonification_line| %>
+                  <%= form.fields_for :christmas_bonification_lines, @lines do |christmas_bonification_line| %>
                     <%= render 'christmas_bonification_line_fields', f: christmas_bonification_line %>
-                  <%end%>
+                  <% end %>
                 </div>
               </div>
               </div> 
