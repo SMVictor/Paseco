@@ -1,10 +1,10 @@
 <div class="col-12 fields nested-fields text-center tbl_row">
   <div class="row">
-    <div class="col-xl-3 mt-2 mb-2">
+    <div class="col-xl-2 mt-2 mb-2">
       <p class="d-xl-none font-weight-bold">Desde</p>
       <%= f.text_field :start_date, required: true, title: "Fecha de Inicio", oninvalid: "setCustomValidity('Campo Requerido')", oninput: "setCustomValidity('')", class: "form-control", placeholder: "01/08/2019",  disabled: true %>
     </div>
-    <div class="col-xl-3 mt-2 mb-2">
+    <div class="col-xl-2 mt-2 mb-2">
       <p class="d-xl-none font-weight-bold">Hasta</p>
       <%= f.text_field :end_date, required: true, title: "Fecha de Fin", oninvalid: "setCustomValidity('Campo Requerido')", oninput: "setCustomValidity('')", class: "form-control", placeholder: "15/08/2019", disabled: true %>
     </div>
@@ -19,6 +19,10 @@
     <div class="col-xl-2 mt-2 mb-2">
       <p class="d-xl-none font-weight-bold">Viáticos</p>
       <%= f.text_field :viaticals, required: true, title: "Salario por Viáticos", oninvalid: "setCustomValidity('Campo Requerido')", oninput: "setCustomValidity('')", class: "form-control", placeholder: "12500" %>
+    </div>
+    <div class="col-xl-2 mt-3 mb-1">
+      <p class="d-xl-none font-weight-bold">Total</p>
+      <p class=""><%= number_to_currency((f.object.base_salary.to_f + f.object.extra_payment.to_f + f.object.viaticals.to_f ).round(2), unit: '₡') %> </p>
     </div>
   </div>
 </div>
