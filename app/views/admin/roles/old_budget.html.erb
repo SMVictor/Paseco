@@ -4,7 +4,7 @@
             <h3 class="font-size-h2 font-w400 mt-2 mb-0 mb-sm-2">Presupuesto Para: <%= @role.name %></h3>
             <nav class="flex-sm-00-auto ml-sm-3" aria-label="breadcrumb">
                 <ol class="breadcrumb d-none d-md-flex">
-                    <%= link_to(''+@role.name, admin_old_payrole_path(@payrole), class: 'breadcrumb-item')%>
+                    <%= link_to(''+@role.name, admin_payrole_path(@payrole), class: 'breadcrumb-item')%>
                     <li class="breadcrumb-item active" aria-current="page">Presupuesto</li>
                 </ol>
             </nav>
@@ -23,4 +23,4 @@
   </div>
 </div>
 
-<%= link_to 'Atrás', admin_old_payrole_path(@payrole), class: "" %>
+<%= link_to 'Atrás', admin_payrole_path(@payrole), class: "" %>

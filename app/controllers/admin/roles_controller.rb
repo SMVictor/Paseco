@@ -5,7 +5,7 @@ class RolesController < ApplicationController
   load_and_authorize_resource
   before_action :set_role, only: [:show, :edit, :update, :destroy, :add_role_lines, :update_role_lines, :approvals, :check_changes, :stall_summary, :stalls_hours]
   before_action :set_stall, only: [:update_role_lines, :add_role_lines, :check_changes, :stall_summary]
-  before_action :set_payrole, only: [:show_payroles, :bncr_file, :bac_file, :payrole_detail, :show_old_payrole, :budget, :old_budget, :budget_detail, :old_payrole_detail, :old_budget_detail]
+  before_action :set_payrole, only: [:show_payroles, :bncr_file, :bac_file, :payrole_detail, :budget, :old_budget, :budget_detail]
 
   def index
     temporal_roles = Role.all
@@ -103,6 +103,84 @@ class RolesController < ApplicationController
       else
         respond_to do |format|
           if @role.update(role_params)
+
+            employee       = Employee.find(params[:role][:employee_id])
+            @role_lines    = @role.role_lines.where(employee: employee).order(stall_id: :asc, date: :asc)
+            payrole_detail = employee.payrole_details.where(role_id: @role.id).first || employee.payrole_details.new(role: @role)
+
+            @total_day_salary     = 0 
+            @total_extra_hours    = 0 
+            @total_extra_salary   = 0 
+            @total_extra_payments = 0 
+            @total_deductions     = 0 
+            @total_viatical       = 0
+            @total_holidays       = 0
+
+            has_night =  @role_lines.joins(:shift).where("name = 'Noche'").length
+
+            payrole_detail.detail_lines.destroy_all
+            @role_lines.each do |line|
+
+              employee.calculate_day_salary(line, has_night)
+              employee.calculate_daily_viatical(line)
+
+              @total_day_salary     += employee.day_salary
+              @total_extra_hours    += employee.extra_day_hours 
+              @total_extra_salary   += employee.extra_day_salary 
+              @total_extra_payments += line.extra_payments.to_f 
+              @total_deductions     += line.deductions.to_f 
+              @total_viatical       += employee.viatical
+              @total_holidays       += employee.holiday
+
+              payrole_detail.detail_lines.new(stall: line.stall, shift:line.shift)
+              payrole_detail.detail_lines.last.date                 = line.date
+              payrole_detail.detail_lines.last.substall             = line.substall
+              payrole_detail.detail_lines.last.hours                = employee.normal_day_hours
+              payrole_detail.detail_lines.last.salary               = employee.day_salary.round(2)
+              payrole_detail.detail_lines.last.holiday              = employee.holiday.round(2)
+              payrole_detail.detail_lines.last.extra_hours          = employee.extra_day_hours.round(2)
+              payrole_detail.detail_lines.last.extra_salary         = employee.extra_day_salary.round(2)
+              payrole_detail.detail_lines.last.viatical             = employee.viatical.round(2)
+              payrole_detail.detail_lines.last.extra_payment        = line.extra_payments
+              payrole_detail.detail_lines.last.extra_payment_reason = line.extra_payments_description
+              payrole_detail.detail_lines.last.deductions           = line.deductions
+              payrole_detail.detail_lines.last.deductions_reason    = line.deductions_description
+              payrole_detail.detail_lines.last.comments             = line.comment 
+            end
+            employee.calculate_payment(@role_lines.length, @total_day_salary, @total_extra_hours, @total_extra_salary, @total_viatical, @total_extra_payments, @total_deductions, @total_holidays)
+
+            @payrole_line = @role.payrole_lines.where(employee: employee)[0] || @role.payrole_lines.new([{ min_salary: '0', extra_hours: '0', daily_viatical: '0', ccss_deduction: '0', extra_payments: '0', deductions: '0', net_salary: '0', employee_id: employee.id }])[0]
+
+            @payrole_line.num_worked_days = employee.total_days
+            @payrole_line.min_salary      = employee.total_day_salary.round(2)
+            @payrole_line.num_extra_hours = employee.total_extra_hours
+            @payrole_line.extra_hours     = employee.total_extra_salary.round(2)
+            @payrole_line.daily_viatical  = employee.total_viatical.round(2)
+            @payrole_line.ccss_deduction  = employee.ccss_deduction.round(2)
+            @payrole_line.net_salary      = employee.net_salary.round(2)
+            @payrole_line.extra_payments  = employee.total_exta_payments.round(2)
+            @payrole_line.deductions      = employee.total_deductions.round(2)
+            @payrole_line.holidays        = employee.total_holidays.round(2)
+            @payrole_line.name            = employee.name
+            @payrole_line.bank            = employee.bank
+            @payrole_line.ccss_type       = employee.ccss_type == 'yes'? 'Completo' : 'Normal'
+            @payrole_line.social_security = employee.social_security
+            @payrole_line.account         = employee.account
+
+            payrole_detail.worked_days    = employee.total_days
+            payrole_detail.base_salary    = (employee.total_day_salary + employee.total_holidays).round(2)
+            payrole_detail.extra_hours    = employee.total_extra_hours.round(2)
+            payrole_detail.extra_salary   = employee.total_extra_salary.round(2)
+            payrole_detail.viatical       = employee.total_viatical.round(2)
+            payrole_detail.extra_payments = employee.total_exta_payments.round(2) 
+            payrole_detail.deductions     = employee.total_deductions.round(2)
+            payrole_detail.gross_salary   = (employee.total_day_salary + employee.total_holidays + employee.total_extra_salary + employee.total_viatical + employee.total_exta_payments).round(2)
+            payrole_detail.ccss_deduction = employee.ccss_deduction.round(2) 
+            payrole_detail.net_salary     = employee.net_salary.round(2)
+
+            @payrole_line.save
+            payrole_detail.save
+
             format.html { redirect_to admin_role_lines_url, notice: 'El role se actualizó correctamente.' }
             format.json { render json: @role, status: :ok, location: @role }
           else
@@ -272,67 +350,6 @@ class RolesController < ApplicationController
       end
     else
       @payrole_lines = @payrole.payrole_lines.order(name: :asc)
-      @payrole_lines.delete_all
-
-      @employees = Employee.where(active: true).or(Employee.where(id: @role.role_lines.pluck("employee_id").uniq)).order(name: :asc)
-      @employees.each do |employee|
-        @role_lines = @payrole.role_lines.where(employee: employee)
-
-        @total_day_salary     = 0 
-        @total_extra_hours    = 0 
-        @total_extra_salary   = 0 
-        @total_extra_payments = 0 
-        @total_deductions     = 0 
-        @total_viatical       = 0
-        @total_holidays       = 0
-
-        has_night =  @role_lines.joins(:shift).where("name = 'Noche'").length
-
-        @role_lines.each do |line|
-
-          employee.calculate_day_salary(line, has_night)
-          employee.calculate_daily_viatical(line)
-
-          @total_day_salary     += employee.day_salary
-          @total_extra_hours    += employee.extra_day_hours 
-          @total_extra_salary   += employee.extra_day_salary 
-          @total_extra_payments += line.extra_payments.to_f 
-          @total_deductions     += line.deductions.to_f 
-          @total_viatical       += employee.viatical
-          @total_holidays       += employee.holiday 
-        end
-        employee.calculate_payment(@role_lines.length, @total_day_salary, @total_extra_hours, @total_extra_salary, @total_viatical, @total_extra_payments, @total_deductions, @total_holidays)
-
-        @payrole_line = @payrole.payrole_lines.new([{ min_salary: '0', extra_hours: '0', daily_viatical: '0', ccss_deduction: '0', extra_payments: '0', deductions: '0', net_salary: '0', employee_id: employee.id }])[0]
-
-        @payrole_line.num_worked_days = employee.total_days
-        @payrole_line.min_salary      = employee.total_day_salary.round(2)
-        @payrole_line.num_extra_hours = employee.total_extra_hours
-        @payrole_line.extra_hours     = employee.total_extra_salary.round(2)
-        @payrole_line.daily_viatical  = employee.total_viatical.round(2)
-        @payrole_line.ccss_deduction  = employee.ccss_deduction.round(2)
-        @payrole_line.net_salary      = employee.net_salary.round(2)
-        @payrole_line.extra_payments  = employee.total_exta_payments.round(2)
-        @payrole_line.deductions      = employee.total_deductions.round(2)
-        @payrole_line.holidays        = employee.total_holidays.round(2)
-        @payrole_line.name            = employee.name
-        @payrole_line.bank            = employee.bank
-        @payrole_line.ccss_type       = employee.ccss_type == 'yes'? 'Completo' : 'Normal'
-        @payrole_line.social_security = employee.social_security
-        @payrole_line.account         = employee.account
-        @payrole_line.save
-      end
-    end
-  end
-
-  def show_old_payrole
-    if params[:ids]
-      @payrole_lines = @payrole.payrole_lines.where(id: params[:ids]).order(name: :asc)
-      respond_to do |format|
-        format.js
-      end
-    else
-      @payrole_lines = @payrole.payrole_lines.order(name: :asc)
     end
   end
 
@@ -395,8 +412,7 @@ class RolesController < ApplicationController
   end
 
   def payrole_detail
-    employee = Employee.find(params[:employee_id])
-    employee_detail(employee, @payrole)
+    @employee = Employee.find(params[:employee_id])
   end
 
   def stalls_hours
@@ -516,8 +532,16 @@ class RolesController < ApplicationController
   end
 
    def budget_detail
-    employee = Employee.find(params[:employee_id])
-    employee_detail(employee, @payrole)
+    @employee = Employee.find(params[:employee_id])
+  end
+
+
+  def load_payrole
+    respond_to do |format|
+      if count = Role.import(params[:role][:file], params[:role][:name])
+        format.html { redirect_to admin_payroles_path, notice: 'Se han cargado con éxito '+count.to_s+' registros.' }
+      end
+    end
   end
 
   def old_budget
@@ -534,91 +558,7 @@ class RolesController < ApplicationController
     end
   end
 
-  def old_payrole_detail
-    @employee = Employee.find(params[:employee_id])
-  end
-
-  def old_budget_detail
-    @employee = Employee.find(params[:employee_id])
-  end
-
-  def load_payrole
-    respond_to do |format|
-      if count = Role.import(params[:role][:file], params[:role][:name])
-        format.html { redirect_to admin_payroles_path, notice: 'Se han cargado con éxito '+count.to_s+' registros.' }
-      end
-    end
-  end
-
-  def sort
-  end
-
   private
-
-    def employee_detail(employee, payrole)
-      @employee = employee
-      @payrole  = payrole
-
-      @employee.payrole_details.where(role_id: @payrole.id).destroy_all if @employee.payrole_details.where(role_id: @payrole.id)
-      @employee.payrole_details.new(role: @payrole)
-      lines =  @payrole.role_lines.where(employee: @employee).order(stall_id: :asc, date: :asc)
-
-      if lines
-
-        total_day_salary     = 0
-        total_extra_hours    = 0
-        total_extra_salary   = 0
-        total_extra_payments = 0
-        total_deductions     = 0
-        total_viatical       = 0
-        total_holiday        = 0
-
-        has_night =  lines.joins(:shift).where("name = 'Noche'").length
-
-        lines.each do |line| 
-
-          @employee.calculate_day_salary(line, has_night)
-          @employee.calculate_daily_viatical(line)
-
-          total_day_salary     += @employee.day_salary
-          total_extra_hours    += @employee.extra_day_hours
-          total_extra_salary   += @employee.extra_day_salary
-          total_extra_payments += line.extra_payments.to_f
-          total_deductions     += line.deductions.to_f
-          total_viatical       += @employee.viatical
-          total_holiday        += @employee.holiday
-
-          @employee.payrole_details.last.detail_lines.new(stall: line.stall, shift:line.shift)
-          @employee.payrole_details.last.detail_lines.last.date                 = line.date
-          @employee.payrole_details.last.detail_lines.last.substall             = line.substall
-          @employee.payrole_details.last.detail_lines.last.hours                = @employee.normal_day_hours
-          @employee.payrole_details.last.detail_lines.last.salary               = @employee.day_salary.round(2)
-          @employee.payrole_details.last.detail_lines.last.holiday              = @employee.holiday.round(2)
-          @employee.payrole_details.last.detail_lines.last.extra_hours          = @employee.extra_day_hours.round(2)
-          @employee.payrole_details.last.detail_lines.last.extra_salary         = @employee.extra_day_salary.round(2)
-          @employee.payrole_details.last.detail_lines.last.viatical             = @employee.viatical.round(2)
-          @employee.payrole_details.last.detail_lines.last.extra_payment        = line.extra_payments
-          @employee.payrole_details.last.detail_lines.last.extra_payment_reason = line.extra_payments_description
-          @employee.payrole_details.last.detail_lines.last.deductions           = line.deductions
-          @employee.payrole_details.last.detail_lines.last.deductions_reason    = line.deductions_description
-          @employee.payrole_details.last.detail_lines.last.comments             = line.comment
-        end
-
-        @employee.calculate_payment(lines.length, total_day_salary, total_extra_hours, total_extra_salary, total_viatical, total_extra_payments, total_deductions, total_holiday)
-        
-        @employee.payrole_details.last.worked_days    = @employee.total_days
-        @employee.payrole_details.last.base_salary    = (@employee.total_day_salary + @employee.total_holidays).round(2)
-        @employee.payrole_details.last.extra_hours    = @employee.total_extra_hours.round(2)
-        @employee.payrole_details.last.extra_salary   = @employee.total_extra_salary.round(2)
-        @employee.payrole_details.last.viatical       = @employee.total_viatical.round(2)
-        @employee.payrole_details.last.extra_payments = @employee.total_exta_payments.round(2) 
-        @employee.payrole_details.last.deductions     = @employee.total_deductions.round(2)
-        @employee.payrole_details.last.gross_salary   = (@employee.total_day_salary + @employee.total_holidays + @employee.total_extra_salary + @employee.total_viatical + @employee.total_exta_payments).round(2)
-        @employee.payrole_details.last.ccss_deduction = @employee.ccss_deduction.round(2) 
-        @employee.payrole_details.last.net_salary     = @employee.net_salary.round(2)
-        @employee.save
-      end
-    end
     # Use callbacks to share common setup or constraints between actions.
     def set_role
       @role = Role.find(params[:id])
