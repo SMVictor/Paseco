@@ -1,4 +1,7 @@
 <%= form_for(@role, :remote => true, :authenticity_token => true, prepend: true, url: admin_edit_role_lines_path(@role), html: {multipart: true}) do |form| %>
+  <% if @employee %>
+    <input value="<%= @employee.id %>" type="hidden" name="role[employee_id]" id="role_line_employee_id">
+  <% end %>
   <div class="row form_fieldset text-center">
     <div  class="col-12 mt-4">
       <div class="row mt-1 ml-1  mr-1 pt-3 tbl_head d-none d-xl-flex text-center">

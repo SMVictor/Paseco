@@ -39,9 +39,7 @@ Rails.application.routes.draw do
 
       get    'payroles'                      => 'roles#index_payroles',         as: 'payroles'
       get    'payroles/:id'                  => 'roles#show_payroles',          as: 'payrole'
-      get    'payroles/:id/old'              => 'roles#show_old_payrole',       as: 'old_payrole'
       get    'payroles/:id/:employee_id'     => 'roles#payrole_detail',         as: 'payrole_detail'
-      get    'payroles/:id/:employee_id/old' => 'roles#old_payrole_detail',     as: 'old_payrole_detail'
       post   'payroles/load'                 => 'roles#load_payrole',           as: 'load_payrole'
 
       get    'BNCR/file/:id' => 'roles#bncr_file',      as: 'bncr_file'
@@ -92,7 +90,6 @@ Rails.application.routes.draw do
       get    'budget/:id/'                 => 'roles#budget',            as: 'budget'
       get    'budget/:id/old'              => 'roles#old_budget',        as: 'old_budget'
       get    'budget/:id/:employee_id'     => 'roles#budget_detail',     as: 'budget_detail'
-      get    'budget/:id/:employee_id/old' => 'roles#old_budget_detail', as: 'old_budget_detail'
 
     end
   end

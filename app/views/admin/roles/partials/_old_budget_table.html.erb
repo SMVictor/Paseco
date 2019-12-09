@@ -23,11 +23,7 @@
 	   </div>
 	    <div class="row tb_body">
 	     <% budget.budget_lines.each do |budget| %>
-	     <% if DateTime.parse(@payrole.end_date) + 3.days < Date.today  %>
-           <div class="col-6 pt-md-2"><p><%= link_to(budget.employee.name, admin_old_budget_detail_path(@payrole, budget.employee), class:'', title: 'Ver Empleado') %></p></div>
-          <% else %>
-            <div class="col-6 pt-md-2"><p><%= link_to(budget.employee.name, admin_budget_detail_path(@payrole, budget.employee), class:'', title: 'Ver Empleado') %></p></div>
-          <% end %>
+	     <div class="col-6 pt-md-2"><p><%= link_to(budget.employee.name, admin_budget_detail_path(@payrole, budget.employee), class:'', title: 'Ver Empleado') %></p></div>
           <div class="col-6 pt-md-2"><p><%= number_to_currency(budget.salary.to_f, unit: '₡') %></p></div>
 	     <% end %>
 	     <div class="col-6 pt-md-2"><p>Sub-Total Mano de Obra</p></div>

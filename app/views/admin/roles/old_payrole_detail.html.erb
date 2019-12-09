@@ -1,6 +1,0 @@
-<%= render 'admin/roles/partials/payrole_details', locals: {payrole:  @payrole, employee: @employee}%>
-<% if current_user.employee? %>
-  <%= link_to 'Atrás', admin_payroles_path %>
-<% else %>
-  <%= link_to 'Atrás', admin_old_payrole_path(@payrole) %>
-<% end %>
