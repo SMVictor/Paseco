@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+    <Row>
+      <Cell><Data ss:Type="String">#</Data></Cell>
+      <Cell><Data ss:Type="String">Empleado</Data></Cell>
+      <Cell><Data ss:Type="String">Salario Neto</Data></Cell>
+      <Cell><Data ss:Type="String">Nº Días</Data></Cell>
+      <Cell><Data ss:Type="String">Salario Mínimo</Data></Cell>
+      <Cell><Data ss:Type="String">Nº Horas Extras</Data></Cell>
+      <Cell><Data ss:Type="String">Horas Extras</Data></Cell>
+      <Cell><Data ss:Type="String">Salario Bruto</Data></Cell>
+      <Cell><Data ss:Type="String">Feriados</Data></Cell>
+      <Cell><Data ss:Type="String">Víaticos</Data></Cell>
+      <Cell><Data ss:Type="String">Pagos Extras</Data></Cell>
+      <Cell><Data ss:Type="String">Tipo Salario</Data></Cell>
+      <Cell><Data ss:Type="String">Tipo Seguro</Data></Cell>
+      <Cell><Data ss:Type="String">Pago CCSS</Data></Cell>
+      <Cell><Data ss:Type="String">Deducciones</Data></Cell>
+    </Row>
+      <% if @payrole_lines %>
+
+	      <% @total_worked_days    = 0 %>
+	      <% @total_min_salary     = 0 %>
+	      <% @total_num_extra_hours= 0 %>
+	      <% @total_extra_hours    = 0 %>
+	      <% @total_daily_viatical = 0 %>
+	      <% @total_ccss_deduction = 0 %>
+	      <% @total_deductions     = 0 %>
+	      <% @total_extra_payments = 0 %>
+	      <% @total_net_salary     = 0 %>
+	      <% @total_holidays       = 0 %>
+
+	      <% @payrole_lines.each_with_index do |line, index| %>
+	    <Row>
+	      <Cell><Data ss:Type="String"><%= index+1 %></Data></Cell>
+	      <Cell><Data ss:Type="String"><%= line.name %></Data></Cell>
+	      <Cell><Data ss:Type="String"><%= number_to_currency(line.net_salary, unit: '₡') %></Data></Cell>
+	      <Cell><Data ss:Type="String"><%= line.num_worked_days %></Data></Cell>
+	      <Cell><Data ss:Type="String"><%= number_to_currency(line.min_salary, unit: '₡') %></Data></Cell>
+	      <Cell><Data ss:Type="String"><%= line.num_extra_hours %></Data></Cell>
+	      <Cell><Data ss:Type="String"><%= number_to_currency(line.extra_hours, unit: '₡') %></Data></Cell>
+	      <Cell><Data ss:Type="String"><%= number_to_currency((line.min_salary.to_f + line.extra_hours.to_f), unit: '₡') %></Data></Cell>
+	      <Cell><Data ss:Type="String"><%= number_to_currency(line.holidays, unit: '₡') %></Data></Cell>
+	      <Cell><Data ss:Type="String"><%= number_to_currency(line.daily_viatical, unit: '₡') %></Data></Cell>
+	      <Cell><Data ss:Type="String"><%= number_to_currency(line.extra_payments, unit: '₡') %></Data></Cell>
+	      <Cell><Data ss:Type="String"><%= line.ccss_type %></Data></Cell>
+	      <Cell><Data ss:Type="String"><%= line.social_security %></Data></Cell>
+	      <Cell><Data ss:Type="String"><%= number_to_currency(line.ccss_deduction, unit: '₡') %></Data></Cell>
+	      <Cell><Data ss:Type="String"><%= number_to_currency(line.deductions, unit: '₡') %></Data></Cell>
+	    </Row>
+	      <% end %>
+	    <%end %>
+    </Table>
+  </Worksheet>
+</Workbook>
