@@ -350,6 +350,10 @@ class RolesController < ApplicationController
       end
     else
       @payrole_lines = @payrole.payrole_lines.order(name: :asc)
+      respond_to do |format|
+        format.html
+        format.xls
+      end
     end
   end
 
