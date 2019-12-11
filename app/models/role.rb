@@ -11,6 +11,7 @@ class Role < ApplicationRecord
   def self.import(file, name)
 
     role_id = Role.where(name: name).first.id
+    role = Role.where(name: name).first
     spreadsheet = open_spreadsheet(file)
     count = 0
 
@@ -23,9 +24,9 @@ class Role < ApplicationRecord
       row[12].gsub!('-', '')
 
       payrole_line.name            = row[0]
-      payrole_line.net_salary      = row[1]
+      payrole_line.net_salary      = row[3]
       payrole_line.num_worked_days = row[2].round(2)
-      payrole_line.min_salary      = row[3]
+      payrole_line.min_salary      = row[1]
       payrole_line.holidays        = row[4]
       payrole_line.daily_viatical  = row[5]
       payrole_line.extra_payments  = row[6]
@@ -40,6 +41,12 @@ class Role < ApplicationRecord
       payrole_line.extra_hours     = 0
       payrole_line.save!
 
+      bonus = ChristmasBonification.joins(:employee).where(employees: {name: name}).where(from_date: '01/12/2018').first
+      if bonus
+        line = bonus.christmas_bonification_lines.where(start_date: role.start_date).first
+        line.base_salary = row[1]
+        line.save
+      end
       count += 1
     end
     return count
