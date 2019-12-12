@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_20_220259) do
+ActiveRecord::Schema.define(version: 2019_12_12_021121) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,6 +97,9 @@ ActiveRecord::Schema.define(version: 2019_11_20_220259) do
     t.bigint "employee_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "bank"
+    t.string "account"
+    t.string "name"
     t.index ["employee_id"], name: "index_christmas_bonifications_on_employee_id"
   end
 
@@ -202,6 +205,14 @@ ActiveRecord::Schema.define(version: 2019_11_20_220259) do
     t.datetime "updated_at", null: false
     t.index ["customer_id"], name: "index_entries_on_customer_id"
     t.index ["employee_id"], name: "index_entries_on_employee_id"
+  end
+
+  create_table "extra_payroles", force: :cascade do |t|
+    t.string "name"
+    t.string "from_date"
+    t.string "to_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "holidays", force: :cascade do |t|

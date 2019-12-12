@@ -1,0 +1,2 @@
+class ExtraPayrole < ApplicationRecord
+end

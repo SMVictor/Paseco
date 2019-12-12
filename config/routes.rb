@@ -37,13 +37,19 @@ Rails.application.routes.draw do
       get    'roles/approvals/destroy/:id/:stall_id/:change_id' => 'roles#approve_destroy',   as: 'approve_destroy'
       get    'roles/approvals/deny/:id/:stall_id/:change_id'    => 'roles#deny_change',       as: 'deny_change'
 
-      get    'payroles'                      => 'roles#index_payroles',         as: 'payroles'
-      get    'payroles/:id'                  => 'roles#show_payroles',          as: 'payrole'
-      get    'payroles/:id/:employee_id'     => 'roles#payrole_detail',         as: 'payrole_detail'
-      post   'payroles/load'                 => 'roles#load_payrole',           as: 'load_payrole'
+      get    'payroles'                  => 'roles#index_payroles',     as: 'payroles'
+      get    'payroles/:id'              => 'roles#show_payroles',      as: 'payrole'
+      get    'payroles/:id/:employee_id' => 'roles#payrole_detail',     as: 'payrole_detail'
+      post   'payroles/load'             => 'roles#load_payrole',       as: 'load_payrole'
+      get    'bonuses'                   => 'extra_payroles#index',     as: 'extra_payroles'
+      get    'bonuse'                    => 'extra_payroles#new',       as: 'extra_payrole'
+      post   'bonuse'                    => 'extra_payroles#create',    as: 'extra_payrole_create'
+      get    'bonuses/:id'               => 'extra_payroles#show',      as: 'extra_payroles_show'
+      get    'bonuses/BNCR/file/:id'     => 'extra_payroles#bncr_file', as: 'bonuses_bncr_file'
+      get    'bonuses/BAC/file/:id'      => 'extra_payroles#bac_file',  as: 'bonuses_bac_file'
 
-      get    'BNCR/file/:id' => 'roles#bncr_file',      as: 'bncr_file'
-      get    'BAC/file/:id'  => 'roles#bac_file',       as: 'bac_file'
+      get    'BNCR/file/:id' => 'roles#bncr_file', as: 'bncr_file'
+      get    'BAC/file/:id'  => 'roles#bac_file',  as: 'bac_file'
 
       get    'inactive/customers'          => 'customers#inactives',        as: 'inactive_customers'
       get    'inactive/customers/:id'      => 'customers#show_inactive',    as: 'show_inactive_customer'
@@ -87,9 +93,9 @@ Rails.application.routes.draw do
       get    'quotes/:id/step2/edit' => 'quotes#edit_step2',        as: 'edit_quote_step2'
       patch  'quotes/:id/step2/edit' => 'quotes#update_edit_step2', as: 'update_edit_quote_step2'
 
-      get    'budget/:id/'                 => 'roles#budget',            as: 'budget'
-      get    'budget/:id/old'              => 'roles#old_budget',        as: 'old_budget'
-      get    'budget/:id/:employee_id'     => 'roles#budget_detail',     as: 'budget_detail'
+      get    'budget/:id/'             => 'roles#budget',        as: 'budget'
+      get    'budget/:id/old'          => 'roles#old_budget',    as: 'old_budget'
+      get    'budget/:id/:employee_id' => 'roles#budget_detail', as: 'budget_detail'
 
     end
   end
