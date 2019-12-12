@@ -1,0 +1,57 @@
+<div class="card">
+  <div class="card-body">
+    <div class="row mt-1 d-none d-md-flex text-center" style="">
+      <div class="th col-12 col-md-3">
+        <p class="text-uppercase">Nombre</p>
+      </div>
+      <div class="th col-12 col-md-3">
+        <p class="text-uppercase d-inline">Fecha de Inicio</p>
+      </div>
+      <div class="th col-12 col-md-3">
+        <p class="text-uppercase">Fecha de Finalización</p>
+      </div>
+      <div class="th col-12 col-md-3">
+        <p class="text-uppercase">Acciones</p>
+      </div>
+    </div>
+    <% if @extra_payroles%>
+      <% @extra_payroles.each do |extra_payrole| %>
+        <div class="row tb_body">
+          <div class="td col-12 col-md-3  pt-md-3">
+            <p class="d-md-none font-weight-bold">Nombre:</p>
+            <p class="text-md-center mt-2"><%= link_to(extra_payrole.name, admin_extra_payroles_show_path(extra_payrole), class:'', title: 'Ver Planilla Pasada') %></p>
+          </div>
+          <div class="th col-12 col-md-3 pt-md-3">
+            <p class="d-md-none font-weight-bold">Fecha de Inicio:</p>
+            <p class="text-md-center mt-2"><%= extra_payrole.from_date %></p>
+          </div>
+          <div class="th col-12 col-md-3 pt-md-3">
+            <p class="d-md-none font-weight-bold">Fecha de Finalización:</p>
+            <p class="text-md-center mt-2"><%= extra_payrole.to_date %></p>
+          </div>
+          <div class="th text-center col-md-3">
+            <div class="mt-2 mb-2 btn-group">
+
+              <% @employee = Employee.where(identification: current_user.identification).first %>
+
+              <% if @employee %>
+                <%= link_to(admin_extra_payrole_detail_path(extra_payrole, @employee), class:'btn btn-block primary-btn mt-2', title: 'Ver Colilla de Pago') do %>
+                  <i class="fa fa-dollar"></i>
+                <% end %>
+              <% end %>
+
+              <% if current_user.admin? %>
+                <%= link_to(admin_bonuses_bncr_file_path(extra_payrole, format: "xls"), class:'btn btn-block info-btn mt-2', title: 'Archivo BNCR') do %>
+                  <i class="fa fa-file-excel"></i>
+                <% end %>
+                <%= link_to(admin_bonuses_bac_file_path(extra_payrole, format: "xls"), class:'btn btn-block primary-btn mt-2', title: 'Archivo BAC') do %>
+                  <i class="fa fa-file-excel"></i>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <%end %>
+  </div>
+</div>

@@ -120,6 +120,9 @@
           <li class="nav-item">
             <%= link_to('Planillas', admin_payroles_path, class: 'nav-link' ) if current_user.admin? || current_user.manager? || current_user.employee? %>
           </li>
+          <li class="nav-item">
+            <%= link_to('Aguinaldos', admin_extra_payroles_path, class: 'nav-link' ) if current_user.admin? || current_user.manager? || current_user.employee? %>
+          </li>
         </ul>
       </div>
     </li>

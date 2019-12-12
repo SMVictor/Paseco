@@ -41,6 +41,7 @@ function filterPayrole(){
   });
 }
 
+
 function filterByBank(){
   var payrole_lines = JSON.parse(document.querySelector('#payrole').dataset.lines);
   var search = $( "#banks option:selected" ).text();
@@ -48,6 +49,51 @@ function filterByBank(){
 
   payrole_lines.forEach(function(line) {
     if ((line.bank == search && line.account != "" && line.account != null && parseInt(line.net_salary) > 0) || search == "Seleccione una entidad bancaria") {
+      ids.push(line.id);
+    }
+    else if ((line.account == "" || line.account == null) && search == "SIN CUENTA")  {
+      ids.push(line.id);
+    }
+  });
+
+  $.ajax({
+    type: "GET",
+    url: document.URL,
+    data:
+    {
+      utf8: "✓",
+      ids: ids
+    }
+  });
+}
+
+function filterBonus(){
+  var extra_payrole_lines = JSON.parse(document.querySelector('#extra_payrole').dataset.lines);
+  var search = $('#extra_payrole').val().toUpperCase();
+  var ids = [0];
+  extra_payrole_lines.forEach(function(line) {
+    if (line.name.toUpperCase().includes(search) || line.bank.toUpperCase().includes(search)) {
+      ids.push(line.id);
+    }
+  });
+  $.ajax({
+    type: "GET",
+    url: document.URL,
+    data:
+    {
+      utf8: "✓",
+      ids: ids
+    }
+  });
+}
+
+function filterBonusByBank(){
+  var extra_payrole_lines = JSON.parse(document.querySelector('#extra_payrole').dataset.lines);
+  var search = $( "#banks option:selected" ).text();
+  var ids = [0];
+
+  extra_payrole_lines.forEach(function(line) {
+    if ((line.bank == search && line.account != "" && line.account != null && parseInt(line.total) > 0) || search == "Seleccione una entidad bancaria") {
       ids.push(line.id);
     }
     else if ((line.account == "" || line.account == null) && search == "SIN CUENTA")  {
