@@ -264,6 +264,20 @@ class RolesController < ApplicationController
   end
 
   def add_role_lines
+
+    ids = []
+    @stall.role_lines.each do |line|
+      ids << line.employee.id
+    end
+
+    @stall.employees.where(active: true).each do |employee|
+      ids << employee.id
+    end
+
+    ids.uniq
+
+    @employees = Employee.where(id: ids)
+
     @substalls = []
     @count = 1
     while @count <= @stall.substalls.to_i
