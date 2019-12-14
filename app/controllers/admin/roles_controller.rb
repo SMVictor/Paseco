@@ -104,6 +104,8 @@ class RolesController < ApplicationController
         respond_to do |format|
           if @role.update(role_params)
 
+            if (DateTime.parse(@role.end_date) + 4.days) > Date.today
+
             employee       = Employee.find(params[:role][:employee_id])
             @role_lines    = @role.role_lines.where(employee: employee).order(stall_id: :asc, date: :asc)
             payrole_detail = employee.payrole_details.where(role_id: @role.id).first || employee.payrole_details.new(role: @role)
@@ -181,8 +183,11 @@ class RolesController < ApplicationController
             @payrole_line.save
             payrole_detail.save
 
+          end
+
             format.html { redirect_to admin_role_lines_url, notice: 'El role se actualizó correctamente.' }
             format.json { render json: @role, status: :ok, location: @role }
+
           else
             format.html { render :edit }
             format.json { render json: @role.errors, status: :unprocessable_entity }
