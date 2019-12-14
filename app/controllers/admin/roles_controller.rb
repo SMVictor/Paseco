@@ -266,7 +266,7 @@ class RolesController < ApplicationController
   def add_role_lines
 
     ids = []
-    @stall.role_lines.each do |line|
+    @role.role_lines.where(stall: @stall).each do |line|
       ids << line.employee.id
     end
 
