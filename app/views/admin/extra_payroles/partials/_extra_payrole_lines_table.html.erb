@@ -4,9 +4,6 @@
       <th style="border: 1px solid" scope="col">#</th>
       <th style="border: 1px solid" scope="col">Empleado</th>
       <th style="border: 1px solid" scope="col">Monto de Aguinaldo</th>
-      <th style="border: 1px solid" scope="col">Salario Mínimo</th>
-      <th style="border: 1px solid" scope="col">Horas Extras</th>
-      <th style="border: 1px solid" scope="col">Víaticos</th>
       <th style="border: 1px solid" scope="col">Banco</th>
     </tr>
   </thead>
@@ -39,9 +36,6 @@
           <td style="border: 1px solid;"><%= index+1 %></td>
           <td style="border: 1px solid"><%= line.name %></td>
           <td style="border: 1px solid"><%= number_to_currency(line.total, unit: '₡') %></td>
-          <td style="border: 1px solid"><%= number_to_currency(parcial_base, unit: '₡') %></td>
-          <td style="border: 1px solid"><%= number_to_currency(parcial_extra, unit: '₡') %></td>
-          <td style="border: 1px solid"><%= number_to_currency(parcial_viatical, unit: '₡') %></td>
           <td style="border: 1px solid"><%= line.bank %></td>
         </tr>
       <% end %>
@@ -49,16 +43,10 @@
           <td style="border: 1px solid"></td>
           <td style="border: 1px solid">Total</td>
           <td style="border: 1px solid"><%= number_to_currency(@total_net_salary, unit: '₡') %></td>
-          <td style="border: 1px solid"><%= number_to_currency(@total_min_salary, unit: '₡') %></td>
-          <td style="border: 1px solid"><%= number_to_currency(@total_extra_hours, unit: '₡') %></td>
-          <td style="border: 1px solid"><%= number_to_currency(@total_daily_viatical, unit: '₡') %></td>
           <td style="border: 1px solid"></td>
         </tr>
 
         <tr style="height: 1.2rem;">
-          <td style="border: 1px solid"></td>
-          <td style="border: 1px solid"></td>
-          <td style="border: 1px solid"></td>
           <td style="border: 1px solid"></td>
           <td style="border: 1px solid"></td>
           <td style="border: 1px solid"></td>
