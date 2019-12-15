@@ -180,35 +180,35 @@ class Employee < ApplicationRecord
 
   def calculate_christmas_bonification(year)
 
-    from_date = "01/12/"+(year-1).to_s
-    to_date =   "30/11/"+year.to_s
+    #from_date = "01/12/"+(year-1).to_s
+    #to_date =   "30/11/"+year.to_s
 
-    @christmas_bonus = 0
-    christmas_bonification_lines_counter = 0
+    #@christmas_bonus = 0
+    #christmas_bonification_lines_counter = 0
 
-    @christmas_bonification = self.christmas_bonifications.where(from_date: from_date).first || ChristmasBonification.new(from_date: from_date, to_date: to_date, employee_id: self.id, bank: self.bank, account: self.account, name: self.name)
+    #@christmas_bonification = self.christmas_bonifications.where(from_date: from_date).first || ChristmasBonification.new(from_date: from_date, to_date: to_date, employee_id: self.id, bank: self.bank, account: self.account, name: self.name)
 
-    PayroleLine.where(name: self.name).each do |payrole_line|
-      if payrole_line.role.start_date.to_date >= from_date.to_date && payrole_line.role.end_date.to_date <= to_date.to_date && (payrole_line.role.end_date.to_date + 7.days) <= Time.now
+    #PayroleLine.where(name: self.name).each do |payrole_line|
+      #if payrole_line.role.start_date.to_date >= from_date.to_date && payrole_line.role.end_date.to_date <= to_date.to_date && (payrole_line.role.end_date.to_date + 7.days) <= Time.now
 
-        if @christmas_bonification.christmas_bonification_lines[christmas_bonification_lines_counter] == nil
+        #if @christmas_bonification.christmas_bonification_lines[christmas_bonification_lines_counter] == nil
 
-          @christmas_bonification.christmas_bonification_lines.new
+          #@christmas_bonification.christmas_bonification_lines.new
 
-          @christmas_bonification.christmas_bonification_lines[christmas_bonification_lines_counter].start_date    = payrole_line.role.start_date
-          @christmas_bonification.christmas_bonification_lines[christmas_bonification_lines_counter].end_date      = payrole_line.role.end_date
-          @christmas_bonification.christmas_bonification_lines[christmas_bonification_lines_counter].base_salary   = (payrole_line.min_salary.to_f + payrole_line.extra_hours.to_f).round(2)
-          @christmas_bonification.christmas_bonification_lines[christmas_bonification_lines_counter].extra_payment = payrole_line.extra_payments
-          @christmas_bonification.christmas_bonification_lines[christmas_bonification_lines_counter].viaticals     = payrole_line.daily_viatical
-          @christmas_bonification.christmas_bonification_lines[christmas_bonification_lines_counter].total         = (payrole_line.min_salary.to_f + payrole_line.extra_hours.to_f + payrole_line.daily_viatical.to_f).round(2)
+          #@christmas_bonification.christmas_bonification_lines[christmas_bonification_lines_counter].start_date    = payrole_line.role.start_date
+          #@christmas_bonification.christmas_bonification_lines[christmas_bonification_lines_counter].end_date      = payrole_line.role.end_date
+          #@christmas_bonification.christmas_bonification_lines[christmas_bonification_lines_counter].base_salary   = (payrole_line.min_salary.to_f + payrole_line.extra_hours.to_f).round(2)
+          #@christmas_bonification.christmas_bonification_lines[christmas_bonification_lines_counter].extra_payment = payrole_line.extra_payments
+          #@christmas_bonification.christmas_bonification_lines[christmas_bonification_lines_counter].viaticals     = payrole_line.daily_viatical
+          #@christmas_bonification.christmas_bonification_lines[christmas_bonification_lines_counter].total         = (payrole_line.min_salary.to_f + payrole_line.extra_hours.to_f + payrole_line.daily_viatical.to_f).round(2)
 
-          @christmas_bonification.save
-        end
-        @christmas_bonus += @christmas_bonification.christmas_bonification_lines[christmas_bonification_lines_counter].total.to_i
-        christmas_bonification_lines_counter += 1
-      end
-    end
-     @christmas_bonification.total = @christmas_bonus / 12
-     @christmas_bonification.save
+          #@christmas_bonification.save
+        #end
+        #@christmas_bonus += @christmas_bonification.christmas_bonification_lines[christmas_bonification_lines_counter].total.to_i
+        #christmas_bonification_lines_counter += 1
+      #end
+    #end
+     #@christmas_bonification.total = @christmas_bonus / 12
+     #@christmas_bonification.save
   end
 end
