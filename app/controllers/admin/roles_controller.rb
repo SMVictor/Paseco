@@ -104,11 +104,13 @@ class RolesController < ApplicationController
         respond_to do |format|
           if @role.update(role_params)
 
-            if (DateTime.parse(@role.end_date) + 4.days) > Date.today
+            if (DateTime.parse(@role.end_date) + 3.days) > Date.today
+
+            payrole_detail_id = PayroleDetail.all.orde(id: :asc).last.id
 
             employee       = Employee.find(params[:role][:employee_id])
             @role_lines    = @role.role_lines.where(employee: employee).order(stall_id: :asc, date: :asc)
-            payrole_detail = employee.payrole_details.where(role_id: @role.id).first || employee.payrole_details.new(role: @role)
+            payrole_detail = employee.payrole_details.where(role_id: @role.id).first || employee.payrole_details.new(id: payrole_detail_id+1, role: @role)
 
             @total_day_salary     = 0 
             @total_extra_hours    = 0 
@@ -121,6 +123,8 @@ class RolesController < ApplicationController
             has_night =  @role_lines.joins(:shift).where("name = 'Noche'").length
 
             payrole_detail.detail_lines.destroy_all
+            detail_line_id = LetailLine.all.order(id: :asc).last.id
+
             @role_lines.each do |line|
 
               employee.calculate_day_salary(line, has_night)
@@ -134,7 +138,7 @@ class RolesController < ApplicationController
               @total_viatical       += employee.viatical
               @total_holidays       += employee.holiday
 
-              payrole_detail.detail_lines.new(stall: line.stall, shift:line.shift)
+              payrole_detail.detail_lines.new(id: detail_line_id, stall: line.stall, shift:line.shift)
               payrole_detail.detail_lines.last.date                 = line.date
               payrole_detail.detail_lines.last.substall             = line.substall
               payrole_detail.detail_lines.last.hours                = employee.normal_day_hours
@@ -147,7 +151,9 @@ class RolesController < ApplicationController
               payrole_detail.detail_lines.last.extra_payment_reason = line.extra_payments_description
               payrole_detail.detail_lines.last.deductions           = line.deductions
               payrole_detail.detail_lines.last.deductions_reason    = line.deductions_description
-              payrole_detail.detail_lines.last.comments             = line.comment 
+              payrole_detail.detail_lines.last.comments             = line.comment
+
+              detail_line_id += 1 
             end
             employee.calculate_payment(@role_lines.length, @total_day_salary, @total_extra_hours, @total_extra_salary, @total_viatical, @total_extra_payments, @total_deductions, @total_holidays)
 
