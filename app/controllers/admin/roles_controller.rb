@@ -106,7 +106,7 @@ class RolesController < ApplicationController
 
             if (DateTime.parse(@role.end_date) + 3.days) > Date.today
 
-            payrole_detail_id = PayroleDetail.all.orde(id: :asc).last.id
+            payrole_detail_id = PayroleDetail.all.order(id: :asc).last.id
 
             employee       = Employee.find(params[:role][:employee_id])
             @role_lines    = @role.role_lines.where(employee: employee).order(stall_id: :asc, date: :asc)
