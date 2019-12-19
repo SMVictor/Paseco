@@ -109,8 +109,6 @@ ActiveRecord::Schema.define(version: 2019_12_12_021121) do
     t.string "representative_id"
     t.string "representative_name"
     t.string "legal_document"
-    t.string "start_date"
-    t.string "end_date"
     t.string "contact"
     t.string "email"
     t.string "email_1"
@@ -119,10 +117,10 @@ ActiveRecord::Schema.define(version: 2019_12_12_021121) do
     t.string "phone_number_1"
     t.string "payment_method"
     t.string "payment_conditions"
+    t.boolean "active", default: true
+    t.boolean "boolean", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "document"
-    t.boolean "active", default: true
   end
 
   create_table "detail_lines", force: :cascade do |t|
@@ -155,8 +153,6 @@ ActiveRecord::Schema.define(version: 2019_12_12_021121) do
     t.string "id_type"
     t.string "identification"
     t.string "birthday"
-    t.string "start_date"
-    t.string "end_date"
     t.string "province"
     t.string "canton"
     t.string "district"
@@ -174,8 +170,6 @@ ActiveRecord::Schema.define(version: 2019_12_12_021121) do
     t.string "ccss_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "special", default: false
-    t.string "document"
     t.boolean "active", default: true
     t.string "account_owner"
     t.string "account_identification"
@@ -295,6 +289,7 @@ ActiveRecord::Schema.define(version: 2019_12_12_021121) do
   end
 
   create_table "quotes", force: :cascade do |t|
+    t.integer "number"
     t.string "type"
     t.string "institution"
     t.string "procedure_number"
@@ -308,7 +303,6 @@ ActiveRecord::Schema.define(version: 2019_12_12_021121) do
     t.string "daily_salary"
     t.string "night_salary"
     t.string "status"
-    t.serial "number", null: false
     t.index ["payment_id"], name: "index_quotes_on_payment_id"
   end
 
