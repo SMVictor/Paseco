@@ -138,7 +138,7 @@ class RolesController < ApplicationController
               @total_viatical       += employee.viatical
               @total_holidays       += employee.holiday
 
-              payrole_detail.detail_lines.new(id: detail_line_id, stall: line.stall, shift:line.shift)
+              payrole_detail.detail_lines.new(id: detail_line_id+1, stall: line.stall, shift:line.shift)
               payrole_detail.detail_lines.last.date                 = line.date
               payrole_detail.detail_lines.last.substall             = line.substall
               payrole_detail.detail_lines.last.hours                = employee.normal_day_hours
