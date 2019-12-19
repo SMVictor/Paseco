@@ -123,7 +123,7 @@ class RolesController < ApplicationController
             has_night =  @role_lines.joins(:shift).where("name = 'Noche'").length
 
             payrole_detail.detail_lines.destroy_all
-            detail_line_id = LetailLine.all.order(id: :asc).last.id
+            detail_line_id = DetailLine.all.order(id: :asc).last.id
 
             @role_lines.each do |line|
 
