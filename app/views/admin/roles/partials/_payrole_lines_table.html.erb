@@ -75,7 +75,7 @@
           <td style="border: 1px solid"><%= number_to_currency(@total_min_salary.round(2), unit: '₡') %></td>
           <td style="border: 1px solid"><%= @total_num_extra_hours.round(2) %></td>
           <td style="border: 1px solid"><%= number_to_currency(@total_extra_hours.round(2), unit: '₡') %></td>
-          <td style="border: 1px solid"><%= number_to_currency((@total_min_salary + @total_extra_hours + @total_holidays + @total_daily_viatical @total_extra_payments).round(2), unit: '₡') %></td>
+          <td style="border: 1px solid"><%= number_to_currency((@total_min_salary + @total_extra_hours + @total_holidays + @total_daily_viatical + @total_extra_payments).round(2), unit: '₡') %></td>
           <td style="border: 1px solid"><%= number_to_currency(@total_holidays.round(2), unit: '₡') %></td>
           <td style="border: 1px solid"><%= number_to_currency(@total_daily_viatical.round(2), unit: '₡') %></td>
           <td style="border: 1px solid"><%= number_to_currency(@total_extra_payments.round(2), unit: '₡') %></td>
