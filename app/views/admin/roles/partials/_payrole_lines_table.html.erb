@@ -6,6 +6,7 @@
       <th style="border: 1px solid" scope="col">Salario Neto</th>
       <th style="border: 1px solid" scope="col">Nº Días</th>
       <th style="border: 1px solid" scope="col">Salario Mínimo</th>
+      <th style="border: 1px solid" scope="col">Mínimo + Feriado</th>
       <th style="border: 1px solid" scope="col">Nº Horas Extras</th>
       <th style="border: 1px solid" scope="col">Horas Extras</th>
       <th style="border: 1px solid" scope="col">Salario Bruto</th>
@@ -55,6 +56,7 @@
           <td style="border: 1px solid"><%= number_to_currency(line.net_salary, unit: '₡') %></td>
           <td style="border: 1px solid"><%= line.num_worked_days %></td>
           <td style="border: 1px solid"><%= number_to_currency(line.min_salary, unit: '₡') %></td>
+          <td style="border: 1px solid"><%= number_to_currency((line.min_salary.to_f + line.daily_viatical.to_f).round(2), unit: '₡') %></td>
           <td style="border: 1px solid"><%= line.num_extra_hours %></td>
           <td style="border: 1px solid"><%= number_to_currency(line.extra_hours, unit: '₡') %></td>
           <td style="border: 1px solid"><%= number_to_currency((line.min_salary.to_f + line.extra_hours.to_f + line.holidays.to_f + line.daily_viatical.to_f + line.extra_payments.to_f), unit: '₡') %></td>
@@ -73,6 +75,7 @@
           <td style="border: 1px solid"><%= number_to_currency(@total_net_salary.round(2), unit: '₡') %></td>
           <td style="border: 1px solid"><%= @total_worked_days %></td>
           <td style="border: 1px solid"><%= number_to_currency(@total_min_salary.round(2), unit: '₡') %></td>
+          <td style="border: 1px solid"><%= number_to_currency((@total_min_salary + @total_daily_viatical).round(2), unit: '₡') %></td>
           <td style="border: 1px solid"><%= @total_num_extra_hours.round(2) %></td>
           <td style="border: 1px solid"><%= number_to_currency(@total_extra_hours.round(2), unit: '₡') %></td>
           <td style="border: 1px solid"><%= number_to_currency((@total_min_salary + @total_extra_hours + @total_holidays + @total_daily_viatical + @total_extra_payments).round(2), unit: '₡') %></td>
@@ -86,6 +89,7 @@
         </tr>
 
         <tr style="height: 1.2rem;">
+          <td style="border: 1px solid"></td>
           <td style="border: 1px solid"></td>
           <td style="border: 1px solid"></td>
           <td style="border: 1px solid"></td>
