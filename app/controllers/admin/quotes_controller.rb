@@ -89,7 +89,7 @@ module Admin
     end
 
     def update_edit_step2
-      @copy = QuoteCopy.first.destroy
+      @copy = QuoteCopy.all.destroy_all
 
       respond_to do |format|
         if @quote.update(quote_params)
@@ -103,7 +103,7 @@ module Admin
     end
 
     def restore_step1
-      @copy = QuoteCopy.first
+      @copy = QuoteCopy.last
       @quote.institution           = @copy.institution
       @quote.procedure_number      = @copy.procedure_number
       @quote.procedure_description = @copy.procedure_description
@@ -111,7 +111,6 @@ module Admin
       @quote.daily_salary          = @copy.daily_salary
       @quote.night_salary          = @copy.night_salary
       @quote.save
-      @copy.destroy
 
       respond_to do |format|
         format.html { redirect_to admin_quotes_url }
