@@ -23,7 +23,7 @@
           <p class="text-uppercase font-weight-bold pt-3">Área</p>
         </div>
       </div>
-      <% @role.role_lines.where(stall: stall).joins(:position).where.not(hours: "").select("role_lines.date,  sum(CAST(role_lines.hours AS float)) AS day_hours, positions.area_id").group(:date, :area_id).each do |line| %>
+      <% @role.role_lines.where(stall: stall).joins(:position).where.not(hours: "").select("CAST(role_lines.date AS date),  sum(CAST(role_lines.hours AS float)) AS day_hours, positions.area_id").group(:date, :area_id).order(date: :asc).each do |line| %>
         <% stall_hours += line.day_hours %>
         <% area = Area.find(line.area_id) %>
         <div class="row tb_body">
