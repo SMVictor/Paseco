@@ -29,6 +29,11 @@
         <%= form.text_field :representative_id, id: "representative_id", class: "form-control", placeholder: "Cédula del Representante" %>
         <label id="representative_id_error"></label>
       </div>
+      <div class="col-xl-3 col-lg-6 mt-2">
+        <label for="">Sector</label>
+        <%= form.select(:sector_id, Sector.all.order(name: :asc).collect {|t| [t.name, t.id]}, {include_blank: false}, {multiple: false, class: "form-control", id: "sector"}) %>
+        <label id="sector_error"></label>
+      </div>
       <div class="col-xl-4 col-lg-6 mb-2 mt-2">
         <label for="">Activo:</label><br>
         <%= form.check_box :active %>

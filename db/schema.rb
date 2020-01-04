@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_12_021121) do
+ActiveRecord::Schema.define(version: 2020_01_03_150528) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,6 +109,8 @@ ActiveRecord::Schema.define(version: 2019_12_12_021121) do
     t.string "representative_id"
     t.string "representative_name"
     t.string "legal_document"
+    t.string "start_date"
+    t.string "end_date"
     t.string "contact"
     t.string "email"
     t.string "email_1"
@@ -117,10 +119,12 @@ ActiveRecord::Schema.define(version: 2019_12_12_021121) do
     t.string "phone_number_1"
     t.string "payment_method"
     t.string "payment_conditions"
-    t.boolean "active", default: true
-    t.boolean "boolean", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "document"
+    t.boolean "active", default: true
+    t.bigint "sector_id"
+    t.index ["sector_id"], name: "index_customers_on_sector_id"
   end
 
   create_table "detail_lines", force: :cascade do |t|
@@ -153,6 +157,8 @@ ActiveRecord::Schema.define(version: 2019_12_12_021121) do
     t.string "id_type"
     t.string "identification"
     t.string "birthday"
+    t.string "start_date"
+    t.string "end_date"
     t.string "province"
     t.string "canton"
     t.string "district"
@@ -170,10 +176,14 @@ ActiveRecord::Schema.define(version: 2019_12_12_021121) do
     t.string "ccss_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "special", default: false
+    t.string "document"
     t.boolean "active", default: true
     t.string "account_owner"
     t.string "account_identification"
     t.boolean "registered_account", default: false
+    t.bigint "sub_service_id"
+    t.index ["sub_service_id"], name: "index_employees_on_sub_service_id"
   end
 
   create_table "employees_positions", id: false, force: :cascade do |t|
@@ -289,7 +299,6 @@ ActiveRecord::Schema.define(version: 2019_12_12_021121) do
   end
 
   create_table "quotes", force: :cascade do |t|
-    t.integer "number"
     t.string "type"
     t.string "institution"
     t.string "procedure_number"
@@ -303,6 +312,7 @@ ActiveRecord::Schema.define(version: 2019_12_12_021121) do
     t.string "daily_salary"
     t.string "night_salary"
     t.string "status"
+    t.serial "number", null: false
     t.index ["payment_id"], name: "index_quotes_on_payment_id"
   end
 
@@ -378,6 +388,18 @@ ActiveRecord::Schema.define(version: 2019_12_12_021121) do
     t.index ["stall_id", "role_id"], name: "index_roles_stalls_on_stall_id_and_role_id"
   end
 
+  create_table "sectors", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "services", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "shifts", force: :cascade do |t|
     t.string "name"
     t.string "time"
@@ -405,8 +427,24 @@ ActiveRecord::Schema.define(version: 2019_12_12_021121) do
     t.datetime "updated_at", null: false
     t.boolean "active", default: true
     t.bigint "quote_id"
+    t.bigint "type_id"
     t.index ["customer_id"], name: "index_stalls_on_customer_id"
     t.index ["quote_id"], name: "index_stalls_on_quote_id"
+    t.index ["type_id"], name: "index_stalls_on_type_id"
+  end
+
+  create_table "sub_services", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "service_id"
+    t.index ["service_id"], name: "index_sub_services_on_service_id"
+  end
+
+  create_table "types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -441,9 +479,11 @@ ActiveRecord::Schema.define(version: 2019_12_12_021121) do
   add_foreign_key "budgets", "stalls"
   add_foreign_key "christmas_bonification_lines", "christmas_bonifications"
   add_foreign_key "christmas_bonifications", "employees"
+  add_foreign_key "customers", "sectors"
   add_foreign_key "detail_lines", "payrole_details"
   add_foreign_key "detail_lines", "shifts"
   add_foreign_key "detail_lines", "stalls"
+  add_foreign_key "employees", "sub_services"
   add_foreign_key "payrole_details", "employees"
   add_foreign_key "payrole_details", "roles"
   add_foreign_key "positions", "areas"
@@ -453,5 +493,7 @@ ActiveRecord::Schema.define(version: 2019_12_12_021121) do
   add_foreign_key "requirements", "shifts"
   add_foreign_key "role_lines", "positions"
   add_foreign_key "stalls", "quotes"
+  add_foreign_key "stalls", "types"
+  add_foreign_key "sub_services", "services"
   add_foreign_key "vacations", "employees"
 end

@@ -8,6 +8,7 @@ function validateCustomerForm() {
   var contact             = document.getElementById("contact");
   var email               = document.getElementById("email");
   var phone_number        = document.getElementById("phone_number");
+  var sector              = document.getElementById("sector");
 
   var result    = true
 
@@ -41,6 +42,10 @@ function validateCustomerForm() {
   }
   if (phone_number.value == "") {
     errorHandler(phone_number, "phone_number_error", "Campo obligatorio");
+    result = false;
+  }
+  if (sector.value == "") {
+    errorHandler(sector, "sector_error", "Campo obligatorio");
     result = false;
   }
   return result;
