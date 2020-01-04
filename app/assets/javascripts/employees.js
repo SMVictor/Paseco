@@ -8,6 +8,7 @@ function validateEmployeeForm() {
   var bank            = document.getElementById("bank");
   var account         = document.getElementById("account");
   var social_security = document.getElementById("social_security");
+  var sub_service     = document.getElementById("sub_service");
 
   var result    = true
 
@@ -43,6 +44,10 @@ function validateEmployeeForm() {
   }
   if (social_security.value == "") {
     errorHandler(social_security, "social_security_error", "Campo obligatorio");
+    result = false;
+  }
+  if (sub_service.value == "") {
+    errorHandler(sub_service, "sub_service_error", "Campo obligatorio");
     result = false;
   }
   return result;

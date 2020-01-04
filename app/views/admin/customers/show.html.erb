@@ -29,6 +29,10 @@
     <strong>Cédula del Representante:</strong>
     <p><%= @customer.representative_id %></p>
   </div>
+  <div class="col-md-4 col-sm-6 mb-2 mt-2">
+    <strong>Sector:</strong>
+    <p><%= @customer.sector.name if @customer.sector %></p>
+  </div>
 </div>
 
 <div class="row form_fieldset mb-2">

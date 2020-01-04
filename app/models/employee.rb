@@ -6,6 +6,7 @@ class Employee < ApplicationRecord
   has_many :entries
   has_many :vacations
   has_many :christmas_bonifications
+  belongs_to :sub_service
   has_and_belongs_to_many :positions, join_table: :employees_positions
   accepts_nested_attributes_for :entries, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :vacations, reject_if: :all_blank, allow_destroy: true

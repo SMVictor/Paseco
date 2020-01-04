@@ -22,6 +22,11 @@
     <label id="quote_error"></label>
   </div>
   <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+    <label for="">Tipo de Puesto</label>
+    <%= form.collection_select :type_id, Type.all.order(name: :asc), :id, :name, options = {include_blank: 'Seleccione un tipo de puesto'}, html_options = {class: "form-control", id: "type", required: true, oninvalid: "setCustomValidity('Campo Requerido')", oninput: "setCustomValidity('')", title: "Seleccione el tipo de puesto"}%>
+    <label id="type_error"></label>
+  </div>
+  <div class="col-xl-4 col-lg-6 mb-2 mt-2">
     <label for="">Provincia</label>
     <%= form.text_field :province, class: "form-control", placeholder: "Provincia" %>
   </div>

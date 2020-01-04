@@ -114,50 +114,54 @@
 </div>
 
 <div class="row form_fieldset">
-  <div  class="col-12 mt-4 mb-4">
-    <legend>Información de Contratación</legend>
-  </div>
-  <div class="col-md-4 col-sm-6 mt-2">
-    <strong>Cargos en la Empresa:</strong>
-    <% @employee.positions.each do |position| %>
-      <p><%= position.name %></p>
-    <% end -%>
-  </div>
-  <div class="col-md-4 col-sm-6 mt-2">
-    <strong>Puestos:</strong>
-    <% @employee.stalls.each do |stall| %>
-      <p><%= stall.name %></p>
-    <% end -%>
-  </div>
-  <div class="col-md-4 col-sm-6 mb-2 mt-2">
-    <strong>Pago del Seguro:</strong>
-    <p><%= @employee.social_security %></p>
-  </div>
-  <div class="col-md-4 col-sm-6 mb-2 mt-2">
-    <strong>Víaticos:</strong>
-    <% if @employee.daily_viatical == "not" %>
-      <p>No</p>
-    <% else %>
-      <p>Sí</p>
-    <% end %>
-  </div>
-  <div class="col-md-4 col-sm-6 mb-2 mt-2">
-    <strong>Seguro Completo:</strong>
-    <% if @employee.ccss_type == "not" %>
-      <p>No</p>
-    <% else %>
-      <p>Sí</p>
-    <% end %>
-  </div>
-  <div class="col-md-4 col-sm-6 mb-2 mt-2">
-    <strong>Activo:</strong>
-    <% if @employee.active %>
-      <p>Sí</p>
-    <% else %>
-      <p>No</p>
-    <% end %>
-  </div>
-</div>
+      <div  class="col-12 mt-4 mb-4">
+        <legend>Información de Contratación</legend>
+      </div>
+      <div class="col-md-3 col-sm-6 mt-2">
+        <strong>Cargos en la Empresa:</strong>
+        <% @employee.positions.each do |position| %>
+          <p><%= position.name %></p>
+        <% end -%>
+      </div>
+      <div class="col-md-3 col-sm-6 mt-2">
+        <strong>Puestos:</strong>
+        <% @employee.stalls.each do |stall| %>
+          <p><%= stall.name %></p>
+        <% end -%>
+      </div>
+      <div class="col-md-3 col-sm-6 mb-2 mt-2">
+        <strong>Pago del Seguro:</strong>
+        <p><%= @employee.social_security %></p>
+      </div>
+      <div class="col-md-3 col-sm-6 mb-2 mt-2">
+        <strong>Sub Servicio:</strong>
+        <p><%= @employee.sub_service.name if @employee.sub_service %></p>
+      </div>
+      <div class="col-md-3 col-sm-6 mb-2 mt-2">
+        <strong>Víaticos:</strong>
+        <% if @employee.daily_viatical == "not" %>
+          <p>No</p>
+        <% else %>
+          <p>Sí</p>
+        <% end %>
+      </div>
+      <div class="col-md-3 col-sm-6 mb-2 mt-2">
+        <strong>Seguro Completo:</strong>
+        <% if @employee.ccss_type == "not" %>
+          <p>No</p>
+        <% else %>
+          <p>Sí</p>
+        <% end %>
+      </div>
+      <div class="col-md-3 col-sm-6 mb-2 mt-2">
+        <strong>Activo:</strong>
+        <% if @employee.active %>
+          <p>Sí</p>
+        <% else %>
+          <p>No</p>
+        <% end %>
+      </div>
+    </div>
 
 <div class="row form_fieldset">
   <div  class="col-12 mt-4 mb-4">
