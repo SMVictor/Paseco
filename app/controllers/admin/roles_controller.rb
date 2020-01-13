@@ -341,7 +341,7 @@ class RolesController < ApplicationController
    @count = 0
 
    @payrole.payrole_lines.each do |payrole|
-    if payrole.employee.bank == "BAC" && payrole.employee.account != "" && payrole.net_salary.to_i > 0
+    if payrole.employee.bank == "BAC" && payrole.employee.account != "" && payrole.employee.account != nil && payrole.net_salary.to_i > 0
       @total += payrole.net_salary.to_f
       @count += 1
     end
