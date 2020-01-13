@@ -23,7 +23,7 @@
     <div class="col-xl-2 col-md-12  mt-2">
       <label for="">Acciones</label><br>
       <% if f.object.id && @employee.entries.last %>
-        <button id="test" type="button" class="fa fa-eye" style="color: #8068D9;" onclick="generatePDFFile(this, '<%= @employee.entries.last.start_date %>', '<%= @employee.entries.last.end_date %>')"></button>
+        <button id="test" type="button" class="fa fa-eye" style="color: #8068D9;" onclick="generatePDFFile(this, '<%= @employee.entries.last.start_date %>', '<%= @employee.entries.last.end_date ? @employee.entries.last.end_date : active %>')"></button>
       <% end %>
       <%= link_to_remove_association "", f, class: "fas fa-trash-alt", id: 'remove_link', style: "color: red" %>
     </div>

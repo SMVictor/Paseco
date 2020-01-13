@@ -132,7 +132,7 @@ class EmployeesController < ApplicationController
 
 
     if Date.parse(@entry_date).year < Date.parse(@date).year
-      if @departure_date == ''
+      if @departure_date == 'active'
         @period = (Date.parse(@entry_date).year).to_s + "-" + Date.parse(@date).year.to_s
       else
         @period = (Date.parse(@entry_date).year).to_s + "-" + (Date.parse(@departure_date).year).to_s
