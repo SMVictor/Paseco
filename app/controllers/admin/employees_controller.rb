@@ -131,7 +131,7 @@ class EmployeesController < ApplicationController
 
 
     if Date.parse(@entry_date).year < Date.parse(@date).year
-      @period = (Date.parse(@entry_date).year).to_s + "-" + (Date.parse(@entry_date).year + 1).to_s
+      @period = (Date.parse(@entry_date).year).to_s + "-" + Date.parse(@date).year.to_s
     else
       @period = Date.parse(@date).year.to_s
     end
