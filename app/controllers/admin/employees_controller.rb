@@ -130,8 +130,8 @@ class EmployeesController < ApplicationController
     @end_date = params[:end_date]
 
 
-    if Date.parse(@start_date).year < Date.parse(@date).year
-      @period = (Date.parse(@start_date).year).to_s + "-" + (Date.parse(@start_date).year + 1).to_s
+    if Date.parse(@entry_date).year < Date.parse(@date).year
+      @period = (Date.parse(@entry_date).year).to_s + "-" + Date.parse(@entry_date).year + 1).to_s
     else
       @period = Date.parse(@date).year.to_s
     end
