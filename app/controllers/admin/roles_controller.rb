@@ -508,6 +508,12 @@ class RolesController < ApplicationController
     end
   end
 
+  def payrole_detail_pdf
+    respond_to do |format|
+      format.html
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_role
