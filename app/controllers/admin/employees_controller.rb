@@ -122,6 +122,7 @@ class EmployeesController < ApplicationController
     @area = params[:area]
     @stall = params[:stall]
     @entry_date = params[:entry_date]
+    @departure_date = params[:departure_date]
     @avalaible_days = params[:avalaible_days]
     @used_days = params[:used_days]
     @requested_days = params[:requested_days]
@@ -131,7 +132,11 @@ class EmployeesController < ApplicationController
 
 
     if Date.parse(@entry_date).year < Date.parse(@date).year
-      @period = (Date.parse(@entry_date).year).to_s + "-" + Date.parse(@date).year.to_s
+      if @departure_date == ''
+        @period = (Date.parse(@entry_date).year).to_s + "-" + Date.parse(@date).year.to_s
+      else
+        @period = (Date.parse(@entry_date).year).to_s + "-" + (Date.parse(@departure_date).year).to_s
+      end
     else
       @period = Date.parse(@date).year.to_s
     end

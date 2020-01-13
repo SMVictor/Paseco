@@ -93,7 +93,7 @@ function filterInactiveEmployee(){
   });
 }
 
-function generatePDFFile(element, entryDate){
+function generatePDFFile(element, entryDate, departure_date){
 
   var lineCode          = $(element).next().attr('name').split(']')[1].replace('[', '');
   var employee          = JSON.parse(document.querySelector('#nested-fields').dataset.employee);
@@ -115,7 +115,7 @@ function generatePDFFile(element, entryDate){
   var params = "?start_date=" + start_date.val() + "&requested_days=" + requested_days.val() + "&end_date=" + end_date.val() +
                "&included_freedays=" + included_freedays.val() + "&total_days=" + total_days.text() + "&used_days=" + used_days.text() +
                "&avalaible_days=" + avalaible_days.text() + "&employee_name=" + employee.name + "&employee_identification=" +
-               employee.identification + "&date=" + today + "&entry_date=" + entryDate + "&stall=" + employee.stalls[0].name +
+               employee.identification + "&date=" + today + "&entry_date=" + entryDate + "&departure_date=" + departure_date + "&stall=" + employee.stalls[0].name +
                "&area=" + employee.positions[0].area.name;
 
   window.location.replace(url+params);
