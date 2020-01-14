@@ -30,7 +30,7 @@
 	    </div>
 	  </div>
 	  <div class="row form_fieldset">
-		  <div  class="col-12 mt-4">
+		  <div  class="col-12 mt-2">
 		    <legend><%= @employee.name %>: <%= number_to_currency(@employee.payrole_details.where(role_id: @payrole.id).first.net_salary, unit: '₡') rescue nil %> </legend>
 		    <div id="table1" class="table-responsive">
 	          <table class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
