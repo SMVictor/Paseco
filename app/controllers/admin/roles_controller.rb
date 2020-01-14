@@ -1,11 +1,11 @@
 module Admin
 class RolesController < ApplicationController
 
-  layout 'admin'
+  layout 'admin', except: [:payrole_detail_pdf]
   load_and_authorize_resource
   before_action :set_role, only: [:show, :edit, :update, :destroy, :add_role_lines, :update_role_lines, :approvals, :check_changes, :stall_summary, :stalls_hours]
   before_action :set_stall, only: [:update_role_lines, :add_role_lines, :check_changes, :stall_summary]
-  before_action :set_payrole, only: [:show_payroles, :bncr_file, :bac_file, :payrole_detail, :budget, :old_budget, :budget_detail]
+  before_action :set_payrole, only: [:show_payroles, :bncr_file, :bac_file, :payrole_detail, :budget, :old_budget, :budget_detail, :payrole_detail_pdf]
 
   def index
     temporal_roles = Role.all
@@ -509,6 +509,7 @@ class RolesController < ApplicationController
   end
 
   def payrole_detail_pdf
+    @employee = Employee.find(params[:employee_id])
     respond_to do |format|
       format.html
     end
