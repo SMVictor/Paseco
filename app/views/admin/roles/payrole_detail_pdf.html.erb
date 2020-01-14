@@ -68,6 +68,12 @@
 	                  <td style="border: 1px solid"><%= line.extra_hours.to_f.round(2) %></td>
 	                  <td style="border: 1px solid"><%= number_to_currency(line.extra_salary.to_f.round(2), unit: '₡') %></td>
 	                  <td style="border: 1px solid"><%= number_to_currency(line.viatical.to_f.round(2), unit: '₡') %></td>
+	                  <td style="border: 1px solid"><%= number_to_currency(line.viatical.to_f.round(2), unit: '₡') %></td>
+	                  <td style="border: 1px solid"><%= number_to_currency(line.extra_payment.to_f, unit: '₡') %></td>
+	                  <td style="border: 1px solid"><%= line.extra_payment_reason %></td>
+	                  <td style="border: 1px solid"><%= number_to_currency(line.deductions.to_f, unit: '₡') %></td>
+	                  <td style="border: 1px solid"><%= line.deductions_reason %></td>
+	                  <td style="border: 1px solid"><%= line.comments %></td>
 	                </tr>
 	              <% end %>
 	              <% rescue => ex %>
