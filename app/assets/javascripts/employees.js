@@ -101,6 +101,7 @@ function generatePDFFile(element, entryDate, departure_date){
   var end_date          = $("input[name*='employee[vacations_attributes]["+lineCode+"][end_date]']");
   var requested_days    = $("input[name*='employee[vacations_attributes]["+lineCode+"][requested_days]']");
   var included_freedays = $("input[name*='employee[vacations_attributes]["+lineCode+"][included_freedays]']"); 
+  var included_freedays = $("input[name*='employee[vacations_attributes]["+lineCode+"][period]']"); 
   var total_days        = $("#total_days_th");
   var used_days         = $("#used_days_th");
   var avalaible_days    = $("#available_days_th");
