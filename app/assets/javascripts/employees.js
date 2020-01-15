@@ -101,6 +101,7 @@ function generatePDFFile(element, entryDate, departure_date){
   var end_date          = $("input[name*='employee[vacations_attributes]["+lineCode+"][end_date]']");
   var requested_days    = $("input[name*='employee[vacations_attributes]["+lineCode+"][requested_days]']");
   var included_freedays = $("input[name*='employee[vacations_attributes]["+lineCode+"][included_freedays]']"); 
+  var period            = $("input[name*='employee[vacations_attributes]["+lineCode+"][period]']"); 
   var total_days        = $("#total_days_th");
   var used_days         = $("#used_days_th");
   var avalaible_days    = $("#available_days_th");
@@ -116,7 +117,7 @@ function generatePDFFile(element, entryDate, departure_date){
                "&included_freedays=" + included_freedays.val() + "&total_days=" + total_days.text() + "&used_days=" + used_days.text() +
                "&avalaible_days=" + avalaible_days.text() + "&employee_name=" + employee.name + "&employee_identification=" +
                employee.identification + "&date=" + today + "&entry_date=" + entryDate + "&departure_date=" + departure_date + "&stall=" + employee.stalls[0].name +
-               "&area=" + employee.positions[0].area.name;
+               "&area=" + employee.positions[0].area.name + "&period=" + period.val();
 
   window.location.replace(url+params);
 

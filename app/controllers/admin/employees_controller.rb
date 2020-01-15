@@ -129,17 +129,7 @@ class EmployeesController < ApplicationController
     @total_days = params[:total_days]
     @start_date = params[:start_date]
     @end_date = params[:end_date]
-
-
-    if Date.parse(@entry_date).year < Date.parse(@date).year
-      if @departure_date == ''
-        @period = (Date.parse(@entry_date).year).to_s + "-" + Date.parse(@date).year.to_s
-      else
-        @period = (Date.parse(@entry_date).year).to_s + "-" + (Date.parse(@departure_date).year).to_s
-      end
-    else
-      @period = Date.parse(@date).year.to_s
-    end
+    @period = params[:period]
 
     respond_to do |format|
       format.html
@@ -231,7 +221,7 @@ class EmployeesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
-      params.require(:employee).permit(:name, :identification, :account_owner, :account_identification, :id_type, :birthday, :gender, :ccss_number, :province, :canton, :district, :other, :phone, :phone_1, :emergency_contact, :emergency_number, :payment_method, :bank, :account, :social_security, :daily_viatical, :ccss_type, :special, :active, :registered_account, :sub_service_id, stall_ids: [], position_ids: [], entries_attributes: [:id, :start_date, :end_date, :document, :reason_departure, :_destroy], vacations_attributes: [:id, :start_date, :end_date, :included_freedays, :requested_days, :_destroy])
+      params.require(:employee).permit(:name, :identification, :account_owner, :account_identification, :id_type, :birthday, :gender, :ccss_number, :province, :canton, :district, :other, :phone, :phone_1, :emergency_contact, :emergency_number, :payment_method, :bank, :account, :social_security, :daily_viatical, :ccss_type, :special, :active, :registered_account, :sub_service_id, stall_ids: [], position_ids: [], entries_attributes: [:id, :start_date, :end_date, :document, :reason_departure, :_destroy], vacations_attributes: [:id, :start_date, :end_date, :included_freedays, :requested_days, :period, :_destroy])
     end
 
     def bonus_params
