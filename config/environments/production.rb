@@ -92,10 +92,11 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = { 
     address: "smtp.gmail.com",
     port: 587, 
-    domain: "paseco-development.herokuapp.com", 
+    pool: true,
+    domain: "pasecoayb.con", 
     authentication: "plain", 
     enable_starttls_auto: true, 
-    user_name: "gerencia@pasecoayb.com", 
+    user_name: "gerencia@pasecocr.com", 
     password: "jrab1010"
   }
 end

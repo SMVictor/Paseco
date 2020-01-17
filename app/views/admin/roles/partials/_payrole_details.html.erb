@@ -9,15 +9,15 @@
   <div  class="col-12 mt-4">
     <legend>Información General</legend>
   </div>
-  <div class="col-lg-4 mb-2 mt-2">
+  <div class="col-4 mb-2 mt-2">
     <label for="">Nombre</label>
     <p><%= @payrole.name %></p>
   </div>
-  <div class="col-lg-4 mb-2 mt-2">
+  <div class="col-4 mb-2 mt-2">
     <label for="">Fecha de Inicio</label>
     <p><%= @payrole.start_date %></p>
   </div>
-  <div class="col-lg-4 mb-2 mt-2">
+  <div class="col-4 mb-2 mt-2">
     <label for="">Fecha de Fin</label>
     <p><%= @payrole.end_date %></p>
   </div>
@@ -27,10 +27,10 @@
     <legend><%= @employee.name %>: <%= number_to_currency(@employee.payrole_details.where(role_id: @payrole.id).first.net_salary, unit: '₡') rescue nil %> </legend>
     <div class="card">
       <div class="card-body">
-        <%= link_to(admin_payrole_detail_pdf_path(@payrole, @employee, :format => :pdf), class:'btn btn-info float-right ml-1', title: 'Descargar PDF') do %>
+        <%= link_to(admin_payrole_detail_pdf_path(@payrole, @employee, :format => :pdf), class:'btn btn-info float-right ml-1', title: 'Descargar PDF', target: :blank) do %>
           <i class="fa fa-file-pdf-o"></i>
         <% end -%>
-        <%= link_to(root_path, class:'btn btn-info float-right mb-1', title: 'Aprobaciones') do %>
+        <%= link_to(admin_payrole_detail_email_path(@payrole, @employee), class:'btn btn-info float-right ml-1', title: 'Enviar al correo') do %>
           <i class="fa fa-envelope"></i>
         <% end -%>
         <div id="table" class="table-responsive">
@@ -116,28 +116,28 @@
           </table>
         </div>
         <div class="row mt-3 p-2">
-          <div class="col-lg-6">
+          <div class="col-6">
             <div class="row">
-              <div class="col-lg-6" style="border-top: 1px solid; border-right: 1px solid; border-left: 1px solid;">Salario Base</div>
-              <div class="col-lg-6" style="border-top: 1px solid; border-right: 1px solid;"><%= number_to_currency(@employee.payrole_details.where(role_id: @payrole.id).first.base_salary, unit: '₡') rescue nil %></div>
-              <div class="col-lg-6" style="border-top: 1px solid; border-right: 1px solid; border-left: 1px solid;">Horas Extras</div>
-              <div class="col-lg-6" style="border-top: 1px solid; border-right: 1px solid;"><%= number_to_currency(@employee.payrole_details.where(role_id: @payrole.id).first.extra_salary, unit: '₡') rescue nil %></div>
-              <div class="col-lg-6" style="border-top: 1px solid; border-right: 1px solid; border-left: 1px solid;">Víaticos</div>
-              <div class="col-lg-6" style="border-top: 1px solid; border-right: 1px solid;"><%= number_to_currency(@employee.payrole_details.where(role_id: @payrole.id).first.viatical, unit: '₡') rescue nil %></div>
-              <div class="col-lg-6" style="border-top: 1px solid; border-right: 1px solid; border-bottom: 1px solid; border-left: 1px solid;">Pagos Adicionales</div>
-              <div class="col-lg-6" style="border-top: 1px solid; border-right: 1px solid; border-bottom: 1px solid;"><%= number_to_currency(@employee.payrole_details.where(role_id: @payrole.id).first.extra_payments, unit: '₡') rescue nil %></div>
+              <div class="col-6" style="border-top: 1px solid; border-right: 1px solid; border-left: 1px solid;">Salario Base</div>
+              <div class="col-6" style="border-top: 1px solid; border-right: 1px solid;"><%= number_to_currency(@employee.payrole_details.where(role_id: @payrole.id).first.base_salary, unit: '₡') rescue nil %></div>
+              <div class="col-6" style="border-top: 1px solid; border-right: 1px solid; border-left: 1px solid;">Horas Extras</div>
+              <div class="col-6" style="border-top: 1px solid; border-right: 1px solid;"><%= number_to_currency(@employee.payrole_details.where(role_id: @payrole.id).first.extra_salary, unit: '₡') rescue nil %></div>
+              <div class="col-6" style="border-top: 1px solid; border-right: 1px solid; border-left: 1px solid;">Víaticos</div>
+              <div class="col-6" style="border-top: 1px solid; border-right: 1px solid;"><%= number_to_currency(@employee.payrole_details.where(role_id: @payrole.id).first.viatical, unit: '₡') rescue nil %></div>
+              <div class="col-6" style="border-top: 1px solid; border-right: 1px solid; border-bottom: 1px solid; border-left: 1px solid;">Pagos Adicionales</div>
+              <div class="col-6" style="border-top: 1px solid; border-right: 1px solid; border-bottom: 1px solid;"><%= number_to_currency(@employee.payrole_details.where(role_id: @payrole.id).first.extra_payments, unit: '₡') rescue nil %></div>
             </div>
           </div>
-          <div class="col-lg-6">
+          <div class="col-6">
             <div class="row">
-              <div class="col-lg-6" style="border-top: 1px solid; border-right: 1px solid;">Salario Bruto</div>
-              <div class="col-lg-6" style="border-top: 1px solid; border-right: 1px solid;"><%= number_to_currency(@employee.payrole_details.where(role_id: @payrole.id).first.gross_salary, unit: '₡') rescue nil %></div>
-              <div class="col-lg-6" style="border-top: 1px solid; border-right: 1px solid;">Deducción CCSS</div>
-              <div class="col-lg-6" style="border-top: 1px solid; border-right: 1px solid;"><%= number_to_currency(@employee.payrole_details.where(role_id: @payrole.id).first.ccss_deduction, unit: '₡') rescue nil %></div>
-              <div class="col-lg-6" style="border-top: 1px solid; border-right: 1px solid;">Otras Deducciones</div>
-              <div class="col-lg-6" style="border-top: 1px solid; border-right: 1px solid;"><%= number_to_currency(@employee.payrole_details.where(role_id: @payrole.id).first.deductions, unit: '₡') rescue nil %></div>
-              <div class="col-lg-6" style="border-top: 1px solid; border-right: 1px solid; border-bottom: 1px solid;">Salario Neto</div>
-              <div class="col-lg-6" style="border-top: 1px solid; border-right: 1px solid; border-bottom: 1px solid;"><%= number_to_currency(@employee.payrole_details.where(role_id: @payrole.id).first.net_salary, unit: '₡') rescue nil %></div>
+              <div class="col-6" style="border-top: 1px solid; border-right: 1px solid;">Salario Bruto</div>
+              <div class="col-6" style="border-top: 1px solid; border-right: 1px solid;"><%= number_to_currency(@employee.payrole_details.where(role_id: @payrole.id).first.gross_salary, unit: '₡') rescue nil %></div>
+              <div class="col-6" style="border-top: 1px solid; border-right: 1px solid;">Deducción CCSS</div>
+              <div class="col-6" style="border-top: 1px solid; border-right: 1px solid;"><%= number_to_currency(@employee.payrole_details.where(role_id: @payrole.id).first.ccss_deduction, unit: '₡') rescue nil %></div>
+              <div class="col-6" style="border-top: 1px solid; border-right: 1px solid;">Otras Deducciones</div>
+              <div class="col-6" style="border-top: 1px solid; border-right: 1px solid;"><%= number_to_currency(@employee.payrole_details.where(role_id: @payrole.id).first.deductions, unit: '₡') rescue nil %></div>
+              <div class="col-6" style="border-top: 1px solid; border-right: 1px solid; border-bottom: 1px solid;">Salario Neto</div>
+              <div class="col-6" style="border-top: 1px solid; border-right: 1px solid; border-bottom: 1px solid;"><%= number_to_currency(@employee.payrole_details.where(role_id: @payrole.id).first.net_salary, unit: '₡') rescue nil %></div>
             </div>
           </div>
         </div>

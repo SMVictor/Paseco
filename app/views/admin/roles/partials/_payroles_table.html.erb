@@ -47,6 +47,9 @@
                 <%= link_to(admin_bac_file_path(payrole, format: "xls"), class:'btn btn-block primary-btn mt-2', title: 'Archivo BAC') do %>
                   <i class="fa fa-file-excel"></i>
                 <% end %>
+                <%= link_to(admin_send_payslips_path(payrole), class:'btn btn-block btn-info mt-2', title: 'Enviar Planillas') do %>
+                  <i class="fa fa-envelope"></i>
+                <% end %>
               <% end %>
             </div>
           </div>

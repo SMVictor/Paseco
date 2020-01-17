@@ -5,7 +5,7 @@ class RolesController < ApplicationController
   load_and_authorize_resource
   before_action :set_role, only: [:show, :edit, :update, :destroy, :add_role_lines, :update_role_lines, :approvals, :check_changes, :stall_summary, :stalls_hours]
   before_action :set_stall, only: [:update_role_lines, :add_role_lines, :check_changes, :stall_summary]
-  before_action :set_payrole, only: [:show_payroles, :bncr_file, :bac_file, :payrole_detail, :budget, :old_budget, :budget_detail, :payrole_detail_pdf]
+  before_action :set_payrole, only: [:show_payroles, :bncr_file, :bac_file, :payrole_detail, :budget, :old_budget, :budget_detail, :payrole_detail_pdf, :payrole_detail_email, :send_payslips]
 
   def index
     temporal_roles = Role.all
@@ -512,6 +512,24 @@ class RolesController < ApplicationController
     @employee = Employee.find(params[:employee_id])
     respond_to do |format|
       format.html
+    end
+  end
+
+  def payrole_detail_email
+    @employee = Employee.find(params[:employee_id])
+    EmployeeMailer.send_payslip(@payrole, @employee).deliver_now
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def send_payslips
+    employees = Employee.where(active: true)
+    employees.each do |employee|
+      EmployeeMailer.send_payslip(@payrole, employee).deliver_later
+    end
+    respond_to do |format|
+      format.html { redirect_to admin_payroles_url, notice: 'Se han comenzado a enviar las boletas de pago.' }
     end
   end
 
