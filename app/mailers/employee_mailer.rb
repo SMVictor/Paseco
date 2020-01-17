@@ -2,6 +2,6 @@ class EmployeeMailer < ApplicationMailer
   def send_payslip(payrole, employee)
   	@payrole  = payrole
   	@employee = employee
-  	mail to: 'vic3x94@gmail.com', subject: 'Boleta de Pago'
+  	mail to: @employee.email, subject: 'Boleta de Pago'
   end
 end

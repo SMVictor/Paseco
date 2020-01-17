@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_15_163430) do
+ActiveRecord::Schema.define(version: 2020_01_17_205208) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -183,6 +183,7 @@ ActiveRecord::Schema.define(version: 2020_01_15_163430) do
     t.string "account_identification"
     t.boolean "registered_account", default: false
     t.bigint "sub_service_id"
+    t.string "email"
     t.index ["sub_service_id"], name: "index_employees_on_sub_service_id"
   end
 
@@ -428,6 +429,7 @@ ActiveRecord::Schema.define(version: 2020_01_15_163430) do
     t.boolean "active", default: true
     t.bigint "quote_id"
     t.bigint "type_id"
+    t.boolean "send_payslips", default: false
     t.index ["customer_id"], name: "index_stalls_on_customer_id"
     t.index ["quote_id"], name: "index_stalls_on_quote_id"
     t.index ["type_id"], name: "index_stalls_on_type_id"

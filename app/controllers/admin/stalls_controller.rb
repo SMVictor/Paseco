@@ -100,7 +100,7 @@ class StallsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def stall_params
-      params.require(:stall).permit(:name, :description, :province, :canton, :district, :other, :customer_id, :quote_id, :daily_viatical, :substalls, :night_min_salary, :min_salary, :extra_shift, :active, :type_id)
+      params.require(:stall).permit(:name, :description, :province, :canton, :district, :other, :customer_id, :quote_id, :daily_viatical, :substalls, :night_min_salary, :min_salary, :extra_shift, :active, :send_payslips, :type_id)
     end
 end
 end

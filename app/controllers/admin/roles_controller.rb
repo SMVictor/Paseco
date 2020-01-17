@@ -526,7 +526,20 @@ class RolesController < ApplicationController
   def send_payslips
     employees = Employee.where(active: true)
     employees.each do |employee|
-      EmployeeMailer.send_payslip(@payrole, employee).deliver_later
+
+      send_payslips = false
+      stalls = employee.stalls
+      stalls.each do |stall|
+        send_payslips = stall.send_payslips
+      end
+
+      if send_payslips
+        if employee.email != "" && employee.email != nil
+          if PayroleDetail.where(payrole_id: @payrole.id, employee_id: employee.id)
+            EmployeeMailer.send_payslip(@payrole, employee).deliver_later
+          end 
+        end
+      end
     end
     respond_to do |format|
       format.html { redirect_to admin_payroles_url, notice: 'Se han comenzado a enviar las boletas de pago.' }
