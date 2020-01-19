@@ -89,8 +89,6 @@ module Admin
     end
 
     def update_edit_step2
-      @copy = QuoteCopy.all.destroy_all
-
       respond_to do |format|
         if @quote.update(quote_params)
           format.html { redirect_to admin_quotes_url, notice: 'La acción se realizó correctamente.' }
