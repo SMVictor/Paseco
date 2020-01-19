@@ -111,6 +111,7 @@ module Admin
       @quote.daily_salary          = @copy.daily_salary
       @quote.night_salary          = @copy.night_salary
       @quote.save
+      QuoteCopy.destroy_all
 
       respond_to do |format|
         format.html { redirect_to admin_quotes_url }
@@ -118,7 +119,6 @@ module Admin
     end
 
     def update
-      QuoteCopy.destroy_all
       @copy = QuoteCopy.new
       @copy.institution           = @quote.institution
       @copy.procedure_number      = @quote.procedure_number
