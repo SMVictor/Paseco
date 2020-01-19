@@ -117,6 +117,7 @@ module Admin
     end
 
     def update
+      QuoteCopy.destroy_all
       @copy = QuoteCopy.new
       @copy.institution           = @quote.institution
       @copy.procedure_number      = @quote.procedure_number
