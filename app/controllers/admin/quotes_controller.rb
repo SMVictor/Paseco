@@ -7,7 +7,7 @@ module Admin
 
     def index
       if params[:ids]
-        @quotes = Quote.where(id: params[:ids]).all.order(number: :asc)
+        @quotes = Quote.where(id: params[:ids]).order(number: :asc)
         respond_to do |format|
           format.js
         end
@@ -103,7 +103,7 @@ module Admin
     end
 
     def restore_step1
-      @copy = QuoteCopy.last
+      @copy = QuoteCopy.first
       @quote.institution           = @copy.institution
       @quote.procedure_number      = @copy.procedure_number
       @quote.procedure_description = @copy.procedure_description
@@ -118,6 +118,7 @@ module Admin
     end
 
     def update
+      QuoteCopy.destroy_all
       @copy = QuoteCopy.new
       @copy.institution           = @quote.institution
       @copy.procedure_number      = @quote.procedure_number
