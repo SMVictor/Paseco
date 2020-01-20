@@ -140,10 +140,14 @@
 	              	<th scope="" width="50%">Detalle de Pagos Extras</th>
 	                <th scope="" width="50%">Detalle de Deducciones</th>
 	              </tr>
+	              <tr>
+	              	<th scope="" width="50%"></th>
+	                <th scope="" width="50%"></th>
+	              </tr>
 	            </thead>
 	            <tbody>
 	              <% @employee.payrole_details.where(role_id: @payrole.id).first.detail_lines.order(date: :asc).each do |line| %> 
-	                <% if line.extra_payment_reason || line.deductions.reason %>
+	                <% if line.extra_payment_reason != '' || line.deductions.reason != '' %>
 	                  <tr>
 	                    <td><%= line.extra_payment_reason %>:<%= number_to_currency(line.extra_payment.to_f, unit: '₡') rescue nil %></td>
 	                    <td><%= line.deductions_reason %>:<%= number_to_currency(line.deductions.to_f, unit: '₡') rescue nil %></td>
