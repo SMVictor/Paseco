@@ -149,8 +149,8 @@
 	              <% @employee.payrole_details.where(role_id: @payrole.id).first.detail_lines.order(date: :asc).each do |line| %> 
 	                <% if line.extra_payment_reason || line.deductions.reason %>
 	                  <tr>
-	                    <td><%= line.extra_payment_reason %>:<%= number_to_currency(line.extra_payment.to_f, unit: '₡') rescue nil %></td>
-	                    <td><%= line.deductions_reason %>:<%= number_to_currency(line.deductions.to_f, unit: '₡') rescue nil %></td>
+	                    <td scope="" width="50%"><%= line.extra_payment_reason %>:<%= number_to_currency(line.extra_payment.to_f, unit: '₡') rescue nil %></td>
+	                    <td scope="" width="50%"><%= line.deductions_reason %>:<%= number_to_currency(line.deductions.to_f, unit: '₡') rescue nil %></td>
 	                  </tr>
 	                <% end %>
 	              <% end %>
