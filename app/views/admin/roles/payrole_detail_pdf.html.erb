@@ -133,20 +133,27 @@
 	            </tbody>
 	          </table>
 	        </div>
-	        <div class="row">
-	          <div class="col-6">
-	            <legend>Detalle de Pagos Extras</legend>
-	          </div>
-	          <div class="col-6">
-	            <legend>Detalle de Deducciones</legend>
-	          </div>
-	        </div>
-	        <div class="row">
-	          <% @employee.payrole_details.where(role_id: @payrole.id).first.detail_lines.order(date: :asc).each do |line| %> 
-	            <div class="col-6"><%= line.extra_payment_reason %>:<%= number_to_currency(line.extra_payment.to_f, unit: '₡') %></div>
-	        	<div class="col-6"><%= line.deductions_reason %>:<%= number_to_currency(line.deductions.to_f, unit: '₡') %></div>
-	        	<% end %>
-	        </div>
+	        <div id="table3" class="table-responsive mt-2 mb-5">
+	          <table class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+	            <thead class="">
+	              <tr>
+	              	<th scope="" width="50%">Detalle de Pagos Extras</th>
+	                <th scope="" width="50%">Detalle de Deducciones</th>
+	              </tr>
+	            </thead>
+	            <tbody>
+	              <% @employee.payrole_details.where(role_id: @payrole.id).first.detail_lines.order(date: :asc).each do |line| %> 
+	                <% if line.extra_payment_reason || line.deductions.reason %>
+	                  <tr>
+	                    <td><%= line.extra_payment_reason %>:<%= number_to_currency(line.extra_payment.to_f, unit: '₡') rescue nil %></td>
+	              </tr>
+	              <tr>
+	                <td><%= line.deductions_reason %>:<%= number_to_currency(line.deductions.to_f, unit: '₡') rescue nil %></td>
+	              </tr>
+	                <% end %>
+	              <% end %>
+	            </tbody>
+	          </table>
 		  </div>
 		</div>
     </div>
