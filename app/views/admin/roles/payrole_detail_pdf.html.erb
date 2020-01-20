@@ -133,7 +133,7 @@
 	            </tbody>
 	          </table>
 	        </div>
-	        <div id="table3" class="table-responsive mt-2 mb-5">
+	        <div id="table2" class="table-responsive mt-2 mb-5">
 	          <table class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
 	            <thead class="">
 	              <tr>
@@ -146,10 +146,8 @@
 	                <% if line.extra_payment_reason || line.deductions.reason %>
 	                  <tr>
 	                    <td><%= line.extra_payment_reason %>:<%= number_to_currency(line.extra_payment.to_f, unit: '₡') rescue nil %></td>
-	              </tr>
-	              <tr>
-	                <td><%= line.deductions_reason %>:<%= number_to_currency(line.deductions.to_f, unit: '₡') rescue nil %></td>
-	              </tr>
+	                    <td><%= line.deductions_reason %>:<%= number_to_currency(line.deductions.to_f, unit: '₡') rescue nil %></td>
+	                  </tr>
 	                <% end %>
 	              <% end %>
 	            </tbody>
