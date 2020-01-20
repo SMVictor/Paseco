@@ -143,7 +143,7 @@
 	        </div>
 	        <div class="row">
 	          <% @employee.payrole_details.where(role_id: @payrole.id).first.detail_lines.order(date: :asc).each do |line| %> 
-	            <div class="col-6"><%= line.extra_payment_reason %>:<%= number_to_currency(line.extra_payment.to_f, unit: '₡') if ine.extra_payment_reason %></div>
+	            <div class="col-6"><%= line.extra_payment_reason %>:<%= number_to_currency(line.extra_payment.to_f, unit: '₡') if line.extra_payment_reason %></div>
 	        	<div class="col-6"><%= line.deductions_reason %>:<%= number_to_currency(line.deductions.to_f, unit: '₡') if line.deductions_reason %></div>
 	        	<% end %>
 	        </div>
