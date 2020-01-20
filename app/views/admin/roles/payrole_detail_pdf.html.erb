@@ -141,21 +141,26 @@
 	            <legend>Detalle de Deducciones</legend>
 	          </div>
 	        </div>
-	        <div id="table2" class="table-responsive mt-2 mb-5">
-	          <table class="table table-striped table-bordered table-sm" cellspacing="0" width="45%">
-	            <thead class="">
-	            </thead>
-	            <tbody>
-	              <% @employee.payrole_details.where(role_id: @payrole.id).first.detail_lines.order(date: :asc).each do |line| %>
-	                <% if (line.extra_payment_reason && line.extra_payment_reason != "") || (line.deductions_reason && line.deductions_reason != "") %>
-	                  <tr>
-	                    <td scope="" width="100%"><%= line.extra_payment_reason %>:<%= number_to_currency(line.extra_payment.to_f, unit: '₡') rescue nil %></td>
-	                  </tr>
-	                <% end %>
-	              <% end %>
-	            </tbody>
-	          </table>
-		  </div>
+	        <div class="row">
+	        	<div class="col-6">
+	        		<div id="table2" class="table-responsive mt-2 mb-5">
+			          <table class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+			            <thead class="">
+			            </thead>
+			            <tbody>
+			              <% @employee.payrole_details.where(role_id: @payrole.id).first.detail_lines.order(date: :asc).each do |line| %>
+			                <% if (line.extra_payment_reason && line.extra_payment_reason != "") || (line.deductions_reason && line.deductions_reason != "") %>
+			                  <tr>
+			                    <td scope=""><%= line.extra_payment_reason %>:<%= number_to_currency(line.extra_payment.to_f, unit: '₡') rescue nil %></td>
+			                    
+			                  </tr>
+			                <% end %>
+			              <% end %>
+			            </tbody>
+			          </table>
+				  </div>
+	        	</div>
+	        </div>
 		</div>
     </div>
     <!-- Optional JavaScript -->
