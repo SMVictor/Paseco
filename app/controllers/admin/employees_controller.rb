@@ -32,14 +32,16 @@ class EmployeesController < ApplicationController
 
     from = Time.now.year
     to   = Time.now.year
+    first_payrole_date = '30/11/2019'
 
     if @employee.entries
-      if @employee.entries && @employee.entries.last && @employee.entries.last.start_date && @employee.entries.last.start_date != ""
+      if @employee.entries && @employee.entries.last && @employee.entries.last.start_date && @employee.entries.last.start_date != "" && @employee.entries.last.start_date.to_date.year >= 2020
         from = @employee.entries.last.start_date.to_date.year
+        first_payrole_date = @employee.entries.last.start_date
       end
     end
     (from..to).each do |i|
-      @employee.calculate_christmas_bonification(i)
+      @employee.calculate_christmas_bonification(i, first_payrole_date)
     end
   end
 
@@ -74,6 +76,14 @@ class EmployeesController < ApplicationController
   end
 
   def update
+    if params[:employee][:active] == "0" 
+      bonuses = @employee.christmas_bonifications.where(from_date: '01/12/'+(Time.now.year-1).to_s)
+      if bonuses != []
+        bonuses.first.christmas_bonification_lines.destroy_all
+        bonuses.first.destroy
+      end
+    end
+
     if params[:employee][:account] != @employee.account
       params[:employee][:registered_account] = false
     end
