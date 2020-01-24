@@ -14,15 +14,14 @@
         <%= form.text_field :description, class: "form-control", placeholder: "Descripción" %>
       </div>
     </div>
-
     <div class="row form_fieldset text-center">
       <div  class="col-12 mt-4">
         <legend class="text-left">Información de los Turnos</legend>
         <div class="row mt-1 ml-1  mr-1 pt-3 tbl_head d-none d-xl-flex text-center" style="">
-          <div class="col-12 col-xl-3">
+          <div class="col-12 col-xl-2">
             <p class="text-uppercase">Nombre</p>
           </div>
-          <div class="col-12 col-xl-3">
+          <div class="col-12 col-xl-2">
             <p class="text-uppercase">Entrada</p>
           </div>
           <div class="col-12 col-xl-2">
@@ -31,13 +30,16 @@
           <div class="col-12 col-xl-2">
             <p class="text-uppercase">Costo HE</p>
           </div>
+           <div class="col-12 col-xl-2">
+            <p class="text-uppercase">Activo</p>
+          </div>
           <div class="col-12 col-xl-2">
             <p class="text-uppercase">Acciones</p>
           </div>
         </div>
          <div id="shifts">
         <div class="shifts-fields mt-4">
-          <%= form.fields_for :shifts do |shift| %>
+          <%= form.fields_for :shifts, form.object.shifts.order(active: :desc) do |shift| %>
             <%= render 'shift_fields', f: shift %>
           <%end%>
         </div>

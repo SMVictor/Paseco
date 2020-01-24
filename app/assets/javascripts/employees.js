@@ -101,16 +101,11 @@ function generatePDFFile(element, entryDate, departure_date){
   var end_date          = $("input[name*='employee[vacations_attributes]["+lineCode+"][end_date]']");
   var requested_days    = $("input[name*='employee[vacations_attributes]["+lineCode+"][requested_days]']");
   var included_freedays = $("input[name*='employee[vacations_attributes]["+lineCode+"][included_freedays]']"); 
-  var period            = $("input[name*='employee[vacations_attributes]["+lineCode+"][period]']"); 
+  var period            = $("input[name*='employee[vacations_attributes]["+lineCode+"][period]']");
+  var today             = $("input[name*='employee[vacations_attributes]["+lineCode+"][date]']"); 
   var total_days        = $("#total_days_th");
   var used_days         = $("#used_days_th");
   var avalaible_days    = $("#available_days_th");
-
-  var today = new Date();
-  var dd = String(today.getDate()).padStart(2, '0');
-  var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-  var yyyy = today.getFullYear();
-  today = dd + '/' + mm + '/' + yyyy;
 
   var url = "https://www.pasecoayb.com/admin/employees/"+employee.id+"/vacations/file.pdf";
   var params = "?start_date=" + start_date.val() + "&requested_days=" + requested_days.val() + "&end_date=" + end_date.val() +

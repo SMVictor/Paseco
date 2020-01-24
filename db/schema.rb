@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_17_205208) do
+ActiveRecord::Schema.define(version: 2020_01_24_203725) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -410,6 +410,7 @@ ActiveRecord::Schema.define(version: 2020_01_17_205208) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.time "start_hour"
+    t.boolean "active", default: true
     t.index ["payment_id"], name: "index_shifts_on_payment_id"
   end
 
@@ -473,6 +474,7 @@ ActiveRecord::Schema.define(version: 2020_01_17_205208) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "period"
+    t.string "date"
     t.index ["employee_id"], name: "index_vacations_on_employee_id"
   end
 
