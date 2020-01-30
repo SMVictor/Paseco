@@ -125,7 +125,7 @@
     </div>
     <div class="col-xl-3 col-lg-6 mt-2">
       <label for="">Sub Servicio</label>
-      <%= form.select(:sub_service_id, SubService.all.order(name: :asc).collect {|t| [t.name, t.id]}, {include_blank: false}, {multiple: false, size: 3, class: "form-control", id: "sub_service"}) %>
+      <%= form.select(:sub_service_ids, SubService.all.order(name: :asc).collect {|t| [t.name, t.id]}, {include_blank: false}, {multiple: true, size: 3, class: "form-control", id: "sub_service"}) %>
       <label id="sub_service_error"></label>
     </div>
     <div class="col-xl-3 col-lg-6 mb-2 mt-2">

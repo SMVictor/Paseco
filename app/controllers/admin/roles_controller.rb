@@ -1,7 +1,8 @@
 module Admin
 class RolesController < ApplicationController
 
-  layout 'admin', except: [:payrole_detail_pdf]
+  layout 'admin', except: [:payrole_detail_pdf, :add_role_lines]
+
   load_and_authorize_resource
   before_action :set_role, only: [:show, :edit, :update, :destroy, :add_role_lines, :update_role_lines, :approvals, :check_changes, :stall_summary, :stalls_hours]
   before_action :set_stall, only: [:update_role_lines, :add_role_lines, :check_changes, :stall_summary]
@@ -212,6 +213,7 @@ class RolesController < ApplicationController
         format.js
       end
     end
+    render layout: "admin_without_sidebar"
   end
 
   def approvals 
@@ -563,7 +565,7 @@ class RolesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def role_params
-      params.require(:role).permit(:name, :start_date, :end_date, stall_ids: [], role_lines_attributes: [:id, :date, :employee_id, :stall_id, :shift_id, :substall, :comment, :hours, :requirement_justification, :extra_payments, :extra_payments_description, :deductions, :deductions_description, :holiday, :position_id, :_destroy])
+      params.require(:role).permit(:name, :start_date, :end_date, stall_ids: [], role_lines_attributes: [:id, :date, :employee_id, :stall_id, :shift_id, :substall, :comment, :hours, :requirement_justification, :extra_payments, :extra_payments_description, :deductions, :deductions_description, :holiday, :position_id, :sub_service_id, :_destroy])
     end
 
     def update_payrole_info(role, employee)
@@ -617,6 +619,9 @@ class RolesController < ApplicationController
           payrole_detail.detail_lines.last.deductions           = line.deductions
           payrole_detail.detail_lines.last.deductions_reason    = line.deductions_description
           payrole_detail.detail_lines.last.comments             = line.comment
+          payrole_detail.detail_lines.last.sector               = line.stall.customer.sector_id
+          payrole_detail.detail_lines.last.sub_service          = line.sub_service_id
+          payrole_detail.detail_lines.last.stall_type           = line.stall.type_id
 
           detail_line_id += 1 
         end

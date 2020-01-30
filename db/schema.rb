@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_24_203725) do
+ActiveRecord::Schema.define(version: 2020_01_28_033845) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -146,6 +146,9 @@ ActiveRecord::Schema.define(version: 2020_01_24_203725) do
     t.bigint "payrole_detail_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "sector"
+    t.string "sub_service"
+    t.string "stall_type"
     t.index ["payrole_detail_id"], name: "index_detail_lines_on_payrole_detail_id"
     t.index ["shift_id"], name: "index_detail_lines_on_shift_id"
     t.index ["stall_id"], name: "index_detail_lines_on_stall_id"
@@ -182,9 +185,7 @@ ActiveRecord::Schema.define(version: 2020_01_24_203725) do
     t.string "account_owner"
     t.string "account_identification"
     t.boolean "registered_account", default: false
-    t.bigint "sub_service_id"
     t.string "email"
-    t.index ["sub_service_id"], name: "index_employees_on_sub_service_id"
   end
 
   create_table "employees_positions", id: false, force: :cascade do |t|
@@ -197,6 +198,12 @@ ActiveRecord::Schema.define(version: 2020_01_24_203725) do
     t.bigint "stall_id", null: false
     t.bigint "employee_id", null: false
     t.index ["stall_id", "employee_id"], name: "index_employees_stalls_on_stall_id_and_employee_id"
+  end
+
+  create_table "employees_sub_services", id: false, force: :cascade do |t|
+    t.bigint "employee_id", null: false
+    t.bigint "sub_service_id", null: false
+    t.index ["employee_id", "sub_service_id"], name: "index_employees_sub_services_on_employee_id_and_sub_service_id"
   end
 
   create_table "entries", force: :cascade do |t|
@@ -351,11 +358,13 @@ ActiveRecord::Schema.define(version: 2020_01_24_203725) do
     t.boolean "holiday", default: false
     t.bigint "position_id"
     t.string "requirement_justification"
+    t.bigint "sub_service_id"
     t.index ["employee_id"], name: "index_role_lines_on_employee_id"
     t.index ["position_id"], name: "index_role_lines_on_position_id"
     t.index ["role_id"], name: "index_role_lines_on_role_id"
     t.index ["shift_id"], name: "index_role_lines_on_shift_id"
     t.index ["stall_id"], name: "index_role_lines_on_stall_id"
+    t.index ["sub_service_id"], name: "index_role_lines_on_sub_service_id"
   end
 
   create_table "role_lines_copies", force: :cascade do |t|
@@ -488,7 +497,6 @@ ActiveRecord::Schema.define(version: 2020_01_24_203725) do
   add_foreign_key "detail_lines", "payrole_details"
   add_foreign_key "detail_lines", "shifts"
   add_foreign_key "detail_lines", "stalls"
-  add_foreign_key "employees", "sub_services"
   add_foreign_key "payrole_details", "employees"
   add_foreign_key "payrole_details", "roles"
   add_foreign_key "positions", "areas"
@@ -497,6 +505,7 @@ ActiveRecord::Schema.define(version: 2020_01_24_203725) do
   add_foreign_key "requirements", "quotes"
   add_foreign_key "requirements", "shifts"
   add_foreign_key "role_lines", "positions"
+  add_foreign_key "role_lines", "sub_services"
   add_foreign_key "stalls", "quotes"
   add_foreign_key "stalls", "types"
   add_foreign_key "sub_services", "services"
