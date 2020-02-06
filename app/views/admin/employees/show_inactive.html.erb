@@ -133,9 +133,11 @@
         <strong>Pago del Seguro:</strong>
         <p><%= @employee.social_security %></p>
       </div>
-      <div class="col-md-3 col-sm-6 mb-2 mt-2">
-        <strong>Sub Servicio:</strong>
-        <p><%= @employee.sub_service.name if @employee.sub_service %></p>
+      <div class="col-md-3 col-sm-6 mt-2">
+        <strong>Servicios:</strong>
+        <% @employee.sub_services.each do |sub_service| %>
+          <p><%= sub_service.name %></p>
+        <% end -%>
       </div>
       <div class="col-md-3 col-sm-6 mb-2 mt-2">
         <strong>Víaticos:</strong>
