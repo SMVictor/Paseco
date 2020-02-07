@@ -179,7 +179,7 @@ function getDayName(element){
 }
 
 function showModal(element){
-  var modal = $($(element).parent().parent().children()[7]);
+  var modal = $($(element).parent().parent().children()[8]);
   modal.modal('toggle');
 }
 

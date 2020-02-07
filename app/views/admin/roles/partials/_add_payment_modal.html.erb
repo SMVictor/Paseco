@@ -1,38 +1,47 @@
 <div class="modal" id="addPayment<%= form.object.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content rounded">
-      <div class="modal-header rounded-top">
+    <div class="modal-content rounded" style="border-color: #00528a">
+      <div class="modal-header rounded-top" style="background-color: white; border-bottom-color: #00528a;">
+        <div class=""></div>
+        <%= image_tag("logo.png", size: "150x35", class: "") %>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" style="background-color: #5BA7D7;">
         <div class="row">
-          <div class="col-12 mb-2">Comentarios</p>
+          <div class="col-6 mb-4">
+            <label class="">Comentarios</label>
             <%= form.text_field :comment, class: "form-control comment", placeholder: "Cubre turno por permiso de Juan" %>
           </div>
-          <div class="col-12 mb-2">
-            <p class="font-weight-bold text-left">Justificación de Requerimiento</p>
+          <div class="col-6 mb-4">
+            <label class="">Justificación de Requerimiento</label>
             <%= form.text_field :requirement_justification, class: "form-control", placeholder: "4 horas extra por cubrimiento del libre de Juan", id: "requirement_justification_"+form.object.id.to_s  %>
           </div>
-          <div class="col-12 mb-2">
-            <p class="font-weight-bold text-left">Pagos Extras</p>
+          <div class="col-6 mb-4">
+            <label class="">Pagos Extras</label>
             <%= form.text_field :extra_payments, class: "form-control", placeholder: "10700" %>
           </div>
-          <div class="col-12 mb-2">
-            <p class="font-weight-bold text-left">PE Descripción</p>
+          <div class="col-6 mb-4">
+            <label class="">PE Descripción</label>
             <%= form.text_field :extra_payments_description, class: "form-control", placeholder: "Pago extra por día libre trabajado" %>
           </div>
-          <div class="col-12 mb-2">
-            <p class="font-weight-bold text-left">Deducciones</p>
+          <div class="col-6 mb-4">
+            <label class="">Deducciones</label>
             <%= form.text_field :deductions, class: "form-control", placeholder: "15000" %>
           </div>
-          <div class="col-12 mb-2">
-            <p class="font-weight-bold text-left">Descripción</p>
+          <div class="col-6 mb-4">
+            <label class="">Descripción</label>
             <%= form.text_field :deductions_description, class: "form-control", placeholder: "Cobro por uniforme perdido" %>
           </div>
         </div>
       </div>
-      <div class="d-flex justify-content-center">
-        <button type="button" class="btn btn-success mb-4" data-dismiss="modal">Hecho</button>
+      <div class="d-flex justify-content-center" style="background-color: #00528a">
+        <button type="button" class="btn btn-success mt-4 mb-4 " data-dismiss="modal" style="background-color: white; color: black; border-color: white;">Hecho</button>
       </div>
     </div>
   </div>
 </div>
+
+<style type="text/css">
+  .modal-dialog{
+    max-width: 800px;
+  }
+</style>

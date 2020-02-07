@@ -14,7 +14,7 @@
 	</div>
 	<div class="col-xl-2 col-md-4 mt-2 mb-2">
 	  <p class="d-xl-none font-weight-bold">Turno</p>
-	  <%= f.collection_select :shift_id, @quote.payment.shifts.where.not(name: ["Libre", "Suspendido", "Suspendido", "Vacaciones", "Permiso", "Ausente", "Incapacidad"]).order(name: :asc), :id, :name, options = {}, html_options = {class: "form-control",  title: "Seleccione un turno"}%>
+	  <%= f.collection_select :shift_id, @quote.payment.shifts.where.not(name: ["Libre", "Suspendido", "Suspendido", "Vacaciones", "Permiso", "Ausente", "Incapacidad"]).where(active: true).order(name: :asc), :id, :name, options = {}, html_options = {class: "form-control",  title: "Seleccione un turno"}%>
 	</div>
 	<div class="col-xl-2 col-md-4 mt-2 mb-2">
 	  <div class="row">

@@ -8,7 +8,7 @@
       <p class="d-xl-none font-weight-bold">Día</p>
       <%= f.text_field :day, class: "form-control", readonly: true %>
     </div>
-    <div class="col-xl-7 col-lg-12 mb-2 pt-md-3">
+    <div class="col-xl-6 col-lg-12 mb-2 pt-md-3">
       <div class="row">
         <div class="col-xl-3 col-lg-6">
           <p class="d-xl-none font-weight-bold">Fecha</p>
@@ -17,9 +17,9 @@
         <div class="col-xl-3 col-lg-6">
           <p class="d-xl-none font-weight-bold">Turno</p>
           <% if @stall.quote.payment %>
-            <%= f.collection_select :shift_id, @stall.quote.payment.shifts.order(name: :asc), :id, :name, options = {}, html_options = {class: "form-control",  title: "Seleccione un turno" }%>
+            <%= f.collection_select :shift_id, @stall.quote.payment.shifts.where(active: true).order(name: :asc), :id, :name, options = {}, html_options = {class: "form-control",  title: "Seleccione un turno" }%>
           <% else %>
-            <%= f.collection_select :shift_id, Payment.find(2).shifts.order(name: :asc), :id, :name, options = {}, html_options = {class: "form-control", title: "Seleccione un turno" }%>
+            <%= f.collection_select :shift_id, Payment.find(2).shifts.where(active: true).order(name: :asc), :id, :name, options = {}, html_options = {class: "form-control", title: "Seleccione un turno" }%>
           <% end %>
         </div>
         <div class="col-xl-3 col-lg-6">
@@ -36,9 +36,17 @@
         </div>
       </div>
     </div>
-    <div class="col-xl-2 col-lg-4 mb-2 pt-md-3">
+    <div class="col-xl-1 col-lg-4 mb-2 pt-md-3">
       <p class="d-xl-none font-weight-bold">Horas</p>
       <%= f.text_field :hours, class: "form-control hours", placeholder: "3", onKeyUp: "hoursValidation(this)"  %>
+    </div>
+    <div class="col-xl-2 col-lg-4 mb-2 pt-md-3">
+      <p class="d-xl-none font-weight-bold">Sub-Servicio</p>
+      <% if @employee %>
+        <%= f.collection_select :sub_service_id, @employee.sub_services, :id, :name, options = {}, html_options = {class: "form-control", title: "Seleccione un servicio" }%>
+      <% else %>
+        <%= f.collection_select :sub_service_id, [], :id, :name, options = {include_blank: 'Seleccione un servicio'}, html_options = {class: "form-control", required: true, oninvalid: "setCustomValidity('Campo Requerido')", oninput: "setCustomValidity('')", title: "Seleccione un servicio" }%>
+      <% end %>
     </div>
     <div class="col-xl-1 col-lg-4 mb-2 pt-md-3">
       <p class="d-xl-none font-weight-bold">Feriado</p>
