@@ -27,7 +27,7 @@ module Admin
 
       # Never trust parameters from the scary internet, only allow the white list through.
       def ccss_payment_params
-        params.require(:ccss_payment).permit(:percentage, :amount)
+        params.require(:ccss_payment).permit(:percentage, :amount, :retired_percentage)
       end
   end
 end

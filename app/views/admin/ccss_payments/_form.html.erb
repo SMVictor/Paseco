@@ -1,12 +1,17 @@
 <div class="card">
   <div class="card-body">
     <div class="row form_fieldset">
-      <div class="col-lg-6 mb-2 mt-2">
-        <label for="">Porcentaje</label>
+      <div class="col-lg-4 mb-2 mt-2">
+        <label for="">Porcentaje Normal</label>
         <%= form.text_field :percentage, id: "percentage", class: "form-control", placeholder: "10.34" %>
         <label id="percentage_error"></label>
       </div>
-      <div class="col-lg-6 mb-2 mt-2">
+      <div class="col-lg-4 mb-2 mt-2">
+        <label for="">Porcentaje Pencionados</label>
+        <%= form.text_field :retired_percentage, id: "percentage", class: "form-control", placeholder: "10.34" %>
+        <label id="percentage_error"></label>
+      </div>
+      <div class="col-lg-4 mb-2 mt-2">
         <label for="">Monto</label>
         <%= form.text_field :amount, id: "amount", class: "form-control", placeholder: "12750" %>
         <label id="amount_error"></label>
