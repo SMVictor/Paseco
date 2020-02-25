@@ -31,7 +31,7 @@
       </div>
       <div class="col-xl-3 col-lg-6 mt-2">
         <label for="">Sector</label>
-        <%= form.select(:sector_id, Sector.all.order(name: :asc).collect {|t| [t.name, t.id]}, {include_blank: false}, {multiple: false, class: "form-control", id: "sector"}) %>
+        <%= form.select(:sector_id, Sector.all.order(name: :asc).collect {|t| [t.name, t.id]}, {include_blank: "Seleccione un Sector"}, {multiple: false, class: "form-control", id: "sector"}) %>
         <label id="sector_error"></label>
       </div>
       <div class="col-xl-3 col-lg-6 mb-2 mt-2">
