@@ -2,49 +2,16 @@
   <% if @employee %>
     <input value="<%= @employee.id %>" type="hidden" name="role[employee_id]" id="role_line_employee_id">
   <% end %>
-  <div class="row form_fieldset text-center">
+  <div class="row form_fieldset text-center pt-2">
     <div  class="col-12 mt-4">
-      <div class="row mt-1 ml-1  mr-1 pt-3 tbl_head d-none d-xl-flex text-center">
-        <div class="col-12 col-md-1">
-          <p class="text-uppercase">Día</p>
-        </div>
-        <div class="col-12 col-md-6">
-          <div class="row">
-            <div class="col-12 col-md-3">
-              <p class="text-uppercase">Fecha</p>
-            </div>
-            <div class="col-12 col-md-3">
-              <p class="text-uppercase">Turno</p>
-            </div>
-            <div class="col-12 col-md-3">
-              <p class="text-uppercase">Sub-Puesto</p>
-            </div>
-            <div class="col-12 col-md-3">
-              <p class="text-uppercase">Cargo</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-1">
-          <p class="text-uppercase">Horas</p>
-        </div>
-        <div class="col-12 col-md-2">
-          <p class="text-uppercase">Sub-Servicio</p>
-        </div>
-        <div class="col-12 col-md-1">
-          <p class="text-uppercase">Feriado</p>
-        </div>
-        <div class="col-12 col-md-1">
-          <p class="text-uppercase">Acciones</p>
-        </div>
-      </div>
       <div id="role_lines">
-      <div class="role_lines-fields mt-4">
+      <div class="role_lines-fields">
         <%= form.fields_for :role_lines, @role_lines do |role_line| %>
           <%= render 'admin/roles/role_line_fields', f: role_line %>
         <%end%>
       </div>
        <% if @employee %>
-         <div class="row ml-1 mr-1 tbl_row">
+         <div class="tbl_row">
           <div class="col-12 text-center p-2 tbl_footer">
             <%= link_to_add_association ' + Agregar Linea', form, :role_lines, data: { association_insertion_mode: '.role_lines.fields', partial: 'role_line_fields'}, class: 'btn add_btn' %>
           </div>

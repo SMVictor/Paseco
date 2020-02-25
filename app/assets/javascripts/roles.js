@@ -179,7 +179,7 @@ function getDayName(element){
 }
 
 function showModal(element){
-  var modal = $($(element).parent().parent().children()[8]);
+  var modal = $($(element).parent().parent().children()[11]);
   modal.modal('toggle');
 }
 
@@ -225,12 +225,12 @@ function hoursValidation(element){
 
   for (var i = 0; i < lines.length; i++) {
 
-    var line_fields = $(lines[i]).children().children();
+    var line_fields = $(lines[i]);
 
-    var date     = $($($(line_fields[3]).children()[0]).children()[0]).children()[1];
-    var shift    = $($($(line_fields[3]).children()[0]).children()[1]).children()[1];
-    var position = $($($(line_fields[3]).children()[0]).children()[3]).children()[1];
-    var hours    = $(line_fields[4]).children()[1];
+    var date     = $($($(line_fields).children()[0]).children()[0]).children()[3];
+    var shift    = $($($(line_fields).children()[0]).children()[0]).children()[4];
+    var position = $($($(line_fields).children()[0]).children()[0]).children()[6];
+    var hours    = $($($(line_fields).children()[0]).children()[0]).children()[8];
     var code     = $(date).attr('name').split(']')[1].replace('[', '');
     var area     = 0;
 

@@ -1,6 +1,6 @@
 <div class="modal" id="addPayment<%= form.object.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content rounded" style="border-color: #00528a">
+    <div class="modal-content rounded" style="border-color: #00528a; color: black;">
       <div class="modal-header rounded-top" style="background-color: white; border-bottom-color: #00528a;">
         <div class=""></div>
         <%= image_tag("logo.png", size: "150x35", class: "") %>
@@ -30,6 +30,26 @@
           <div class="col-6 mb-4">
             <label class="">Descripción</label>
             <%= form.text_field :deductions_description, class: "form-control", placeholder: "Cobro por uniforme perdido" %>
+          </div>
+          <div class="col-6 mb-4">
+            <div class="input-group">
+              <div class="input-group-prepend" style="width: 100%;">
+                <%= form.text_field :start_date, placeholder: "mm / dd / aaaa", autocomplete: "off", class: "form-control", "data-date-format": 'mm/dd/yyyy', "data-provide": 'datepicker', "data-date-autoclose": true, "data-date-language": 'es', readonly: true %>
+                <%= form.time_field :start_hour, min: 'hh:mm:ss', max: 'hh:mm:ss', class: "form-control" %>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 mb-4">
+            <div class="input-group">
+              <div class="input-group-prepend" style="width: 100%;">
+                <%= form.text_field :end_date, placeholder: "mm / dd / aaaa", autocomplete: "off", class: "form-control", "data-date-format": 'mm/dd/yyyy', "data-provide": 'datepicker', "data-date-autoclose": true, "data-date-language": 'es' %>
+                <%= form.time_field :end_hour, min: 'hh:mm:ss', max: 'hh:mm:ss', class: "form-control" %>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 mb-4">
+            <label class="">Feriado</label>
+            <%= form.check_box :holiday %>
           </div>
         </div>
       </div>

@@ -5,9 +5,9 @@ class Employee < ApplicationRecord
   has_many :entries
   has_many :vacations
   has_many :christmas_bonifications
+  has_and_belongs_to_many :sub_services, join_table: :employees_sub_services
   has_and_belongs_to_many :stalls, join_table: :employees_stalls
   has_and_belongs_to_many :positions, join_table: :employees_positions
-  has_and_belongs_to_many :sub_services, join_table: :employees_sub_services
   accepts_nested_attributes_for :entries, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :vacations, reject_if: :all_blank, allow_destroy: true
 
@@ -72,13 +72,13 @@ class Employee < ApplicationRecord
 
   def calculate_day_salary(role_line, has_night)
     begin
-  	@stall = role_line.stall
+    @stall = role_line.stall
     @shift = role_line.shift
 
     @normal_day_hours = 0
-  	@day_salary       = 0
-  	@extra_day_hours  = 0
-  	@extra_day_salary = 0
+    @day_salary       = 0
+    @extra_day_hours  = 0
+    @extra_day_salary = 0
     @holiday          = 0
 
     if role_line.position.name == "Oficial"
@@ -107,9 +107,7 @@ class Employee < ApplicationRecord
       @day_salary       = @normal_day_hours * @hour_cost
       @extra_day_salary = ((min_salary.to_f/30)/@shift.time.to_f) * @shift.extra_time_cost.to_f * @extra_day_hours
 
-      if role_line.holiday
-        @holiday = ((1/@shift.time.to_f)*role_line.hours.to_f) * (min_salary.to_f/30)
-      end
+      calculate_holiday(role_line, @shift, min_salary)
     end
     rescue => ex
       logger.error ex.message
@@ -117,45 +115,43 @@ class Employee < ApplicationRecord
   end
 
   def calculate_daily_viatical role_line
-  	@viatical = 0
+    @viatical = 0
     shift = role_line.shift
-
-  	if daily_viatical == "yes" && role_line.position.daily_viatical
-  	  if role_line.shift.name == "Libre" || @shift.name == "Vacaciones"
-  	  	@viatical = role_line.stall.daily_viatical.to_f
-  	  elsif role_line.shift.name == "Incapacidad" || role_line.shift.name == "Permiso" || @shift.name == "Ausente" || @shift.name == "Suspendido"
-  	  	@viatical = 0
-  	  else
+    if daily_viatical == "yes" && role_line.position.daily_viatical
+      if shift.name == "Libre" || shift.name == "Vacaciones"
+        @viatical = role_line.stall.daily_viatical.to_f
+      elsif shift.name == "Incapacidad" || shift.name == "Permiso" || shift.name == "Ausente" || shift.name == "Suspendido"
+        @viatical = 0
+      else
         extra_day_hours  = 0
         normal_day_hours = 0
         extra_day_hours  = role_line.hours.to_f - shift.time.to_f if role_line.hours.to_f > shift.time.to_f
         normal_day_hours = role_line.hours.to_f - extra_day_hours
-  	  	@viatical = (role_line.stall.daily_viatical.to_f/role_line.shift.time.to_f)*role_line.hours.to_f
-        @viatical = @viatical * 2 if role_line.holiday
-  	  end
-  	else
-  	  @viatical = 0
-  	end
+        @viatical = (role_line.stall.daily_viatical.to_f/shift.time.to_f)*role_line.hours.to_f
+      end
+    else
+      @viatical = 0
+    end
   end
 
   def calculate_payment(total_days, total_day_salary, total_extra_hours, total_extra_salary, total_viatical, total_exta_payments, total_deductions, total_holidays)
-  	
-  	@total_days          = total_days
-  	@total_day_salary    = total_day_salary
-  	@total_extra_hours   = total_extra_hours
-  	@total_extra_salary  = total_extra_salary
-  	@total_viatical      = total_viatical
-  	@total_exta_payments = total_exta_payments
-  	@total_deductions    = total_deductions
+    
+    @total_days          = total_days
+    @total_day_salary    = total_day_salary
+    @total_extra_hours   = total_extra_hours
+    @total_extra_salary  = total_extra_salary
+    @total_viatical      = total_viatical
+    @total_exta_payments = total_exta_payments
+    @total_deductions    = total_deductions
     @total_holidays      = total_holidays
 
-  	ccss_percent  = CcssPayment.first.percentage/100
+    ccss_percent  = self.retired ? CcssPayment.first.retired_percentage/100 : CcssPayment.first.percentage/100
     ccss_amount   = CcssPayment.first.amount
 
-  	@gross_salary   = total_day_salary + total_extra_salary + total_viatical + total_holidays
+    @gross_salary   = total_day_salary + total_extra_salary + total_viatical + total_holidays
 
-  	if social_security == "Porcentaje"
-  	  if ccss_type == "yes"
+    if social_security == "Porcentaje"
+      if ccss_type == "yes"
         @ccss_deduction = (@gross_salary * ccss_percent).round(2)
         @net_salary     = (@gross_salary - @ccss_deduction + total_exta_payments - total_deductions).round(2)
       else
@@ -216,5 +212,45 @@ class Employee < ApplicationRecord
     end
      @christmas_bonification.total = @christmas_bonus / 12
      @christmas_bonification.save
+  end
+  def calculate_holiday(role_line, shift, min_salary)
+    holidays = Holiday.all
+    next_holiday = (Holiday.first.date.split("/")[1] + "/" + Holiday.first.date.split("/")[0] + "/" + Holiday.first.date.split("/")[2]).to_time
+    holidays.each do |holiday|
+      if ((Time.now - (holiday.date.split("/")[1] + "/" + holiday.date.split("/")[0] + "/" + holiday.date.split("/")[2]).to_time).abs) < ((Time.now - next_holiday).abs)
+        next_holiday = (holiday.date.split("/")[1] + "/" + holiday.date.split("/")[0] + "/" + holiday.date.split("/")[2]).to_time
+      end
+    end
+    start_holiday = next_holiday
+    end_holiday   = next_holiday + 23.hours + 59.minutes + 59.seconds
+    start_date    = (role_line.date.split("/")[1] + "/" + role_line.date.split("/")[0] + "/" + role_line.date.split("/")[2]).to_time + (role_line.shift.start_hour.hour * 3600)
+    end_date      = start_date + (role_line.hours.to_f * 3600)
+
+    if start_date >= start_holiday
+      if end_date <= end_holiday
+         @holiday  = ((1/shift.time.to_f)*role_line.hours.to_f) * (min_salary.to_f/30)
+         @viatical = @viatical * 2
+      elsif start_date > end_holiday
+        #No Feriado
+        @holiday = 0
+      else
+        # Medio Feriado Después
+        @holiday  =  ((1/shift.time.to_f)*((end_holiday - start_date)/3600)) * (min_salary.to_f/30)
+        @viatical += (role_line.stall.daily_viatical.to_f/shift.time.to_f)*((end_holiday - start_date)/3600)
+      end
+    elsif end_date >= start_holiday
+      if end_date > end_holiday
+        #Feriado
+        @holiday  = ((1/shift.time.to_f)*role_line.hours.to_f) * (min_salary.to_f/30)
+        @viatical = @viatical * 2
+      else
+        #Medio feriado antes
+        @holiday  =  ((1/shift.time.to_f)*((end_date - start_holiday)/3600)) * (min_salary.to_f/30)
+        @viatical += (role_line.stall.daily_viatical.to_f/shift.time.to_f)*((end_date - start_holiday)/3600)
+      end
+    else
+      #No Feriado
+      @holiday = 0
+    end
   end
 end

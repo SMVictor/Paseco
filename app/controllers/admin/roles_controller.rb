@@ -1,7 +1,7 @@
 module Admin
 class RolesController < ApplicationController
 
-  layout 'admin', except: [:payrole_detail_pdf, :add_role_lines]
+  layout 'admin', except: [:payrole_detail_pdf]
 
   load_and_authorize_resource
   before_action :set_role, only: [:show, :edit, :update, :destroy, :add_role_lines, :update_role_lines, :approvals, :check_changes, :stall_summary, :stalls_hours]
@@ -213,7 +213,6 @@ class RolesController < ApplicationController
         format.js
       end
     end
-    render layout: "admin_without_sidebar"
   end
 
   def approvals 
@@ -563,11 +562,6 @@ class RolesController < ApplicationController
       @payrole = Role.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def role_params
-      params.require(:role).permit(:name, :start_date, :end_date, stall_ids: [], role_lines_attributes: [:id, :date, :employee_id, :stall_id, :shift_id, :substall, :comment, :hours, :requirement_justification, :extra_payments, :extra_payments_description, :deductions, :deductions_description, :holiday, :position_id, :sub_service_id, :_destroy])
-    end
-
     def update_payrole_info(role, employee)
 
       @role = role
@@ -594,8 +588,8 @@ class RolesController < ApplicationController
 
         @role_lines.each do |line|
 
-          employee.calculate_day_salary(line, has_night)
           employee.calculate_daily_viatical(line)
+          employee.calculate_day_salary(line, has_night)
 
           @total_day_salary     += employee.day_salary
           @total_extra_hours    += employee.extra_day_hours 
@@ -661,5 +655,9 @@ class RolesController < ApplicationController
 
       end
     end
-end
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def role_params
+      params.require(:role).permit(:name, :start_date, :end_date, stall_ids: [], role_lines_attributes: [:id, :date, :start_date, :start_hour, :end_date, :end_hour, :employee_id, :stall_id, :shift_id, :substall, :comment, :hours, :requirement_justification, :extra_payments, :extra_payments_description, :deductions, :deductions_description, :holiday, :position_id, :sub_service_id, :_destroy])
+    end
+  end
 end
