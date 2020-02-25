@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_28_033845) do
+ActiveRecord::Schema.define(version: 2020_02_24_223237) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 2020_01_28_033845) do
     t.float "amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "retired_percentage"
   end
 
   create_table "christmas_bonification_lines", force: :cascade do |t|
@@ -186,6 +187,7 @@ ActiveRecord::Schema.define(version: 2020_01_28_033845) do
     t.string "account_identification"
     t.boolean "registered_account", default: false
     t.string "email"
+    t.boolean "retired"
   end
 
   create_table "employees_positions", id: false, force: :cascade do |t|
@@ -359,6 +361,10 @@ ActiveRecord::Schema.define(version: 2020_01_28_033845) do
     t.bigint "position_id"
     t.string "requirement_justification"
     t.bigint "sub_service_id"
+    t.string "start_date"
+    t.time "start_hour"
+    t.string "end_date"
+    t.time "end_hour"
     t.index ["employee_id"], name: "index_role_lines_on_employee_id"
     t.index ["position_id"], name: "index_role_lines_on_position_id"
     t.index ["role_id"], name: "index_role_lines_on_role_id"

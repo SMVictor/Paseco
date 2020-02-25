@@ -2,5 +2,5 @@
 <% if current_user.employee? %>
   <%= link_to 'Atrás', admin_payroles_path %>
 <% else %>
-  <%= link_to 'Atrás', admin_payrole_path(@payrole) %>
+  <%= link_to 'Atrás', admin_payrole_path(@payrole, back: true) %>
 <% end %>
