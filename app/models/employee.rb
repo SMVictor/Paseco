@@ -100,7 +100,7 @@ class Employee < ApplicationRecord
     else
       @normal_day_hours = 0
       @extra_day_hours  = 0
-      @shift.time       = role_line.position.hours if role_line.position.hours
+      @shift.time       = role_line.position.hours if role_line.position.hours != nil && role_line.position.hours != ""
       @hour_cost        = min_salary.to_f/30/@shift.time.to_f
       @extra_day_hours  = role_line.hours.to_f - @shift.time.to_f if role_line.hours.to_f > @shift.time.to_f && @shift.payment.name != "Normal"
       @normal_day_hours = role_line.hours.to_f - @extra_day_hours

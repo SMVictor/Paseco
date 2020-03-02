@@ -1,0 +1,20 @@
+<div class="delete modal" id="send_payslip" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content rounded">
+      <div class="modal-header rounded-top">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="text-center" style="font-size:30px;"><i class="fas fa-exclamation-circle text-center"></i></p>
+        <p class="text-center">Está a punto de enviar la boleta de la planilla <%= payrole.name %> a <%= employee.name %></p>
+        <p class="text-center">¿Desea continuar?</p>
+        <input id="hiddenId" type="hidden" name="hiddenId" value="" />
+      </div>
+      <div class="modal-footer">
+        <%= link_to 'Enviar', admin_payrole_detail_email_path(payrole, employee), class:'btn delete-btn text-center', style: "margin: 0px auto" %>
+      </div>
+    </div>
+  </div>
+</div>

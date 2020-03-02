@@ -41,19 +41,20 @@
               <% end %>
 
               <% if current_user.admin? %>
-                <%= link_to(admin_bncr_file_path(payrole, format: "xls"), class:'btn btn-block info-btn mt-2', title: 'Archivo BNCR') do %>
+                <%= link_to(admin_bncr_file_path(payrole, format: "xls"), class:'btn info-btn', title: 'Archivo BNCR') do %>
                   <i class="fa fa-file-excel"></i>
                 <% end %>
-                <%= link_to(admin_bac_file_path(payrole, format: "xls"), class:'btn btn-block primary-btn mt-2', title: 'Archivo BAC') do %>
+                <%= link_to(admin_bac_file_path(payrole, format: "xls"), class:'btn primary-btn', title: 'Archivo BAC') do %>
                   <i class="fa fa-file-excel"></i>
                 <% end %>
-                <%= link_to(admin_send_payslips_path(payrole), class:'btn btn-block btn-info mt-2', title: 'Enviar Planillas') do %>
-                  <i class="fa fa-envelope"></i>
-                <% end %>
+                <button type="button" class="btn btn-info" data-toggle="modal" title="Enviar Boletas" data-target="#send_payslips<%= payrole.id %>">
+                <i class="fa fa-envelope"></i>
+                </button>
               <% end %>
             </div>
           </div>
         </div>
+        <%= render 'admin/roles/partials/send_payslips_confirmation', payrole: payrole %>
       <% end %>
     <%end %>
   </div>

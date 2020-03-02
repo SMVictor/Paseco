@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_24_223237) do
+ActiveRecord::Schema.define(version: 2020_03_02_220047) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addresses", force: :cascade do |t|
+    t.string "province"
+    t.string "canton"
+    t.string "district"
+  end
 
   create_table "areas", force: :cascade do |t|
     t.string "name"
@@ -292,7 +298,7 @@ ActiveRecord::Schema.define(version: 2020_02_24_223237) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "daily_viatical"
-    t.integer "hours"
+    t.string "hours"
     t.bigint "area_id"
     t.index ["area_id"], name: "index_positions_on_area_id"
   end
