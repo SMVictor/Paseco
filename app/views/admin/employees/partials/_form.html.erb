@@ -51,16 +51,16 @@
       <%= form.text_field :email, class: "form-control", placeholder: "jarias@pasecocr.com" %>
     </div>
     <div class="col-xl-4 col-lg-6 mb-2 mt-2">
-      <label for="">Provincia:</label>
-      <%= form.text_field :province, class: "form-control", placeholder: "Cartago" %>
+    <label>Provincia</label>
+      <%= form.collection_select :province, Address.select('province').group('province').order(province: :asc), :province, :province, options = {include_blank: 'Seleccione una provincia'}, html_options = {class: "form-control", id: "province"} %>
     </div>
     <div class="col-xl-4 col-lg-6 mb-2 mt-2">
-      <label for="">Cantón</label>
-      <%= form.text_field :canton, class: "form-control", placeholder: "Cartago" %>
+      <label id="canton_label" data-cantons="<%= Address.select('province', 'canton').group('province', 'canton').order(canton: :asc).to_json %>">Cantón</label>
+      <%= form.collection_select :canton, Address.select('canton').group('canton').order(canton: :asc), :canton, :canton, options = {include_blank: 'Seleccione un cantón'}, html_options = {class: "form-control", id: "canton"} %>
     </div>
     <div class="col-xl-4 col-lg-6 mt-2">
-      <label for="">Distrito</label>
-      <%= form.text_field :district, class: "form-control", placeholder: "Agua Caliente" %>
+      <label id="district_label" data-addresses="<%= Address.all.order(district: :asc).to_json %>">Distrito</label>
+      <%= form.collection_select :district, Address.all.order(district: :asc), :district, :district, options = {include_blank: 'Seleccione un distrito'}, html_options = {class: "form-control", id: "district"} %>
     </div>
     <div class="col-xl-4 col-lg-6 mt-2">
       <label for="">Otras Señas</label>
