@@ -14,14 +14,14 @@
       <% end %>
       <%= f.select(:substall, @substalls, {include_blank: 'Seleccione un Puesto'}, { class: "form-control", title: "Seleccione el puesto en el cual se laboró" }) %>
       <% if @employee %>
-        <%= f.collection_select :position_id, @employee.positions, :id, :name, options = {include_blank: 'Seleccine un Cargo'}, html_options = {class: "form-control", required: true, oninvalid: "setCustomValidity('Seleccione el cargo desempeñado por el trabajador en la fecha que seleccionó anterirormente.')", oninput: "setCustomValidity('')", title: "Seleccione el cargo desempeñado por el trabajador en la fecha que seleccionó anterirormente." }%>
+        <%= f.collection_select :position_id, @employee.positions, :id, :name, options = { include_blank: false }, html_options = {class: "form-control", title: "Seleccione el cargo desempeñado por el trabajador en la fecha que seleccionó anterirormente." }%>
       <% else %>
-        <%= f.collection_select :position_id, [], :id, :name, options = {include_blank: 'Seleccione un cargo'}, html_options = {class: "form-control", required: true, oninvalid: "setCustomValidity('Seleccione el cargo desempeñado por el trabajador en la fecha que seleccionó anterirormente.')", oninput: "setCustomValidity('')", title: "Seleccione el cargo desempeñado por el trabajador en la fecha que seleccionó anterirormente."  }%>
+        <%= f.collection_select :position_id, [], :id, :name, options = {include_blank: false }, html_options = {class: "form-control", title: "Seleccione el cargo desempeñado por el trabajador en la fecha que seleccionó anterirormente."  }%>
       <% end %>
       <% if @employee %>
-        <%= f.collection_select :sub_service_id, @employee.sub_services, :id, :name, options = {include_blank: 'Seleccione un Servicio'}, html_options = {class: "form-control", required: true, oninvalid: "setCustomValidity('Seleccione para cual de los servicios ofrecidos por PASECO laboró el trabajador en la fecha que seleccionó anterirormente.')", oninput: "setCustomValidity('')", title: "Seleccione para cual de los servicios ofrecidos por PASECO laboró el trabajador en la fecha que seleccionó anterirormente." }%>
+        <%= f.collection_select :sub_service_id, @employee.sub_services, :id, :name, options = {include_blank: false }, html_options = {class: "form-control", title: "Seleccione para cual de los servicios ofrecidos por PASECO laboró el trabajador en la fecha que seleccionó anterirormente." }%>
       <% else %>
-        <%= f.collection_select :sub_service_id, [], :id, :name, options = {include_blank: 'Seleccione un servicio'}, html_options = {class: "form-control", required: true, oninvalid: "setCustomValidity('Campo Requerido')", oninput: "setCustomValidity('')", title: "Seleccione un servicio" }%>
+        <%= f.collection_select :sub_service_id, [], :id, :name, options = {include_blank: false }, html_options = {class: "form-control", title: "Seleccione para cual de los servicios ofrecidos por PASECO laboró el trabajador en la fecha que seleccionó anterirormente." }%>
       <% end %>
       <%= f.text_field :hours, class: "form-control hours", placeholder: "3", onKeyUp: "hoursValidation(this)", style: "width: 20%;"  %>
       <div class="mt-2">
