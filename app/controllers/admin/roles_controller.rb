@@ -605,6 +605,8 @@ class RolesController < ApplicationController
 
           payrole_detail.detail_lines.new(id: detail_line_id+1, stall: line.stall, shift:line.shift)
           payrole_detail.detail_lines.last.date                 = line.date
+          payrole_detail.detail_lines.last.shift_name           = line.shift.name
+          payrole_detail.detail_lines.last.stall_name           = line.stall.name
           payrole_detail.detail_lines.last.substall             = line.substall
           payrole_detail.detail_lines.last.hours                = employee.normal_day_hours
           payrole_detail.detail_lines.last.salary               = employee.day_salary.round(2)

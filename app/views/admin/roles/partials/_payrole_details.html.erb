@@ -58,9 +58,9 @@
               <% begin %>
               <% @employee.payrole_details.where(role_id: @payrole.id).first.detail_lines.order(date: :asc).each do |line|  %>
                 <tr>
-                  <td style="border: 1px solid"><%= line.stall.name %></td>
+                  <td style="border: 1px solid"><%= line.stall_name %></td>
                   <td style="border: 1px solid"><%= line.date %></td>
-                  <td style="border: 1px solid"><%= line.shift.name %></td>
+                  <td style="border: 1px solid"><%= line.shift_name %></td>
                   <td style="border: 1px solid"><%= line.substall %></td>
                   <td style="border: 1px solid"><%= line.hours.to_f.round(2) %></td>
                   <td style="border: 1px solid"><%= number_to_currency(line.salary.to_f.round(2), unit: '₡') %></td>

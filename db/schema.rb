@@ -10,16 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_02_220047) do
+ActiveRecord::Schema.define(version: 2020_03_04_172118) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "addresses", force: :cascade do |t|
-    t.string "province"
-    t.string "canton"
-    t.string "district"
-  end
 
   create_table "areas", force: :cascade do |t|
     t.string "name"
@@ -156,6 +150,8 @@ ActiveRecord::Schema.define(version: 2020_03_02_220047) do
     t.string "sector"
     t.string "sub_service"
     t.string "stall_type"
+    t.string "shift_name"
+    t.string "stall_name"
     t.index ["payrole_detail_id"], name: "index_detail_lines_on_payrole_detail_id"
     t.index ["shift_id"], name: "index_detail_lines_on_shift_id"
     t.index ["stall_id"], name: "index_detail_lines_on_stall_id"
@@ -193,7 +189,7 @@ ActiveRecord::Schema.define(version: 2020_03_02_220047) do
     t.string "account_identification"
     t.boolean "registered_account", default: false
     t.string "email"
-    t.boolean "retired"
+    t.boolean "retired", default: false
   end
 
   create_table "employees_positions", id: false, force: :cascade do |t|
