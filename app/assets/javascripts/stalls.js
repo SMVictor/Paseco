@@ -60,30 +60,25 @@ function filterInactiveStalls(){
   }); 
 }
 
-$( document ).on('turbolinks:load', function() {
+function changeProvince(){
+  var cantons = JSON.parse(document.querySelector('#canton_label').dataset.cantons);
+  $('#canton').children().remove().end().append('<option selected value="0">Seleccione un cantón</option>');
+  $('#district').children().remove().end().append('<option selected value="0">Seleccione un distrito</option>');
 
-  $('#province').on('change', function(){
-
-    var cantons = JSON.parse(document.querySelector('#canton_label').dataset.cantons);
-    $('#canton').children().remove().end().append('<option selected value="0">Seleccione un cantón</option>');
-    $('#district').children().remove().end().append('<option selected value="0">Seleccione un distrito</option>');
-
-    for (var i = 0; i < cantons.length; i++) {
-      if (cantons[i].province == $(this).val()) {
-        $('#canton').append('<option value="'+cantons[i].canton+'">'+cantons[i].canton+'</option>');
-      }
+  for (var i = 0; i < cantons.length; i++) {
+    if (cantons[i].province == $('#province').val()) {
+      $('#canton').append('<option value="'+cantons[i].canton+'">'+cantons[i].canton+'</option>');
     }
-  });
+  }
+}
 
-  $('#canton').on('change', function(){
+function changeCanton(){
+  var addresses = JSON.parse(document.querySelector('#district_label').dataset.addresses);
+  $('#district').children().remove().end().append('<option selected value="0">Seleccione un distrito</option>');
 
-    var addresses = JSON.parse(document.querySelector('#district_label').dataset.addresses);
-    $('#district').children().remove().end().append('<option selected value="0">Seleccione un distrito</option>');
-
-    for (var i = 0; i < addresses.length; i++) {
-      if (addresses[i].canton == $(this).val()) {
-        $('#district').append('<option value="'+addresses[i].district+'">'+addresses[i].district+'</option>');
-      }
+  for (var i = 0; i < addresses.length; i++) {
+    if (addresses[i].canton == $('#canton').val()) {
+      $('#district').append('<option value="'+addresses[i].district+'">'+addresses[i].district+'</option>');
     }
-  });
-});
+  }
+}

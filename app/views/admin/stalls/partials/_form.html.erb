@@ -28,11 +28,11 @@
   </div>
   <div class="col-xl-4 col-lg-6 mb-2 mt-2">
     <label>Provincia</label>
-    <%= form.collection_select :province, Address.select('province').group('province').order(province: :asc), :province, :province, options = {include_blank: 'Seleccione una provincia'}, html_options = {class: "form-control", id: "province"} %>
+    <%= form.collection_select :province, Address.select('province').group('province').order(province: :asc), :province, :province, options = {include_blank: 'Seleccione una provincia'}, html_options = {class: "form-control", id: "province", onchange: "changeProvince()"} %>
   </div>
   <div class="col-xl-4 col-lg-6 mb-2 mt-2">
     <label id="canton_label" data-cantons="<%= Address.select('province', 'canton').group('province', 'canton').order(canton: :asc).to_json %>">Cantón</label>
-    <%= form.collection_select :canton, Address.select('canton').group('canton').order(canton: :asc), :canton, :canton, options = {include_blank: 'Seleccione un cantón'}, html_options = {class: "form-control", id: "canton"} %>
+    <%= form.collection_select :canton, Address.select('canton').group('canton').order(canton: :asc), :canton, :canton, options = {include_blank: 'Seleccione un cantón'}, html_options = {class: "form-control", id: "canton", onchange: "changeCanton()"} %>
   </div>
   <div class="col-xl-4 col-lg-6 mt-2">
     <label id="district_label" data-addresses="<%= Address.all.order(district: :asc).to_json %>">Distrito</label>
