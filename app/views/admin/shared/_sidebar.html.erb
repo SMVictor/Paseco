@@ -107,6 +107,20 @@
       </div>
     </li>
     <li class="nav-item">
+      <a class="nav-link" aria-expanded="false" onclick="toggleNavLink('workRoles')" id="workRolesNavLink">
+        <i class="menu-icon fas fa-search"></i>
+        <span class="menu-title">Supervisores</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="workRoles">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item">
+            <%= link_to('Roll de Trabajo', admin_work_roles_path, class: 'nav-link') if current_user.admin? || current_user.manager? %>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item">
       <a class="nav-link" aria-expanded="false" onclick="toggleNavLink('operations')" id="operationsNavLink">
         <i class="menu-icon fas fa-cogs"></i>
         <span class="menu-title">Operaciones</span>

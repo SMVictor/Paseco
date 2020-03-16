@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       resources :employees
       resources :positions
       resources :bncr_infos
+      resources :work_roles
       resources :ccss_payments
 
       get    'roles/lines/:id/:stall_id/:employee_id'           => 'roles#add_role_lines',    as: 'role_lines'
@@ -99,6 +100,9 @@ Rails.application.routes.draw do
       get    'budget/:id/'             => 'roles#budget',        as: 'budget'
       get    'budget/:id/old'          => 'roles#old_budget',    as: 'old_budget'
       get    'budget/:id/:employee_id' => 'roles#budget_detail', as: 'budget_detail'
+
+      get    'work_roles/lines/:id/:stall_id'           => 'work_roles#add_role_lines',    as: 'work_role_lines'
+      get    'work_roles/lines/:id/:stall_id/update'    => 'work_roles#update_role_lines', as: 'work_edit_role_lines'
 
     end
   end

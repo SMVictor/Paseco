@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_04_172118) do
+ActiveRecord::Schema.define(version: 2020_03_09_173458) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -499,6 +499,29 @@ ActiveRecord::Schema.define(version: 2020_03_04_172118) do
     t.string "period"
     t.string "date"
     t.index ["employee_id"], name: "index_vacations_on_employee_id"
+  end
+
+  create_table "work_role_lines", force: :cascade do |t|
+    t.date "date"
+    t.string "sub_stall"
+    t.bigint "work_role_id"
+    t.bigint "employee_id"
+    t.bigint "stall_id"
+    t.bigint "shift_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["employee_id"], name: "index_work_role_lines_on_employee_id"
+    t.index ["shift_id"], name: "index_work_role_lines_on_shift_id"
+    t.index ["stall_id"], name: "index_work_role_lines_on_stall_id"
+    t.index ["work_role_id"], name: "index_work_role_lines_on_work_role_id"
+  end
+
+  create_table "work_roles", force: :cascade do |t|
+    t.string "name"
+    t.string "start_date"
+    t.string "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "budget_lines", "budgets"

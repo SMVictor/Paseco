@@ -16,7 +16,7 @@
         <div class="row tb_body">
           <div class="td col-12 col-md-4  pt-md-3">
             <p class="d-md-none font-weight-bold">Nombre:</p>
-            <p class="text-md-center mt-2"><%= link_to(role.name, admin_role_path(role), class:'', title: 'Ver Roll') %></p>
+            <p class="text-md-center mt-2"><%= link_to(role.name, admin_work_role_path(role), class:'', title: 'Ver Roll') %></p>
           </div>
           <div class="th col-12 col-md-4 pt-md-3">
             <p class="d-md-none font-weight-bold">Fecha de Inicio:</p>
@@ -24,26 +24,19 @@
           </div>
           <div class="th text-center col-md-4">
             <div class="mt-2 mb-2 btn-group">
-              <% if current_user.admin? %>
-                <%= link_to(admin_role_approvals_path(role), class:'btn info-btn', title: 'Aprobaciones') do %>
+              <%= link_to(admin_work_role_lines_path(role, 0), class:'btn info-btn', title: 'Revisión') do %>
                   <i class="fa fa-check"></i>
                 <% end -%>
-              <% end -%>
-              <%= link_to(edit_admin_role_path(role), class:'btn primary-btn', title: 'Editar Roll') do %>
+              <%= link_to(edit_admin_work_role_path(role), class:'btn primary-btn', title: 'Editar Roll') do %>
                 <i class="fa fa-pencil-alt"></i>
               <% end -%>
-              <% if current_user.admin? %>
-              <%= link_to(admin_stalls_hours_path(role), class:'btn btn-info', title: 'Horas de los puestos') do %>
-                <i class="fa fa-th"></i>
-              <% end %>
-                <button type="button" class="btn delete-btn" data-toggle="modal" title="Eliminar Roll" data-target="#deleteRole<%= role.id %>">
+              <button type="button" class="btn delete-btn" data-toggle="modal" title="Eliminar Roll" data-target="#deleteRole<%= role.id %>">
                 <i class="fa fa-times"></i>
-                </button>
-              <% end -%>
+              </button>
             </div>
           </div>
         </div>
-        <%= render 'admin/roles/partials/delete_modal', role: role %>
+        <%= render 'admin/work_roles/partials/delete_modal', role: role %>
       <% end %>
     <%end %>
   </div>

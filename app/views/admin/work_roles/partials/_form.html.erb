@@ -1,0 +1,26 @@
+<div class="card">
+  <div class="card-body">
+    <div class="row form_fieldset">
+      <div  class="col-12 p-3">
+        <legend>Información General</legend>
+      </div>
+      <div class="col-xl-4 col-lg-6 mb-2 mt-2">
+        <label for="">Nombre:</label>
+        <%= form.text_field :name, id: "name", class: "form-control", placeholder: "Planilla de Diciembre" %>
+        <label id="name_error"></label>
+      </div>
+      <div class="col-xl-4 col-lg-6 mt-2">
+        <label for="">Fecha de Inicio:</label>
+        <%= form.text_field :start_date, id: "start_date", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-date-format": 'dd/mm/yyyy', "data-provide": 'datepicker', "data-date-language": 'es' %>
+        <label id="start_date_error"></label>
+      </div>
+      <div class="col-xl-4 col-lg-6 mt-2">
+        <label for="">Fecha de Finalización</label>
+        <%= form.text_field :end_date, id: "end_date", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-date-format": 'dd/mm/yyyy', "data-provide": 'datepicker', "data-date-language": 'es' %>
+        <label id="end_date_error"></label>
+      </div>
+    </div>
+    <%= form.submit "Guardar", id: 'btn_submit', class: "btn btn-success mt-4" %>
+    <%= link_to('Cancelar', admin_work_roles_path, class: 'btn btn-light ml-sm-3 mt-4')%>
+  </div>
+</div>

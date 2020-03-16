@@ -1,0 +1,10 @@
+$('#role_lines').html("<%= escape_javascript render partial: 'admin/work_roles/partials/role_lines_form', locals: { stall: @stall, role: @role, days: @days } %>");
+
+$('#title').html("Distribución de oficiales en: <%= @stall.name %>");
+
+var lines = JSON.parse(document.querySelector('#table').dataset.lines);
+
+for (var i = 0; i < lines.length; i++) {
+  $("#shift_"+lines[i].id).val(lines[i].shift_id);
+  $("#substall_"+lines[i].id).val(lines[i].sub_stall);
+}

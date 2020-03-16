@@ -1,0 +1,26 @@
+<div class="row d-flex justify-content-center">
+  <div class="col-12">
+    <p id="notice"><%= notice %></p>
+    <h2>Información del Roll</h2><br>
+  </div>
+</div>
+
+<div class="row form_fieldset">
+  <div  class="col-12 mt-4 p-3">
+    <legend>Información General</legend>
+  </div>
+  <div class="col-md-4 col-sm-6  mb-2 mt-2">
+  	<strong>Nombre:</strong>
+    <p><%= @role.name %></p>
+  </div>
+  <div class="col-md-4 col-sm-6 mt-2">
+    <strong>Fecha de Inicio:</strong>
+    <p><%= @role.start_date %></p>
+  </div>
+  <div class="col-md-4 col-sm-6 mt-2">
+    <strong>Fecha de Finalización:</strong>
+    <p><%= @role.end_date %></p>
+  </div>
+</div>
+<%= link_to 'Editar', edit_admin_work_role_path(@role) %> |
+<%= link_to 'Atrás', admin_work_roles_path %>
