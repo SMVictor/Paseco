@@ -47,12 +47,12 @@ function stallsFilter(roleID){
 
 $( document ).on('turbolinks:load', function() {
 
+  $('#stalls_select').select2();
+
 	var lines = JSON.parse(document.querySelector('#table').dataset.lines);
 
 	for (var i = 0; i < lines.length; i++) {
 	  $("#shift_"+lines[i].id).val(lines[i].shift_id);
 	  $("#substall_"+lines[i].id).val(lines[i].sub_stall);
 	}
-
-  $('#stalls_select').select2();
 });
