@@ -113,6 +113,9 @@ class WorkRolesController < ApplicationController
       line.shift_id   = change[:shift_id]  if change[:shift_id]
       line.save
     end
+    respond_to do |format|
+      format.js { redirect_to admin_work_role_lines_url }
+    end
   end
 
 
