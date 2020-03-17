@@ -47,9 +47,6 @@ function stallsFilter(roleID){
 
 $( document ).on('turbolinks:load', function() {
 
-  $('#stalls_select').select2();
-  alert();
-
 	var lines = JSON.parse(document.querySelector('#table').dataset.lines);
 
 	for (var i = 0; i < lines.length; i++) {
