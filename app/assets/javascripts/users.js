@@ -85,3 +85,13 @@ function validateSignUpForm() {
   }
   return result;
 }
+
+$( document ).on('turbolinks:load', function() {
+
+  permissions = ['Administrador', 'Gerente', 'Colaborador', 'Recursos Humanos']
+
+  for (var i = 0; i < permissions.length; i++) {
+
+    $('#permission').append('<option value="'+i+'">'+permissions[i]+'</option>');
+  }
+});
