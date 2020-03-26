@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+    <Row>
+      <Cell><Data ss:Type="String">CÉDULA</Data></Cell>
+      <Cell><Data ss:Type="String">FECHA INGRESO</Data></Cell>
+      <Cell><Data ss:Type="String">FECHA SALIDA</Data></Cell>
+      <Cell><Data ss:Type="String">NOMBRE</Data></Cell>
+      <% @roles.each do |role| %>
+        <Cell><Data ss:Type="String"><%= Role.find(role).name %></Data></Cell>
+      <% end %>
+      <Cell><Data ss:Type="String">TOTAL</Data></Cell>
+    </Row>
+    <% @employee_ids.each do |id| %>
+      <% employee = Employee.find(id) %>
+      <% total = 0 %>
+      <Row>
+        <Cell><Data ss:Type="String"><%= employee.identification %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= employee.entries.first.start_date if employee.entries != [] %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= employee.entries.first.end_date   if employee.entries != [] %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= employee.name %></Data></Cell>
+        <% @roles.each do |role| %>
+          <% lines = PayroleLine.where(role_id: role, employee_id: id) %>
+          <% total += lines.first.net_salary.to_f if lines != [] %>
+          <Cell><Data ss:Type="String"><%= number_to_currency(lines.first.net_salary, unit: '₡') if lines != [] %></Data></Cell>
+        <% end %>
+        <Cell><Data ss:Type="String"><%= number_to_currency(total.round(2), unit: '₡') %></Data></Cell>
+      </Row>
+    <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>
