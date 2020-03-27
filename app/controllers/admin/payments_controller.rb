@@ -24,10 +24,11 @@ class PaymentsController < ApplicationController
     @payment = Payment.create(payment_params)
 
     Shift.create([
+      {name: "Ausente",     time: "0", extra_time_cost: "0", payment_id: @payment.id},
+      {name: "Incapacidad", time: "0", extra_time_cost: "0", payment_id: @payment.id},
       {name: "Libre",       time: "0", extra_time_cost: "0", payment_id: @payment.id}, 
-      {name: "Incapacidad", time: "0", extra_time_cost: "0", payment_id: @payment.id}, 
-      {name: "Permiso",     time: "0", extra_time_cost: "0", payment_id: @payment.id}, 
-      {name: "Ausente",     time: "0", extra_time_cost: "0", payment_id: @payment.id}, 
+      {name: "Permiso",     time: "0", extra_time_cost: "0", payment_id: @payment.id},
+      {name: "Suspendido",  time: "0", extra_time_cost: "0", payment_id: @payment.id},
       {name: "Vacaciones",  time: "0", extra_time_cost: "0", payment_id: @payment.id}])
 
     respond_to do |format|
