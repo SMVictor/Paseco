@@ -26,8 +26,8 @@
         <Cell><Data ss:Type="String"><%= employee.name %></Data></Cell>
         <% @roles.each do |role| %>
           <% lines = PayroleLine.where(role_id: role, employee_id: id) %>
-          <% total += lines.first.net_salary.to_f if lines != [] %>
-          <Cell><Data ss:Type="String"><%= number_to_currency(lines.first.net_salary, unit: '₡') if lines != [] %></Data></Cell>
+          <% total += (lines.first.min_salary.to_f + lines.first.extra_hours.to_f + lines.first.holidays.to_f + lines.first.daily_viatical.to_f + lines.first.extra_payments.to_f) if lines != [] %>
+          <Cell><Data ss:Type="String"><%= number_to_currency((lines.first.min_salary.to_f + lines.first.extra_hours.to_f + lines.first.holidays.to_f + lines.first.daily_viatical.to_f + lines.first.extra_payments.to_f), unit: '₡') if lines != [] %></Data></Cell>
         <% end %>
         <Cell><Data ss:Type="String"><%= number_to_currency(total.round(2), unit: '₡') %></Data></Cell>
       </Row>
