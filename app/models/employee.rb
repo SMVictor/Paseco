@@ -214,42 +214,44 @@ class Employee < ApplicationRecord
      @christmas_bonification.save
   end
   def calculate_holiday(role_line, shift, min_salary)
+
     holidays = Holiday.all
-    next_holiday = (Holiday.first.date.split("/")[1] + "/" + Holiday.first.date.split("/")[0] + "/" + Holiday.first.date.split("/")[2]).to_time
-    holidays.each do |holiday|
-      if ((Time.now - (holiday.date.split("/")[1] + "/" + holiday.date.split("/")[0] + "/" + holiday.date.split("/")[2]).to_time).abs) < ((Time.now - next_holiday).abs)
-        next_holiday = (holiday.date.split("/")[1] + "/" + holiday.date.split("/")[0] + "/" + holiday.date.split("/")[2]).to_time
-      end
-    end
-    start_holiday = next_holiday
-    end_holiday   = next_holiday + 23.hours + 59.minutes + 59.seconds
+
     start_date    = (role_line.date.split("/")[1] + "/" + role_line.date.split("/")[0] + "/" + role_line.date.split("/")[2]).to_time + (role_line.shift.start_hour.hour * 3600)
     end_date      = start_date + (role_line.hours.to_f * 3600)
 
-    if start_date >= start_holiday
-      if end_date <= end_holiday
-         @holiday  = ((1/shift.time.to_f)*role_line.hours.to_f) * (min_salary.to_f/30)
-         @viatical = @viatical * 2
-      elsif start_date > end_holiday
-        #No Feriado
-        @holiday = 0
-      else
-        # Medio Feriado Después
-        @holiday  =  ((1/shift.time.to_f)*((end_holiday - start_date)/3600)) * (min_salary.to_f/30)
-        @viatical += (role_line.stall.daily_viatical.to_f/shift.time.to_f)*((end_holiday - start_date)/3600)
+    is_start_date_holiday = false
+    is_end_date_holiday   = false
+
+    holidays.each do |holiday|
+      next_holiday = (holiday.date.split("/")[1] + "/" + holiday.date.split("/")[0] + "/" + holiday.date.split("/")[2]).to_time
+      if start_date.strftime("%Y-%d-%m") == next_holiday.strftime("%Y-%d-%m")
+        is_start_date_holiday = true
       end
-    elsif end_date >= start_holiday
-      if end_date > end_holiday
-        #Feriado
+      if end_date.strftime("%Y-%d-%m") == next_holiday.strftime("%Y-%d-%m")
+        is_end_date_holiday = true
+      end
+    end
+
+    if is_start_date_holiday
+      if is_end_date_holiday
+        #Feriado Completo
         @holiday  = ((1/shift.time.to_f)*role_line.hours.to_f) * (min_salary.to_f/30)
         @viatical = @viatical * 2
       else
-        #Medio feriado antes
-        @holiday  =  ((1/shift.time.to_f)*((end_date - start_holiday)/3600)) * (min_salary.to_f/30)
-        @viatical += (role_line.stall.daily_viatical.to_f/shift.time.to_f)*((end_date - start_holiday)/3600)
+        #Medio feriado después
+        end_holiday = end_date - ((end_date.hour * 3600)-1)
+
+        @holiday  =  ((1/shift.time.to_f)*((end_holiday - start_date)/3600)) * (min_salary.to_f/30)
+        @viatical += (role_line.stall.daily_viatical.to_f/shift.time.to_f)*((end_holiday - start_date)/3600)
       end
+    elsif is_end_date_holiday
+      #Medio feriado antes
+      start_holiday = end_date - end_date.hour * 3600
+      @holiday  =  ((1/shift.time.to_f)*((end_date - start_holiday)/3600)) * (min_salary.to_f/30)
+      @viatical += (role_line.stall.daily_viatical.to_f/shift.time.to_f)*((end_date - start_holiday)/3600)
     else
-      #No Feriado
+      #No hay feriado
       @holiday = 0
     end
   end
