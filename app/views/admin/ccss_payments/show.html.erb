@@ -31,14 +31,26 @@
       <% total = 0 %>
       <tr>
         <td style="border: 1px solid"><%= employee.identification %></td>
-        <td style="border: 1px solid"><%= employee.entries.first.start_date if employee.entries != [] %></td>
-        <td style="border: 1px solid"><%= employee.entries.first.end_date   if employee.entries != [] %></td>
         <td style="border: 1px solid"><%= employee.name %></td>
+
+        <% if employee.entries != [] %>
+          <% last_entry = '01/01/1970' %>
+          <% last_end   = '01/01/1970' %>
+          <% employee.entries.each do |entry| %>
+            <% if entry.start_date.to_time > last_entry.to_time %>
+              <% last_entry = entry.start_date %>
+              <% last_end   = entry.end_date %>
+            <% end %>
+          <% end %>
+          <td style="border: 1px solid"><%= last_entry %></td>
+          <td style="border: 1px solid"><%= last_end %></td>
+        <% end %>
+
         <% @roles.each do |role| %>
           <% lines = PayroleLine.where(role_id: role, employee_id: id) %>
             <% total += (lines.first.min_salary.to_f + lines.first.extra_hours.to_f + lines.first.holidays.to_f + lines.first.daily_viatical.to_f + lines.first.extra_payments.to_f) if lines != [] %>
-          <td style="border: 1px solid"><%= number_to_currency((lines.first.min_salary.to_f + lines.first.extra_hours.to_f + lines.first.holidays.to_f + lines.first.daily_viatical.to_f + lines.first.extra_payments.to_f), unit: '₡') if lines != [] %></td>
-        <% end %>
+            <td style="border: 1px solid"><%= number_to_currency((lines.first.min_salary.to_f + lines.first.extra_hours.to_f + lines.first.holidays.to_f + lines.first.daily_viatical.to_f + lines.first.extra_payments.to_f), unit: '₡') if lines != [] %></td>
+          <% end %>
         <td style="border: 1px solid"><%= number_to_currency(total.round(2), unit: '₡') %></td>
       </tr>
     <% end %>
