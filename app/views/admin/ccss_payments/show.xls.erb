@@ -21,14 +21,27 @@
       <% total = 0 %>
       <Row>
         <Cell><Data ss:Type="String"><%= employee.identification %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= employee.entries.first.start_date if employee.entries != [] %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= employee.entries.first.end_date   if employee.entries != [] %></Data></Cell>
+
+        <% if employee.entries != [] %>
+          <% last_entry = '01/01/1970' %>
+          <% last_end   = '01/01/1970' %>
+          <% employee.entries.each do |entry| %>
+            <% if entry.start_date.to_time > last_entry.to_time %>
+              <% last_entry = entry.start_date %>
+              <% last_end   = entry.end_date %>
+            <% end %>
+          <% end %>
+          <Cell><Data ss:Type="String"><%= last_entry %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= last_end %></Data></Cell>
+        <% end %>
         <Cell><Data ss:Type="String"><%= employee.name %></Data></Cell>
+
         <% @roles.each do |role| %>
           <% lines = PayroleLine.where(role_id: role, employee_id: id) %>
           <% total += (lines.first.min_salary.to_f + lines.first.extra_hours.to_f + lines.first.holidays.to_f + lines.first.daily_viatical.to_f + lines.first.extra_payments.to_f) if lines != [] %>
           <Cell><Data ss:Type="String"><%= number_to_currency((lines.first.min_salary.to_f + lines.first.extra_hours.to_f + lines.first.holidays.to_f + lines.first.daily_viatical.to_f + lines.first.extra_payments.to_f), unit: '₡') if lines != [] %></Data></Cell>
         <% end %>
+
         <Cell><Data ss:Type="String"><%= number_to_currency(total.round(2), unit: '₡') %></Data></Cell>
       </Row>
     <% end %>

@@ -31,7 +31,6 @@
       <% total = 0 %>
       <tr>
         <td style="border: 1px solid"><%= employee.identification %></td>
-        <td style="border: 1px solid"><%= employee.name %></td>
 
         <% if employee.entries != [] %>
           <% last_entry = '01/01/1970' %>
@@ -45,6 +44,8 @@
           <td style="border: 1px solid"><%= last_entry %></td>
           <td style="border: 1px solid"><%= last_end %></td>
         <% end %>
+
+        <td style="border: 1px solid"><%= employee.name %></td>
 
         <% @roles.each do |role| %>
           <% lines = PayroleLine.where(role_id: role, employee_id: id) %>
