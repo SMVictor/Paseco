@@ -1,0 +1,19 @@
+<div class="bg-body-light">
+  <div class="content content-full">
+    <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
+      <h1 class="flex-sm-fill font-size-h2 font-w400 mt-2 mb-0 mb-sm-2">Usuarios</h1>
+      <%= link_to(new_admin_user_path, class: 'btn btn-success flex-sm-00-auto ml-sm-3') do %>
+        <i class="fa fa-fw fa-plus mr-1"></i>Crear Usuario
+      <% end %>
+    </div>
+    <% if flash[:notice] %>
+      <div class="alert alert-success alert-dismissible fade show mt-4 d-flex justify-content-center" role="alert">
+        <%= flash[:notice] %>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div id="usersTable"><%= render 'admin/users/partials/table', locals: {users:  @users}%></div>

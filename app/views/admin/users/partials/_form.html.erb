@@ -1,0 +1,38 @@
+<div class="card">
+  <div class="card-body">
+    <div class="row form_fieldset">
+      <div class="col-lg-4 mb-2 mt-2">
+        <label for="">Cédula</label>
+        <%= form.text_field :identification, autofocus: true, autocomplete: "identification", class: "form-control", placeholder: "303330333", id: "identification" %>
+        <label id="identification_error"></label>
+      </div>
+      <div class="col-lg-4 mb-2 mt-2">
+        <label for="">Nombre</label>
+        <%= form.text_field :name, autofocus: true, autocomplete: "name", class: "form-control", placeholder: "Justin Arias Barquero", id: "name" %>
+        <label id="name_error"></label>
+      </div>
+      <div class="col-lg-4 mb-2 mt-2">
+        <label for="">Correo</label>
+        <%= form.email_field :email, autofocus: true, autocomplete: "email", id: "email", class: "form-control", placeholder: "gerencia@pasecocr.com", data: {users: User.all.to_json } %>
+        <label id="email_error"></label>
+      </div>
+      <div class="col-lg-4 mb-2 mt-2">
+        <label for="">Contraseña</label>
+        <%= form.password_field :password, autocomplete: "off", class: "form-control", placeholder: "asdf1234", id: "password" %>
+        <label id="password_error"></label>
+      </div>
+      <div class="col-lg-4 mb-2 mt-2">
+        <label for="">Confirmación</label>
+        <%= form.password_field :password_confirmation, autocomplete: "off", class: "form-control", placeholder: "asdf1234", id: "confirmation" %>
+        <label id="confirmation_error"></label>
+      </div>
+      <div class="col-lg-4 mb-2 mt-2">
+        <label for="">Permiso</label>
+        <%= form.collection_select :role, [], :id, :name, options = {include_blank: 'Seleccione un permiso'}, html_options = {class: "form-control", id: "permission", required: true, oninvalid: "setCustomValidity('Campo Requerido')", oninput: "setCustomValidity('')", title: "Seleccione un permiso"}%>
+        <label id="role_error"></label>
+      </div>
+    </div>
+    <%= form.submit "Guardar", id: 'btn_submit', class: "btn btn-success mt-4" %>
+    <%= link_to('Cancelar', admin_users_path, class: 'btn btn-light ml-sm-3 mt-4')%>
+  </div>
+</div>

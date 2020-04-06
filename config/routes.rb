@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     
     namespace :admin do
       resources :roles
+      resources :users
       resources :areas
       resources :stalls
       resources :quotes
