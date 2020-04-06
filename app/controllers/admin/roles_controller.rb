@@ -72,35 +72,7 @@ class RolesController < ApplicationController
   def update_role_lines
     if current_user.admin?
       if params[:ajax] 
-
-        if params[:create]
-
-          @substalls = []
-          @count = 1
-          while @count <= @stall.substalls.to_i
-            @substalls[@count-1] = "Puesto " + @count.to_s
-            @count = @count+1
-          end
-          @employee = Employee.find(params[:employee_id]) if params[:employee_id] != "0"
-
-          @shift = Payment.find(2).shifts.first
-          @shift = @stall.quote.payment.shifts.first if @stall.quote.payment
-          @date = @role.end_date.to_date.strftime("%m/%d/%Y")
-          RoleLine.create(role: @role, stall: @stall, employee: @employee, shift: @shift, position: @employee.positions.first, date: @date)
-
-          respond_to do |format|
-            begin
-              @role.update(role_params)
-              @role_lines = @role.role_lines.where(stall_id: @stall.id, employee: @employee).order(date: :asc)
-              format.js
-            rescue Exception => e
-              @role_lines = @role.role_lines.where(stall_id: @stall.id, employee: @employee).order(date: :asc)
-              format.js
-            end
-          end
-        else
-          @role.update(role_params)
-        end
+        @role.update(role_params)
       else
         respond_to do |format|
           if @role.update(role_params)
@@ -113,65 +85,6 @@ class RolesController < ApplicationController
             format.json { render json: @role.errors, status: :unprocessable_entity }
           end
         end 
-      end
-    else
-      params[:role][:role_lines_attributes].each do |key, value|
-
-        begin
-          @role_line = RoleLine.find(value[:id].to_i)
-        rescue => ex
-          @role_line = nil
-        end
-
-        if value[:_destroy] == "1"
-
-          @role_line.role_lines_copy = RoleLinesCopy.new if @role_line.role_lines_copy == nil
-
-          @role_line.role_lines_copy.date        = @role_line.date
-          @role_line.role_lines_copy.substall    = @role_line.substall
-          @role_line.role_lines_copy.employee_id = @role_line.employee_id
-          @role_line.role_lines_copy.shift_id    = @role_line.shift_id
-          @role_line.role_lines_copy.stall_id    = @role_line.stall.id
-          @role_line.role_lines_copy.stall_id    = @role_line.stall.id
-          @role_line.role_lines_copy.role_id     = @role_line.role.id
-          @role_line.role_lines_copy.comment     = @role_line.comment
-          @role_line.role_lines_copy.action      = "delete"
-          @role_line.role_lines_copy.save
-
-        elsif @role_line == nil
-
-          @role_lines_copy = RoleLinesCopy.create(date: value[:date], substall: value[:substall], employee_id: value[:employee_id],
-            shift_id: value[:shift_id], stall_id: @stall.id, role_id: @role.id, comment: value[:comment], action: "create")
-
-        else
-          @role_line.date        = value[:date]
-          @role_line.substall    = value[:substall]
-          @role_line.employee_id = value[:employee_id]
-          @role_line.shift_id    = value[:shift_id]
-          @role_line.comment     = value[:comment]
-          if @role_line.changed?
-
-            @role_line.role_lines_copy = RoleLinesCopy.new if @role_line.role_lines_copy == nil
-            
-            @role_line.role_lines_copy.date        = value[:date]
-            @role_line.role_lines_copy.substall    = value[:substall]
-            @role_line.role_lines_copy.employee_id = value[:employee_id]
-            @role_line.role_lines_copy.shift_id    = value[:shift_id]
-            @role_line.role_lines_copy.comment     = value[:comment]
-            @role_line.role_lines_copy.stall_id    = @stall.id
-            @role_line.role_lines_copy.role_id     = @role.id
-            @role_line.role_lines_copy.action      = "update"
-            @role_line.role_lines_copy.save
-          end
-        end
-      end
-      @users = User.where(role: 0)
-      @users.each do |user|
-        UserMailer.send_notification(user, current_user).deliver_now
-      end
-      respond_to do |format|
-        format.html { redirect_to admin_role_lines_url, notice: 'Su solicitud ha sido enviada para revisión.' }
-        format.json { render json: @role, status: :ok, location: @role }
       end
     end
   end
@@ -216,45 +129,6 @@ class RolesController < ApplicationController
   end
 
   def approvals 
-  end
-
-  def check_changes
-    @changes = RoleLinesCopy.where(role_line_id: RoleLine.where("stall_id = ?", @stall.id).ids).or(RoleLinesCopy.where(stall_id: @stall.id))
-  end
-
-  def approve_create
-    @change    = RoleLinesCopy.find(params[:change_id])
-    @role_line = RoleLine.create(date: @change.date, substall: @change.substall, hours: @change.hours, role_id: @change.role_id, employee_id: @change.employee_id, stall_id: @change.stall_id, shift_id: @change.shift_id, comment: @change.comment)
-    @change.destroy
-    respond_to do |format|
-      format.html { redirect_to admin_check_role_changes_url, notice: 'Los datos fueron registrados correctamente.' }
-    end
-  end
-
-  def approve_update
-    @change    = RoleLinesCopy.find(params[:change_id])
-    @role_line = @change.role_line.update(date: @change.date, substall: @change.substall, hours: @change.hours, role_id: @change.role_id, employee_id: @change.employee_id, stall_id: @change.stall_id, shift_id: @change.shift_id, comment: @change.comment)
-    @change.destroy
-    respond_to do |format|
-      format.html { redirect_to admin_check_role_changes_url, notice: 'Modificación exitosa.' }
-    end
-  end
-
-  def approve_destroy
-    @change    = RoleLinesCopy.find(params[:change_id])
-    @role_line = @change.role_line.destroy
-    @change.destroy
-    respond_to do |format|
-      format.html { redirect_to admin_check_role_changes_url, notice: 'Los datos fueron eliminados correctamente.' }
-    end
-  end
-
-  def deny_change
-    @change    = RoleLinesCopy.find(params[:change_id])
-    @change.destroy
-    respond_to do |format|
-      format.html { redirect_to admin_check_role_changes_url, notice: 'Cambio denegado' }
-    end
   end
 
   def index_payroles

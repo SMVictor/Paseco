@@ -24,11 +24,6 @@
           </div>
           <div class="th text-center col-md-4">
             <div class="mt-2 mb-2 btn-group">
-              <% if current_user.admin? %>
-                <%= link_to(admin_role_approvals_path(role), class:'btn info-btn', title: 'Aprobaciones') do %>
-                  <i class="fa fa-check"></i>
-                <% end -%>
-              <% end -%>
               <%= link_to(edit_admin_role_path(role), class:'btn primary-btn', title: 'Editar Roll') do %>
                 <i class="fa fa-pencil-alt"></i>
               <% end -%>
