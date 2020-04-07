@@ -1,9 +1,9 @@
 <div class="row d-flex justify-content-center mt-5">
-  <div class="col-md-12 col-xl-6">
+  <div class="col-md-12 col-xl-5">
     <%= select_tag "role_from", options_from_collection_for_select(@roles, "id", "name"), options = {include_blank: "Planilla de inicio", title: "Planilla de inicio"} %>
     <%= select_tag "role_to",   options_from_collection_for_select(@roles, "id", "name"), options = {include_blank: "Planilla de fin", title: "Planilla de fin"} %>
   </div>
-  <div class="col-md-12 col-xl-6">
+  <div class="col-md-12 col-xl-5">
      <button type="button" class="btn btn-success mt-4 mt-xl-0" style="height: 30px; border-radius: 25px;" id="html_button" data-roles="<%= @roles.ids %>" onclick="download_file(false)">Vista Previa</button>
      <button type="button" class="btn btn-info mt-4 mt-xl-0" style="height: 30px; border-radius: 25px;" id="download_button" data-roles="<%= @roles.ids %>" onclick="download_file(true)">Descargar</button>
   </div>
