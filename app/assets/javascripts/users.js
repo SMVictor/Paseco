@@ -85,9 +85,7 @@ function validateSignUpForm() {
   }
   return result;
 }
-
-$( document ).on('turbolinks:load', function() {
-
+function fillRoleSelector(){
   var permissions = ['Administrador', 'Supervisor', 'Colaborador', 'Recursos Humanos']
   var roles = ["admin", "supervisor", "employee", "human_resources"];
   var selectedPermission = JSON.parse(document.querySelector('#permission').dataset.user);
@@ -100,4 +98,4 @@ $( document ).on('turbolinks:load', function() {
       $('#permission').append('<option value="'+i+'">'+permissions[i]+'</option>');
     }
   }
-});
+}
