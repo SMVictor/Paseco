@@ -88,10 +88,16 @@ function validateSignUpForm() {
 
 $( document ).on('turbolinks:load', function() {
 
-  permissions = ['Administrador', 'Gerente', 'Colaborador', 'Recursos Humanos']
+  var permissions = ['Administrador', 'Supervisor', 'Colaborador', 'Recursos Humanos']
+  var roles = ["admin", "supervisor", "employee", "human_resources"];
+  var selectedPermission = JSON.parse(document.querySelector('#permission').dataset.user);
 
   for (var i = 0; i < permissions.length; i++) {
-
-    $('#permission').append('<option value="'+i+'">'+permissions[i]+'</option>');
+    if (selectedPermission.role == roles[i]) {
+      $('#permission').append('<option selected="selected" value="'+i+'">'+permissions[i]+'</option>');
+    }
+    else{
+      $('#permission').append('<option value="'+i+'">'+permissions[i]+'</option>');
+    }
   }
 });
