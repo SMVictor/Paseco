@@ -60,6 +60,9 @@
           <li class="nav-item">
             <%= link_to('Feriados', admin_holidays_path, class: 'nav-link') if current_user.admin? %>
           </li>
+          <li class="nav-item">
+            <%= link_to('Usuarios', admin_users_path, class: 'nav-link') if current_user.admin? %>
+          </li>
         </ul>
       </div>
     </li>
@@ -129,7 +132,7 @@
       <div class="collapse" id="workRoles">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item">
-            <%= link_to('Roll de Trabajo', admin_work_roles_path, class: 'nav-link') if current_user.admin? || current_user.manager? %>
+            <%= link_to('Roll de Trabajo', admin_work_roles_path, class: 'nav-link') if current_user.admin? || current_user.supervisor? %>
           </li>
         </ul>
       </div>
@@ -143,13 +146,13 @@
       <div class="collapse" id="operations">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item">
-            <%= link_to('Roles', admin_roles_path, class: 'nav-link') if current_user.admin? || current_user.manager? %>
+            <%= link_to('Roles', admin_roles_path, class: 'nav-link') if current_user.admin? || current_user.supervisor? %>
           </li>
           <li class="nav-item">
             <%= link_to('Planillas', admin_payroles_path, class: 'nav-link' ) %>
           </li>
           <li class="nav-item">
-            <%= link_to('Aguinaldos', admin_extra_payroles_path, class: 'nav-link' ) if current_user.admin? || current_user.manager? || current_user.employee? %>
+            <%= link_to('Aguinaldos', admin_extra_payroles_path, class: 'nav-link' ) if current_user.admin? || current_user.supervisor? || current_user.employee? %>
           </li>
         </ul>
       </div>
