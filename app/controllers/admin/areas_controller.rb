@@ -7,7 +7,7 @@ module Admin
     # GET /areas
     # GET /areas.json
     def index
-      @areas = Area.all
+      @areas = Area.all.order(name: :asc)
     end
 
     # GET /areas/1

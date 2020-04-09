@@ -1,19 +1,26 @@
 <div class="card">
   <div class="card-body">
     <div class="row mt-1 d-none d-md-flex text-center" style="">
+      <div class="th col-12 col-md-1">
+        <p class="text-uppercase">#</p>
+      </div>
       <div class="th col-12 col-md-4">
         <p class="text-uppercase">Nombre</p>
       </div>
       <div class="th col-12 col-md-4">
         <p class="text-uppercase">Descripción</p>
       </div>
-      <div class="th col-12 col-md-4">
+      <div class="th col-12 col-md-3">
         <p class="text-uppercase">Acciones</p>
       </div>
     </div>
     <% if @payments%>
-      <% @payments.each do |payment| %>
+      <% @payments.each_with_index do |payment, index| %>
         <div class="row tb_body">
+          <div class="td col-12 col-md-1  pt-md-3">
+            <p class="d-md-none font-weight-bold">Número:</p>
+            <p class="text-md-center mt-2"><%= index + 1 %></p>
+          </div>
           <div class="td col-12 col-md-4  pt-md-3">
             <p class="d-md-none font-weight-bold">Nombre:</p>
             <p class="text-md-center mt-2"><%= link_to(payment.name, admin_payment_path(payment), class:'', title: 'Ver Pago')%></p>
@@ -22,12 +29,12 @@
             <p class="d-md-none font-weight-bold">Descripción:</p>
             <p class="text-md-center mt-2"><%= payment.description %></p>
           </div>
-          <div class="th text-center col-md-4">
-            <div class="mt-2 mb-2 btn-group">
-              <%= link_to(edit_admin_payment_path(payment), class:'btn btn-block primary-btn mt-2', title: 'Editar Pago') do %>
+          <div class="th text-center col-md-3">
+            <div class="mt-2 btn-group">
+              <%= link_to(edit_admin_payment_path(payment), class:'btn primary-btn', title: 'Editar Pago') do %>
                 <i class="fa fa-pencil-alt"></i>
               <% end -%>
-              <button type="button" class="btn btn-block delete-btn" data-toggle="modal" title="Eliminar Cliente" data-target="#deletePayment<%= payment.id %>">
+              <button type="button" class="btn delete-btn" data-toggle="modal" title="Eliminar Cliente" data-target="#deletePayment<%= payment.id %>">
                 <i class="fa fa-times"></i>
               </button>
             </div>

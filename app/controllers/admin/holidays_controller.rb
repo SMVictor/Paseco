@@ -5,7 +5,7 @@ module Admin
     before_action :set_holiday, only: [:show, :edit, :update, :destroy]
 
     def index
-      @holidays = Holiday.all
+      @holidays = Holiday.all.order(id: :asc)
     end
 
     def show

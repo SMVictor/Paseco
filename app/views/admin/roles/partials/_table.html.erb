@@ -1,10 +1,13 @@
 <div class="card">
   <div class="card-body">
     <div class="row mt-1 d-none d-md-flex text-center" style="">
+      <div class="th col-12 col-md-1">
+        <p class="text-uppercase">#</p>
+      </div>
       <div class="th col-12 col-md-4">
         <p class="text-uppercase">Nombre</p>
       </div>
-      <div class="th col-12 col-md-4">
+      <div class="th col-12 col-md-3">
         <p class="text-uppercase">Fecha de Inicio</p>
       </div>
       <div class="th col-12 col-md-4">
@@ -12,13 +15,17 @@
       </div>
     </div>
     <% if @roles%>
-      <% @roles.each do |role| %>
+      <% @roles.each_with_index do |role, index| %>
         <div class="row tb_body">
+          <div class="td col-12 col-md-1 pt-md-3">
+            <p class="d-md-none font-weight-bold">Número:</p>
+            <p class="text-md-center mt-2"><%= index + 1 %></p>
+          </div>
           <div class="td col-12 col-md-4  pt-md-3">
             <p class="d-md-none font-weight-bold">Nombre:</p>
             <p class="text-md-center mt-2"><%= link_to(role.name, admin_role_path(role), class:'', title: 'Ver Roll') %></p>
           </div>
-          <div class="th col-12 col-md-4 pt-md-3">
+          <div class="th col-12 col-md-3 pt-md-3">
             <p class="d-md-none font-weight-bold">Fecha de Inicio:</p>
             <p class="text-md-center mt-2"><%= role.start_date %></p>
           </div>

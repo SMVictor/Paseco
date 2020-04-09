@@ -1,31 +1,38 @@
 <div class="card">
   <div class="card-body">
     <div class="row mt-1 d-none d-md-flex text-center" style="">
-      <div class="th col-12 col-md-3">
+      <div class="th col-12 col-md-1">
+        <p class="text-uppercase">#</p>
+      </div>
+      <div class="th col-12 col-md-4">
         <p class="text-uppercase">Nombre</p>
       </div>
-      <div class="th col-12 col-md-3">
-        <p class="text-uppercase d-inline">Fecha de Inicio</p>
+      <div class="th col-12 col-md-2">
+        <p class="text-uppercase d-inline">Inicio</p>
       </div>
-      <div class="th col-12 col-md-3">
-        <p class="text-uppercase">Fecha de Finalización</p>
+      <div class="th col-12 col-md-2">
+        <p class="text-uppercase">Finalización</p>
       </div>
       <div class="th col-12 col-md-3">
         <p class="text-uppercase">Acciones</p>
       </div>
     </div>
     <% if @extra_payroles%>
-      <% @extra_payroles.each do |extra_payrole| %>
+      <% @extra_payroles.each_with_index do |extra_payrole, index| %>
         <div class="row tb_body">
-          <div class="td col-12 col-md-3  pt-md-3">
+          <div class="td col-12 col-md-1 pt-md-3">
+            <p class="d-md-none font-weight-bold">Número:</p>
+            <p class="text-md-center mt-2"><%= index + 1 %></p>
+          </div>
+          <div class="td col-12 col-md-4  pt-md-3">
             <p class="d-md-none font-weight-bold">Nombre:</p>
             <p class="text-md-center mt-2"><%= link_to(extra_payrole.name, admin_extra_payroles_show_path(extra_payrole), class:'', title: 'Ver Planilla Pasada') %></p>
           </div>
-          <div class="th col-12 col-md-3 pt-md-3">
+          <div class="th col-12 col-md-2 pt-md-3">
             <p class="d-md-none font-weight-bold">Fecha de Inicio:</p>
             <p class="text-md-center mt-2"><%= extra_payrole.from_date %></p>
           </div>
-          <div class="th col-12 col-md-3 pt-md-3">
+          <div class="th col-12 col-md-2 pt-md-3">
             <p class="d-md-none font-weight-bold">Fecha de Finalización:</p>
             <p class="text-md-center mt-2"><%= extra_payrole.to_date %></p>
           </div>
@@ -35,16 +42,16 @@
               <% @employee = Employee.where(identification: current_user.identification).first %>
 
               <% if @employee %>
-                <%= link_to(admin_extra_payrole_detail_path(extra_payrole, @employee), class:'btn btn-block primary-btn mt-2', title: 'Ver Colilla de Pago') do %>
+                <%= link_to(admin_extra_payrole_detail_path(extra_payrole, @employee), class:'btn primary-btn', title: 'Ver Colilla de Pago') do %>
                   <i class="fa fa-dollar"></i>
                 <% end %>
               <% end %>
 
               <% if current_user.admin? %>
-                <%= link_to(admin_bonuses_bncr_file_path(extra_payrole, format: "xls"), class:'btn btn-block info-btn mt-2', title: 'Archivo BNCR') do %>
+                <%= link_to(admin_bonuses_bncr_file_path(extra_payrole, format: "xls"), class:'btn info-btn', title: 'Archivo BNCR') do %>
                   <i class="fa fa-file-excel"></i>
                 <% end %>
-                <%= link_to(admin_bonuses_bac_file_path(extra_payrole, format: "xls"), class:'btn btn-block primary-btn mt-2', title: 'Archivo BAC') do %>
+                <%= link_to(admin_bonuses_bac_file_path(extra_payrole, format: "xls"), class:'btn primary-btn', title: 'Archivo BAC') do %>
                   <i class="fa fa-file-excel"></i>
                 <% end %>
               <% end %>
