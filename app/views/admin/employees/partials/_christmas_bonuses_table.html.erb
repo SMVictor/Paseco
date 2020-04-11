@@ -22,7 +22,7 @@
       </div>
       <div class="th text-center col-md-4">
         <div class="mt-2 mb-2 btn-group">
-          <% if current_user.admin? || current_user.manager? %>
+          <% if current_user.admin? || current_user.supervisor? %>
             <%= link_to(admin_edit_bonuses_path(@employee, bonus), class:'btn btn-block primary-btn mt-2', title: 'Editar Empleado') do %>
               <i class="fa fa-pencil-alt"></i>
             <% end -%>
