@@ -243,13 +243,13 @@ class Employee < ApplicationRecord
         end_holiday = end_date - ((end_date.hour * 3600)-1)
 
         @holiday  =  ((1/shift.time.to_f)*((end_holiday - start_date)/3600)) * (min_salary.to_f/30)
-        @viatical += (role_line.stall.daily_viatical.to_f/shift.time.to_f)*((end_holiday - start_date)/3600)
+        @viatical += (role_line.stall.daily_viatical.to_f/shift.time.to_f)*((end_holiday - start_date)/3600) if daily_viatical == "yes" && role_line.position.daily_viatical
       end
     elsif is_end_date_holiday
       #Medio feriado antes
       start_holiday = end_date - end_date.hour * 3600
       @holiday  =  ((1/shift.time.to_f)*((end_date - start_holiday)/3600)) * (min_salary.to_f/30)
-      @viatical += (role_line.stall.daily_viatical.to_f/shift.time.to_f)*((end_date - start_holiday)/3600)
+      @viatical += (role_line.stall.daily_viatical.to_f/shift.time.to_f)*((end_date - start_holiday)/3600) if daily_viatical == "yes" && role_line.position.daily_viatical
     else
       #No hay feriado
       @holiday = 0
