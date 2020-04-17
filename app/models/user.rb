@@ -4,6 +4,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  enum role: [:"admin", :"supervisor", :"employee", :"human_resources"]
+  enum role: [:"admin", :"supervisor", :"employee", :"human_resources", :"sup_hr"]
 
 end
