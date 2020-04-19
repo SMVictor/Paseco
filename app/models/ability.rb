@@ -14,6 +14,10 @@ class Ability
            :edit_vacations, :edit_vacations_inactive, :vacations_file, :new, :create, :edit, :update, 
            :edit_inactive, :update_inactive], Employee
       can [:index_payroles, :show_payroles, :payrole_detail], Role
+    elsif user.sup_hr?
+      can [:index, :inactives, :show, :show_inactive, :update_vacations, :update_vacations_inactive, 
+           :edit_vacations, :edit_vacations_inactive, :vacations_file, :new, :create, :edit, :update, 
+           :edit_inactive, :update_inactive], Employee
     else
       can [:index_payroles, :payrole_detail], Role
     end
