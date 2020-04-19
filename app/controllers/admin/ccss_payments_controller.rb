@@ -4,28 +4,6 @@ module Admin
     load_and_authorize_resource
     before_action :set_ccss_payment, only: [:edit, :update]
 
-    def index
-      @roles = Role.where('id <= 18 or id >= 33').order(id: :asc)
-    end
-
-    def show
-      @roles = []
-      params[:ids].split(",").each do |id|
-        @roles << id.to_i if id != "0"
-      end
-      payrole_lines = PayroleLine.where(role_id: @roles).order(:name)
-      @employee_ids = []
-      payrole_lines.each do |payrole|
-        @employee_ids << payrole.employee.id
-      end
-      @employee_ids = @employee_ids.uniq
-
-      respond_to do |format|
-        format.html
-        format.xls
-      end
-    end
-
     def edit
     end
 

@@ -158,6 +158,20 @@
       </div>
     </li>
     <li class="nav-item">
+      <a class="nav-link" aria-expanded="false" onclick="toggleNavLink('downloads')" id="quotesNavLink">
+        <i class="menu-icon fas fa-list-ul"></i>
+        <span class="menu-title">Descargas</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="downloads">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item">
+            <%= link_to('Todas', admin_downloads_path, class: 'nav-link') if current_user.admin? %>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item">
       <a class="nav-link" rel="nofollow" data-method="delete" href="/users/sign_out">
         <i class="menu-icon fas fa-sign-out-alt"></i>
         <span class="menu-title">Salir</span>

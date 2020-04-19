@@ -1,0 +1,118 @@
+<div class="card">
+  <div class="card-body">
+    <div class="row" style="border-bottom: 1px solid;">
+      <div class="col-12 col-xl-3 d-flex justify-content-center mt-4">
+        INS Y CAJA
+      </div>
+      <div class="col-6 col-xl-3 mt-4 mt-xl-4 d-flex justify-content-center mb-5">
+        <%= select_tag "role_from", options_from_collection_for_select(@roles, "id", "name"), options = {include_blank: "Planilla de inicio", title: "Planilla de inicio"} %>
+      </div>
+      <div class="col-6 col-xl-3 mt-4 mt-xl-4 d-flex justify-content-center mb-5">
+        <%= select_tag "role_to",   options_from_collection_for_select(@roles, "id", "name"), options = {include_blank: "Planilla de fin", title: "Planilla de fin"} %>
+      </div>
+      <div class="col-4 col-xl-1 mt-4 mt-xl-4 d-flex justify-content-center">
+        <button type="button" id="download_inscaja_button" class="btn" data-roles="<%= @roles.ids %>" onclick="download_file('xls')">
+          <i class="fa fa-file-excel-o" style="color: green;"></i>
+        </button>
+      </div>
+      <div class="col-4 col-xl-1 mt-4 mt-xl-4 d-flex mt-xl-0 mb-4 justify-content-center">
+        <button type="button" class="btn" onclick="download_file('csv')">
+          <i class="fa fa-file" style="color: purple;"></i>
+        </button>
+      </div>
+      <div class="col-4 col-xl-1 mt-4 mt-xl-4 mb-4 d-flex justify-content-center">
+        <button type="button" class="btn" onclick="download_file('txt')">
+          <i class="fa fa-file-text" style="color: blue;"></i>
+        </button>
+      </div>
+    </div>
+    <div class="row" style="border-bottom: 1px solid;">
+      <div class="col-12 col-xl-3 d-flex justify-content-center mt-4">
+        CONSOLIDADO
+      </div>
+      <div class="col-6 col-xl-3 mt-4 mt-xl-4 d-flex justify-content-center mb-5">
+        <%= select_tag "role_from1", options_from_collection_for_select(@roles, "id", "name"), options = {include_blank: "Planilla de inicio", title: "Planilla de inicio"} %>
+      </div>
+      <div class="col-6 col-xl-3 mt-4 mt-xl-4 d-flex justify-content-center mb-5">
+        <%= select_tag "role_to1",   options_from_collection_for_select(@roles, "id", "name"), options = {include_blank: "Planilla de fin", title: "Planilla de fin"} %>
+      </div>
+      <div class="col-4 col-xl-1 mt-4 mt-xl-4 d-flex justify-content-center">
+        <button type="button" class="btn" onclick="download_payrole_file('xls')">
+          <i class="fa fa-file-excel-o" style="color: green;"></i>
+        </button>
+      </div>
+      <div class="col-4 col-xl-1 mt-4 mt-xl-4 d-flex mt-xl-0 mb-4 justify-content-center">
+        <button type="button" class="btn" onclick="download_payrole_file('csv')">
+          <i class="fa fa-file" style="color: purple;"></i>
+        </button>
+      </div>
+      <div class="col-4 col-xl-1 mt-4 mt-xl-4 mb-4 d-flex justify-content-center">
+        <button type="button" class="btn" onclick="download_payrole_file('txt')">
+          <i class="fa fa-file-text" style="color: blue;"></i>
+        </button>
+      </div>
+    </div>
+    <div class="row" style="border-bottom: 1px solid;">
+      <div class="col-12 col-xl-3 d-flex justify-content-center mt-4">
+        DESGLOSE
+      </div>
+      <div class="col-6 col-xl-3 mt-4 mt-xl-4 d-flex justify-content-center mb-5">
+        <%= select_tag "role_from2", options_from_collection_for_select(@roles, "id", "name"), options = {include_blank: "Planilla de inicio", title: "Planilla de inicio"} %>
+      </div>
+      <div class="col-6 col-xl-3 mt-4 mt-xl-4 d-flex justify-content-center mb-5">
+        <%= select_tag "role_to2",   options_from_collection_for_select(@roles, "id", "name"), options = {include_blank: "Planilla de fin", title: "Planilla de fin"} %>
+      </div>
+      <div class="col-4 col-xl-1 mt-4 mt-xl-4 d-flex justify-content-center">
+        <button type="button" class="btn">
+          <i class="fa fa-file-excel-o" style="color: green;"></i>
+        </button>
+      </div>
+      <div class="col-4 col-xl-1 mt-4 mt-xl-4 d-flex mt-xl-0 mb-4 justify-content-center">
+        <button type="button" class="btn" onclick="download_breakdown_file('csv')">
+          <i class="fa fa-file" style="color: purple;"></i>
+        </button>
+      </div>
+      <div class="col-4 col-xl-1 mt-4 mt-xl-4 mb-4 d-flex justify-content-center">
+        <button type="button" class="btn">
+          <i class="fa fa-file-text" style="color: blue;"></i>
+        </button>
+      </div>
+    </div>
+    <div class="row" style="border-bottom: 1px solid;">
+      <div class="col-12 col-xl-3 d-flex justify-content-center mt-4">
+        OTROS
+      </div>
+      <div class="col-6 col-xl-3 mt-4 mt-xl-4 d-flex justify-content-center mb-5">
+        <%= select_tag "entity", raw("<option>Clientes</option><option>Puestos</option><option>Empleados</option>"), options = {include_blank: "Tipo de descarga", title: "Tipo de descarga"} %>
+      </div>
+      <div class="col-6 col-xl-3 mt-4 mt-xl-4 d-flex justify-content-center mb-5">
+        <%= select_tag "status", raw("<option value='true'>Activo</option><option value='false'>Inactivo</option>"), options = {include_blank: "Estado", title: "Estado"} %>
+      </div>
+      <div class="col-4 col-xl-1 mt-4 mt-xl-4 d-flex justify-content-center">
+        <button type="button" class="btn" onclick="download_entity_file('xls')">
+          <i class="fa fa-file-excel-o" style="color: green;"></i>
+        </button>
+      </div>
+      <div class="col-4 col-xl-1 mt-4 mt-xl-4 d-flex mt-xl-0 mb-4 justify-content-center">
+        <button type="button" class="btn" onclick="download_entity_file('csv')">
+          <i class="fa fa-file" style="color: purple;"></i>
+        </button>
+      </div>
+      <div class="col-4 col-xl-1 mt-4 mt-xl-4 mb-4 d-flex justify-content-center">
+        <button type="button" class="btn">
+          <i class="fa fa-file-text" style="color: blue;"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $('select').select2({
+    language: {
+    noResults: function (params) {
+      return "No hay resultados"
+    }
+  }
+  });
+</script>

@@ -105,6 +105,12 @@ Rails.application.routes.draw do
       get    'work_roles/lines/:id/:stall_id'           => 'work_roles#add_role_lines',    as: 'work_role_lines'
       get    'work_roles/lines/:id/:stall_id/update'    => 'work_roles#update_role_lines', as: 'work_edit_role_lines'
 
+      get    'downloads'           => 'downloads#index',     as: 'downloads'
+      get    'downloads/inscaja'   => 'downloads#ins_caja',  as: 'inscaja'
+      get    'downloads/payroles'  => 'downloads#payroles',  as: 'downloads_payroles'
+      get    'downloads/breakdown' => 'downloads#breakdown', as: 'downloads_breakdown'
+      get    'downloads/entity'    => 'downloads#entity',    as: 'downloads_entity'
+
     end
   end
   
