@@ -28,8 +28,8 @@ module Admin
     end
 
     def show
-      @employee.calculate_vacations
       sort_entries
+      @employee.calculate_vacations
       sort_vacations
 
       from = Time.now.year
@@ -48,8 +48,8 @@ module Admin
     end
 
     def show_inactive
-      @employee.calculate_vacations
       sort_entries
+      @employee.calculate_vacations
       sort_vacations
     end
 
@@ -58,14 +58,14 @@ module Admin
     end
 
     def edit
-      @employee.calculate_vacations
       sort_entries
+      @employee.calculate_vacations
       sort_vacations
     end
 
     def edit_inactive
-      @employee.calculate_vacations
       sort_entries
+      @employee.calculate_vacations
       sort_vacations
     end
 
