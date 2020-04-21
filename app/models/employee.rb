@@ -44,8 +44,8 @@ class Employee < ApplicationRecord
     @used_vacations_days      = 0
     @available_vacations_days = 0
 
-    start_date = self.entries.first != nil && self.entries.first.start_date != "" ? DateTime.parse(self.entries.first.start_date) : Time.now
-    end_date   = self.entries.first != nil && self.entries.first.end_date   != "" ? DateTime.parse(self.entries.first.end_date)   : Time.now
+    start_date = self.entries.last != nil && self.entries.last.start_date != "" ? DateTime.parse(self.entries.last.start_date) : Time.now
+    end_date   = self.entries.last != nil && self.entries.last.end_date   != "" ? DateTime.parse(self.entries.last.end_date)   : Time.now
 
     total_worked_months = -1
 
@@ -53,6 +53,8 @@ class Employee < ApplicationRecord
       total_worked_months += 1
       start_date += 1.months
     end
+
+    start_date = self.entries.last != nil && self.entries.last.start_date != "" ? DateTime.parse(self.entries.last.start_date) : Time.now
 
     worked_years  = 0
     worked_months = 0  
@@ -63,7 +65,7 @@ class Employee < ApplicationRecord
     @total_vacations_days = worked_years * 14 + worked_months
 
     self.vacations.each do |vacation|
-      @used_vacations_days += vacation.requested_days.to_i
+      @used_vacations_days += vacation.requested_days.to_i if DateTime.parse(vacation.start_date) >= start_date
     end
 
     @available_vacations_days = @total_vacations_days - @used_vacations_days
