@@ -28,6 +28,7 @@ module Admin
     end
 
     def show
+      sort_entries
       @employee.calculate_vacations
       sort_vacations
 
@@ -47,6 +48,7 @@ module Admin
     end
 
     def show_inactive
+      sort_entries
       @employee.calculate_vacations
       sort_vacations
     end
@@ -56,14 +58,14 @@ module Admin
     end
 
     def edit
-      @employee.calculate_vacations
       sort_entries
+      @employee.calculate_vacations
       sort_vacations
     end
 
     def edit_inactive
-      @employee.calculate_vacations
       sort_entries
+      @employee.calculate_vacations
       sort_vacations
     end
 
