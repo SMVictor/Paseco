@@ -44,8 +44,8 @@ class Employee < ApplicationRecord
     @used_vacations_days      = 0
     @available_vacations_days = 0
 
-    start_date = self.entries.last != nil && self.entries.last.start_date != "" ? DateTime.parse(self.entries.last.start_date) : Time.now
-    end_date   = self.entries.last != nil && self.entries.last.end_date   != "" ? DateTime.parse(self.entries.last.end_date)   : Time.now
+    start_date = self.entries.first != nil && self.entries.first.start_date != "" ? DateTime.parse(self.entries.first.start_date) : Time.now
+    end_date   = self.entries.first != nil && self.entries.first.end_date   != "" ? DateTime.parse(self.entries.first.end_date)   : Time.now
 
     total_worked_months = -1
 
