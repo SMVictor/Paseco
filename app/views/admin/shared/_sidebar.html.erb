@@ -26,13 +26,13 @@
       <div class="collapse" id="maintenance">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item">
-            <%= link_to('Pagos', admin_payments_path, class: 'nav-link') if current_user.admin? %>
-          </li>
-          <li class="nav-item">
             <%= link_to('Áreas', admin_areas_path, class: 'nav-link') if current_user.admin? %>
           </li>
           <li class="nav-item">
-            <%= link_to('Rangos', admin_positions_path, class: 'nav-link') if current_user.admin? %>
+            <%= link_to('Deducción CCSS', edit_admin_ccss_payment_path(CcssPayment.first), class: 'nav-link') if current_user.admin? %>
+          </li>
+          <li class="nav-item">
+            <%= link_to('Feriados', admin_holidays_path, class: 'nav-link') if current_user.admin? %>
           </li>
           <li class="nav-item">
             <%= link_to('Info BNCR', edit_admin_bncr_info_path(BncrInfo.first), class: 'nav-link') if current_user.admin? %>
@@ -41,7 +41,10 @@
             <%= link_to('Info BAC', edit_admin_bac_info_path(BacInfo.first), class: 'nav-link') if current_user.admin? %>
           </li>
           <li class="nav-item">
-            <%= link_to('Feriados', admin_holidays_path, class: 'nav-link') if current_user.admin? %>
+            <%= link_to('Pagos', admin_payments_path, class: 'nav-link') if current_user.admin? %>
+          </li>
+          <li class="nav-item">
+            <%= link_to('Rangos', admin_positions_path, class: 'nav-link') if current_user.admin? %>
           </li>
           <li class="nav-item">
             <%= link_to('Usuarios', admin_users_path, class: 'nav-link') if current_user.admin? %>
@@ -62,23 +65,6 @@
           </li>
           <li class="nav-item">
             <%= link_to('Crear Nueva', new_admin_quote_path, class: 'nav-link') if current_user.admin? %>
-          </li>
-        </ul>
-      </div>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" aria-expanded="false" onclick="toggleNavLink('ccss')" id="ccssNavLink">
-        <i class="menu-icon fas fa-medkit"></i>
-        <span class="menu-title">INS Y CCSS</span>
-        <i class="menu-arrow"></i>
-      </a>
-      <div class="collapse" id="ccss">
-        <ul class="nav flex-column sub-menu">
-          <li class="nav-item">
-            <%= link_to('Deducción CCSS', edit_admin_ccss_payment_path(CcssPayment.first), class: 'nav-link') if current_user.admin? %>
-          </li>
-          <li class="nav-item">
-            <%= link_to('Archivo Excel',admin_ccss_payments_path, class: 'nav-link') if current_user.admin? %>
           </li>
         </ul>
       </div>

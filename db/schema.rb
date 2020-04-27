@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_16_010706) do
+ActiveRecord::Schema.define(version: 2020_04_24_020052) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -158,6 +158,8 @@ ActiveRecord::Schema.define(version: 2020_04_16_010706) do
     t.string "stall_type"
     t.string "shift_name"
     t.string "stall_name"
+    t.string "service"
+    t.string "employee_name"
     t.index ["payrole_detail_id"], name: "index_detail_lines_on_payrole_detail_id"
     t.index ["shift_id"], name: "index_detail_lines_on_shift_id"
     t.index ["stall_id"], name: "index_detail_lines_on_stall_id"
@@ -271,6 +273,7 @@ ActiveRecord::Schema.define(version: 2020_04_16_010706) do
     t.bigint "employee_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "employee_name"
     t.index ["employee_id"], name: "index_payrole_details_on_employee_id"
     t.index ["role_id"], name: "index_payrole_details_on_role_id"
   end
@@ -469,6 +472,7 @@ ActiveRecord::Schema.define(version: 2020_04_16_010706) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "service_id"
+    t.string "service_name"
     t.index ["service_id"], name: "index_sub_services_on_service_id"
   end
 

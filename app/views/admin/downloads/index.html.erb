@@ -63,7 +63,7 @@
         <%= select_tag "role_to2",   options_from_collection_for_select(@roles, "id", "name"), options = {include_blank: "Planilla de fin", title: "Planilla de fin"} %>
       </div>
       <div class="col-4 col-xl-1 mt-4 mt-xl-4 d-flex justify-content-center">
-        <button type="button" class="btn">
+        <button type="button" class="btn" disabled="true">
           <i class="fa fa-file-excel-o" style="color: green;"></i>
         </button>
       </div>
@@ -73,7 +73,7 @@
         </button>
       </div>
       <div class="col-4 col-xl-1 mt-4 mt-xl-4 mb-4 d-flex justify-content-center">
-        <button type="button" class="btn">
+        <button type="button" class="btn" disabled="true">
           <i class="fa fa-file-text" style="color: blue;"></i>
         </button>
       </div>

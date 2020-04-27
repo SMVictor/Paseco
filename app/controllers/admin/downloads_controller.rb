@@ -371,32 +371,16 @@ module Admin
                    'PAGOS ADCIONALES', 'MOTIVO DEL PAGO ADICIONAL', 'DEDUCCIONES ADICIONALES', 'MOTIVO DE LA DEDUCCIÓN',
                    'COMENTARIOS', 'SECTOR DEL CLIENTE', 'SERVICIO', 'SUB SERVICIO', 'TIPO DE PUESTO']
 
+        headers2  = ['employee_name', 'date', 'stall_name', 'shift_name', 'hours', 'salary', 
+                   'holiday', 'extra_hours',  'extra_salary', 'viatical', 
+                   'extra_payment', 'extra_payment_reason', 'deductions', 'deductions_reason',
+                   'comments', 'sector', 'service', 'sub_service', 'stall_type']
+
+
         csv << headers
 
         @detail_lines.each do |line|
-          row = []
-
-          row << line.payrole_detail.employee.name
-          row << line.date
-          row << line.stall_name
-          row << line.shift_name
-          row << line.hours
-          row << line.salary
-          row << line.holiday
-          row << line.extra_hours
-          row << line.extra_salary
-          row << line.viatical
-          row << line.extra_payment
-          row << line.extra_payment_reason
-          row << line.deductions
-          row << line.deductions_reason
-          row << line.comments
-          row << if line.sector != nil && line.sector != "" then Sector.find(line.sector).name else 'SIN CLASIFICAR' end
-          row << if line.sub_service != nil && line.sub_service != "" then SubService.find(line.sub_service).service.name else 'SIN CLASIFICAR' end
-          row << if line.sub_service != nil && line.sub_service != "" then SubService.find(line.sub_service).name else 'SIN CLASIFICAR' end
-          row << if line.stall_type != nil && line.stall_type != "" then Type.find(line.stall_type).name else 'SIN CLASIFICAR' end
-
-          csv << row
+          csv << headers2.map{ |attr| line.send(attr) }
         end
       end
     end

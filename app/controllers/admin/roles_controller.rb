@@ -493,9 +493,11 @@ class RolesController < ApplicationController
           payrole_detail.detail_lines.last.deductions           = line.deductions
           payrole_detail.detail_lines.last.deductions_reason    = line.deductions_description
           payrole_detail.detail_lines.last.comments             = line.comment
-          payrole_detail.detail_lines.last.sector               = line.stall.customer.sector_id
-          payrole_detail.detail_lines.last.sub_service          = line.sub_service_id
-          payrole_detail.detail_lines.last.stall_type           = line.stall.type_id
+          payrole_detail.detail_lines.last.employee_name        = payrole_detail.employee.name
+          payrole_detail.detail_lines.last.sector               = line.stall.customer.sector.name
+          payrole_detail.detail_lines.last.service              = line.sub_service.service.name
+          payrole_detail.detail_lines.last.sub_service          = line.sub_service.name
+          payrole_detail.detail_lines.last.stall_type           = line.stall.type.name
 
           detail_line_id += 1 
         end
