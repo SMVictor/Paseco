@@ -303,7 +303,7 @@ module Admin
     end
 
     def generate_inscaja_txt
-      path = ENV['HOME'] + "/Desktop/INS Y CAJA.txt"
+      path = ENV['HOME'] + "/files/INS Y CAJA.txt"
 	    content = ""
 
       @headers.each do |header|
