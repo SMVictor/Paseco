@@ -30,13 +30,14 @@ module Admin
       generate_rows
 
       if params[:txt]
-      	generate_inscaja_txt
+      	generate_txt_file
       end
 
       respond_to do |format|
         format.html
         format.xls
         format.csv { send_data to_csv }
+        format.text
       end
     end
 
@@ -93,13 +94,14 @@ module Admin
       end 
 
       if params[:txt]
-        generate_payroles_txt
+        generate_txt_file
       end
 
       respond_to do |format|
         format.html { redirect_to admin_downloads_url }
         format.xls
         format.csv { send_data to_csv }
+        format.text
       end
     end
 
@@ -221,10 +223,15 @@ module Admin
 
         end
       end
+
+      if params[:txt]
+        generate_txt_file
+      end
       respond_to do |format|
         format.html { redirect_to admin_downloads_url }
         format.xls
         format.csv { send_data to_csv }
+        format.text
       end
     end
 
@@ -309,65 +316,23 @@ module Admin
       end
     end
 
-    def generate_inscaja_txt
-      path = ENV['HOME'] + "/INS Y CAJA.txt"
-	    content = ""
+    def generate_txt_file
+	    @content = ""
 
       @headers.each do |header|
-        content += header
-        content += " " * (26 - header.length)
+        @content += header + ","
       end
-      content += "\n"
+      @content += "\n"
 
 	    @rows.each do |row|
 	      row.each do |cell|
-	      	if cell.length > 25
-            content += cell[0, 24] + "  "
-          else
-            content += cell
-            content += " " * (26 - cell.length)
-          end
+	      	@content += cell.to_s + ","
 	      end
 
-	      content += "\n"
-	    end
-
-	    File.open(path, "w+") do |f|
-	      f.write(content)
+	      @content += "\n"
 	    end
     end
 
-    def generate_payroles_txt
-      path = ENV['HOME'] + "/Desktop/CONSOLIDADO.txt"
-      content = ""
-
-      @headers.each do |header|
-        content += header
-        if header == "Nombre" || header == "Fecha de Pago"
-          content += " " * (18 - header.length)
-        else
-          content += " " * (15 - header.length)
-        end
-      end
-      content += "\n"
-
-      @rows.each do |row|
-        row.each do |cell|
-          cell = cell.to_s
-          if cell.length > 15
-            content += cell[0, 16] + "  "
-          else
-            content += cell
-            content += " " * (15 - cell.length) 
-          end
-        end
-
-        content += "\n"
-      end
-      File.open(path, "w+") do |f|
-        f.write(content)
-      end
-    end
 
     def to_csv_2
 

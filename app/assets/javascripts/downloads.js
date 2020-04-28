@@ -21,7 +21,7 @@ function download_file(type){
     window.location = document.URL + '/inscaja.csv?ids='+ids;
   }
   else{
-    window.location = document.URL + '/inscaja?ids='+ids+'&txt=true';
+    window.location = document.URL + '/inscaja.text?ids='+ids+'&txt=true';
   }
 }
 
@@ -48,7 +48,7 @@ function download_payrole_file(type){
     window.location = document.URL + '/payroles.csv?ids='+ids;
   }
   else{
-    window.location = document.URL + '/payroles?ids='+ids+'&txt=true';
+    window.location = document.URL + '/payroles.text?ids='+ids+'&txt=true';
   }
 }
 
@@ -79,7 +79,10 @@ function download_entity_file(type){
   if (type == 'xls') {
     window.location = document.URL + '/entity.xls?entity='+entity+'&status='+status;
   }
+  else if (type == "csv"){
+    window.location = document.URL + '/entity.csv?entity='+entity+'&status='+status;
+  }
   else{
-    window.location = document.URL + '/entity.csv?ids='+entity+'&status='+status;
+    window.location = document.URL + '/entity.text?entity='+entity+'&status='+status+'&txt=true';
   }
 }
