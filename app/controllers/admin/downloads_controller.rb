@@ -111,7 +111,7 @@ module Admin
         @roles << id.to_i if id != "0"
       end
       payrole_details = PayroleDetail.where(role_id: @roles).ids
-      @detail_lines    = DetailLine.where(payrole_detail_id: payrole_details)
+      @detail_lines    = DetailLine.where(payrole_detail_id: payrole_details).order(employee_name: :asc, date: :asc)
 
       respond_to do |format|
         format.csv { send_data to_csv_2 }
@@ -227,6 +227,7 @@ module Admin
       if params[:txt]
         generate_txt_file
       end
+
       respond_to do |format|
         format.html { redirect_to admin_downloads_url }
         format.xls
