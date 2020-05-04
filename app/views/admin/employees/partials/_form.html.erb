@@ -23,7 +23,7 @@
     </div>
     <div class="col-xl-4 col-lg-6 mb-2 mt-2">
       <label for="">Fecha de Nacimiento:</label>
-      <%= form.text_field :birthday, id: "birthday", placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control", "data-provide": 'datepicker' %>
+      <%= form.text_field :birthday, autocomplete: "off", class: "form-control", "data-date-format": 'dd/mm/yyyy', "data-provide": 'datepicker', "data-date-autoclose": true, "data-date-language": 'es', placeholder: "01/01/2020", id: "birthday" %>
     </div>
   </div>
   <div class="row form_fieldset">

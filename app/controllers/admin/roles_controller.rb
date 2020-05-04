@@ -71,20 +71,21 @@ class RolesController < ApplicationController
 
   def update_role_lines
     if current_user.admin?
-      if params[:ajax] 
-        @role.update(role_params)
-      else
-        respond_to do |format|
-          if @role.update(role_params)
-            update_payrole_info(@role, Employee.find(params[:role][:employee_id]))
-            format.html { redirect_to admin_role_lines_url, notice: 'El role se actualizó correctamente.' }
-            format.json { render json: @role, status: :ok, location: @role }
-
-          else
-            format.html { render :edit }
-            format.json { render json: @role.errors, status: :unprocessable_entity }
-          end
-        end 
+      if (DateTime.parse(@role.end_date) + 5.days) > Date.today
+        if params[:ajax] 
+          @role.update(role_params)
+        else
+          respond_to do |format|
+            if @role.update(role_params)
+              update_payrole_info(@role, Employee.find(params[:role][:employee_id]))
+              format.html { redirect_to admin_role_lines_url, notice: 'El role se actualizó correctamente.' }
+              format.json { render json: @role, status: :ok, location: @role }
+            else
+              format.html { render :edit }
+              format.json { render json: @role.errors, status: :unprocessable_entity }
+            end
+          end 
+        end
       end
     end
   end
@@ -241,7 +242,9 @@ class RolesController < ApplicationController
 
   def payrole_detail
     @employee = Employee.find(params[:employee_id])
-    update_payrole_info(@role, @employee)
+    if (DateTime.parse(@role.end_date) + 5.days) > Date.today
+      update_payrole_info(@role, @employee)
+    end
   end
 
   def stalls_hours
@@ -444,98 +447,95 @@ class RolesController < ApplicationController
 
       @role = role
 
-      if (DateTime.parse(@role.end_date) + 5.days) > Date.today
+      payrole_detail_id = PayroleDetail.all.order(id: :asc).last.id
 
-        payrole_detail_id = PayroleDetail.all.order(id: :asc).last.id
+      @role_lines    = @role.role_lines.where(employee: employee).order(stall_id: :asc, date: :asc)
+      payrole_detail = employee.payrole_details.where(role_id: @role.id).first || employee.payrole_details.new(id: payrole_detail_id+1, role: @role)
 
-        @role_lines    = @role.role_lines.where(employee: employee).order(stall_id: :asc, date: :asc)
-        payrole_detail = employee.payrole_details.where(role_id: @role.id).first || employee.payrole_details.new(id: payrole_detail_id+1, role: @role)
+      @total_day_salary     = 0 
+      @total_extra_hours    = 0 
+      @total_extra_salary   = 0 
+      @total_extra_payments = 0 
+      @total_deductions     = 0 
+      @total_viatical       = 0
+      @total_holidays       = 0
 
-        @total_day_salary     = 0 
-        @total_extra_hours    = 0 
-        @total_extra_salary   = 0 
-        @total_extra_payments = 0 
-        @total_deductions     = 0 
-        @total_viatical       = 0
-        @total_holidays       = 0
+      has_night =  @role_lines.joins(:shift).where("name = 'Noche'").length
 
-        has_night =  @role_lines.joins(:shift).where("name = 'Noche'").length
+      payrole_detail.detail_lines.destroy_all
+      detail_line_id = DetailLine.all.order(id: :asc).last.id
 
-        payrole_detail.detail_lines.destroy_all
-        detail_line_id = DetailLine.all.order(id: :asc).last.id
+      @role_lines.each do |line|
 
-        @role_lines.each do |line|
+        employee.calculate_daily_viatical(line)
+        employee.calculate_day_salary(line, has_night)
 
-          employee.calculate_daily_viatical(line)
-          employee.calculate_day_salary(line, has_night)
+        @total_day_salary     += employee.day_salary
+        @total_extra_hours    += employee.extra_day_hours 
+        @total_extra_salary   += employee.extra_day_salary 
+        @total_extra_payments += line.extra_payments.to_f 
+        @total_deductions     += line.deductions.to_f 
+        @total_viatical       += employee.viatical
+        @total_holidays       += employee.holiday
 
-          @total_day_salary     += employee.day_salary
-          @total_extra_hours    += employee.extra_day_hours 
-          @total_extra_salary   += employee.extra_day_salary 
-          @total_extra_payments += line.extra_payments.to_f 
-          @total_deductions     += line.deductions.to_f 
-          @total_viatical       += employee.viatical
-          @total_holidays       += employee.holiday
+        payrole_detail.detail_lines.new(id: detail_line_id+1, stall: line.stall, shift:line.shift)
+        payrole_detail.detail_lines.last.date                 = line.date
+        payrole_detail.detail_lines.last.shift_name           = line.shift.name
+        payrole_detail.detail_lines.last.stall_name           = line.stall.name
+        payrole_detail.detail_lines.last.substall             = line.substall
+        payrole_detail.detail_lines.last.hours                = employee.normal_day_hours
+        payrole_detail.detail_lines.last.salary               = employee.day_salary.round(2)
+        payrole_detail.detail_lines.last.holiday              = employee.holiday.round(2)
+        payrole_detail.detail_lines.last.extra_hours          = employee.extra_day_hours.round(2)
+        payrole_detail.detail_lines.last.extra_salary         = employee.extra_day_salary.round(2)
+        payrole_detail.detail_lines.last.viatical             = employee.viatical.round(2)
+        payrole_detail.detail_lines.last.extra_payment        = line.extra_payments
+        payrole_detail.detail_lines.last.extra_payment_reason = line.extra_payments_description
+        payrole_detail.detail_lines.last.deductions           = line.deductions
+        payrole_detail.detail_lines.last.deductions_reason    = line.deductions_description
+        payrole_detail.detail_lines.last.comments             = line.comment
+        payrole_detail.detail_lines.last.employee_name        = payrole_detail.employee.name
+        payrole_detail.detail_lines.last.sector               = line.stall.customer.sector.name
+        payrole_detail.detail_lines.last.service              = line.sub_service.service.name
+        payrole_detail.detail_lines.last.sub_service          = line.sub_service.name
+        payrole_detail.detail_lines.last.stall_type           = line.stall.type.name
 
-          payrole_detail.detail_lines.new(id: detail_line_id+1, stall: line.stall, shift:line.shift)
-          payrole_detail.detail_lines.last.date                 = line.date
-          payrole_detail.detail_lines.last.shift_name           = line.shift.name
-          payrole_detail.detail_lines.last.stall_name           = line.stall.name
-          payrole_detail.detail_lines.last.substall             = line.substall
-          payrole_detail.detail_lines.last.hours                = employee.normal_day_hours
-          payrole_detail.detail_lines.last.salary               = employee.day_salary.round(2)
-          payrole_detail.detail_lines.last.holiday              = employee.holiday.round(2)
-          payrole_detail.detail_lines.last.extra_hours          = employee.extra_day_hours.round(2)
-          payrole_detail.detail_lines.last.extra_salary         = employee.extra_day_salary.round(2)
-          payrole_detail.detail_lines.last.viatical             = employee.viatical.round(2)
-          payrole_detail.detail_lines.last.extra_payment        = line.extra_payments
-          payrole_detail.detail_lines.last.extra_payment_reason = line.extra_payments_description
-          payrole_detail.detail_lines.last.deductions           = line.deductions
-          payrole_detail.detail_lines.last.deductions_reason    = line.deductions_description
-          payrole_detail.detail_lines.last.comments             = line.comment
-          payrole_detail.detail_lines.last.employee_name        = payrole_detail.employee.name
-          payrole_detail.detail_lines.last.sector               = line.stall.customer.sector.name
-          payrole_detail.detail_lines.last.service              = line.sub_service.service.name
-          payrole_detail.detail_lines.last.sub_service          = line.sub_service.name
-          payrole_detail.detail_lines.last.stall_type           = line.stall.type.name
-
-          detail_line_id += 1 
-        end
-        employee.calculate_payment(@role_lines.length, @total_day_salary, @total_extra_hours, @total_extra_salary, @total_viatical, @total_extra_payments, @total_deductions, @total_holidays)
-
-        @payrole_line = @role.payrole_lines.where(employee: employee)[0] || @role.payrole_lines.new([{ min_salary: '0', extra_hours: '0', daily_viatical: '0', ccss_deduction: '0', extra_payments: '0', deductions: '0', net_salary: '0', employee_id: employee.id }])[0]
-
-        @payrole_line.num_worked_days = employee.total_days
-        @payrole_line.min_salary      = employee.total_day_salary.round(2)
-        @payrole_line.num_extra_hours = employee.total_extra_hours
-        @payrole_line.extra_hours     = employee.total_extra_salary.round(2)
-        @payrole_line.daily_viatical  = employee.total_viatical.round(2)
-        @payrole_line.ccss_deduction  = employee.ccss_deduction.round(2)
-        @payrole_line.net_salary      = employee.net_salary.round(2)
-        @payrole_line.extra_payments  = employee.total_exta_payments.round(2)
-        @payrole_line.deductions      = employee.total_deductions.round(2)
-        @payrole_line.holidays        = employee.total_holidays.round(2)
-        @payrole_line.name            = employee.name
-        @payrole_line.bank            = employee.bank
-        @payrole_line.ccss_type       = employee.ccss_type == 'yes'? 'Completo' : 'Normal'
-        @payrole_line.social_security = employee.social_security
-        @payrole_line.account         = employee.account
-
-        payrole_detail.worked_days    = employee.total_days
-        payrole_detail.base_salary    = (employee.total_day_salary + employee.total_holidays).round(2)
-        payrole_detail.extra_hours    = employee.total_extra_hours.round(2)
-        payrole_detail.extra_salary   = employee.total_extra_salary.round(2)
-        payrole_detail.viatical       = employee.total_viatical.round(2)
-        payrole_detail.extra_payments = employee.total_exta_payments.round(2) 
-        payrole_detail.deductions     = employee.total_deductions.round(2)
-        payrole_detail.gross_salary   = (employee.total_day_salary + employee.total_holidays + employee.total_extra_salary + employee.total_viatical + employee.total_exta_payments).round(2)
-        payrole_detail.ccss_deduction = employee.ccss_deduction.round(2) 
-        payrole_detail.net_salary     = employee.net_salary.round(2)
-
-        @payrole_line.save
-        payrole_detail.save
-
+        detail_line_id += 1 
       end
+      employee.calculate_payment(@role_lines.length, @total_day_salary, @total_extra_hours, @total_extra_salary, @total_viatical, @total_extra_payments, @total_deductions, @total_holidays)
+
+      @payrole_line = @role.payrole_lines.where(employee: employee)[0] || @role.payrole_lines.new([{ min_salary: '0', extra_hours: '0', daily_viatical: '0', ccss_deduction: '0', extra_payments: '0', deductions: '0', net_salary: '0', employee_id: employee.id }])[0]
+
+      @payrole_line.num_worked_days = employee.total_days
+      @payrole_line.min_salary      = employee.total_day_salary.round(2)
+      @payrole_line.num_extra_hours = employee.total_extra_hours
+      @payrole_line.extra_hours     = employee.total_extra_salary.round(2)
+      @payrole_line.daily_viatical  = employee.total_viatical.round(2)
+      @payrole_line.ccss_deduction  = employee.ccss_deduction.round(2)
+      @payrole_line.net_salary      = employee.net_salary.round(2)
+      @payrole_line.extra_payments  = employee.total_exta_payments.round(2)
+      @payrole_line.deductions      = employee.total_deductions.round(2)
+      @payrole_line.holidays        = employee.total_holidays.round(2)
+      @payrole_line.name            = employee.name
+      @payrole_line.bank            = employee.bank
+      @payrole_line.ccss_type       = employee.ccss_type == 'yes'? 'Completo' : 'Normal'
+      @payrole_line.social_security = employee.social_security
+      @payrole_line.account         = employee.account
+
+      payrole_detail.worked_days    = employee.total_days
+      payrole_detail.base_salary    = (employee.total_day_salary + employee.total_holidays).round(2)
+      payrole_detail.extra_hours    = employee.total_extra_hours.round(2)
+      payrole_detail.extra_salary   = employee.total_extra_salary.round(2)
+      payrole_detail.viatical       = employee.total_viatical.round(2)
+      payrole_detail.extra_payments = employee.total_exta_payments.round(2) 
+      payrole_detail.deductions     = employee.total_deductions.round(2)
+      payrole_detail.gross_salary   = (employee.total_day_salary + employee.total_holidays + employee.total_extra_salary + employee.total_viatical + employee.total_exta_payments).round(2)
+      payrole_detail.ccss_deduction = employee.ccss_deduction.round(2) 
+      payrole_detail.net_salary     = employee.net_salary.round(2)
+
+      @payrole_line.save
+      payrole_detail.save
+
     end
     # Never trust parameters from the scary internet, only allow the white list through.
     def role_params

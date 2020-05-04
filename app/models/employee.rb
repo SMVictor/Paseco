@@ -226,7 +226,7 @@ class Employee < ApplicationRecord
     is_end_date_holiday   = false
 
     holidays.each do |holiday|
-      next_holiday = (holiday.date.split("/")[1] + "/" + holiday.date.split("/")[0] + "/" + holiday.date.split("/")[2]).to_time
+      next_holiday = holiday.date.to_time
       if start_date.strftime("%Y-%d-%m") == next_holiday.strftime("%Y-%d-%m")
         is_start_date_holiday = true
       end

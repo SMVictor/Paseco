@@ -148,20 +148,14 @@ function getDayName(element){
 
   if (element != 1) {
 
-    var dateField       = $(element);
-    var lineCode        = dateField.attr('name').split(']')[1].replace('[', '');
-    var holidayCheckBox = $("#role_role_lines_attributes_"+lineCode+"_holiday");
-    var holidays = JSON.parse(document.querySelector('#role_line_fields').dataset.holidays);
+    var date2    = $(element);
+    var lineCode  = date2.attr('name').split(']')[1].replace('[', '');
+    var dateField = $("#role_role_lines_attributes_"+lineCode+"_date");
+    var dayInput  = $("#role_role_lines_attributes_"+lineCode+"_day");
+    var dateArray = date2.val().split("/")
+    
+    dateField.val(dateArray[1] + '/' + dateArray[0] + '/' + dateArray[2]);
 
-    holidayCheckBox.prop( "checked", false );
-
-    for (var i = 0; i < holidays.length; i++) {
-      if (holidays[i].date == dateField.val()) {
-        holidayCheckBox.prop( "checked", true );
-      }
-    }
-
-    var dayInput   = $("#role_role_lines_attributes_"+lineCode+"_day");
     var date = new Date(dateField.val());
     var dayName = days[date.getDay()];
     dayInput.val(dayName);
@@ -179,7 +173,7 @@ function getDayName(element){
 }
 
 function showModal(element){
-  var modal = $($(element).parent().parent().children()[11]);
+  var modal = $($(element).parent().parent().children()[12]);
   modal.modal('toggle');
 }
 

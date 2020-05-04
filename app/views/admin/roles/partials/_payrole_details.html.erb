@@ -59,7 +59,7 @@
               <% @employee.payrole_details.where(role_id: @payrole.id).first.detail_lines.order(date: :asc).each do |line|  %>
                 <tr>
                   <td style="border: 1px solid"><%= line.stall_name %></td>
-                  <td style="border: 1px solid"><%= line.date %></td>
+                  <td style="border: 1px solid"><%= line.date.split("/")[1] + "/" + line.date.split("/")[0] + "/" + line.date.split("/")[2] %></td>
                   <td style="border: 1px solid"><%= line.shift_name %></td>
                   <td style="border: 1px solid"><%= line.substall %></td>
                   <td style="border: 1px solid"><%= line.hours.to_f.round(2) %></td>

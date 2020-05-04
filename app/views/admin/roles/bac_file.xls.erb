@@ -7,7 +7,9 @@
   <Worksheet ss:Name="Sheet1">
     <Table>
     <Row>
-      <Cell><Data ss:Type="String"><%= BacInfo.complete_firts("B" + @bac_info.plan + @bac_info.shipping) + "00000" + @bac_info.date + BacInfo.complete_total(@total_amount + @total_decimal) + BacInfo.complete_total_records(@count.to_s) %></Data></Cell>
+      <% date = @bac_info.date.split("/")[2] + @bac_info.date.split("/")[1] + @bac_info.date.split("/")[0] %>
+      
+      <Cell><Data ss:Type="String"><%= BacInfo.complete_firts("B" + @bac_info.plan + @bac_info.shipping) + "00000" + date + BacInfo.complete_total(@total_amount + @total_decimal) + BacInfo.complete_total_records(@count.to_s) %></Data></Cell>
     </Row>
     <% @position = 0 %>
     <% @payrole.payrole_lines.each_with_index do |payrole, index| %>
@@ -36,7 +38,7 @@
             <% net_salary_decimal = payrole.net_salary.split(".")[1] + ("0" * (2 - payrole.net_salary.split(".")[1].length)) %>
           <% end %>
 
-          <Cell><Data ss:Type="String"><%= BacInfo.complete_firts("T" + @bac_info.plan + @bac_info.shipping + BacInfo.complete_identification(@account_identification, @employee.id_type)) + BacInfo.complete_index((@position).to_s) + @bac_info.date +  BacInfo.complete_total(net_salary_amount + net_salary_decimal)  +  "     " + BacInfo.complete_concept(@bac_info.concept + " " + BacInfo.fix_name(payrole.employee.name)) + BacInfo.fix_name(@account_owner) %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= BacInfo.complete_firts("T" + @bac_info.plan + @bac_info.shipping + BacInfo.complete_identification(@account_identification, @employee.id_type)) + BacInfo.complete_index((@position).to_s) + date +  BacInfo.complete_total(net_salary_amount + net_salary_decimal)  +  "     " + BacInfo.complete_concept(@bac_info.concept + " " + BacInfo.fix_name(payrole.employee.name)) + BacInfo.fix_name(@account_owner) %></Data></Cell>
         </Row>
       <% end %>
     <% end %>

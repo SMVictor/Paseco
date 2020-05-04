@@ -2,11 +2,6 @@
   <div class="card-body">
     <div class="row form_fieldset">
       <div class="col-lg-4 mb-2 mt-2">
-        <label for="">Fecha</label>
-        <%= form.text_field :date, id: "date", class: "form-control", placeholder: "03022019" %>
-        <label id="date_error"></label>
-      </div>
-      <div class="col-lg-4 mb-2 mt-2">
         <label for="">Número de Empresa</label>
         <%= form.text_field :company, id: "company", class: "form-control", placeholder: "18159" %>
         <label id="company_error"></label>
@@ -35,6 +30,11 @@
         <label for="">Concepto Empleados</label>
         <%= form.text_field :employee_concept, id: "employee_concept", class: "form-control", placeholder: "P2-11-18" %>
         <label id="employee_concept_error"></label>
+      </div>
+      <div class="col-lg-4 mb-2 mt-2">
+        <label for="">Fecha</label>
+        <%= form.text_field :date, autocomplete: "off", class: "form-control date", "data-date-format": 'ddmmyyyy', "data-provide": 'datepicker', "data-date-autoclose": true, "data-date-language": 'es', placeholder: "01012020", id: "date" %>
+        <label id="date_error"></label>
       </div>
     </div>
     <%= form.submit "Guardar", id: 'btn_submit', class: "btn btn-success mt-4" %>

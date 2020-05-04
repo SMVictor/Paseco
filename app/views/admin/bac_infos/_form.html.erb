@@ -2,9 +2,9 @@
   <div class="card-body">
     <div class="row form_fieldset">
       <div class="col-lg-4 mb-2 mt-2">
-        <label for="">Fecha</label>
-        <%= form.text_field :date, id: "date", class: "form-control", placeholder: "20190213" %>
-        <label id="date_error"></label>
+        <label for="">Concepto</label>
+        <%= form.text_field :concept, id: "concept", class: "form-control", placeholder: "PAGO PLANILLA Q2 NOVIEMBRE" %>
+        <label id="concept_error"></label>
       </div>
       <div class="col-lg-4 mb-2 mt-2">
         <label for="">Plan</label>
@@ -17,9 +17,9 @@
         <label id="shipping_error"></label>
       </div>
       <div class="col-lg-4 mb-2 mt-2">
-        <label for="">Concepto</label>
-        <%= form.text_field :concept, id: "concept", class: "form-control", placeholder: "PAGO PLANILLA Q2 NOVIEMBRE" %>
-        <label id="concept_error"></label>
+        <label for="">Fecha</label>
+         <%= form.text_field :date, autocomplete: "off", class: "form-control date", "data-date-format": 'dd/mm/yyyy', "data-provide": 'datepicker', "data-date-autoclose": true, "data-date-language": 'es', placeholder: "01/01/2020", id: "date" %>
+        <label id="date_error"></label>
       </div>
     </div>
     <%= form.submit "Guardar", id: 'btn_submit', class: "btn btn-success mt-4" %>

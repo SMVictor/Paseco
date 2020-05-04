@@ -114,7 +114,7 @@ function generatePDFFile(element, entryDate, departure_date){
                employee.identification + "&date=" + today.val() + "&entry_date=" + entryDate + "&departure_date=" + departure_date + "&stall=" + employee.stalls[0].name +
                "&area=" + employee.positions[0].area.name + "&period=" + period.val();
 
-  window.location.replace(url+params);
+  window.open(url+params, '_blank');
 
 }
 
