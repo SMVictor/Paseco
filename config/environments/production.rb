@@ -94,7 +94,8 @@ Rails.application.configure do
     port: 587, 
     pool: true,
     domain: "pasecocr.com", 
-    authentication: "plain",  
+    authentication: "plain", 
+    enable_starttls_auto: true, 
     user_name: "gerencia@pasecocr.com", 
     password: "jrab1010"
   }
