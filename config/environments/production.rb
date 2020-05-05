@@ -93,7 +93,7 @@ Rails.application.configure do
     address: "smtp.gmail.com",
     port: 587, 
     pool: true,
-    domain: "pasecocr.com", 
+    domain: "pasecoayb.com", 
     authentication: "plain", 
     enable_starttls_auto: true, 
     user_name: "gerencia@pasecocr.com", 
