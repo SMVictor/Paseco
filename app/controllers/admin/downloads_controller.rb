@@ -7,7 +7,7 @@ module Admin
       temp_roles = Role.where('id <= 18 or id >= 33').order(id: :asc)
       ids = []
       temp_roles.each do |role|
-        if (DateTime.parse(role.end_date) + 5.days) < Date.today
+        if (DateTime.parse(role.end_date) + 3.days) < Date.today
           ids << role.id
         end
       end
