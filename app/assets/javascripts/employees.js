@@ -107,7 +107,7 @@ function generatePDFFile(element, entryDate, departure_date){
   var used_days         = $("#used_days_th");
   var avalaible_days    = $("#available_days_th");
 
-  var url = "https://www.pasecoayb.com/admin/employees/"+employee.id+"/vacations/file.pdf";
+  var url = "https://www.pasecocr.com/admin/employees/"+employee.id+"/vacations/file.pdf";
   var params = "?start_date=" + start_date.val() + "&requested_days=" + requested_days.val() + "&end_date=" + end_date.val() +
                "&included_freedays=" + included_freedays.val() + "&total_days=" + total_days.text() + "&used_days=" + used_days.text() +
                "&avalaible_days=" + avalaible_days.text() + "&employee_name=" + employee.name + "&employee_identification=" +
