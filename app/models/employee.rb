@@ -72,7 +72,7 @@ class Employee < ApplicationRecord
 
   end 
 
-  def calculate_day_salary(role_line, has_night)
+  def calculate_day_salary(role_line, has_night, disabilities)
     begin
     @stall = role_line.stall
     @shift = role_line.shift
@@ -97,8 +97,14 @@ class Employee < ApplicationRecord
 
     if @shift.name == "Libre" || @shift.name == "Vacaciones"
       @day_salary = min_salary.to_f/30
-    elsif @shift.name == "Incapacidad" || @shift.name == "Permiso" || @shift.name == "Ausente" || @shift.name == "Suspendido"
+    elsif @shift.name == "Permiso" || @shift.name == "Ausente" || @shift.name == "Suspendido"
       @day_salary = 0
+    elsif @shift.name == "Incapacidad"
+      if disabilities < 3
+        @day_salary = (min_salary.to_f/30)/2
+      else
+        @day_salary = 0
+      end
     else
       @normal_day_hours = 0
       @extra_day_hours  = 0

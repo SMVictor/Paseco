@@ -348,9 +348,12 @@ class RolesController < ApplicationController
       @role = role
 
       payrole_detail_id = PayroleDetail.all.order(id: :asc).last.id
+      @role_lines       = @role.role_lines.where(employee: employee).order(stall_id: :asc, date: :asc)
+      payrole_detail    = employee.payrole_details.where(role_id: @role.id).first || employee.payrole_details.new(id: payrole_detail_id+1, role: @role)
+      detail_line_id    = DetailLine.all.order(id: :asc).last.id
+      has_night         =  @role_lines.joins(:shift).where("name = 'Noche'").length
 
-      @role_lines    = @role.role_lines.where(employee: employee).order(stall_id: :asc, date: :asc)
-      payrole_detail = employee.payrole_details.where(role_id: @role.id).first || employee.payrole_details.new(id: payrole_detail_id+1, role: @role)
+      payrole_detail.detail_lines.destroy_all
 
       @total_day_salary     = 0 
       @total_extra_hours    = 0 
@@ -360,15 +363,14 @@ class RolesController < ApplicationController
       @total_viatical       = 0
       @total_holidays       = 0
 
-      has_night =  @role_lines.joins(:shift).where("name = 'Noche'").length
-
-      payrole_detail.detail_lines.destroy_all
-      detail_line_id = DetailLine.all.order(id: :asc).last.id
+      disabilities          = 0
 
       @role_lines.each do |line|
 
         employee.calculate_daily_viatical(line)
-        employee.calculate_day_salary(line, has_night)
+        employee.calculate_day_salary(line, has_night, disabilities)
+
+        if line.shift.name == "Incapacidad" then disabilities += 1 end
 
         @total_day_salary     += employee.day_salary
         @total_extra_hours    += employee.extra_day_hours 
