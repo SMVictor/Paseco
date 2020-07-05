@@ -285,12 +285,16 @@ module Admin
         row << employee.name
 
         @roles.each do |role| 
-          lines = PayroleLine.where(role_id: role, employee_id: id) 
-          total += (lines.first.min_salary.to_f + lines.first.extra_hours.to_f + lines.first.holidays.to_f + lines.first.daily_viatical.to_f + lines.first.extra_payments.to_f) if lines != [] 
-          row << helper.number_to_currency((lines.first.min_salary.to_f + lines.first.extra_hours.to_f + lines.first.holidays.to_f + lines.first.daily_viatical.to_f + lines.first.extra_payments.to_f), unit: '₡') if lines != []
+          lines = PayroleLine.where(role_id: role, employee_id: id)
+          if lines != []
+            total += (lines.first.min_salary.to_f + lines.first.extra_hours.to_f + lines.first.holidays.to_f + lines.first.daily_viatical.to_f + lines.first.extra_payments.to_f)
+            row << helper.number_to_currency((lines.first.min_salary.to_f + lines.first.extra_hours.to_f + lines.first.holidays.to_f + lines.first.daily_viatical.to_f + lines.first.extra_payments.to_f), unit: '₡') 
+          else 
+            row << helper.number_to_currency(0)
+          end
         end 
         row << helper.number_to_currency(total.round(2), unit: '₡')
-        @rows << row  	
+        @rows << row 	
       end
     end
 
