@@ -82,10 +82,10 @@ Rails.application.routes.draw do
   
       get    'employee/:id/vacations' => 'employees#edit_vacations',    as: 'edit_vacations'
       patch  'employee/:id/vacations' => 'employees#update_vacations',  as: 'update_vacations'
-      get    'employee/:id/bonuses/:bonus'     => 'employees#edit_bonuses',               as: 'edit_bonuses'
-      patch  'employee/:id/bonuses/:bonus'     => 'employees#update_bonuses',             as: 'update_bonuses'
-      get    'employee/:id/vacations/inactive' => 'employees#edit_vacations_inactive',    as: 'edit_vacations_inactive'
-      patch  'employee/:id/vacations/inactive' => 'employees#update_vacations_inactive',  as: 'update_vacations_inactive'
+      get    'employee/:id/bonuses/:bonus/:path' => 'employees#edit_bonuses',               as: 'edit_bonuses'
+      patch  'employee/:id/bonuses/:bonus'       => 'employees#update_bonuses',             as: 'update_bonuses'
+      get    'employee/:id/vacations/inactive'   => 'employees#edit_vacations_inactive',    as: 'edit_vacations_inactive'
+      patch  'employee/:id/vacations/inactive'   => 'employees#update_vacations_inactive',  as: 'update_vacations_inactive'
 
       get    'quotes/:id/step1' => 'quotes#create_step1', as: 'create_quote_step1'
       patch  'quotes/:id/step1' => 'quotes#update_step1', as: 'update_quote_step1'

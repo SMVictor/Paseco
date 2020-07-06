@@ -187,6 +187,7 @@ module Admin
     end
 
     def edit_bonuses
+      @is_edit_view = params[:path].include?('edit')
       @bonus = @employee.christmas_bonifications.find(params[:bonus])
       @lines = []
       @bonus.christmas_bonification_lines.each do |line|
@@ -211,23 +212,23 @@ module Admin
       @bonus = @employee.christmas_bonifications.find(params[:bonus])
 
       respond_to do |format|
-        if @bonus.update(bonus_params)
-          total = 0
+        @bonus.update(bonus_params)
+        total = 0
 
-          @bonus.christmas_bonification_lines.each do |line|
-            line.total = line.base_salary.to_f + line.extra_payment.to_f + line.viaticals.to_f
-            total += line.total.to_f
-          end
-
-          @bonus.total = total / 12
-          @bonus.save
-
-          format.html { redirect_to admin_employee_path(@employee), notice: 'La información se actualizó correctamente.' }
-          format.json { render json: @employee, status: :ok, location: @employee }
-        else
-          format.html { render :show }
-          format.json { render json: @employee.errors, status: :unprocessable_entity }
+        @bonus.christmas_bonification_lines.each do |line|
+          line.total = line.base_salary.to_f + line.extra_payment.to_f + line.viaticals.to_f
+          total += line.total.to_f
         end
+
+        @bonus.total = total / 12
+        @bonus.save
+
+        if params[:return_to_edit] == "true"
+          format.html { redirect_to edit_admin_employee_path(@employee), notice: 'La información se actualizó correctamente.' }
+        else
+          format.html { redirect_to admin_employee_path(@employee), notice: 'La información se actualizó correctamente.' }  
+        end
+        format.json { render json: @employee, status: :ok, location: @employee }
       end
     end
 
