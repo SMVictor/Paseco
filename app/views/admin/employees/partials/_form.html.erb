@@ -144,27 +144,42 @@
       <%= form.check_box :retired %>
     </div>
   </div>
-  <div class="row form_fieldset mb-2">
+  <div class="row form_fieldset">
     <div  class="col-12 mt-4 p-3">
       <legend>Historial de Contrataciones</legend>
     </div>
     <div class="col-12">
-      <div class="entry-fields mt-4">
-        <%= form.fields_for :entries do |entry| %>
-          <%= render 'admin/employees/entry_fields', f: entry %>
-        <%end%>
-      </div>
-      <div class="row ml-1 mr-1 tbl_row">
-        <div class="col-12 text-center p-2 tbl_footer">
-          <%= link_to_add_association ' + Agregar Linea', form, :entries, data: { association_insertion_mode: '.entry.fields', partial: 'entry_fields'}, class: 'btn add_btn' %>
+      <div class="col-12">
+        <div class="row tbl_row mt-4">
+          <%= form.fields_for :entries do |entry| %>
+            <%= render 'admin/employees/entry_fields', f: entry %>
+          <%end%>
+        </div>
+        <div class="row tbl_row" style="border: none;">
+          <div class="col-12 text-center p-2 tbl_footer">
+            <%= link_to_add_association ' + Agregar Incapacidad', form, :entries, data: { association_insertion_mode: '.entry.fields', partial: 'entry_fields'}, class: 'btn add_btn' %>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="row form_fieldset mb-4">
-    <div  class="col-12 mt-4 mb-4">
-      <legend>Información de los aguinaldos</legend>
-        <%= render 'admin/employees/partials/christmas_bonuses_table' %>
+  <div class="row form_fieldset">
+    <div  class="col-12 mt-4 p-3">
+      <legend>Incapacidades</legend>
+    </div>
+    <div class="col-12">
+      <div class="col-12">
+        <div class="row tbl_row mt-4">
+          <%= form.fields_for :disabilities do |disability| %>
+            <%= render 'admin/employees/disability_fields', f: disability %>
+          <%end%>
+        </div>
+        <div class="row tbl_row" style="border: none;">
+          <div class="col-12 text-center p-2 tbl_footer">
+            <%= link_to_add_association ' + Agregar Incapacidad', form, :disabilities, data: { association_insertion_mode: '.disability.fields', partial: 'disability_fields'}, class: 'btn add_btn' %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="row form_fieldset mb-4">
@@ -207,6 +222,12 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="row form_fieldset mb-4">
+    <div  class="col-12 mt-4 mb-4">
+      <legend>Información de los aguinaldos</legend>
+        <%= render 'admin/employees/partials/christmas_bonuses_table' %>
     </div>
   </div>
   <%= form.submit "Guardar", id: 'btn_submit', class: "btn btn-success mt-4" %>

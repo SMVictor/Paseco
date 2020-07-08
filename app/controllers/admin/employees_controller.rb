@@ -61,6 +61,7 @@ module Admin
       sort_entries
       @employee.calculate_vacations
       sort_vacations
+      sort_disabilities
     end
 
     def edit_inactive
@@ -240,7 +241,7 @@ module Admin
 
       # Never trust parameters from the scary internet, only allow the white list through.
       def employee_params
-        params.require(:employee).permit(:name, :identification, :account_owner, :account_identification, :id_type, :birthday, :gender, :ccss_number, :province, :canton, :district, :other, :phone, :phone_1, :emergency_contact, :emergency_number, :payment_method, :bank, :account, :social_security, :daily_viatical, :ccss_type, :special, :active, :retired, :registered_account, :email, sub_service_ids: [], stall_ids: [], position_ids: [], entries_attributes: [:id, :start_date, :end_date, :document, :reason_departure, :_destroy], vacations_attributes: [:id, :start_date, :end_date, :included_freedays, :requested_days, :period, :date,  :_destroy])
+        params.require(:employee).permit(:name, :identification, :account_owner, :account_identification, :id_type, :birthday, :gender, :ccss_number, :province, :canton, :district, :other, :phone, :phone_1, :emergency_contact, :emergency_number, :payment_method, :bank, :account, :social_security, :daily_viatical, :ccss_type, :special, :active, :retired, :registered_account, :email, sub_service_ids: [], stall_ids: [], position_ids: [], entries_attributes: [:id, :start_date, :end_date, :document, :reason_departure, :_destroy], vacations_attributes: [:id, :start_date, :end_date, :included_freedays, :requested_days, :period, :date,  :_destroy], disabilities_attributes: [:id, :start_date, :end_date, :_destroy])
       end
 
       def bonus_params
@@ -325,6 +326,41 @@ module Admin
           end
         end
         @employee.save
+      end
+
+      def sort_disabilities
+        position = 0
+
+        while position < @employee.disabilities.size
+          
+          start_date       = @employee.disabilities[position].start_date
+          end_date         = @employee.disabilities[position].end_date
+
+          had_change = false
+
+          @employee.disabilities.each_with_index do |disability, index|
+           
+            if disability.start_date > start_date
+
+              @employee.disabilities[position].start_date = @employee.disabilities[index].start_date
+              @employee.disabilities[position].end_date   = @employee.disabilities[index].end_date
+
+              @employee.disabilities[index].start_date    = start_date
+              @employee.disabilities[index].end_date      = end_date
+
+              had_change = true
+              break
+            end
+          end
+          unless had_change
+            position += 1
+          end
+        end
+        @employee.save
+        @employee.disabilities.each do |disability|
+          disability.start_date = disability.start_date.strftime("%d/%m/%Y")
+          disability.end_date   = disability.end_date.strftime("%d/%m/%Y") if disability.end_date
+        end
       end
   end
 end

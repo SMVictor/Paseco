@@ -363,14 +363,10 @@ class RolesController < ApplicationController
       @total_viatical       = 0
       @total_holidays       = 0
 
-      disabilities          = 0
-
       @role_lines.each do |line|
 
         employee.calculate_daily_viatical(line)
-        employee.calculate_day_salary(line, has_night, disabilities)
-
-        if line.shift.name == "Incapacidad" then disabilities += 1 end
+        employee.calculate_day_salary(line, has_night)
 
         @total_day_salary     += employee.day_salary
         @total_extra_hours    += employee.extra_day_hours 

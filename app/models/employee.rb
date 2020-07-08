@@ -4,12 +4,14 @@ class Employee < ApplicationRecord
   has_many :payrole_details
   has_many :entries
   has_many :vacations
+  has_many :disabilities
   has_many :christmas_bonifications
   has_and_belongs_to_many :sub_services, join_table: :employees_sub_services
   has_and_belongs_to_many :stalls, join_table: :employees_stalls
   has_and_belongs_to_many :positions, join_table: :employees_positions
   accepts_nested_attributes_for :entries, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :vacations, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :disabilities, reject_if: :all_blank, allow_destroy: true
 
   # PAYROLE
 
@@ -72,7 +74,7 @@ class Employee < ApplicationRecord
 
   end 
 
-  def calculate_day_salary(role_line, has_night, disabilities)
+  def calculate_day_salary(role_line, has_night)
     begin
     @stall = role_line.stall
     @shift = role_line.shift
@@ -100,11 +102,17 @@ class Employee < ApplicationRecord
     elsif @shift.name == "Permiso" || @shift.name == "Ausente" || @shift.name == "Suspendido"
       @day_salary = 0
     elsif @shift.name == "Incapacidad"
-      if disabilities < 3
+      
+      last_disability_period = self.disabilities.order(:start_date).last if self.disabilities != []
+      dates = (last_disability_period.start_date..last_disability_period.end_date).map(&:to_date) if last_disability_period
+      first_dates = dates[0, 3] if dates
+
+      if first_dates && (first_dates.include? Date.strptime(role_line.date, '%m/%d/%Y'))
         @day_salary = (min_salary.to_f/30)/2
       else
         @day_salary = 0
       end
+
     else
       @normal_day_hours = 0
       @extra_day_hours  = 0
