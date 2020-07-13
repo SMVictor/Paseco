@@ -161,28 +161,15 @@ class RolesController < ApplicationController
   def show_payroles
     if params[:ids]
       @payrole_lines = @payrole.payrole_lines.where(id: params[:ids]).order(name: :asc)
-      respond_to do |format|
-        format.js
-      end
-    elsif params[:back]
-      @payrole_lines = @payrole.payrole_lines.order(name: :asc)
-      respond_to do |format|
-        format.html
-      end 
     else
       @payrole_lines = @payrole.payrole_lines.order(name: :asc)
-      @payrole_lines.each do |line|
-        if (DateTime.parse(@role.end_date) + 5.days) > Date.today
-          line.bank    = line.employee.bank
-          line.account = line.employee.account
-          line.save
-        end
-      end
-      respond_to do |format|
-        format.html
-        format.xls
-      end
     end
+    respond_to do |format|
+      format.js
+      format.html
+      format.xls
+    end
+
   end
 
   def bncr_file
