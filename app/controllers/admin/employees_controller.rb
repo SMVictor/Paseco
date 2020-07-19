@@ -104,15 +104,19 @@ module Admin
         if @employee.update(employee_params)
 
           #Update current payrole information.
-          last_payrole_line = PayroleLine.where(role_id: Role.last.id, employee_id: @employee.id).first
-          if (DateTime.parse(Role.last.end_date) + 5.days) > Date.today
-            last_payrole_line.name            = @employee.name
-            last_payrole_line.bank            = @employee.bank
-            last_payrole_line.ccss_type       = @employee.ccss_type == 'yes'? 'Completo' : 'Normal'
-            last_payrole_line.social_security = @employee.social_security
-            last_payrole_line.account         = @employee.account
-            last_payrole_line.save
+          last_payrole_line = PayroleLine.where(role_id: Role.last.id, employee_id: @employee.id)
+          if last_payrole_line != []
+            last_payrole_line = last_payrole_line.first
+            if (DateTime.parse(Role.last.end_date) + 5.days) > Date.today
+              last_payrole_line.name            = @employee.name
+              last_payrole_line.bank            = @employee.bank
+              last_payrole_line.ccss_type       = @employee.ccss_type == 'yes'? 'Completo' : 'Normal'
+              last_payrole_line.social_security = @employee.social_security
+              last_payrole_line.account         = @employee.account
+              last_payrole_line.save
+            end
           end
+          
 
           format.html { redirect_to admin_employees_url, notice: 'El empleado se actualizó correctamente.' }
           format.json { render json: @employee, status: :ok, location: @employee }
