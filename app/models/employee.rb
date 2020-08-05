@@ -196,7 +196,7 @@ class Employee < ApplicationRecord
 
       if (role.start_date.to_date >= movement.start_date && role.start_date.to_date <= movement.end_date) || (role.end_date.to_date >= movement.start_date && role.end_date.to_date <= movement.end_date)
         if movement.way == 'Porcentaje'
-          amount = @total_day_salary * movement.amount / 100 
+          amount = (@total_day_salary - @ccss_deduction) * movement.amount / 100 
         else
           amount = movement.amount 
         end
