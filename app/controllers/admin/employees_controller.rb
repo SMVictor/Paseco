@@ -31,20 +31,9 @@ module Admin
       sort_entries
       @employee.calculate_vacations
       sort_vacations
-
-      from = Time.now.year
-      to   = Time.now.year
-      first_payrole_date = '30/11/2019'
-
-      if @employee.entries
-        if @employee.entries && @employee.entries.last && @employee.entries.last.start_date && @employee.entries.last.start_date != "" && @employee.entries.last.start_date.to_date.year >= 2020
-          from = @employee.entries.last.start_date.to_date.year
-          first_payrole_date = @employee.entries.last.start_date
-        end
-      end
-      (from..to).each do |i|
-        @employee.calculate_christmas_bonification(i, first_payrole_date)
-      end
+      sort_disabilities
+      sort_movements
+      update_christmas_bonuses
     end
 
     def show_inactive
@@ -62,6 +51,8 @@ module Admin
       @employee.calculate_vacations
       sort_vacations
       sort_disabilities
+      sort_movements
+      update_christmas_bonuses
     end
 
     def edit_inactive
@@ -261,7 +252,7 @@ module Admin
 
       # Never trust parameters from the scary internet, only allow the white list through.
       def employee_params
-        params.require(:employee).permit(:name, :identification, :account_owner, :account_identification, :id_type, :birthday, :gender, :ccss_number, :province, :canton, :district, :other, :phone, :phone_1, :emergency_contact, :emergency_number, :payment_method, :bank, :account, :social_security, :daily_viatical, :ccss_type, :special, :active, :retired, :registered_account, :email, sub_service_ids: [], stall_ids: [], position_ids: [], entries_attributes: [:id, :start_date, :end_date, :document, :reason_departure, :_destroy], vacations_attributes: [:id, :start_date, :end_date, :included_freedays, :requested_days, :period, :date,  :_destroy], disabilities_attributes: [:id, :start_date, :end_date, :_destroy])
+        params.require(:employee).permit(:name, :identification, :account_owner, :account_identification, :id_type, :birthday, :gender, :ccss_number, :province, :canton, :district, :other, :phone, :phone_1, :emergency_contact, :emergency_number, :payment_method, :bank, :account, :social_security, :daily_viatical, :ccss_type, :special, :active, :retired, :registered_account, :email, sub_service_ids: [], stall_ids: [], position_ids: [], entries_attributes: [:id, :start_date, :end_date, :document, :reason_departure, :_destroy], vacations_attributes: [:id, :start_date, :end_date, :included_freedays, :requested_days, :period, :date,  :_destroy], disabilities_attributes: [:id, :start_date, :end_date, :_destroy], movements_attributes: [:id, :start_date, :end_date, :affair, :type, :way, :amount, :comment, :_destroy])
       end
 
       def bonus_params
@@ -380,6 +371,69 @@ module Admin
         @employee.disabilities.each do |disability|
           disability.start_date = disability.start_date.strftime("%d/%m/%Y")
           disability.end_date   = disability.end_date.strftime("%d/%m/%Y") if disability.end_date
+        end
+      end
+
+      def sort_movements
+        position = 0
+
+        while position < @employee.movements.size
+          
+          start_date = @employee.movements[position].start_date
+          end_date   = @employee.movements[position].end_date
+          affair     = @employee.movements[position].affair
+          way        = @employee.movements[position].way   
+          amount     = @employee.movements[position].amount
+          comment    = @employee.movements[position].comment
+
+          had_change = false
+
+          @employee.movements.each_with_index do |movement, index|
+           
+            if movement.start_date > start_date
+
+              @employee.movements[position].start_date = @employee.movements[index].start_date
+              @employee.movements[position].end_date   = @employee.movements[index].end_date
+              @employee.movements[position].affair     = @employee.movements[index].affair
+              @employee.movements[position].way        = @employee.movements[index].way     
+              @employee.movements[position].amount     = @employee.movements[index].amount
+              @employee.movements[position].comment    = @employee.movements[index].comment 
+
+              @employee.movements[index].start_date = start_date
+              @employee.movements[index].end_date   = end_date
+              @employee.movements[index].affair     = affair
+              @employee.movements[index].way        = way   
+              @employee.movements[index].amount     = amount
+              @employee.movements[index].comment    = comment
+
+              had_change = true
+              break
+            end
+          end
+          unless had_change
+            position += 1
+          end
+        end
+        @employee.save
+        @employee.movements.each do |movement|
+          movement.start_date = movement.start_date.strftime("%d/%m/%Y")
+          movement.end_date   = movement.end_date.strftime("%d/%m/%Y") if movement.end_date
+        end
+      end
+
+      def update_christmas_bonuses
+        from = Time.now.year
+        to   = Time.now.year
+        first_payrole_date = '30/11/2019'
+
+        if @employee.entries
+          if @employee.entries && @employee.entries.last && @employee.entries.last.start_date && @employee.entries.last.start_date != "" && @employee.entries.last.start_date.to_date.year >= 2020
+            from = @employee.entries.last.start_date.to_date.year
+            first_payrole_date = @employee.entries.last.start_date
+          end
+        end
+        (from..to).each do |i|
+          @employee.calculate_christmas_bonification(i, first_payrole_date)
         end
       end
   end
