@@ -157,7 +157,7 @@
         </div>
         <div class="row tbl_row" style="border: none;">
           <div class="col-12 text-center p-2 tbl_footer">
-            <%= link_to_add_association ' + Agregar Incapacidad', form, :entries, data: { association_insertion_mode: '.entry.fields', partial: 'entry_fields'}, class: 'btn add_btn' %>
+            <%= link_to_add_association ' + Agregar Contratación', form, :entries, data: { association_insertion_mode: '.entry.fields', partial: 'entry_fields'}, class: 'btn add_btn' %>
           </div>
         </div>
       </div>
@@ -182,8 +182,27 @@
       </div>
     </div>
   </div>
+  <div class="row form_fieldset">
+    <div  class="col-12 mt-4 p-3">
+      <legend>Movimientos Automáticos</legend>
+    </div>
+    <div class="col-12">
+      <div class="col-12">
+        <div class="row tbl_row mt-4">
+          <%= form.fields_for :movements do |movement| %>
+            <%= render 'admin/employees/movement_fields', f: movement %>
+          <%end%>
+        </div>
+        <div class="row tbl_row" style="border: none;">
+          <div class="col-12 text-center p-2 tbl_footer">
+            <%= link_to_add_association ' + Agregar Movimiento', form, :movements, data: { association_insertion_mode: '.movement.fields', partial: 'movement_fields'}, class: 'btn add_btn' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="row form_fieldset mb-4">
-    <div  class="col-12 mt-4 mb-4">
+    <div  class="col-12 mt-4 mb-4 p-3">
       <legend>Información de Vacaciones</legend>
     </div>
     <div id="table" class="table-responsive pl-3 pr-3">

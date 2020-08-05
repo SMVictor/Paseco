@@ -208,6 +208,60 @@
       <% end %>
     </div>
 
+    <div class="row form_fieldset">
+      <div  class="col-12 mt-4 mb-4">
+        <legend>Historial de Incapacidades</legend>
+      </div>
+      
+      <% if @employee.disabilities %>
+        <% @employee.disabilities.each do  |disability| %>
+          <div class="col-md-6 col-sm-6 mt-2">
+            <strong>Fecha de Inicio:</strong>
+            <p><%= disability.start_date %></p>
+          </div>
+          <div class="col-md-6 col-sm-6 mt-2">
+            <strong>Fecha de Finalización:</strong>
+            <p><%= disability.end_date %></p>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="row form_fieldset">
+      <div  class="col-12 mt-4 mb-4">
+        <legend>Movimientos Automáticos</legend>
+      </div>
+      
+      <% if @employee.movements %>
+        <% @employee.movements.each do  |movement| %>
+          <div class="col-md-2 col-sm-6 mt-2">
+            <strong>Inicio:</strong>
+            <p><%= movement.start_date.strftime("%d/%m/%Y") %></p>
+          </div>
+          <div class="col-md-2 col-sm-6 mt-2">
+            <strong>Finalización:</strong>
+            <p><%= movement.end_date.strftime("%d/%m/%Y") if movement.end_date %></p>
+          </div>
+          <div class="col-md-2 col-sm-6 mt-2">
+            <strong>Tipo:</strong>
+            <p><%= movement.affair %></p>
+          </div>
+          <div class="col-md-2 col-sm-6 mt-2">
+            <strong>Método:</strong>
+            <p><%= movement.way %></p>
+          </div>
+          <div class="col-md-2 col-sm-6 mt-2">
+            <strong>Cantidad:</strong>
+            <p><%= movement.amount %></p>
+          </div>
+          <div class="col-md-2 col-sm-6 mt-2">
+            <strong>Comentario:</strong>
+            <p><%= movement.comment %></p>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
     <div class="row form_fieldset mb-4">
       <div  class="col-12 mt-4 mb-4">
         <legend>Información de los aguinaldos</legend>

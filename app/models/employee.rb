@@ -1,15 +1,19 @@
 class Employee < ApplicationRecord
+  has_many :entries
+  has_many :movements
+  has_many :vacations
   has_many :role_lines
+  has_many :disabilities
   has_many :payrole_lines
   has_many :payrole_details
-  has_many :entries
-  has_many :vacations
-  has_many :disabilities
   has_many :christmas_bonifications
-  has_and_belongs_to_many :sub_services, join_table: :employees_sub_services
+
   has_and_belongs_to_many :stalls, join_table: :employees_stalls
   has_and_belongs_to_many :positions, join_table: :employees_positions
+  has_and_belongs_to_many :sub_services, join_table: :employees_sub_services
+
   accepts_nested_attributes_for :entries, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :movements, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :vacations, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :disabilities, reject_if: :all_blank, allow_destroy: true
 
@@ -180,6 +184,31 @@ class Employee < ApplicationRecord
     else
       @ccss_deduction = 0
       @net_salary = (@gross_salary + total_exta_payments - total_deductions).round(2)
+    end
+  end
+
+  def add_automatic_movements(role)
+    self.movements.each do |movement|
+
+      unless movement.end_date
+        movement.end_date = Time.now + 1.year
+      end
+
+      if (role.start_date.to_date >= movement.start_date && role.start_date.to_date <= movement.end_date) || (role.end_date.to_date >= movement.start_date && role.end_date.to_date <= movement.end_date)
+        if movement.way == 'Porcentaje'
+          amount = @total_day_salary * movement.amount / 100 
+        else
+          amount = movement.amount 
+        end
+
+        if movement.affair == 'Crédito'
+          @net_salary += amount
+          @total_exta_payments += amount
+        else
+          @net_salary -= amount
+          @total_deductions += amount
+        end
+      end
     end
   end
 

@@ -388,6 +388,7 @@ class RolesController < ApplicationController
         detail_line_id += 1 
       end
       employee.calculate_payment(@role_lines.length, @total_day_salary, @total_extra_hours, @total_extra_salary, @total_viatical, @total_extra_payments, @total_deductions, @total_holidays)
+      employee.add_automatic_movements(role)
 
       @payrole_line = @role.payrole_lines.where(employee: employee)[0] || @role.payrole_lines.new([{ min_salary: '0', extra_hours: '0', daily_viatical: '0', ccss_deduction: '0', extra_payments: '0', deductions: '0', net_salary: '0', employee_id: employee.id }])[0]
 
