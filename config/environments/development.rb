@@ -64,8 +64,8 @@ Rails.application.configure do
     pool: true, 
     domain: "localhost", 
     authentication: "plain", 
-    enable_starttls_auto: true, 
-    user_name: "gerencia@pasecocr.com", 
-    password: "jrab1010" 
+    #enable_starttls_auto: true, 
+    user_name: "franreliv5@gmail.com", 
+    password: "Relitu2012" 
   }
 end
