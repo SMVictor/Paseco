@@ -236,7 +236,7 @@ class Employee < ApplicationRecord
     @christmas_bonification = self.christmas_bonifications.where(from_date: from_date).first || ChristmasBonification.new(from_date: from_date, to_date: to_date, employee_id: self.id, bank: self.bank, account: self.account, name: self.name)
 
     PayroleLine.where(name: self.name).or(PayroleLine.where(employee_id: self.id)).each do |payrole_line|
-      if payrole_line.role.start_date.to_date >= first_payrole_date.to_date && payrole_line.role.end_date.to_date <= to_date.to_date && (payrole_line.role.end_date.to_date + 7.days) <= Time.now
+      if payrole_line.role.end_date.to_date >= first_payrole_date.to_date && payrole_line.role.end_date.to_date <= to_date.to_date && (payrole_line.role.end_date.to_date + 7.days) <= Time.now
 
         if @christmas_bonification.christmas_bonification_lines[christmas_bonification_lines_counter] == nil
 
@@ -244,10 +244,10 @@ class Employee < ApplicationRecord
 
           @christmas_bonification.christmas_bonification_lines[christmas_bonification_lines_counter].start_date    = payrole_line.role.start_date
           @christmas_bonification.christmas_bonification_lines[christmas_bonification_lines_counter].end_date      = payrole_line.role.end_date
-          @christmas_bonification.christmas_bonification_lines[christmas_bonification_lines_counter].base_salary   = (payrole_line.min_salary.to_f + payrole_line.extra_hours.to_f).round(2)
+          @christmas_bonification.christmas_bonification_lines[christmas_bonification_lines_counter].base_salary   = (payrole_line.min_salary.to_f + payrole_line.holidays.to_f + payrole_line.extra_hours.to_f).round(2)
           @christmas_bonification.christmas_bonification_lines[christmas_bonification_lines_counter].extra_payment = payrole_line.extra_payments
           @christmas_bonification.christmas_bonification_lines[christmas_bonification_lines_counter].viaticals     = payrole_line.daily_viatical
-          @christmas_bonification.christmas_bonification_lines[christmas_bonification_lines_counter].total         = (payrole_line.min_salary.to_f + payrole_line.extra_hours.to_f + payrole_line.extra_payments.to_f + payrole_line.daily_viatical.to_f).round(2)
+          @christmas_bonification.christmas_bonification_lines[christmas_bonification_lines_counter].total         = (payrole_line.min_salary.to_f + payrole_line.holidays.to_f + payrole_line.extra_hours.to_f + payrole_line.extra_payments.to_f + payrole_line.daily_viatical.to_f).round(2)
 
           @christmas_bonification.save
         end

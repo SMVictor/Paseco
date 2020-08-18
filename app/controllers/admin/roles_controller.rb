@@ -80,6 +80,7 @@ class RolesController < ApplicationController
 
               update_payrole_info(@role, Employee.find(params[:role][:employee_id]))
               load_budget if @stall.name.exclude?('Supervisor')
+              update_christmas_bonuses(Employee.find(params[:role][:employee_id]))
 
               format.html { redirect_to admin_role_lines_url, notice: 'El role se actualizó correctamente.' }
               format.json { render json: @role, status: :ok, location: @role }
@@ -489,6 +490,23 @@ class RolesController < ApplicationController
 
       budget_stall.save 
     end
+
+    def update_christmas_bonuses(employee)
+        from = Time.now.year
+        to   = Time.now.year
+        first_payrole_date = '30/11/2019'
+
+        if employee.entries
+          if employee.entries && employee.entries.last && employee.entries.last.start_date && employee.entries.last.start_date != "" && employee.entries.last.start_date.to_date.year >= 2020
+            from = employee.entries.last.start_date.to_date.year
+            first_payrole_date = employee.entries.last.start_date
+          end
+        end
+        (from..to).each do |i|
+          employee.calculate_christmas_bonification(i, first_payrole_date)
+        end
+      end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def role_params
       params.require(:role).permit(:name, :start_date, :end_date, stall_ids: [], role_lines_attributes: [:id, :date, :start_date, :start_hour, :end_date, :end_hour, :employee_id, :stall_id, :shift_id, :substall, :comment, :hours, :requirement_justification, :extra_payments, :extra_payments_description, :deductions, :deductions_description, :holiday, :position_id, :sub_service_id, :_destroy])

@@ -34,7 +34,7 @@
 
         <tr>
           <td style="border: 1px solid;"><%= index+1 %></td>
-          <td style="border: 1px solid"><%= line.name %></td>
+          <td style="border: 1px solid"><%= link_to(line.name, admin_edit_bonuses_path(line.employee, @extra_payrole)) %></td>
           <td style="border: 1px solid"><%= number_to_currency(line.total, unit: '₡') %></td>
           <td style="border: 1px solid"><%= line.bank %></td>
         </tr>

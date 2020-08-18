@@ -3,7 +3,7 @@ module Admin
 
     layout 'admin', except: [:vacations_file]
     load_and_authorize_resource
-    before_action :set_employee, only: [:show, :show_inactive, :edit, :edit_inactive, :update, :update_inactive, :destroy, :edit_vacations, :update_vacations, :edit_vacations_inactive, :update_vacations_inactive, :edit_bonuses, :update_bonuses]
+    before_action :set_employee, only: [:show, :show_inactive, :edit, :edit_inactive, :update, :update_inactive, :destroy, :edit_vacations, :update_vacations, :edit_vacations_inactive, :update_vacations_inactive]
 
     def index
       if params[:ids]
@@ -33,7 +33,6 @@ module Admin
       sort_vacations
       sort_disabilities
       sort_movements
-      update_christmas_bonuses
     end
 
     def show_inactive
@@ -52,7 +51,6 @@ module Admin
       sort_vacations
       sort_disabilities
       sort_movements
-      update_christmas_bonuses
     end
 
     def edit_inactive
@@ -198,52 +196,6 @@ module Admin
       end
     end
 
-    def edit_bonuses
-      @is_edit_view = params[:path].include?('edit')
-      @bonus = @employee.christmas_bonifications.find(params[:bonus])
-      @lines = []
-      @bonus.christmas_bonification_lines.each do |line|
-        if @lines[0] == nil
-          @lines << line
-        else
-          flat = true
-          @lines.each_with_index do |listed_line, index|
-            if line.start_date.to_date > listed_line.start_date.to_date
-              @lines.insert(index, line)
-              flat = false
-              break
-            end
-          end
-          if flat
-            @lines << line
-          end
-        end
-      end
-    end
-    def update_bonuses
-      @bonus = @employee.christmas_bonifications.find(params[:bonus])
-
-      respond_to do |format|
-        @bonus.update(bonus_params)
-        total = 0
-
-        @bonus.christmas_bonification_lines.each do |line|
-          line.total = line.base_salary.to_f + line.extra_payment.to_f + line.viaticals.to_f
-          total += line.total.to_f
-        end
-
-        @bonus.total = total / 12
-        @bonus.save
-
-        if params[:return_to_edit] == "true"
-          format.html { redirect_to edit_admin_employee_path(@employee), notice: 'La información se actualizó correctamente.' }
-        else
-          format.html { redirect_to admin_employee_path(@employee), notice: 'La información se actualizó correctamente.' }  
-        end
-        format.json { render json: @employee, status: :ok, location: @employee }
-      end
-    end
-
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_employee
@@ -253,10 +205,6 @@ module Admin
       # Never trust parameters from the scary internet, only allow the white list through.
       def employee_params
         params.require(:employee).permit(:name, :identification, :account_owner, :account_identification, :id_type, :birthday, :gender, :ccss_number, :province, :canton, :district, :other, :phone, :phone_1, :emergency_contact, :emergency_number, :payment_method, :bank, :account, :social_security, :daily_viatical, :ccss_type, :special, :active, :retired, :registered_account, :email, sub_service_ids: [], stall_ids: [], position_ids: [], entries_attributes: [:id, :start_date, :end_date, :document, :reason_departure, :_destroy], vacations_attributes: [:id, :start_date, :end_date, :included_freedays, :requested_days, :period, :date,  :_destroy], disabilities_attributes: [:id, :start_date, :end_date, :_destroy], movements_attributes: [:id, :start_date, :end_date, :affair, :type, :way, :amount, :comment, :_destroy])
-      end
-
-      def bonus_params
-        params.require(:christmas_bonification).permit(christmas_bonification_lines_attributes: [:id, :start_date, :end_date, :base_salary, :extra_payment, :viaticals, :_destroy])
       end
 
       def sort_vacations
@@ -418,22 +366,6 @@ module Admin
         @employee.movements.each do |movement|
           movement.start_date = movement.start_date.strftime("%d/%m/%Y")
           movement.end_date   = movement.end_date.strftime("%d/%m/%Y") if movement.end_date
-        end
-      end
-
-      def update_christmas_bonuses
-        from = Time.now.year
-        to   = Time.now.year
-        first_payrole_date = '30/11/2019'
-
-        if @employee.entries
-          if @employee.entries && @employee.entries.last && @employee.entries.last.start_date && @employee.entries.last.start_date != "" && @employee.entries.last.start_date.to_date.year >= 2020
-            from = @employee.entries.last.start_date.to_date.year
-            first_payrole_date = @employee.entries.last.start_date
-          end
-        end
-        (from..to).each do |i|
-          @employee.calculate_christmas_bonification(i, first_payrole_date)
         end
       end
   end

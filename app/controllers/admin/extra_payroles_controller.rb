@@ -95,6 +95,55 @@ module Admin
       end
     end
 
+    def edit_bonuses
+
+      @employee      = Employee.find(params[:employee_id])
+      @extra_payrole = ExtraPayrole.find(params[:extra_payrole])
+      @bonus         = @employee.christmas_bonifications.where(from_date: @extra_payrole.from_date).first
+      @lines         = []
+
+      @bonus.christmas_bonification_lines.each do |line|
+        if @lines[0] == nil
+          @lines << line
+        else
+          flat = true
+          @lines.each_with_index do |listed_line, index|
+            if line.start_date.to_date > listed_line.start_date.to_date
+              @lines.insert(index, line)
+              flat = false
+              break
+            end
+          end
+          if flat
+            @lines << line
+          end
+        end
+      end
+    end
+    def update_bonuses
+      @employee      = Employee.find(params[:employee_id])
+      @extra_payrole = ExtraPayrole.find(params[:extra_payrole])
+      @bonus = @employee.christmas_bonifications.find(params[:bonus])
+
+      if @extra_payrole.to_date.to_date + 7.days > Time.now
+        respond_to do |format|
+          @bonus.update(bonus_params)
+          total = 0
+
+          @bonus.christmas_bonification_lines.each do |line|
+            line.total = line.base_salary.to_f + line.extra_payment.to_f + line.viaticals.to_f
+            total += line.total.to_f
+          end
+
+          @bonus.total = total / 12
+          @bonus.save
+
+          format.html { redirect_to admin_extra_payroles_show_path(@extra_payrole), notice: 'La información se actualizó correctamente.' }
+          format.json { render json: @employee, status: :ok, location: @employee }
+        end
+      end
+    end
+
     private
     # Use callbacks to share common setup or constraints between actions.
     def set_extra_payrole
@@ -105,5 +154,10 @@ module Admin
     def extra_payrole_params
       params.require(:extra_payrole).permit(:name, :from_date, :to_date)
     end
+
+    def bonus_params
+      params.require(:christmas_bonification).permit(christmas_bonification_lines_attributes: [:id, :start_date, :end_date, :base_salary, :extra_payment, :viaticals, :_destroy])
+    end
+
   end
 end
