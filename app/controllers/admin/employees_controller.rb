@@ -33,6 +33,7 @@ module Admin
       sort_vacations
       sort_disabilities
       sort_movements
+      update_christmas_bonuses(@employee)
     end
 
     def show_inactive
@@ -51,6 +52,7 @@ module Admin
       sort_vacations
       sort_disabilities
       sort_movements
+      update_christmas_bonuses(@employee)
     end
 
     def edit_inactive
@@ -366,6 +368,22 @@ module Admin
         @employee.movements.each do |movement|
           movement.start_date = movement.start_date.strftime("%d/%m/%Y")
           movement.end_date   = movement.end_date.strftime("%d/%m/%Y") if movement.end_date
+        end
+      end
+
+      def update_christmas_bonuses(employee)
+        from = Time.now.year
+        to   = Time.now.year
+        first_payrole_date = '30/11/2019'
+
+        if employee.entries
+          if employee.entries && employee.entries.last && employee.entries.last.start_date && employee.entries.last.start_date != "" && employee.entries.last.start_date.to_date.year >= 2020
+            from = employee.entries.last.start_date.to_date.year
+            first_payrole_date = employee.entries.last.start_date
+          end
+        end
+        (from..to).each do |i|
+          employee.calculate_christmas_bonification(i, first_payrole_date)
         end
       end
   end
