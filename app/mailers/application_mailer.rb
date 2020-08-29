@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "Gerencia PASECO <gerencia@pasecocr.com>"
+  default from: "recursoshumanos@pasecocr.com"
   layout 'mailer'
 end
