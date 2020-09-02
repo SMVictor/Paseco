@@ -95,7 +95,7 @@ Rails.application.configure do
     pool: true, 
     domain: "pasecocr.com", 
     user_name: "recursoshumanos@pasecocr.com", 
-    password: "Wof28131",
+    password: "Jrab1010",
     authentication: 'login', 
     enable_starttls_auto: true
   }
