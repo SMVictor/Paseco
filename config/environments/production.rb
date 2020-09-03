@@ -94,9 +94,9 @@ Rails.application.configure do
     port: 587,
     pool: true, 
     domain: "pasecocr.com", 
-    user_name: "pasecocr.sistema@gmail.com", 
-    password: "PasecoSistema.2020",
+    user_name: "sistemapaseco@gmail.com", 
+    password: "SistemaPaseco.2020",
     authentication: 'plain', 
-    enable_starttls_auto: true
+    #enable_starttls_auto: true
   }
 end
