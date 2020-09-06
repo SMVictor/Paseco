@@ -8,17 +8,17 @@
     <title>PASECO</title>
   </head>
   <body>
-    <div class="site">
+    <div style="background-color: #00528a;">
       <nav class="navbar">
-        <div class="sub-nav">
+        <div style="background-color: white; margin-bottom: 20px;">
           <img src="https://paseco-production.s3.amazonaws.com/logo.png" width="150" height="35">
         </div>
       </nav>
       <div class="container-fluid page-body-wrapper">
-        <div class="main-panel">
+        <div style="background-color: #089bd7; color: white; font-family: 'Tahoma';">
           <div class="content-wrapper">
             <div class="container">
-              <div class="general-info">
+              <div style="margin-left: 10px; min-height: 150px;">
                 <br><h3>Planilla:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <%= @payrole.name %></h3>
                 <h3>Periodo:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <%= @payrole.start_date + '-' + @payrole.end_date %></h3>
                 <h3>Colaborador: <%= @employee.name %> </h3>
@@ -26,15 +26,15 @@
               </div>
               <div class="row">
                 <div  class="col-12">
-                  <div class="card">
-                    <div class="card-body">
+                  <div style="background-color: #089bd7;">
+                    <div style="margin-top: 20px; margin-left: 20px; margin-right: 20px; background-color: white; color: black;">
                       <div id="table" class="">
-                        <table class="scrolls main-table" cellspacing="0">
-                          <thead class="">
+                        <table style="overflow-x: scroll; overflow-y: hidden; min-height: 200px; white-space:nowrap; display: block; margin: 20px;">
+                          <thead style="background-color: #00528a; color: white;">
                             <tr>
                               <th style="border: 1px solid">Puesto</th>
                               <th style="border: 1px solid">Fecha</th>
-                              <th class="th-large" style="border: 1px solid">Turno</th>
+                              <th style="border: 1px solid; min-width: 175px;">Turno</th>
                               <th style="border: 1px solid">Sub-Puesto</th>
                               <th style="border: 1px solid">Horas</th>
                               <th style="border: 1px solid">Salario Mínimo</th>
@@ -43,10 +43,10 @@
                               <th style="border: 1px solid">Pago Horas Extras</th>
                               <th style="border: 1px solid">Víaticos</th>
                               <th style="border: 1px solid">Pagos Extras</th>
-                              <th class="th-extra-large" style="border: 1px solid">Motivo Pagos Extras</th>
+                              <th style="border: 1px solid; min-width: 400px;">Motivo Pagos Extras</th>
                               <th style="border: 1px solid">Deducciones</th>
-                              <th class="th-extra-large" style="border: 1px solid">Motivo Deducciones</th>
-                              <th class="th-extra-large" style="border: 1px solid">Comentario</th>
+                              <th style="border: 1px solid; min-width: 400px;">Motivo Deducciones</th>
+                              <th style="border: 1px solid; min-width: 400px;">Comentario</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -55,7 +55,7 @@
                               <tr>
                                 <td style="border: 1px solid"><%= line.stall_name %></td>
                                 <td style="border: 1px solid"><%= line.date.split("/")[1] + "/" + line.date.split("/")[0] + "/" + line.date.split("/")[2] %></td>
-                                <td class="th-large" style="border: 1px solid"><%= line.shift_name %></td>
+                                <td style="border: 1px solid; min-width: 175px;"><%= line.shift_name %></td>
                                 <td style="border: 1px solid"><%= line.substall %></td>
                                 <td style="border: 1px solid"><%= line.hours.to_f.round(2) %></td>
                                 <td style="border: 1px solid"><%= number_to_currency(line.salary.to_f.round(2), unit: '₡') %></td>
@@ -64,10 +64,10 @@
                                 <td style="border: 1px solid"><%= number_to_currency(line.extra_salary.to_f.round(2), unit: '₡') %></td>
                                 <td style="border: 1px solid"><%= number_to_currency(line.viatical.to_f.round(2), unit: '₡') %></td>
                                 <td style="border: 1px solid"><%= number_to_currency(line.extra_payment.to_f, unit: '₡') %></td>
-                                <td class="th-extra-large" style="border: 1px solid"><%= line.extra_payment_reason %></td>
+                                <td style="border: 1px solid; min-width: 400px;"><%= line.extra_payment_reason %></td>
                                 <td style="border: 1px solid"><%= number_to_currency(line.deductions.to_f, unit: '₡') %></td>
-                                <td class="th-extra-large" style="border: 1px solid"><%= line.deductions_reason %></td>
-                                <td class="th-extra-large" style="border: 1px solid"><%= line.comments %></td>
+                                <td style="border: 1px solid; min-width: 400px;"><%= line.deductions_reason %></td>
+                                <td style="border: 1px solid; min-width: 400px;"><%= line.comments %></td>
                               </tr>
                             <% end %>
                             <% rescue => ex %>
@@ -76,7 +76,7 @@
                             <tr>
                               <td style="border: 1px solid">Total</td>
                               <td style="border: 1px solid"><%= @employee.payrole_details.where(role_id: @payrole.id).first.worked_days rescue nil %> días</td>
-                              <td class="th-large" style="border: 1px solid"></td>
+                              <td style="border: 1px solid; min-width: 175px;"></td>
                               <td style="border: 1px solid"></td>
                               <td style="border: 1px solid"></td>
                               <td style="border: 1px solid"></td>
@@ -102,15 +102,15 @@
                               <td style="border: 1px solid"></td>
                               <td style="border: 1px solid"></td>
                               <td style="border: 1px solid"></td>
-                              <td class="th-extra-large" style="border: 1px solid"></td>
+                              <td style="border: 1px solid; min-width: 400px;"></td>
                               <td style="border: 1px solid"></td>
-                              <td class="th-extra-large" style="border: 1px solid"></td>
-                              <td class="th-extra-large" style="border: 1px solid"></td>
+                              <td style="border: 1px solid; min-width: 400px;"></td>
+                              <td style="border: 1px solid; min-width: 400px;"></td>
                             </tr>
                           </tbody>
                         </table>
                       </div>
-                      <div id="" class="summary-chart">
+                      <div style="margin-left: 40px; margin-right: 40px; margin-bottom: 40px; text-align: left;">
                         <h3 class="row">Resumen de Pago:</h3>
                         <table class="" cellspacing="0">
                           <thead class="">
@@ -151,7 +151,7 @@
                           </tbody>
                         </table>
                       </div>
-                      <div class="automatic-movements">
+                      <div style="margin-left: 40px; margin-right: 40px; text-align: left;">
                         <h3>Movimientos Automáticos:</h3>
                           <% @employee.movements.each do |movement| %>
 
@@ -188,103 +188,15 @@
               </div>
             </div>
           </div>
-          <div class="footer"><h3>Copyright © <%= Time.now.year %> PASECO . Todos los derechos reservados.</h3></div>
+          <h3 style="min-height: 40px; text-align: center; padding-top: 10px;">Copyright © <%= Time.now.year %> PASECO . Todos los Derechos Reservados.</h3>
       </div>
       </div>
     </div>
   </body>
   <style type="text/css">
 
-    .main-panel {
-      background-color: #089bd7;
-      color: white;
-      font-family: 'Tahoma';
-    }
-
-    .card{
-      background-color: #089bd7;
-    }
-
-    .card-body{
-      margin-top:   40px;
-      margin-left:  40px;
-      margin-right: 40px;
-      background-color: white;
-      color: black;
-    }
-
-    .scrolls {
-      overflow-x: scroll;
-      overflow-y: hidden;
-      min-height: 200px;
-      white-space:nowrap
-    }
-
-    .main-table {
-      display: block;
-      margin: 40px;
-    }
-
-    thead {
-      background-color: #00528a;
-      color: white;
-    }
-
-    .summary-chart{
-      margin-left: 40px;
-      margin-right: 40px;
-      margin-bottom: 40px;
-      text-align: left;
-    }
-
     th {
       min-width: 125px;
-    }
-
-    .th-large {
-      min-width: 175px;
-    }
-
-    .th-extra-large {
-      min-width: 400px;
-    }
-
-    .site{
-      background-color: #00528a;
-    }
-
-    .sub-nav{
-      background-color: white;
-      margin-bottom: 20px;
-    }
-
-    .automatic-movements{
-      margin-left: 40px;
-      margin-right: 40px;
-      text-align: left;
-    }
-
-    .general-info{
-      margin-left: 10px;
-      min-height: 150px;
-    }
-
-    .text-center {
-      text-align: center;
-    }
-
-    .footer {
-      height: 40px;
-      text-align: center;
-      padding-top: 10px;
-    }
-
-    @media only screen and (max-width: 600px) {
-      .card-body {
-        margin: 10px;
-        background-color: white;
-        color: black;
-      }
     }
 
     </style>
