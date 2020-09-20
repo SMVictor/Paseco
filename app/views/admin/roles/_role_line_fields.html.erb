@@ -11,7 +11,7 @@
 
       <% date = if f.object.date && f.object.date != "" then f.object.date.split("/") else nil end %>
 
-      <%= f.text_field :date_2, placeholder: "dd / mm / aaaa", autocomplete: "off", class: "form-control date", "data-date-format": 'dd/mm/yyyy', "data-provide": 'datepicker', onchange: "getDayName(this), setCustomValidity('')", "data-date-autoclose": true, "data-date-language": 'es', title: "Seleccione la fecha del día laborado", value: if date then date[1] + '/' + date[0] + '/' + date[2] end %>
+      <%= f.text_field :date_2, placeholder: "dd / mm / aaaa", required: true, oninvalid: "setCustomValidity('Campo Requerido')", autocomplete: "off", class: "form-control date", "data-date-format": 'dd/mm/yyyy', "data-provide": 'datepicker', onchange: "getDayName(this), setCustomValidity('')", "data-date-autoclose": true, "data-date-language": 'es', title: "Seleccione la fecha del día laborado", value: if date then date[1] + '/' + date[0] + '/' + date[2] end %>
 
       <% if @stall.quote.payment %>
         <%= f.collection_select :shift_id, @stall.quote.payment.shifts.where(active: true).order(name: :asc), :id, :name, options = {}, html_options = {class: "form-control", title: "Seleccione el turno trabajado" }%>

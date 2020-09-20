@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_19_185844) do
+ActiveRecord::Schema.define(version: 2020_09_17_165054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -160,7 +160,9 @@ ActiveRecord::Schema.define(version: 2020_07_19_185844) do
     t.string "stall_name"
     t.string "service"
     t.string "employee_name"
+    t.bigint "role_line_id"
     t.index ["payrole_detail_id"], name: "index_detail_lines_on_payrole_detail_id"
+    t.index ["role_line_id"], name: "index_detail_lines_on_role_line_id"
     t.index ["shift_id"], name: "index_detail_lines_on_shift_id"
     t.index ["stall_id"], name: "index_detail_lines_on_stall_id"
   end
@@ -563,6 +565,7 @@ ActiveRecord::Schema.define(version: 2020_07_19_185844) do
   add_foreign_key "christmas_bonifications", "employees"
   add_foreign_key "customers", "sectors"
   add_foreign_key "detail_lines", "payrole_details"
+  add_foreign_key "detail_lines", "role_lines"
   add_foreign_key "detail_lines", "shifts"
   add_foreign_key "detail_lines", "stalls"
   add_foreign_key "payrole_details", "employees"

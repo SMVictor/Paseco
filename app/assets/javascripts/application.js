@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require activestorage
 //= require popper
+//= require moment
 //= require bootstrap
 //= require bootstrap-datepicker
 //= require turbolinks

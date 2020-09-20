@@ -4,7 +4,7 @@ class RolesController < ApplicationController
   layout 'admin', except: [:payrole_detail_pdf]
 
   load_and_authorize_resource
-  before_action :set_role, only: [:show, :edit, :update, :destroy, :add_role_lines, :update_role_lines, :approvals, :check_changes, :stall_summary, :stalls_hours]
+  before_action :set_role, only: [:show, :edit, :update, :destroy, :add_role_lines, :update_role_lines, :approvals, :check_changes, :stall_summary, :stalls_hours, :update_payrole_line]
   before_action :set_stall, only: [:update_role_lines, :add_role_lines, :check_changes, :stall_summary]
   before_action :set_payrole, only: [:show_payroles, :bncr_file, :bac_file, :payrole_detail, :budget, :old_budget, :budget_detail, :payrole_detail_pdf, :payrole_detail_email, :send_payslips]
 
@@ -75,23 +75,17 @@ class RolesController < ApplicationController
         if params[:ajax] 
           @role.update(role_params)
         else
-          respond_to do |format|
-            if @role.update(role_params)
-
-              update_payrole_info(@role, Employee.find(params[:role][:employee_id]))
-              load_budget if @stall.name.exclude?('Supervisor')
-              update_christmas_bonuses(Employee.find(params[:role][:employee_id]))
-
-              format.html { redirect_to admin_role_lines_url, notice: 'El role se actualizó correctamente.' }
-              format.json { render json: @role, status: :ok, location: @role }
-            else
-              format.html { render :edit }
-              format.json { render json: @role.errors, status: :unprocessable_entity }
-            end
-          end 
+          @role.update(role_params)
+          update_payrole_info(@role, Employee.find(params[:role][:employee_id]))
+          load_budget if @stall.name.exclude?('Supervisor')
+          update_christmas_bonuses(Employee.find(params[:role][:employee_id]))
         end
       end
     end
+    respond_to do |format|
+      format.html { redirect_to admin_role_lines_url, notice: 'El role se actualizó correctamente.' }
+      format.json { render json: @role, status: :ok, location: @role }
+    end 
   end
 
   def destroy
@@ -316,6 +310,16 @@ class RolesController < ApplicationController
     end
   end
 
+  def update_payrole_line
+    @role_line = RoleLine.find(params[:line_id])
+    if (DateTime.parse(@role.end_date) + 5.days) > Date.today
+      @role_line.update(role_line_params)
+    end
+    respond_to do |format|
+      format.html { redirect_to admin_payrole_detail_url }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_role
@@ -332,7 +336,6 @@ class RolesController < ApplicationController
     end
 
     def update_payrole_info(role, employee)
-
       @role = role
 
       payrole_detail_id = PayroleDetail.all.order(id: :asc).last.id
@@ -341,7 +344,7 @@ class RolesController < ApplicationController
       detail_line_id    = DetailLine.all.order(id: :asc).last.id
       has_night         =  @role_lines.joins(:shift).where("name = 'Noche'").length
 
-      payrole_detail.detail_lines.destroy_all
+       payrole_detail.detail_lines.where(role_line_id: nil).destroy_all
 
       @total_day_salary     = 0 
       @total_extra_hours    = 0 
@@ -364,29 +367,31 @@ class RolesController < ApplicationController
         @total_viatical       += employee.viatical
         @total_holidays       += employee.holiday
 
-        payrole_detail.detail_lines.new(id: detail_line_id+1, stall: line.stall, shift:line.shift)
-        payrole_detail.detail_lines.last.date                 = line.date
-        payrole_detail.detail_lines.last.shift_name           = line.shift.name
-        payrole_detail.detail_lines.last.stall_name           = line.stall.name
-        payrole_detail.detail_lines.last.substall             = line.substall
-        payrole_detail.detail_lines.last.hours                = employee.normal_day_hours
-        payrole_detail.detail_lines.last.salary               = employee.day_salary.round(2)
-        payrole_detail.detail_lines.last.holiday              = employee.holiday.round(2)
-        payrole_detail.detail_lines.last.extra_hours          = employee.extra_day_hours.round(2)
-        payrole_detail.detail_lines.last.extra_salary         = employee.extra_day_salary.round(2)
-        payrole_detail.detail_lines.last.viatical             = employee.viatical.round(2)
-        payrole_detail.detail_lines.last.extra_payment        = line.extra_payments
-        payrole_detail.detail_lines.last.extra_payment_reason = line.extra_payments_description
-        payrole_detail.detail_lines.last.deductions           = line.deductions
-        payrole_detail.detail_lines.last.deductions_reason    = line.deductions_description
-        payrole_detail.detail_lines.last.comments             = line.comment
-        payrole_detail.detail_lines.last.employee_name        = payrole_detail.employee.name
-        payrole_detail.detail_lines.last.sector               = line.stall.customer.sector.name
-        payrole_detail.detail_lines.last.service              = line.sub_service.service.name
-        payrole_detail.detail_lines.last.sub_service          = line.sub_service.name
-        payrole_detail.detail_lines.last.stall_type           = line.stall.type.name
+        detail_line = line.detail_line || payrole_detail.detail_lines.new(id: detail_line_id+1, role_line: line, stall: line.stall, shift:line.shift)
+        detail_line.date                 = line.date
+        detail_line.shift_name           = line.shift.name
+        detail_line.stall_name           = line.stall.name
+        detail_line.substall             = line.substall
+        detail_line.hours                = employee.normal_day_hours
+        detail_line.salary               = employee.day_salary.round(2)
+        detail_line.holiday              = employee.holiday.round(2)
+        detail_line.extra_hours          = employee.extra_day_hours.round(2)
+        detail_line.extra_salary         = employee.extra_day_salary.round(2)
+        detail_line.viatical             = employee.viatical.round(2)
+        detail_line.extra_payment        = line.extra_payments
+        detail_line.extra_payment_reason = line.extra_payments_description
+        detail_line.deductions           = line.deductions
+        detail_line.deductions_reason    = line.deductions_description
+        detail_line.comments             = line.comment
+        detail_line.employee_name        = payrole_detail.employee.name
+        detail_line.sector               = line.stall.customer.sector.name
+        detail_line.service              = line.sub_service.service.name
+        detail_line.sub_service          = line.sub_service.name
+        detail_line.stall_type           = line.stall.type.name
 
-        detail_line_id += 1 
+        detail_line_id += 1
+        detail_line.save
+
       end
       employee.calculate_payment(@role_lines.length, @total_day_salary, @total_extra_hours, @total_extra_salary, @total_viatical, @total_extra_payments, @total_deductions, @total_holidays)
       employee.add_automatic_movements(role)
@@ -510,6 +515,10 @@ class RolesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def role_params
       params.require(:role).permit(:name, :start_date, :end_date, stall_ids: [], role_lines_attributes: [:id, :date, :start_date, :start_hour, :end_date, :end_hour, :employee_id, :stall_id, :shift_id, :substall, :comment, :hours, :requirement_justification, :extra_payments, :extra_payments_description, :deductions, :deductions_description, :holiday, :position_id, :sub_service_id, :_destroy])
+    end
+
+    def role_line_params
+      params.require(:role_line).permit(:date, :shift_id, :substall, :position_id, :sub_service_id, :hours, :comment, :requirement_justification, :extra_payments, :extra_payments_description, :deductions, :deductions_description )
     end
   end
 end

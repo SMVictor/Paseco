@@ -31,26 +31,27 @@ function updateWorkRoles() {
 
 function stallsFilter(roleID){
 
-    var stallID = $( "#stalls_select option:selected" ).val();
+  var stallID = $( "#stalls_select option:selected" ).val();
 
-    $.ajax({
-      type: "GET",
-      url: "/admin/work_roles/lines/"+roleID+"/"+stallID,
-      data:
-      {
-        utf8: "✓",
-        stall_id: stallID,
-        ajax: true
-      }
-    });
-  }
+  $.ajax({
+    type: "GET",
+    url: "/admin/work_roles/lines/"+roleID+"/"+stallID,
+    data:
+    {
+      utf8: "✓",
+      stall_id: stallID,
+      ajax: true
+    }
+  });
+}
 
 $( document ).on('turbolinks:load', function() {
+  if (document.querySelector('#table') && document.querySelector('#table').dataset.lines) {
+    var lines = JSON.parse(document.querySelector('#table').dataset.lines);
 
-	var lines = JSON.parse(document.querySelector('#table').dataset.lines);
-
-	for (var i = 0; i < lines.length; i++) {
-	  $("#shift_"+lines[i].id).val(lines[i].shift_id);
-	  $("#substall_"+lines[i].id).val(lines[i].sub_stall);
-	}
+    for (var i = 0; i < lines.length; i++) {
+      $("#shift_"+lines[i].id).val(lines[i].shift_id);
+      $("#substall_"+lines[i].id).val(lines[i].sub_stall);
+    }
+  }
 });

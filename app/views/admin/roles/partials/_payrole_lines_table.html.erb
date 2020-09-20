@@ -49,7 +49,7 @@
         <tr>
           <td style="border: 1px solid;"><%= index+1 %></td>
           <% if line.employee %>
-            <td style="border: 1px solid"><%= link_to(line.employee.name, admin_payrole_detail_path(@payrole, line.employee), class:'', title: 'Ver Empleado') %></td>
+            <td style="border: 1px solid"><%= link_to(line.employee.name, admin_payrole_detail_path(@payrole, line.employee), class:'', title: 'Ver Empleado', data: { turbolinks: false }) %></td>
           <% else %>
             <td style="border: 1px solid"><%= line.name %></td>
           <% end %>

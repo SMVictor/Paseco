@@ -172,6 +172,16 @@ function getDayName(element){
   }
 }
 
+function changeDateFormat(element){
+
+  var date2     = $(element);
+  var dateArray = date2.val().split("/")
+  var dateID    = date2.attr('id').replace('2','');
+  var dateField = $("#"+dateID);
+  
+  dateField.val(dateArray[1] + '/' + dateArray[0] + '/' + dateArray[2]);
+}
+
 function showModal(element){
   var modal = $($(element).parent().parent().children()[12]);
   modal.modal('toggle');
@@ -304,3 +314,4 @@ function hoursValidation(element){
     alert("No existe un requerimiento establecido para el cargo '"+currentPosition.text()+"' en el turno '"+currentShift.text()+"'");
   }
 }
+
