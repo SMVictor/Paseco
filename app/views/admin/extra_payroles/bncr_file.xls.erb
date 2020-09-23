@@ -27,7 +27,9 @@
           <% net_salary_amount = extra_payrole.total.split(".")[0] %>
           <% net_salary_decimal = "00" %>
           <% if  extra_payrole.total.split(".")[1] %>
-            <% net_salary_decimal = extra_payrole.total.split(".")[1] + ("0" * (2 - extra_payrole.total.split(".")[1].length)) %>
+            <% decimals_amount = extra_payrole.total.split(".")[1].length %>
+            <% if decimals_amount > 2 then decimals_amount = 2 end  %>
+            <% net_salary_decimal = extra_payrole.total.split(".")[1] + ("0" * (2 - decimals_amount)) %>
           <% end %>
 
           <Cell><Data ss:Type="String"><%= "3" + @employee.account[5,3] + @employee.account[0,5] + @employee.account[8,7] + BncrInfo.complete_voucher_number(@position.to_s) + BncrInfo.complete_amount(net_salary_amount + net_salary_decimal) + @concept + (" " * 4) + "00" %></Data></Cell>

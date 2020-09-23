@@ -1,6 +1,7 @@
 class BncrInfo < ApplicationRecord
   
   def self.complete_amount(amount)
+    if amount.length > 12 then amount = "012345678901" end
     amount = "0" * (12 - amount.length) + amount
   end
 
