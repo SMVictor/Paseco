@@ -14,7 +14,7 @@
 
       <% @employee = Employee.find(extra_payrole.employee_id ) %>
 
-      <% if @employee.bank == "BAC" && extra_payrole.total.to_i > 0 %>
+      <% if extra_payrole.bank == "BAC" && extra_payrole.account != "" && extra_payrole.total.to_i > 0 && @employee.active %>
       <% @position += 1 %>
         <Row>
 

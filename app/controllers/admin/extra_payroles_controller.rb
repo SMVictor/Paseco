@@ -44,7 +44,7 @@ module Admin
      @sumAccounts = @bn_info.account[8,6].to_i
 
      ChristmasBonification.where(from_date: @extra_payrole.from_date).order(name: :asc).each do |christmas_bonification|
-      if christmas_bonification.employee.bank == "BNCR" && christmas_bonification.employee.account != "" && christmas_bonification.total.to_i > 0
+      if christmas_bonification.bank == "BNCR" && christmas_bonification.account != "" && christmas_bonification.total.to_i > 0 && christmas_bonification.employee.active
         @total += christmas_bonification.total.to_f
         @sumAccounts += christmas_bonification.employee.account[8,6].to_i
       end
@@ -76,7 +76,7 @@ module Admin
      @count = 0
 
      ChristmasBonification.where(from_date: @extra_payrole.from_date).order(name: :asc).each do |extra_payrole|
-      if extra_payrole.employee.bank == "BAC" && extra_payrole.total.to_i > 0
+      if extra_payrole.bank == "BAC" && extra_payrole.account != "" && extra_payrole.total.to_i > 0 && extra_payrole.employee.active
         @total += extra_payrole.total.to_f
         @count += 1
       end

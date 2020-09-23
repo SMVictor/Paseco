@@ -17,7 +17,7 @@
 
       <% @employee = Employee.find(extra_payrole.employee_id ) %>
 
-      <% if @employee.bank == "BNCR" && @employee.account != "" && extra_payrole.total.to_i > 0 %>
+      <% if extra_payrole.bank == "BNCR" && extra_payrole.account != "" && extra_payrole.total.to_i > 0 && @employee.active %>
       <% @position += 1 %>
       <% @concept = truncate(BncrInfo.create_concept(@bn_info.employee_concept, @employee.name), length: 26, omission: '') %>
       <% if @concept.length < 26 %>
