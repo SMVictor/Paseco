@@ -128,7 +128,8 @@ module Admin
       from_dates     = extra_payroles.pluck(:from_date)
       to_dates       = extra_payroles.pluck(:to_date)
 
-      @chrismast_bonifications = ChristmasBonification.where(from_date: from_dates).or(ChristmasBonification.where(to_date: to_dates)).order(:name)
+      all_chrismast_bonifications = ChristmasBonification.where(from_date: from_dates).or(ChristmasBonification.where(to_date: to_dates)).order(:name)
+      @chrismast_bonifications = all_chrismast_bonifications.where.not(employee_id: Employee.where(active: false).ids)
 
       respond_to do |format|
         format.csv { send_data bonuses_to_csv }
