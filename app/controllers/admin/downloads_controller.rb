@@ -12,6 +12,7 @@ module Admin
         end
       end
       @roles = temp_roles.where(id: ids)
+      @bonuses = ExtraPayrole.all.order(id: :asc)
     end
 
     def ins_caja
@@ -115,6 +116,22 @@ module Admin
 
       respond_to do |format|
         format.csv { send_data to_csv_2 }
+      end
+    end
+
+    def bonuses
+      @bonuses = []
+      params[:ids].split(",").each do |id|
+        @bonuses << id.to_i if id != "0"
+      end
+      extra_payroles = ExtraPayrole.where(id: @bonuses)
+      from_dates     = extra_payroles.pluck(:from_date)
+      to_dates       = extra_payroles.pluck(:to_date)
+
+      @chrismast_bonifications = ChristmasBonification.where(from_date: from_dates).or(ChristmasBonification.where(to_date: to_dates)).order(:name)
+
+      respond_to do |format|
+        format.csv { send_data bonuses_to_csv }
       end
     end
 
@@ -357,6 +374,23 @@ module Admin
         csv << headers
 
         @detail_lines.each do |line|
+          csv << headers2.map{ |attr| line.send(attr) }
+        end
+      end
+    end
+
+    def bonuses_to_csv
+
+      CSV.generate(headers: true) do |csv|
+
+        headers  = ['DESDE', 'HASTA', 'NOMBRE', 'MONTO', 'BANCO']
+
+        headers2  = ['from_date', 'to_date', 'name', 'total', 'bank']
+
+
+        csv << headers
+
+        @chrismast_bonifications.each do |line|
           csv << headers2.map{ |attr| line.send(attr) }
         end
       end

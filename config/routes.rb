@@ -111,6 +111,7 @@ Rails.application.routes.draw do
       get    'downloads/payroles'  => 'downloads#payroles',  as: 'downloads_payroles'
       get    'downloads/breakdown' => 'downloads#breakdown', as: 'downloads_breakdown'
       get    'downloads/entity'    => 'downloads#entity',    as: 'downloads_entity'
+      get    'downloads/bonuses'   => 'downloads#bonuses',   as: 'downloads_bonuses'
 
     end
   end

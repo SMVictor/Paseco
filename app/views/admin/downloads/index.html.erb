@@ -5,10 +5,10 @@
         INS Y CAJA
       </div>
       <div class="col-6 col-xl-3 mt-4 mt-xl-4 d-flex justify-content-center mb-5">
-        <%= select_tag "role_from", options_from_collection_for_select(@roles, "id", "name"), options = {include_blank: "Planilla de inicio", title: "Planilla de inicio"} %>
+        <%= select_tag "role_from", options_from_collection_for_select(@roles, "id", "name"), options = {include_blank: "Planilla de inicio", title: "Planilla de inicio", style: 'width: 200px;'} %>
       </div>
       <div class="col-6 col-xl-3 mt-4 mt-xl-4 d-flex justify-content-center mb-5">
-        <%= select_tag "role_to",   options_from_collection_for_select(@roles, "id", "name"), options = {include_blank: "Planilla de fin", title: "Planilla de fin"} %>
+        <%= select_tag "role_to",   options_from_collection_for_select(@roles, "id", "name"), options = {include_blank: "Planilla de fin", title: "Planilla de fin", style: 'width: 200px;'} %>
       </div>
       <div class="col-4 col-xl-1 mt-4 mt-xl-4 d-flex justify-content-center">
         <button type="button" id="download_inscaja_button" class="btn" data-roles="<%= @roles.ids %>" onclick="download_file('xls')">
@@ -31,10 +31,10 @@
         CONSOLIDADO
       </div>
       <div class="col-6 col-xl-3 mt-4 mt-xl-4 d-flex justify-content-center mb-5">
-        <%= select_tag "role_from1", options_from_collection_for_select(@roles, "id", "name"), options = {include_blank: "Planilla de inicio", title: "Planilla de inicio"} %>
+        <%= select_tag "role_from1", options_from_collection_for_select(@roles, "id", "name"), options = {include_blank: "Planilla de inicio", title: "Planilla de inicio", style: 'width: 200px;'} %>
       </div>
       <div class="col-6 col-xl-3 mt-4 mt-xl-4 d-flex justify-content-center mb-5">
-        <%= select_tag "role_to1",   options_from_collection_for_select(@roles, "id", "name"), options = {include_blank: "Planilla de fin", title: "Planilla de fin"} %>
+        <%= select_tag "role_to1",   options_from_collection_for_select(@roles, "id", "name"), options = {include_blank: "Planilla de fin", title: "Planilla de fin", style: 'width: 200px;'} %>
       </div>
       <div class="col-4 col-xl-1 mt-4 mt-xl-4 d-flex justify-content-center">
         <button type="button" class="btn" onclick="download_payrole_file('xls')">
@@ -57,10 +57,10 @@
         DESGLOSE
       </div>
       <div class="col-6 col-xl-3 mt-4 mt-xl-4 d-flex justify-content-center mb-5">
-        <%= select_tag "role_from2", options_from_collection_for_select(@roles, "id", "name"), options = {include_blank: "Planilla de inicio", title: "Planilla de inicio"} %>
+        <%= select_tag "role_from2", options_from_collection_for_select(@roles, "id", "name"), options = {include_blank: "Planilla de inicio", title: "Planilla de inicio", style: 'width: 200px;'} %>
       </div>
       <div class="col-6 col-xl-3 mt-4 mt-xl-4 d-flex justify-content-center mb-5">
-        <%= select_tag "role_to2",   options_from_collection_for_select(@roles, "id", "name"), options = {include_blank: "Planilla de fin", title: "Planilla de fin"} %>
+        <%= select_tag "role_to2",   options_from_collection_for_select(@roles, "id", "name"), options = {include_blank: "Planilla de fin", title: "Planilla de fin", style: 'width: 200px;'} %>
       </div>
       <div class="col-4 col-xl-1 mt-4 mt-xl-4 d-flex justify-content-center">
         <button type="button" class="btn" disabled="true">
@@ -80,13 +80,39 @@
     </div>
     <div class="row" style="border-bottom: 1px solid;">
       <div class="col-12 col-xl-3 d-flex justify-content-center mt-4">
+        AGUINALDOS
+      </div>
+      <div class="col-6 col-xl-3 mt-4 mt-xl-4 d-flex justify-content-center mb-5">
+        <%= select_tag "bonus_from", options_from_collection_for_select(@bonuses, "id", "name"), options = {include_blank: "Aguinaldo de inicio", title: "Planilla de inicio", style: 'width: 200px;'} %>
+      </div>
+      <div class="col-6 col-xl-3 mt-4 mt-xl-4 d-flex justify-content-center mb-5">
+        <%= select_tag "bonus_to",   options_from_collection_for_select(@bonuses, "id", "name"), options = {include_blank: "Aguinaldo de fin", title: "Planilla de fin", style: 'width: 200px;'} %>
+      </div>
+      <div class="col-4 col-xl-1 mt-4 mt-xl-4 d-flex justify-content-center">
+        <button type="button" class="btn" disabled="true">
+          <i class="fa fa-file-excel-o" style="color: green;"></i>
+        </button>
+      </div>
+      <div class="col-4 col-xl-1 mt-4 mt-xl-4 d-flex mt-xl-0 mb-4 justify-content-center">
+        <button type="button" id="download_bonuses_button" data-bonuses="<%= @bonuses.ids %>" class="btn" onclick="download_bonuses_file('csv')">
+          <i class="fa fa-file" style="color: purple;"></i>
+        </button>
+      </div>
+      <div class="col-4 col-xl-1 mt-4 mt-xl-4 mb-4 d-flex justify-content-center">
+        <button type="button" class="btn" disabled="true">
+          <i class="fa fa-file-text" style="color: blue;"></i>
+        </button>
+      </div>
+    </div>
+    <div class="row" style="border-bottom: 1px solid;">
+      <div class="col-12 col-xl-3 d-flex justify-content-center mt-4">
         OTROS
       </div>
       <div class="col-6 col-xl-3 mt-4 mt-xl-4 d-flex justify-content-center mb-5">
-        <%= select_tag "entity", raw("<option>Clientes</option><option>Puestos</option><option>Empleados</option>"), options = {include_blank: "Tipo de descarga", title: "Tipo de descarga"} %>
+        <%= select_tag "entity", raw("<option>Clientes</option><option>Puestos</option><option>Empleados</option>"), options = {include_blank: "Tipo de descarga", title: "Tipo de descarga", style: 'width: 200px;'} %>
       </div>
       <div class="col-6 col-xl-3 mt-4 mt-xl-4 d-flex justify-content-center mb-5">
-        <%= select_tag "status", raw("<option value='true'>Activo</option><option value='false'>Inactivo</option>"), options = {include_blank: "Estado", title: "Estado"} %>
+        <%= select_tag "status", raw("<option value='true'>Activo</option><option value='false'>Inactivo</option>"), options = {include_blank: "Estado", title: "Estado", style: 'width: 200px;'} %>
       </div>
       <div class="col-4 col-xl-1 mt-4 mt-xl-4 d-flex justify-content-center">
         <button type="button" class="btn" onclick="download_entity_file('xls')">

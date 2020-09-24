@@ -71,6 +71,25 @@ function download_breakdown_file(type){
   window.location = document.URL + '/breakdown.csv?ids='+ids;
 }
 
+function download_bonuses_file(type){
+  
+  var bonus_from = $( "#bonus_from option:selected" ).val();
+  var bonus_to   = $( "#bonus_to option:selected" ).val();
+  var ids = [0];
+
+  var bonuses = document.querySelector('#download_bonuses_button').dataset.bonuses.replace('[','').replace(']','').split(",");
+
+  for (var i = 0; i < bonuses.length; i++) {
+
+    if ( parseInt(bonuses[i]) >= parseInt(bonus_from) && parseInt(bonuses[i]) <= parseInt(bonus_to)) {
+
+      ids.push(bonuses[i]);
+        
+    }
+  }
+  window.location = document.URL + '/bonuses.csv?ids='+ids;
+}
+
 function download_entity_file(type){
   
   var entity  = $( "#entity option:selected" ).val();
