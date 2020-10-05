@@ -1,0 +1,1 @@
+bonusesworker: bundle exec sidekiq -c 1
