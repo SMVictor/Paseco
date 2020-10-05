@@ -94,3 +94,6 @@ gem 'wkhtmltopdf-binary'
 # FOR WORK WITH EXCEL FILES
 gem 'roo-xls'
 
+gem 'sidekiq'
+gem 'sinatra', github: 'sinatra/sinatra'
+

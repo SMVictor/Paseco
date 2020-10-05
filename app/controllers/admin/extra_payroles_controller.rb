@@ -7,6 +7,7 @@ module Admin
 
     def index
       @extra_payroles = ExtraPayrole.all.order(name: :asc)
+      BonusesWorker.perform_async()
     end
 
     def new
