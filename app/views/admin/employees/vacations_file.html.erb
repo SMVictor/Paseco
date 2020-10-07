@@ -11,33 +11,33 @@
   <body>
     <div class="container">
       <%= image_tag("logo.png", size: "200x50", class: "d-inline-block") %>
-      <div class="d-inline-block text-center pull-right">
+      <div class="d-inline-block text-center pull-right row mb-4">
 	    <h6 class="font-weight-bold">Departamento de Recursos Humanos</h6><br>
 	    <h5 class="font-weight-bold">BOLETA DE VACACIONES</h5><br>
 		<div id="table" class="table-responsive">
-	      <table class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
-	        <thead class="thead-dark">
-	          <tr><th class="pt-1 font-weight-bold" style="font-size: 18px;">FECHA</th></tr>
+	      <table class="table-striped table-sm" cellspacing="0">
+	        <thead class="">
+	          <tr><th class="pt-2 font-weight-bold" style="font-size: 18px;">FECHA</th></tr>
 	        </thead>
 	        <tbody>
-	          <tr><th class="pt-1 font-weight-normal" style="font-size: 18px;"><%= @date %></th></tr>
+	          <tr><th class="pt-2 font-weight-normal" style="font-size: 18px;"><%= @date %></th></tr>
 	        </tbody>
 	      </table>
 	    </div>
 	  </div>
-      <div class="text-center">
+      <div class="row text-center">
         <div id="table2" class="table-responsive">
-	      <table class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
-	        <thead class="thead-dark">
+	      <table class="table-striped table-sm" cellspacing="0">
+	        <thead>
 	          <tr>
-	            <th class="pt-1 font-weight-bold" style="font-size: 18px; width: 518px; border: 1px solid;">Nombre del Solicitante</th>
-	            <th class="pt-1 font-weight-bold" style="font-size: 18px; border: 1px solid;">Número de Cédula</th>
+	            <th class="pt-2 font-weight-bold" style="font-size: 18px; border-right: 1px solid;">Nombre del Solicitante</th>
+	            <th class="pt-2 font-weight-bold" style="font-size: 18px;">Número de Cédula</th>
 	          </tr>
 	        </thead>
 	        <tbody>
 	          <tr>
-	            <th class="pt-1 font-weight-normal" style="font-size: 18px; width: 518px; border: 1px solid;"><%= @employee_name %></th>
-	            <th class="pt-1 font-weight-normal" style="font-size: 18px; border: 1px solid;"><%= @employee_identification %></th>
+	            <th class="pt-2 font-weight-normal" style="font-size: 18px;"><%= @employee_name %></th>
+	            <th class="pt-2 font-weight-normal" style="font-size: 18px;"><%= @employee_identification %></th>
 	          </tr>
 	        </tbody>
 	      </table>
@@ -45,117 +45,117 @@
      </div>
      <div class="row text-center">
        <div id="table3" class="table-responsive">
-	     <table class="table table-striped table-bordered" cellspacing="0" width="100%">
+	     <table class="table-striped" cellspacing="0">
 	       <thead class="">
 	         <tr>
-	           <th class="pt-1 font-weight-bold" style="font-size: 18px; width: 259px; border: 1px solid;">Cargo</th>
-	           <th class="pt-1 font-weight-bold" style="font-size: 18px; border: 1px solid;">Fecha de Ingreso</th>
-	           <th class="pt-1 font-weight-bold" style="font-size: 18px; width: 259px; border: 1px solid;">Puesto</th>
+	           <th class="pt-2 font-weight-bold" style="font-size: 18px; border-right: 1px solid;">Cargo</th>
+	           <th class="pt-2 font-weight-bold" style="font-size: 18px; border-right: 1px solid;">Fecha de Ingreso</th>
+	           <th class="pt-2 font-weight-bold" style="font-size: 18px;">Puesto</th>
 	         </tr>
 	       </thead>
 	       <tbody>
 	         <tr>
-	           <th class="pt-1 font-weight-normal" style="font-size: 18px; width: 259px; border: 1px solid;"><%= @area %></th>
-	           <th class="pt-1 font-weight-normal" style="font-size: 18px; border: 1px solid;"><%= @entry_date %></th>
-	           <th class="pt-1 font-weight-normal" style="font-size: 18px; width: 259px; border: 1px solid;"><%= @stall %></th>
+	           <th class="pt-2 font-weight-normal" style="font-size: 18px;"><%= @area %></th>
+	           <th class="pt-2 font-weight-normal" style="font-size: 18px;"><%= @entry_date %></th>
+	           <th class="pt-2 font-weight-normal" style="font-size: 18px;"><%= @stall %></th>
 	         </tr>
 	       </tbody>
 	     </table>
 	   </div>
       </div><br>
       <div class="row text-center">
-        <div id="table2" class="table-responsive">
-	      <table class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
-	        <thead class="thead-dark">
+        <div id="table4" class="table-responsive">
+	      <table class="table-striped table-sm" cellspacing="0">
+	        <thead class="">
 	          <tr>
-	            <th class="pt-1 font-weight-normal font-weight-bold" style="font-size: 18px; width: 130px; border: 1px solid;">Periodo</th>
-	            <th class="pt-1 font-weight-bold" style="font-size: 18px; border: 1px solid;">Concepto</th>
-	            <th class="pt-1 font-weight-bold" style="font-size: 18px; width: 130px; border: 1px solid;">Totales</th>
-	            <th class="pt-1 font-weight-bold" style="font-size: 18px; width: 130px; border: 1px solid;">Usados</th>
-	            <th class="pt-1 font-weight-bold" style="font-size: 18px; width: 130px; border: 1px solid;">Solicitados</th>
-	            <th class="pt-1 font-weight-bold" style="font-size: 18px; width: 130px; border: 1px solid;">Saldo</th>
+	            <th class="pt-2 font-weight-normal font-weight-bold" style="font-size: 18px; width: 130px; border-right: 1px solid;">Periodo</th>
+	            <th class="pt-2 font-weight-bold" style="font-size: 18px;">Concepto</th>
+	            <th class="pt-2 font-weight-bold" style="font-size: 18px; width: 130px; border-right: 1px solid;">Totales</th>
+	            <th class="pt-2 font-weight-bold" style="font-size: 18px; width: 130px; border-right: 1px solid;">Usados</th>
+	            <th class="pt-2 font-weight-bold" style="font-size: 18px; width: 130px; border-right: 1px solid;">Solicitados</th>
+	            <th class="pt-2 font-weight-bold" style="font-size: 18px; width: 130px;">Saldo</th>
 	          </tr>
 	        </thead>
 	        <tbody>
 	          <tr>
-	            <th class="pt-1 font-weight-normal" style="font-size: 18px; width: 130px; border: 1px solid;"><%= @period %></th>
-	            <th class="pt-1 font-weight-normal" style="font-size: 18px; border: 1px solid;">Vacaciones</th>
-	            <th class="pt-1 font-weight-normal" style="font-size: 18px; width: 130px; border: 1px solid;"><%= @total_days %></th>
-	            <th class="pt-1 font-weight-normal" style="font-size: 18px; width: 130px; border: 1px solid;"><%= @used_days %></th>
-	            <th class="pt-1  font-weight-normal" style="font-size: 18px; width: 130px; border: 1px solid;"><%= @requested_days %></th>
-	            <th class="pt-1 font-weight-normal" style="font-size: 18px; width: 130px; border: 1px solid;"><%= @avalaible_days %></th>
+	            <th class="pt-2 font-weight-normal" style="font-size: 18px; width: 130px;"><%= @period %></th>
+	            <th class="pt-2 font-weight-normal" style="font-size: 18px;">Vacaciones</th>
+	            <th class="pt-2 font-weight-normal" style="font-size: 18px; width: 130px;"><%= @total_days %></th>
+	            <th class="pt-2 font-weight-normal" style="font-size: 18px; width: 130px;"><%= @used_days %></th>
+	            <th class="pt-2  font-weight-normal" style="font-size: 18px; width: 130px;"><%= @requested_days %></th>
+	            <th class="pt-2 font-weight-normal" style="font-size: 18px; width: 130px;"><%= @avalaible_days %></th>
 	          </tr>
 	        </tbody>
 	      </table>
 	    </div>
      </div>
      <div class="row text-center">
-       <div id="table3" class="table-responsive">
-	     <table class="table table-striped table-bordered" cellspacing="0" width="100%">
+       <div id="table5" class="table-responsive">
+	     <table class="table-striped" cellspacing="0">
 	       <thead class="">
 	         <tr>
-	           <th class="pt-1 font-weight-bold" style="font-size: 18px; width: 245px; border: 1px solid;">Inicio</th>
-	           <th class="pt-1 font-weight-bold" style="font-size: 18px; border: 1px solid;">Fin</th>
-	           <th class="pt-1 font-weight-bold" style="font-size: 18px; width: 389px; border: 1px solid;">Regreso</th>
+	           <th class="pt-2 font-weight-bold" style="font-size: 18px; width: 245px; border-right: 1px solid;">Inicio</th>
+	           <th class="pt-2 font-weight-bold" style="font-size: 18px; border-right: 1px solid;">Fin</th>
+	           <th class="pt-2 font-weight-bold" style="font-size: 18px; width: 389px;">Regreso</th>
 	         </tr>
 	       </thead>
 	       <tbody>
 	         <tr>
-	           <th class="pt-1 font-weight-normal" style="font-size: 18px; width: 245px; border: 1px solid;"><%= @start_date %></th>
-	           <th class="pt-1 font-weight-normal" style="font-size: 18px; border: 1px solid;"><%= @end_date %></th>
-	           <th class="pt-1 font-weight-normal" style="font-size: 18px; width: 389px; border: 1px solid;"><%= (Date.parse(@end_date) + 1.days).strftime('%d/%m/%Y') %></th>
+	           <th class="pt-2 font-weight-normal" style="font-size: 18px; width: 245px;"><%= @start_date %></th>
+	           <th class="pt-2 font-weight-normal" style="font-size: 18px;"><%= @end_date %></th>
+	           <th class="pt-2 font-weight-normal" style="font-size: 18px; width: 389px;"><%= (Date.parse(@end_date) + 1.days).strftime('%d/%m/%Y') %></th>
 	         </tr>
 	       </tbody>
 	     </table>
 	   </div>
       </div><br>
       <div class="row text-center">
-       <div id="table3" class="table-responsive">
-	     <table class="table table-striped table-bordered" cellspacing="0" width="100%">
-	       <thead class="thead-dark">
+       <div id="table6" class="table-responsive">
+	     <table class="table-striped" cellspacing="0">
+	       <thead class="">
 	         <tr>
-	           <th class="pt-1 font-weight-bold" style="font-size: 18px; width: 425px; border: 1px solid;">Firma del Solicitante</th>
-	           <th class="pt-1 font-weight-bold" style="font-size: 18px; border: 1px solid;">Documento de Identidad</th>
+	           <th class="pt-2 font-weight-bold" style="font-size: 18px; width: 425px; border-right: 1px solid;">Firma del Solicitante</th>
+	           <th class="pt-2 font-weight-bold" style="font-size: 18px;">Documento de Identidad</th>
 	         </tr>
 	       </thead>
 	       <tbody>
 	         <tr>
-	           <th class="pt-1" style="font-size: 18px; border: 1px solid;"></th>
-	           <th class="pt-1" style="font-size: 18px; border: 1px solid;"></th>
+	           <th class="pt-2" style="font-size: 18px;"></th>
+	           <th class="pt-2" style="font-size: 18px;"></th>
 	         </tr>
 	       </tbody>
 	     </table>
 	   </div>
       </div><br>
       <div class="row text-center">
-       <div id="table3" class="table-responsive">
-	     <table class="table table-striped table-bordered" cellspacing="0" width="100%">
-	       <thead class="thead-dark">
+       <div id="table7" class="table-responsive">
+	     <table class="table-striped" cellspacing="0">
+	       <thead class="">
 	         <tr>
-	           <th class="pt-1 font-weight-bold" style="font-size: 18px; width: 425px; border: 1px solid;">Jefe Inmediato</th>
-	           <th class="pt-1 font-weight-bold" style="font-size: 18px; border: 1px solid;">Aprobado por Recursos Humanos</th>
+	           <th class="pt-2 font-weight-bold" style="font-size: 18px; width: 425px; border-right: 1px solid;">Jefe Inmediato</th>
+	           <th class="pt-2 font-weight-bold" style="font-size: 18px;">Aprobado por Recursos Humanos</th>
 	         </tr>
 	       </thead>
 	       <tbody>
 	         <tr>
-	           <th class="pt-1" style="font-size: 18px; border: 1px solid;"></th>
-	           <th class="pt-1" style="font-size: 18px; border: 1px solid;"></th>
+	           <th class="pt-2" style="font-size: 18px;"></th>
+	           <th class="pt-2" style="font-size: 18px;"></th>
 	         </tr>
 	       </tbody>
 	     </table>
 	   </div>
       </div><br>
       <div class="row text-center">
-       <div id="table3" class="table-responsive">
-	     <table class="table table-striped table-bordered" cellspacing="0" width="100%">
-	       <thead class="thead-dark">
+       <div id="table8" class="table-responsive">
+	     <table class="table-striped" cellspacing="0">
+	       <thead class="">
 	         <tr>
-	           <th class="pt-1 font-weight-bold" style="font-size: 18px; border: 1px solid;">OBSERVACIONES</th>
+	           <th class="pt-2 font-weight-bold" style="font-size: 18px;">OBSERVACIONES</th>
 	         </tr>
 	       </thead>
 	       <tbody>
 	         <tr>
-	           <th class="pt-1" style="font-size: 18px; border: 1px solid;">
+	           <th class="pt-2" style="font-size: 18px;">
 	           	<p>El suscrito...Sin ninguna coacción de terceras personas, quedo conforme con respecto al pago de mis</p>
 	           	<p>vacaciones correspondiente al periodo supra indicado. Por lo cual desde este momento que plasmo</p>
 	           	<p>con mi firma, renuncio a cualquier acción legal presente o futura para la compensación</p>
@@ -177,6 +177,15 @@
 </html>
 
 <style type="text/css">
+ thead{
+ 	background-color: #00528a;
+ 	color: white;
+ }
+
+ table {
+ 	width: 100%;
+ 	border: 1px solid;
+ }
 
 th {
   height: 18px;
