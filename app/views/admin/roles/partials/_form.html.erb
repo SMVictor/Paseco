@@ -28,9 +28,11 @@
       </div>
       <div class="row ml-1 mr-1 text-center"  style="border:1px solid;">
       <% Stall.where(active: true).or(Stall.where(id: @role.role_lines.pluck("stall_id").uniq)).order(name: :asc).each do |stall| %>
-          <div class="col-6 col-sm-4 col-xl-2 pt-3 pb-3">
-            <%= link_to(stall.name,admin_role_lines_path(@role, stall, 0), class:'' ) %>
-          </div>
+          <% if current_user.stalls.where(id: stall.id) != [] || current_user.admin? %>
+            <div class="col-6 col-sm-4 col-xl-2 pt-3 pb-3">
+              <%= link_to(stall.name,admin_role_lines_path(@role, stall, 0), class:'' ) %>
+            </div>
+          <% end %>
       <% end %>
       </div>
     <%end %>

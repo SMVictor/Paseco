@@ -70,7 +70,7 @@ class RolesController < ApplicationController
   end
 
   def update_role_lines
-    if current_user.admin?
+    if current_user.stalls.where(id: params[:stall_id]) != [] || current_user.admin?
       if (DateTime.parse(@role.end_date) + 5.days) > Date.today
         if params[:ajax] 
           @role.update(role_params)

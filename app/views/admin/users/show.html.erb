@@ -39,6 +39,10 @@
                   <%= form.collection_select :role, [], :id, :name, options = {include_blank: 'Seleccione un permiso'}, html_options = {class: "form-control", id: "permission", required: true, oninvalid: "setCustomValidity('Campo Requerido')", oninput: "setCustomValidity('')", title: "Seleccione un permiso", data: {user: @user.to_json }, disabled: true}%>
                   <label id="role_error"></label>
                 </div>
+                <div class="col-lg-12 mb-2">
+                  <label for="">Agregar Puestos</label>
+                    <%= form.select(:stall_ids, Stall.where(active: true).order(name: :asc).collect {|t| [t.name, t.id]}, {include_blank: false}, {multiple: true, class: "form-control", id: "stalls", disabled: true}) %>
+                </div>
               </div>
             </div>
           </div>
@@ -47,3 +51,12 @@
     <% end %>
   </div>
 </div>
+<script type="text/javascript">
+   fillRoleSelector();
+   $('#stalls').select2({
+    language: {
+    noResults: function (params) {
+      return "No hay resultados"
+    }
+  }});
+</script>

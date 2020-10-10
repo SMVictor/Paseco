@@ -21,7 +21,7 @@ module Admin
 
     def create
       @user = User.create([
-      {identification: params[:user][:identification], name: params[:user][:name], email: params[:user][:email], password: params[:user][:password], password_confirmation: params[:user][:password_confirmation], role: params[:user][:role]}]).first
+      {identification: params[:user][:identification], name: params[:user][:name], email: params[:user][:email], password: params[:user][:password], password_confirmation: params[:user][:password_confirmation], role: params[:user][:role], stall_ids: params[:user][:stall_ids]}]).first
 
       respond_to do |format|
         if @user.save
@@ -62,7 +62,7 @@ module Admin
       # Never trust parameters from the scary internet, only allow the white list through.
       def user_params
         params[:user][:role] = params[:user][:role].to_i
-        params.require(:user).permit(:identification, :name, :email, :role)
+        params.require(:user).permit(:identification, :name, :email, :role, stall_ids: [])
       end
   end
 end

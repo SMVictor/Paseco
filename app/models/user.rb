@@ -6,4 +6,6 @@ class User < ApplicationRecord
 
   enum role: [:"admin", :"supervisor", :"employee", :"human_resources", :"sup_hr"]
 
+  has_and_belongs_to_many :stalls, join_table: :stalls_users
+
 end
