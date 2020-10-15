@@ -31,9 +31,7 @@
       <% end %>
       <%= f.text_field :hours, class: "form-control hours", placeholder: "3", onKeyUp: "hoursValidation(this)", style: "width: 20%;"  %>
       <div class="mt-2">
-       <% if current_user.admin? %>
-         <button name="btn_modal" style="background: none; border: none; color: #8068D9;" type="button" class="fas fa-comment" onclick="showModal(this)"></button>
-       <% end %>
+       <button name="btn_modal" style="background: none; border: none; color: #8068D9;" type="button" class="fas fa-comment" onclick="showModal(this)"></button>
       </div>
       <div class="mt-2">
        <%= link_to_remove_association "", f, class: "fas fa-trash-alt", id: 'remove_link', style: "color: #E25141" %>

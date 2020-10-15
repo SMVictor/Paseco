@@ -15,22 +15,24 @@
             <label class="">Justificación de Requerimiento</label>
             <%= form.text_field :requirement_justification, class: "form-control", placeholder: "4 horas extra por cubrimiento del libre de Juan", id: "requirement_justification_"+form.object.id.to_s  %>
           </div>
-          <div class="col-6 mb-4">
-            <label class="">Pagos Extras</label>
-            <%= form.text_field :extra_payments, class: "form-control", placeholder: "10700" %>
-          </div>
-          <div class="col-6 mb-4">
-            <label class="">PE Descripción</label>
-            <%= form.text_field :extra_payments_description, class: "form-control", placeholder: "Pago extra por día libre trabajado" %>
-          </div>
-          <div class="col-6 mb-4">
-            <label class="">Deducciones</label>
-            <%= form.text_field :deductions, class: "form-control", placeholder: "15000" %>
-          </div>
-          <div class="col-6 mb-4">
-            <label class="">Descripción</label>
-            <%= form.text_field :deductions_description, class: "form-control", placeholder: "Cobro por uniforme perdido" %>
-          </div>
+          <% if current_user.admin? %>
+            <div class="col-6 mb-4">
+              <label class="">Pagos Extras</label>
+              <%= form.text_field :extra_payments, class: "form-control", placeholder: "10700" %>
+            </div>
+            <div class="col-6 mb-4">
+              <label class="">PE Descripción</label>
+              <%= form.text_field :extra_payments_description, class: "form-control", placeholder: "Pago extra por día libre trabajado" %>
+            </div>
+            <div class="col-6 mb-4">
+              <label class="">Deducciones</label>
+              <%= form.text_field :deductions, class: "form-control", placeholder: "15000" %>
+            </div>
+            <div class="col-6 mb-4">
+              <label class="">Descripción</label>
+              <%= form.text_field :deductions_description, class: "form-control", placeholder: "Cobro por uniforme perdido" %>
+            </div>
+          <% end %>
         </div>
       </div>
       <div class="d-flex justify-content-center" style="background-color: #00528a">
