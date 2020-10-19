@@ -106,17 +106,14 @@ class Employee < ApplicationRecord
     elsif @shift.name == "Permiso" || @shift.name == "Ausente" || @shift.name == "Suspendido"
       @day_salary = 0
     elsif @shift.name == "Incapacidad"
-      
-      last_disability_period = self.disabilities.order(:start_date).last if self.disabilities != []
-      dates = (last_disability_period.start_date..last_disability_period.end_date).map(&:to_date) if last_disability_period
-      first_dates = dates[0, 3] if dates
-
-      if first_dates && (first_dates.include? Date.strptime(role_line.date, '%m/%d/%Y'))
-        @day_salary = (min_salary.to_f/30)/2
-      else
-        @day_salary = 0
+      @day_salary = 0
+      self.disabilities.order(:start_date).each do |last_disability_period|
+        dates = (last_disability_period.start_date..last_disability_period.end_date).map(&:to_date)
+        first_dates = dates[0, 3] if dates
+        if first_dates && (first_dates.include? Date.strptime(role_line.date, '%m/%d/%Y'))
+          @day_salary = (min_salary.to_f/30)/2
+        end
       end
-
     else
       @normal_day_hours = 0
       @extra_day_hours  = 0
