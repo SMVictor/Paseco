@@ -16,7 +16,7 @@
   </div>
   <div class="col-xl-6 col-md-6 mb-2 mt-2">
     <label for="">Tipo de Pago</label>
-    <%= form.collection_select :payment_id, Payment.all.order(name: :asc), :id, :name, options = {include_blank: 'Seleccione un tipo de pago'}, html_options = {class: "form-control", id: "payment"}%>
+    <%= form.collection_select :payment_id, Payment.where(status: 'Activo').order(name: :asc), :id, :name, options = {include_blank: 'Seleccione un tipo de pago'}, html_options = {class: "form-control", id: "payment"}%>
     <label id="payment_error"></label>
   </div>
   <div class="col-xl-6 col-md-6 mb-2 mt-2">
@@ -40,3 +40,13 @@
     <label id="holidays_error"></label>
   </div>
 </div>
+
+<script type="text/javascript">
+  $('#payment').select2({
+    language: {
+      noResults: function (params) {
+        return "No hay resultados"
+      }
+    }
+  });
+</script>

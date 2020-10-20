@@ -9,3 +9,17 @@ function validatePaymentForm() {
   }
   return result;
 }
+
+function filterByStatus(){
+  var status = $( "#status option:selected" ).text();
+
+  $.ajax({
+    type: "GET",
+    url: document.URL,
+    data:
+    {
+      utf8: "✓",
+      status: status
+    }
+  });
+}

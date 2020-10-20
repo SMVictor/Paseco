@@ -501,7 +501,7 @@ class RolesController < ApplicationController
     end
 
     def role_line_params
-      params.require(:role_line).permit(:date, :shift_id, :substall, :position_id, :sub_service_id, :hours, :comment, :requirement_justification, :extra_payments, :extra_payments_description, :deductions, :deductions_description, :user_email )
+      params.require(:role_line).permit(:date, :shift_id, :substall, :position_id, :sub_service_id, :hours, :comment, :requirement_justification, :extra_payments, :extra_payments_description, :deductions, :deductions_description )
     end
   end
 end

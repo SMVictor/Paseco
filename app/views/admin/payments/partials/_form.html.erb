@@ -4,14 +4,18 @@
       <div  class="col-12 mt-4">
         <legend>Información General</legend>
       </div>
-      <div class="col-xl-6 mb-2 mt-2">
+      <div class="col-xl-5 mb-2 mt-2">
         <label for="">Nombre</label>
         <%= form.text_field :name, id: "name", class: "form-control", placeholder: "Nombre" %>
         <label id="name_error"></label>
       </div>
-      <div class="col-xl-6 mb-2 mt-2">
+      <div class="col-xl-5 mb-2 mt-2">
         <label for="">Descripción</label>
         <%= form.text_field :description, class: "form-control", placeholder: "Descripción" %>
+      </div>
+      <div class="col-xl-2 mb-2 mt-2 text-center">
+        <label for="">Estado</label>
+        <%= form.select(:status, ['Activo', 'Inactivo'], {}, { class: "form-control" } ) %>
       </div>
     </div>
     <div class="row form_fieldset text-center">

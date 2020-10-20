@@ -6,7 +6,15 @@ class PaymentsController < ApplicationController
   before_action :set_payment, only: [:show, :edit, :update, :destroy]
 
   def index
-    @payments = Payment.all.order(name: :asc)
+    if params[:status]
+      @payments = Payment.where(status: params[:status]).order(name: :asc)
+    else
+      @payments = Payment.where(status: 'Activo').order(name: :asc)
+    end
+    respond_to do |format|
+      format.js
+      format.html
+    end
   end
 
   def show
@@ -69,7 +77,7 @@ class PaymentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def payment_params
-      params.require(:payment).permit(:name, :description, shifts_attributes: [:id, :name, :start_hour, :time, :extra_time_cost, :active, :_destroy])
+      params.require(:payment).permit(:name, :description, :status, shifts_attributes: [:id, :name, :start_hour, :time, :extra_time_cost, :active, :_destroy])
     end
 end
 end
