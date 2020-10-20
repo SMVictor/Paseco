@@ -183,7 +183,7 @@ function changeDateFormat(element){
 }
 
 function showModal(element){
-  var modal = $($(element).parent().parent().children()[12]);
+  var modal = $($(element).parent().parent().children()[13]);
   modal.modal('toggle');
 }
 
