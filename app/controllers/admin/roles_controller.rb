@@ -497,11 +497,11 @@ class RolesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def role_params
-      params.require(:role).permit(:name, :start_date, :end_date, stall_ids: [], role_lines_attributes: [:id, :date, :start_date, :start_hour, :end_date, :end_hour, :employee_id, :stall_id, :shift_id, :substall, :comment, :hours, :requirement_justification, :extra_payments, :extra_payments_description, :deductions, :deductions_description, :holiday, :position_id, :sub_service_id, :_destroy])
+      params.require(:role).permit(:name, :start_date, :end_date, stall_ids: [], role_lines_attributes: [:id, :date, :start_date, :start_hour, :end_date, :end_hour, :employee_id, :stall_id, :shift_id, :substall, :comment, :hours, :requirement_justification, :extra_payments, :extra_payments_description, :deductions, :deductions_description, :holiday, :position_id, :sub_service_id, :user_email, :_destroy])
     end
 
     def role_line_params
-      params.require(:role_line).permit(:date, :shift_id, :substall, :position_id, :sub_service_id, :hours, :comment, :requirement_justification, :extra_payments, :extra_payments_description, :deductions, :deductions_description )
+      params.require(:role_line).permit(:date, :shift_id, :substall, :position_id, :sub_service_id, :hours, :comment, :requirement_justification, :extra_payments, :extra_payments_description, :deductions, :deductions_description, :user_email )
     end
   end
 end

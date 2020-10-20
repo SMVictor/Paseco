@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_10_175854) do
+ActiveRecord::Schema.define(version: 2020_10_20_014526) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -405,6 +405,7 @@ ActiveRecord::Schema.define(version: 2020_10_10_175854) do
     t.time "start_hour"
     t.string "end_date"
     t.time "end_hour"
+    t.string "user_email"
     t.index ["employee_id"], name: "index_role_lines_on_employee_id"
     t.index ["position_id"], name: "index_role_lines_on_position_id"
     t.index ["role_id"], name: "index_role_lines_on_role_id"
