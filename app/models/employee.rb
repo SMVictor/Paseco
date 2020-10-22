@@ -253,9 +253,10 @@ class Employee < ApplicationRecord
     @christmas_bonification.christmas_bonification_lines.each do |line|
       @christmas_bonus += line.total.to_f.round(2)
     end
-    @christmas_bonification.bank = self.bank
-    @christmas_bonification.account = self.account
-     @christmas_bonification.total = @christmas_bonus / 12
+     @christmas_bonification.bank    = self.bank
+     @christmas_bonification.account = self.account
+     @christmas_bonification.name    = self.name
+     @christmas_bonification.total   = @christmas_bonus / 12
      @christmas_bonification.save
   end
   def calculate_holiday(role_line, shift, min_salary)
