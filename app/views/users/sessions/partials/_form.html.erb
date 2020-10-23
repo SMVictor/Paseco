@@ -5,6 +5,9 @@
         <div class="col-lg-4 mx-auto">
           <%= image_tag('backArrow.png', size: "50x50", id: "backArrow") %>
           <div class="auto-form-wrapper">
+            <% if flash[:alert] %>
+              <div class="alert alert-danger"><strong><%= flash[:alert] %></strong></div>
+            <% end %>
             <form action="#">
               <div class="form-group">
                 <label class="label">Correo Electrónico</label>
