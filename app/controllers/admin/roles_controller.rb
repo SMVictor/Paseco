@@ -274,6 +274,7 @@ class RolesController < ApplicationController
   def payrole_detail_pdf
     @employee = Employee.find(params[:employee_id])
     respond_to do |format|
+      render layout: 'payrole_pdf'
       format.html
     end
   end

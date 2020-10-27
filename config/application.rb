@@ -16,7 +16,7 @@ module PaSeCo
     # Change default .yml for error language.
     config.i18n.default_locale = :es
 
-    config.middleware.use PDFKit::Middleware
+    config.middleware.use PDFKit::Middleware, print_media_type: true
 
   end
 end
