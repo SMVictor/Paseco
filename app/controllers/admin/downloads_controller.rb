@@ -106,6 +106,64 @@ module Admin
       end
     end
 
+    def bonus_breakdown
+
+      extra_payrole = ExtraPayrole.find(params[:bonus_from])
+      bonuses = ChristmasBonification.where(from_date: extra_payrole.from_date, to_date: extra_payrole.to_date).order(:name)
+
+      @headers = ['NOMBRE', 'TOTAL', 'Q1 DICIEMBRE', 'Q2 DICIEMBRE', 'Q1 ENERO', 'Q2 ENERO', 'Q1 FEBRERO', 'Q2 FEBRERO', 'Q1 MARZO', 'Q2 MARZO', 'Q1 ABRIL', 'Q2 ABRIL', 'Q1 MAYO', 'Q2 MAYO', 'Q1 JUNIO', 'Q2 JUNIO', 'Q1 JILIO', 'Q2 JULIO', 'Q1 AGOSTO', 'Q2 AGOSTO', 'Q1 SETIEMBRE', 'Q2 SETIEMBRE', 'Q1 OCTUBRE', 'Q2 OCTUBRE', 'Q1 NOVIEMBRE', 'Q2 NOVIEMBRE']
+
+      @rows = []
+
+      bonuses.each_with_index do |bonus, index|
+
+        row = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+        row[0] = bonus.name
+        row[1] = bonus.total.to_f.round(2)
+
+        bonus.christmas_bonification_lines.each do |line|
+          row[2]  = line.total.to_f.round(2) if line.start_date.include? '01/12/'
+          row[3]  = line.total.to_f.round(2) if line.start_date.include? '16/12/'
+          row[4]  = line.total.to_f.round(2) if line.start_date.include? '01/01/'
+          row[5]  = line.total.to_f.round(2) if line.start_date.include? '16/01/'
+          row[6]  = line.total.to_f.round(2) if line.start_date.include? '01/02/'
+          row[7]  = line.total.to_f.round(2) if line.start_date.include? '16/02/'
+          row[8]  = line.total.to_f.round(2) if line.start_date.include? '01/03/'
+          row[9]  = line.total.to_f.round(2) if line.start_date.include? '16/03/'
+          row[10] = line.total.to_f.round(2) if line.start_date.include? '01/04/'
+          row[11] = line.total.to_f.round(2) if line.start_date.include? '16/04/'
+          row[12] = line.total.to_f.round(2) if line.start_date.include? '01/05/'
+          row[13] = line.total.to_f.round(2) if line.start_date.include? '16/05/'
+          row[14] = line.total.to_f.round(2) if line.start_date.include? '01/06/'
+          row[15] = line.total.to_f.round(2) if line.start_date.include? '16/06/'
+          row[16] = line.total.to_f.round(2) if line.start_date.include? '01/07/'
+          row[17] = line.total.to_f.round(2) if line.start_date.include? '16/07/'
+          row[18] = line.total.to_f.round(2) if line.start_date.include? '01/08/'
+          row[19] = line.total.to_f.round(2) if line.start_date.include? '16/08/'
+          row[20] = line.total.to_f.round(2) if line.start_date.include? '01/09/'
+          row[21] = line.total.to_f.round(2) if line.start_date.include? '16/09/'
+          row[22] = line.total.to_f.round(2) if line.start_date.include? '01/10/'
+          row[23] = line.total.to_f.round(2) if line.start_date.include? '16/10/'
+          row[24] = line.total.to_f.round(2) if line.start_date.include? '01/11/'
+          row[25] = line.total.to_f.round(2) if line.start_date.include? '16/11/'
+        end
+
+        @rows << row
+
+      end 
+      if params[:txt]
+        generate_txt_file
+      end
+
+      respond_to do |format|
+        format.html { redirect_to admin_downloads_url }
+        format.xls
+        format.csv { send_data to_csv }
+        format.text
+      end
+    end
+
     def breakdown
       @roles = []
       params[:ids].split(",").each do |id|

@@ -90,6 +90,11 @@ function download_bonuses_file(type){
   window.location = document.URL + '/bonuses.csv?ids='+ids;
 }
 
+function download_bonus_breakdown_file(type){
+  var bonus_from = $( "#bonus_breakdown_from option:selected" ).val();
+  window.location = document.URL + '/bonus/breakdown.xls?bonus_from='+bonus_from;
+}
+
 function download_entity_file(type){
   
   var entity  = $( "#entity option:selected" ).val();

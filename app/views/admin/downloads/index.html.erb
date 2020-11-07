@@ -106,6 +106,32 @@
     </div>
     <div class="row" style="border-bottom: 1px solid;">
       <div class="col-12 col-xl-3 d-flex justify-content-center mt-4">
+        DESGLOSE AGUINALDOS
+      </div>
+      <div class="col-6 col-xl-3 mt-4 mt-xl-4 d-flex justify-content-center mb-5">
+        <%= select_tag "bonus_breakdown_from", options_from_collection_for_select(@bonuses, "id", "name"), options = {include_blank: "Aguinaldo de inicio", title: "Planilla de inicio", style: 'width: 200px;'} %>
+      </div>
+      <div class="col-6 col-xl-3 mt-4 mt-xl-4 d-flex justify-content-center mb-5">
+        <%= select_tag "bonus_breakdown_to",   options_from_collection_for_select(@bonuses, "id", "name"), options = {include_blank: "Aguinaldo de fin", title: "Planilla de fin", style: 'width: 200px;', disabled: true} %>
+      </div>
+      <div class="col-4 col-xl-1 mt-4 mt-xl-4 d-flex justify-content-center">
+        <button type="button" class="btn" onclick="download_bonus_breakdown_file('xls')">
+          <i class="fa fa-file-excel-o" style="color: green;"></i>
+        </button>
+      </div>
+      <div class="col-4 col-xl-1 mt-4 mt-xl-4 d-flex mt-xl-0 mb-4 justify-content-center">
+        <button type="button" class="btn" disabled="true">
+          <i class="fa fa-file" style="color: purple;"></i>
+        </button>
+      </div>
+      <div class="col-4 col-xl-1 mt-4 mt-xl-4 mb-4 d-flex justify-content-center">
+        <button type="button" class="btn" disabled="true">
+          <i class="fa fa-file-text" style="color: blue;"></i>
+        </button>
+      </div>
+    </div>
+    <div class="row" style="border-bottom: 1px solid;">
+      <div class="col-12 col-xl-3 d-flex justify-content-center mt-4">
         OTROS
       </div>
       <div class="col-6 col-xl-3 mt-4 mt-xl-4 d-flex justify-content-center mb-5">
