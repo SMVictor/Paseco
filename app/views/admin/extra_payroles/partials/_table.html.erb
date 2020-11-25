@@ -41,11 +41,7 @@
 
               <% @employee = Employee.where(identification: current_user.identification).first %>
 
-              <% if @employee %>
-                <%= link_to(admin_extra_payrole_detail_path(extra_payrole, @employee), class:'btn primary-btn', title: 'Ver Colilla de Pago') do %>
-                  <i class="fa fa-dollar"></i>
-                <% end %>
-              <% end %>
+              <!-- This space is to include the extra payrole detail option for employees -->
 
               <% if current_user.admin? %>
                 <%= link_to(admin_bonuses_bncr_file_path(extra_payrole, format: "xls"), class:'btn info-btn', title: 'Archivo BNCR') do %>
