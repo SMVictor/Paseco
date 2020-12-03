@@ -41,7 +41,7 @@
 
               <% @employee = Employee.where(identification: current_user.identification).first %>
 
-              <% if @employee %>
+              <% if @employee && current_user.admin? == false %>
                 <%= link_to(admin_payrole_detail_path(payrole, @employee), class:'btn btn-block primary-btn mt-2', title: 'Ver Colilla de Pago') do %>
                   <i class="fa fa-dollar"></i>
                 <% end %>
