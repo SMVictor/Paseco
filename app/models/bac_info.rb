@@ -5,6 +5,7 @@ class BacInfo < ApplicationRecord
   end
 
   def self.complete_total(data)
+    if data.length > 13 then data = data[0..12] end
     data = "0" * (13 - data.length) + data
   end
 
