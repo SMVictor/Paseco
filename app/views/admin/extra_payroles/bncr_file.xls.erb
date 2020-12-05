@@ -24,6 +24,7 @@
         <% @concept += (" " * (26-@concept.length)) %>
       <% end %>
         <Row>
+          <% extra_payrole.total = extra_payrole.total.to_f.round(2) %>
           <% net_salary_amount = extra_payrole.total.split(".")[0] %>
           <% net_salary_decimal = "00" %>
           <% if  extra_payrole.total.split(".")[1] %>
