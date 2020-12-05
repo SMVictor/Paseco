@@ -34,6 +34,9 @@
 
           <% net_salary_amount = extra_payrole.total.split(".")[0] %>
           <% net_salary_decimal = "00" %>
+          
+          <% extra_payrole.total = extra_payrole.total.to_f.round(2) %>
+
           <% if  extra_payrole.total.split(".")[1] %>
             <% decimals_amount = extra_payrole.total.split(".")[1].length %>
             <% if decimals_amount > 2 then decimals_amount = 2 end  %>
