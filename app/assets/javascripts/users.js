@@ -86,8 +86,8 @@ function validateSignUpForm() {
   return result;
 }
 function fillRoleSelector(){
-  var permissions = ['Administrador', 'Supervisor', 'Colaborador', 'Recursos Humanos', 'Supervisor RH']
-  var roles = ["admin", "supervisor", "employee", "human_resources", 'sup_hr'];
+  var permissions = ['Administrador', 'Supervisor', 'Colaborador', 'Recursos Humanos', 'Supervisor RH', ' Psicólogo']
+  var roles = ["admin", "supervisor", "employee", "human_resources", 'sup_hr', 'psychologist'];
   var selectedPermission = JSON.parse(document.querySelector('#permission').dataset.user);
 
   for (var i = 0; i < permissions.length; i++) {

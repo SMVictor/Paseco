@@ -84,7 +84,7 @@
             <%= link_to('Puestos', admin_stalls_path, class: 'nav-link') if current_user.admin? %>
           </li>
           <li class="nav-item">
-            <%= link_to('Empleados', admin_employees_path, class: 'nav-link') if current_user.admin? || current_user.human_resources? || current_user.sup_hr?%>
+            <%= link_to('Empleados', admin_employees_path, class: 'nav-link') if current_user.admin? || current_user.human_resources? || current_user.sup_hr? || current_user.psychologist? %>
           </li>
         </ul>
       </div>
@@ -104,7 +104,7 @@
             <%= link_to('Puestos', admin_inactive_stalls_path, class: 'nav-link') if current_user.admin? %>
           </li>
           <li class="nav-item">
-            <%= link_to('Empleados', admin_inactive_employees_path, class: 'nav-link') if current_user.admin? || current_user.human_resources? || current_user.sup_hr? %>
+            <%= link_to('Empleados', admin_inactive_employees_path, class: 'nav-link') if current_user.admin? || current_user.human_resources? || current_user.sup_hr? || current_user.psychologist? %>
           </li>
         </ul>
       </div>
@@ -152,7 +152,7 @@
       <div class="collapse" id="downloads">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item">
-            <%= link_to('Todas', admin_downloads_path, class: 'nav-link') if current_user.admin? %>
+            <%= link_to('Todas', admin_downloads_path, class: 'nav-link') if current_user.admin? || current_user.psychologist? %>
           </li>
         </ul>
       </div>
