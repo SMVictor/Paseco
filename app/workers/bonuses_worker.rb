@@ -10,22 +10,23 @@ class BonusesWorker
   end
 
   def update_christmas_bonuses(employee)
+    if employee.has_christmas_bonus
+      @employee = employee
+      sort_entries
 
-  	@employee = employee
-  	sort_entries
+      from = Time.now.year
+      to   = Time.now.year
+      first_payrole_date = '30/11/2019'
 
-    from = Time.now.year
-    to   = Time.now.year
-    first_payrole_date = '30/11/2019'
-
-    if @employee.entries
-      if @employee.entries && @employee.entries.last && @employee.entries.last.start_date && @employee.entries.last.start_date != "" && @employee.entries.last.start_date.to_date.year >= 2020
-        from = @employee.entries.last.start_date.to_date.year
-        first_payrole_date = @employee.entries.last.start_date
+      if @employee.entries
+        if @employee.entries && @employee.entries.last && @employee.entries.last.start_date && @employee.entries.last.start_date != "" && @employee.entries.last.start_date.to_date.year >= 2020
+          from = @employee.entries.last.start_date.to_date.year
+          first_payrole_date = @employee.entries.last.start_date
+        end
       end
-    end
-    (from..to).each do |i|
-      @employee.calculate_christmas_bonification(i, first_payrole_date)
+      (from..to).each do |i|
+        @employee.calculate_christmas_bonification(i, first_payrole_date)
+      end
     end
   end
 
