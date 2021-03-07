@@ -4,15 +4,15 @@ module Admin
     load_and_authorize_resource
 
     def index
-      temp_roles = Role.where('id <= 18 or id >= 33').order(id: :asc)
+      temp_roles = Role.where('id <= 18 or id >= 33').order(id: :desc)
       ids = []
       temp_roles.each do |role|
-        if (DateTime.parse(role.end_date) + 3.days) < Date.today
+        if (DateTime.parse(role.end_date) + 5.days) < Date.today
           ids << role.id
         end
       end
       @roles = temp_roles.where(id: ids)
-      @bonuses = ExtraPayrole.all.order(id: :asc)
+      @bonuses = ExtraPayrole.all.order(id: :desc)
     end
 
     def ins_caja
