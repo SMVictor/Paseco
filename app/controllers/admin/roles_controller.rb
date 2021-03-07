@@ -96,32 +96,38 @@ class RolesController < ApplicationController
 
   def add_role_lines
 
-    ids = []
-    @role.role_lines.where(stall: @stall).each do |line|
-      ids << line.employee.id
-    end
+    if current_user.admin? || current_user.stalls.ids.include?(@stall.id)
+      ids = []
+      @role.role_lines.where(stall: @stall).each do |line|
+        ids << line.employee.id
+      end
 
-    @stall.employees.where(active: true).each do |employee|
-      ids << employee.id
-    end
+      @stall.employees.where(active: true).each do |employee|
+        ids << employee.id
+      end
 
-    ids.uniq
+      ids.uniq
 
-    @employees = Employee.where(id: ids)
+      @employees = Employee.where(id: ids)
 
-    @substalls = []
-    @count = 1
-    while @count <= @stall.substalls.to_i
-      @substalls[@count-1] = "Puesto " + @count.to_s
-      @count = @count+1
-    end
+      @substalls = []
+      @count = 1
+      while @count <= @stall.substalls.to_i
+        @substalls[@count-1] = "Puesto " + @count.to_s
+        @count = @count+1
+      end
 
-    @employee = Employee.find(params[:employee_id]) if params[:employee_id] != "0"  
-    @role_lines = @role.role_lines.where(stall_id: @stall.id, employee: @employee).order(date: :asc)
+      @employee = Employee.find(params[:employee_id]) if params[:employee_id] != "0"  
+      @role_lines = @role.role_lines.where(stall_id: @stall.id, employee: @employee).order(date: :asc)
 
-    if params[:ajax]
+      if params[:ajax]
+        respond_to do |format|
+          format.js
+        end
+      end
+    else
       respond_to do |format|
-        format.js
+        format.html { redirect_to edit_admin_role_path(@role) }
       end
     end
   end
@@ -226,8 +232,17 @@ class RolesController < ApplicationController
 
   def payrole_detail
     @employee = Employee.find(params[:employee_id])
-    if (DateTime.parse(@role.end_date) + 5.days) > Date.today
-      update_payrole_info(@role, @employee)
+    if current_user.admin? || current_user.human_resources? || current_user.psychologist? || current_user.identification == @employee.identification
+      if (DateTime.parse(@role.end_date) + 5.days) > Date.today
+        update_payrole_info(@role, @employee)
+      end
+      respond_to do |format|
+        format.html
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to admin_payroles_path, notice: 'No posee permisos para ver la planilla solicitada.' }
+      end
     end
   end
 

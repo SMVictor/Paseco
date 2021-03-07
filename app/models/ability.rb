@@ -8,7 +8,7 @@ class Ability
     if user.admin?
       can :manage, :all
     elsif user.supervisor?
-      can [:index, :show, :edit, :add_role_lines, :update_role_lines], Role
+      can [:index, :edit, :add_role_lines, :update_role_lines], Role
     elsif user.human_resources?
       can [:index, :inactives, :show, :show_inactive, :update_vacations, :update_vacations_inactive, 
            :edit_vacations, :edit_vacations_inactive, :vacations_file, :new, :create, :edit, :update, 
@@ -18,6 +18,7 @@ class Ability
       can [:index, :inactives, :show, :show_inactive, :update_vacations, :update_vacations_inactive, 
            :edit_vacations, :edit_vacations_inactive, :vacations_file, :new, :create, :edit, :update, 
            :edit_inactive, :update_inactive], Employee
+      can [:index, :edit, :add_role_lines, :update_role_lines], Role
     elsif user.psychologist?
       can [:index, :inactives, :show, :show_inactive, :edit_vacations, :edit_vacations_inactive, :vacations_file, 
            :edit, :edit_inactive], Employee
