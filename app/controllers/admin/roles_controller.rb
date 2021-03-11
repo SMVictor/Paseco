@@ -356,7 +356,7 @@ class RolesController < ApplicationController
       payrole_detail_id = 1
       @role_lines       = @role.role_lines.where(employee: employee).order(stall_id: :asc, date: :asc)
       payrole_detail    = employee.payrole_details.where(role_id: @role.id).first || employee.payrole_details.new(id: payrole_detail_id+1, role: @role)
-      detail_line_id    = DetailLine.all.order(id: :asc).last.id
+      detail_line_id    = 1
       has_night         =  @role_lines.joins(:shift).where("name = 'Noche'").length
 
        payrole_detail.detail_lines.where(role_line_id: nil).destroy_all
